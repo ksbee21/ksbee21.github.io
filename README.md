@@ -6,5 +6,12 @@ class Test {
         
     }
 }
-
 ```
+
+<script>
+    function fnTest() {
+        alert ( "This is test .... ");
+    }
+
+</script>
+<button onClick="fnTest();">TEST</button>
