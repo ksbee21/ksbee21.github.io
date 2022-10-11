@@ -15,3 +15,9 @@ class Test {
 
 </script>
 <button onClick="fnTest();">TEST</button>
+
+# Hugo 구성을 위한 초안
+
+### 휴고 URL
+https://gohugo.io/
+
