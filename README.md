@@ -21,3 +21,21 @@ class Test {
 ### 휴고 URL
 https://gohugo.io/
 
+### Go Language 설치
+https://go.dev/learn/
+
+go version
+
+```go
+package main
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, World!!!")
+}
+```
+
+go run . 
+
+결과는 Hello, World!!!
+
