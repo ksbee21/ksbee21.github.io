@@ -22,7 +22,19 @@
       <pubDate>Tue, 11 Oct 2022 20:59:51 +0900</pubDate>
       
       <guid>http://example.org/posts/my-first-post/</guid>
-      <description></description>
+      <description>ksbee21.github.io class Test { public static void main(String[] args) { } } TEST
+Hugo 구성을 위한 초안 휴고 URL https://gohugo.io/
+Go Language 설치 https://go.dev/learn/
+go version
+package main import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;Hello, World!!!&amp;#34;) } go run .
+결과는 Hello, World!!!
+Windows 설치 기준 Go 설치
+Chocolatey (Windows) 설치
+Hugo 설치
+URL : https://gohugo.io/getting-started/installing
+choco install hugo -confirm choco install hugo-extended -confirm
+둘중의 하나
+다만, 설치시점에 cmd 혹은 powershell 중 하나에서 설치가능하지만, 관리자 권한으로 설치하는 것이 좋을것 같음</description>
     </item>
     
   </channel>
