@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hugo 를 선택한 이유 ...">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>Hugo Blog로 시작하기 &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/my.css">
+    
+  
+  
+    
+        <script src="/js/my.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Hugo Blog로 시작하기</h1>
+  <h2>Hugo 를 선택한 이유 ...</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2022. 12. 18, 12:07</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="/topics/installation">Installation</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/common">Common</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/go">Go</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="hugo-or-jekyll">Hugo or Jekyll</h1>
+<h2 id="개발-배경">개발 배경</h2>
+<p>아주 예전에 Blog 를 사용하기 위해서 Naver, google 등의 사이트에서 제공하는
+모듈을 이용하여 시작해 본적이 있습니다. <br>
+디자인은 신경쓰지 않는다고 하면서도 진행하다보면 휑한 화면과 정돈되지 못한 사이트가
+눈에 거슬리는 것은 어쩔 수 없었습니다.</p>
+<p>시간이 흘러 지금에 이르러 보면 , 수학 수식 부터 전문적인 내용을 다루는 사이트 임에도
+깨끗이 정돈된 내용을 인터넷에서 많이 찾아 볼 수 있었습니다.</p>
+<p>그런 사이트에 대한 기술문서를 찾아 보다 보니 처음 접합것이 Jekyll 이었습니다.</p>
+<h2 id="jekyll-사용하려다-보니-">Jekyll 사용하려다 보니 &hellip;</h2>
+<p>Web Design 이 익숙하지 않지만, 개발과정에서 css 를 어느정도는 알아야 하기 때문에 개발 관점에서는
+어느정도 알고 있다고 생각 했습니다. 
+Jekyll 을 사용하면서 디자인을 구성하기 위해 Themes 를 사용하려다 보면, Jekyll 의 Version 에 따라 사용방법이
+차이가 나고, 마음에 드는 Thema 를 구해서 확인해 보면 Version 문제 등으로 설정을 다시 학습해서 해야 하는 상황이 
+반복되다 보니, 이럴 바에는 가장 최신 내용으로 적용해 보자는 생각이 들었습니다. <br>
+그렇게 찾다 보니 Hugo 라는 것이 더 최신 기술로 등장한 것을 확인 할 수 있었습니다.</p>
+<p>Hugo 의 Go 도 낯설지만, Jekyll 의 ruby 도 잘 모르기는 마찬가지라, 선택에 중요한 부분은 아니었고, <br>
+속도가 차이가 난다고 하지만, static site ( html ) 로 구성된 후의 속도는 별 의미가 없기 때문에 순전히 
+Version 에 대한 호환성 지원이 가장 큰 선택 이유가 되었습니다. <br>
+( 아마도 Jekyll 이 오래 되었고, 과거부터 현재까지 구성된 내용이 많다 보니, 제가 정리하는데 애를 먹어서 그런듯 합니다. ^^ )</p>
+<h2 id="github-page-에서-사용">Github Page 에서 사용</h2>
+<p>GitHub Page 에서 사용하는 것이기 때문에 git 에 관련한 부분은 잠시 접어 두고, Hugo 를 중심으로 구성을 해보면 아래와 같이 
+설치가 필요합니다. ( Windows 기준 )</p>
+<h3 id="hugo-설치">Hugo 설치</h3>
+<p>URL : <a href="https://gohugo.io/">https://gohugo.io/</a><br>
+해당 사이트 에서는 chocolatey 로 설치하는 방법이 나와 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; choco install hugo-extended
+</span></span></code></pre></div><p>chocolatey 는 아래의 URL 에서 설치방법을 확인 할 수 있습니다. <br>
+URL : <a href="https://chocolatey.org/install">https://chocolatey.org/install</a>, <a href="https://gohugo.io/installation/windows/">https://gohugo.io/installation/windows/</a></p>
+<p>다만 Hugo 는 Go 란 언어를 사용하기 때문에 Hugo 를 설치하기전 Go와 Git 이 설치되어 있어야 합니다.</p>
+<h4 id="go-설치">Go 설치</h4>
+<p>URL : <a href="https://go.dev/learn/">https://go.dev/learn/</a> , <a href="https://go.dev/doc/install">https://go.dev/doc/install</a></p>
+<p>설치가 모두 정상적으로 되었다면  ( Windows Command 창을 닫은 후 다시 열어 확인 )</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>&gt; <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">version</span> 
+</span></span></code></pre></div><p>위 내용으로 설치를 확인할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, World!!!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>go run .</p>
+<p>결과는 Hello, World!!!</p>
+<h4 id="windows-설치-기준-정리--git-은-설치되어-있음-가정-">Windows 설치 기준 정리 ( Git 은 설치되어 있음 가정 )</h4>
+<ol>
+<li>Go 설치</li>
+<li>Chocolatey (Windows) 설치</li>
+<li>Hugo 설치</li>
+</ol>
+<p>URL : <a href="https://gohugo.io/getting-started/installing">https://gohugo.io/getting-started/installing</a></p>
+<p>choco install hugo -confirm 
+choco install hugo-extended -confirm</p>
+<p>둘중의 하나로 설치하면 되지만, 간혹 Themes 가 extended 를 사용하는 경우가 있기 때문에 사용하고자 하는 항목에 따라
+설치하면 될 것 같습니다.</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fcommon%2finit%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fcommon%2finit%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fcommon%2finit%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fcommon%2finit%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fcommon%2finit%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fcommon%2finit%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+
