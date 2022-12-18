@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebGL 소개 및 필요성 ">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - 개발방법 [ 01 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - 개발방법 [ 01 ]</h1>
+  <h2>WebGL 소개 및 필요성 </h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2022. 12. 18, 20:58</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="webgl2-에-대한-간단한-소개">WebGL2 에 대한 간단한 소개</h1>
+<p>현재 Web에서 3D를 사용할 수 있는 방법은 WebGL2가 가장 최근에 확정된 규약이고, <br>
+해당 기술은 OpenGL ES 300 을 기준으로 구성되어 있습니다.</p>
+<p>WEBGPU 라는 Spec 이 공표되고 테스트가 진행 중이지만, 현재까지 Chrome 등의 Browser 에서
+Default 로 지원되지는 않습니다.</p>
+<p>WebGL2 는 IE를 제외한 대부분의 Browser 에서 지원하고 있기 때문에, Web에서 3D를 구현하려면, 
+WebGL2를 활용하는게 좋을 것 같습니다.</p>
+<h1 id="webgl2-library">WebGL2 Library</h1>
+<p>WebGL 을 사용하는 가장 간단한 방법은 잘 구성된, 모듈을 사용하는 것이 가장 빠르고 편한 방법입니다.<br>
+대표적으로 아래의 모듈들이 있습니다.</p>
+<ol>
+<li>three.js 
+[THREE] <a href="https://threejs.org/">https://threejs.org/</a> 사이트에서 내용을 확인할 수 있습니다. 
+3D 의 경우 오래전부터 Web에서는 가장 인기있는 모듈이었습니다. <br>
+다만 현재는 Web 환경도 변화하고 있고, 3D Rendering 외에 물리엔진등이 필요할 경우 사용하는데 조금
+어려울 수도 있습니다.</li>
+<li>babylon.js
+[BABYLON] <a href="https://www.babylonjs.com/">https://www.babylonjs.com/</a> 사이트에서 내용을 확인할 수 있습니다. 
+모듈을 하나씩 따라서 확인하다 보면, 거의 Game 엔진 같은 느낌을 주는 Web Library 입니다. 
+threee.js 에서도 WebGPU 관련한 모듈이 있지만, babylon 의 경우 설명서에 WebGPU VR 등의 
+다양한 최신 기술들을 보여주고 있습니다.</li>
+</ol>
+<p>그외 몇가지 모듈이 있기는 하지만, 위 2개가 대표적인 Web 3d library 라고 보아도 크게 문제는 없을 것 같습니다.</p>
+<h1 id="webgl을-공부하는게-필요할까요">WebGL을 공부하는게 필요할까요?</h1>
+<p>잘 구성된 Library를 찾아서 진행하다 보면, 조금 애매한 상황이 놓이기도 합니다. <br>
+3D 모델이 구성되어 있고, Loader 를 통해 파일을 읽어 3D 환경을 만들어서 구현해야 하는 상황에서는 <br>
+위 라이브러리를 사용하는 것이 가장 손쉽고, 정확하게 개발하는 방법이 될 것 같습니다.</p>
+<p>하지만, 지도에 주어진 좌표( 위도,  경도 )가 있고, 해당 좌표 위에서 특정한 가상의 건물을 세우고, 
+그 좌표를 주어진 것이 아니라 계산을 통해서 올려야 한다면, 조금 다른 방법을 사용해야 할지도 모릅니다.</p>
+<p>3D Position, Normal, Color, Texture 등이 모두 주어지고, 공간에 배치한 후 동작하게 만드는 모듈이라면
+직접 계산하고 만들어야 하는 그리 큰 필요성이 없겠지만, 동적으로 만들고 결합하고, 화면에 출력해야 하는 
+모듈이라면 WebGL 을 직접 컨트롤 해야 할 수 있기 때문입니다.</p>
+<p>상황에 따라 달라 질 수 있는 부분이지만, WebGL 을 이해하고, 위 라이브러리를 활용한다면, 
+더 쉽게 더 고급 기능을 사용할 수 있지 않을까 합니다.</p>
+<p>그런 이유로 WebGL을 학습해 보는 것은 의미가 있을 것 같습니다. 
+저는 그렇게 생각해서 정리해 보고자 합니다.</p>
+<h1 id="webgl2를-학습하기-위한-사이트">WebGL2를 학습하기 위한 사이트</h1>
+<ol>
+<li>WegGL2 Fundamentals  <br>
+URL : <a href="https://webgl2fundamentals.org/webgl/lessons/ko/webgl-fundamentals.html">https://webgl2fundamentals.org/webgl/lessons/ko/webgl-fundamentals.html</a> <br>
+WebGL 을 공부하기 위해서는 가장 좋은 Site 가 아닌가 합니다. <br>
+THREE.JS 를 구성한 분들이 설명하고 있는 사이트로 참조할 내용이 많이 있습니다.</li>
+<li>MDN WEBGL <br>
+URL : <a href="https://developer.mozilla.org/ko/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL">https://developer.mozilla.org/ko/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL</a><br>
+WebGL 1에 대한 Tutorial 과 설명이 있습니다. WebGL2 에 대한 설명도 충실한 사이트 입니다. <br>
+표준에 대한 참조로 활용이 가능할 것 같습니다.</li>
+</ol>
+<h1 id="학습의-이유-및-앞으로-할일">학습의 이유 및 앞으로 할일</h1>
+<p>Web 환경에서 지금까지는 Html Table 등으로 대표되는 정돈된 문서 형식이 업무시스템의 주류를 이뤄 온것으로 생각하고 있습니다. <br>
+향후 Network 환경이 더 좋아지고, 개인 PC, Mobile Phone 의 성능이 조금더 나아지면, Network 기반의 대표적인 프로토콜인 http 
+기반의 Web 도 변화가 있지 않을까 합니다.</p>
+<p>그 대표적인 변화가 아마도 Metabus 등으로 이야기 되는 Web의 3D 표현 방법이 아닐까 합니다. <br>
+그런 생각으로 조금씩 아래와 같이 학습해 가고자 합니다.</p>
+<ol>
+<li>WebGL 에서 사용할 간단한 수학 <br>
+사실 수학을 잘 하지 못하는 사람으로서 수식을 증명하고, 설명하는 것은 할 수도 없습니다.<br>
+다만, WebGL을 사용하기 위해서, 혹은 3D 프로그램을 구성하기 위해서 필요한 영역을 조금씩 
+학습해 보고자 합니다.</li>
+<li>WebGL2 기능 및 문법 <br>
+WebGL2에서 사용할 문법과, GPU를 활용하기 위한 OpenGL의 Shader를 기초적인 활용법은 
+확인이 필요할 것 같습니다.</li>
+<li>기타 <br>
+조명, Texture 등 사용에 필요한 영역을 조금씩 접근해 보고자 합니다.</li>
+</ol>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebmodule%2fwebgl_part_001%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebmodule%2fwebgl_part_001%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebmodule%2fwebgl_part_001%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebmodule%2fwebgl_part_001%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebmodule%2fwebgl_part_001%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebmodule%2fwebgl_part_001%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/common/init/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/common/init/">Hugo Blog로 시작하기</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+
