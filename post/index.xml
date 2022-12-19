@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sun, 18 Dec 2022 20:58:24 +0900</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Dec 2022 21:35:47 +0900</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL2 - Vector 연산 [ 02 ]</title>
+      <link>/post/webmodule/webgl_part_002/</link>
+      <pubDate>Mon, 19 Dec 2022 21:35:47 +0900</pubDate>
+      
+      <guid>/post/webmodule/webgl_part_002/</guid>
+      <description>WebGL 벡터란 ? 프로그래밍 관점에서 보면, WebGL 에서 사용하는 벡터란 , 대부분 x,y 로 표기되는 원소가 두개인 배열 혹은 x,y,z 으로 표기 되는 원소가 3개인 배열 정도로 이해 할 수 있을 것 같습니다. 배열을 기준으로 보면 1차원 배열의 원소의 갯수만 차이가 있는 것이고, 데이터가 [1,2,3] 이 있을 때 행(Row) 을 기준으로 보면 행백터 이고, 열(Column) 을 기준 으로 보면 열백터로 지칭하고 있습니다. 아래의 예에서와 같이 세로, 가로로 이해하면 편할것 같습니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - 개발방법 [ 01 ]</title>
       <link>/post/webmodule/webgl_part_001/</link>
