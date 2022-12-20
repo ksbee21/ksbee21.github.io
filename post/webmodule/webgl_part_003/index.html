@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Web GL 에서 사용하는 Vector 특성 ">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Vector 연산 02 [ 03 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Vector 연산 02 [ 03 ]</h1>
+  <h2>Web GL 에서 사용하는 Vector 특성 </h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2022. 12. 20, 21:26</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/vector">Vector</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="백터의-사칙-연산">백터의 사칙 연산</h1>
+<p>벡터의 사칙연산(더하기, 빼기, 곱하기, 나누기) 은 일반 수의 연산과 거의 동알하다고 생각하면 될 것 같습니다. <br>
+약간의 차이란, Vector 안에 있는 순서에 맞게 계산해 주는 부분만 조금 다를 뿐입니다.</p>
+<p>가령 [1,2,3] 의 a vector 가 있고, [4,5,6] 의 b vector 가 있을 때 
+a + b = [1+4, 2+5, 3+6 ] 으로 표현할 수 있습니다.  a-b = [1-4, 2-5, 3-6] 이고, a*b, a/b 도 동일한 연산을 
+사용한다고 보면 될 것 같습니다.<br>
+위 계산에서 확인 할 수 있는 것 처럼, 일반 숫자 계산에서도 a * b = b * a 이고 a + b = b + a 처럼 순서가 상관없이 
+동일한 결과가 나올 것이라고 예상 할 수 있습니다. <br>
+백터에 특정값을 곱해 주거나, 나누어 주는 연산도 가능합니다.</p>
+<h3 id="백터-더하기의-특징">백터 더하기의 특징</h3>
+<p>2차원 평면에서 이야기 하는 것이 이해가 쉽기 때문에 간단한 예를 만들어 보겠습니다. 
+a 좌표는 [ 0, 2] 이고 b 좌표는 [2, 0] 이라고 가정해 보겠습니다. <br>
+a 좌표가 Y 방향으로 2로 움직인 Y 축에 있는 좌표고, b 좌표는 X 방향으로 2 이동한 X 축에 있는 좌표 입니다. 
+a + b = [0+2, 2+0] = [2,2] 입니다. x축으로 2만큼, y 축으로 2만큼 움직인 좌표로 생각 할수 있습니다. 
+단순화 시키면 두 힘의 방향이 모여서 도달한 값 정도로 이해할 수 있을 것 같습니다.</p>
+<h3 id="백터-빼기의-특징">백터 빼기의 특징</h3>
+<p>위에 예시되어 있는 a, b 의 좌표를 다시한번 생각해 보겠습니다.    <br>
+a 좌표는 [0,0] 의 원점에서 부터 이동한 것이고, b 좌표도 마찬가지 입니다.     <br>
+a - b = [ 0-2, 2-0 ] = [-2, 2] 의 값이 나옵니다.    <br>
+이 값을 생각해 보면 원점기준으로 볼 때 x 축으로 -2 만큼 움직이고, y 축으로 2만큼 움직인 좌표 입니다.    <br>
+백터의 길이(힘)를 구할 수 있고, 방향은 왼쪽으로 45도 방향으로 움직이고 있는 것을 연상 할 수 있습니다.     <br>
+b 좌표 [ 2, 0 ] 을 기준으로 보면 [2-2, 0+2 ] = [0, 2] a 좌표 입니다.<br>
+a - b 의 의미는 b 에서 a 로 가는 방향과 힘의 vector 라고 말할 수 있을 것 같습니다. <br>
+삐기는 순서가 의미가 있는데 a - b 는 b 에서 a 방향으로 갈때의 vector 입니다.  <br>
+나중에 연산의 순서가 중요해 질 때가 있는데 특히 vector 의 빼기가 그런것 같습니다.</p>
+<h1 id="백터의-내적-벡터곱">백터의 내적, 벡터곱</h1>
+<p>WebGL 백터 연산에서 가장 많이 사용하게될 부분이 내적과 외적 입니다. 
+내적은 Dot Product ( Inner Product ) 라고 불리며 두 백터의 같은 순서 원소 끼리 곱하여 모두 더한 값입니다. 
+$$ 
+a.b = \sum{a_i \times b_i} = {a_1 \times b_1 + a_2 \times b_2 + a_3 \times b_3 + \dots + a_n \times b_n}
+$$</p>
+<p>$$ 
+a.b = ||a|| ||b|| cos\theta
+$$</p>
+<p>벡터곱은 Vector Product ( Cross Product ) 라고 불리며 원소가 3개인 Vector 에서 사용하는 연산입니다. 
+a 가 [ 1, 2, 3] 이고 b 가 [ 4, 5, 6 ] 일 때 a x b = [ 2<em>6 - 3</em>5, 3<em>4 - 1</em>6, 1<em>5-2</em>4 ] 입니다. <br>
+연산의 결과가 3개 짜리 배열(벡터) 로 표현하게 됩니다. 
+$$
+a \times b = [ a_2 \times b_3 - a_3 \times b_2, a_3 \times b_1 - a_1 \times b_3, a_1 \times b_2 - a_2 \times b_1]
+$$</p>
+<h3 id="내적의-특징">내적의 특징</h3>
+<p>두 백터가 직교(수직) 하면 값이 0 이 됩니다. <br>
+두 벡터 사이의 각도가 90 도 이내의 예각이면 값은 양수가 나옵니다. <br>
+두 벡터 사이의 각도가 90 도를 넘거가면 ( 둔각 ) 값은 음수가 나옵니다. <br>
+계산 결과가 단일값 ( Scalar ) 형태로 나타 납니다. <br>
+수식에서 두 백터의 길이와 코사인 값으로 값을 이야기 하는데 각 벡터가 단위(Unit) 벡터이면 각각 길이가 1이기 때문에 <br>
+두 벡터의 내적의 값이 코사인 Theta 값으로 사용할 수 있습니다. <br>
+나중에 해당 부분을 기재할 일이 있을 때 다시 한번 확인해 보겠습니다.<br>
+WebGL 에서 빛이 표면을 비출 때 내적의 특징을 이용하면 어느정도 빛을 반사하는지 계산할 수 있습니다.</p>
+<h3 id="벡터곱의-특징">벡터곱의 특징</h3>
+<p>WebGL 에서 벡터곱의 가장 큰 특징은 a, b 의 벡터를 cross product 하면 a, b 에 수직인 vector 를 얻을 수 있다는 점입니다. <br>
+벡터곱은 x,y,z 을 기준으로 하는 3차원 공간 벡터에서만 계산을 하고 있습니다. <br>
+예를 들어 a 가 [1, 0, 0] 이고 b 가 [ 0, 1, 0] 일때 a x b = [ 0<em>0-0</em>1, 0<em>0-1</em>0, 1<em>1-0</em>0] = [ 0,0,1] 입니다. <br>
+a x b 의 결과는 a 와 b 에 수직인 벡터가 만들어 지게 됩니다. <br>
+그러나 주의 할 것은 만약 b x a = [ 1<em>0-0</em>0, 0<em>0-0</em>0, 0<em>0 - 1</em>1] = [0, 0, -1] 로 z 축의 방향이 -1 입니다. <br>
+길이는 같지만, 방향은 반대의 결과가 만들어 집니다. <br>
+WebGL 은 오른손 법칙을 따릅니다.   해당 부분은 그림 설명이 중요하기 때문에 링크로 대체 하겠습니다.</p>
+<p><a href="https://ko.wikipedia.org/wiki/%EC%98%A4%EB%A5%B8%EC%86%90_%EB%B2%95%EC%B9%99">한글위키</a></p>
+<p>구글 검색 하다 설명이 잘되어 있는 한글 사이트가 있어서 링크 걸었습니다. <br>
+<a href="https://m.blog.naver.com/bmw9707121/221746745710">구글검색</a></p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebmodule%2fwebgl_part_003%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebmodule%2fwebgl_part_003%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebmodule%2fwebgl_part_003%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebmodule%2fwebgl_part_003%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebmodule%2fwebgl_part_003%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebmodule%2fwebgl_part_003%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/webmodule/webgl_part_002/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/webmodule/webgl_part_002/">WebGL2 - Vector 연산 01 [ 02 ]</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+
