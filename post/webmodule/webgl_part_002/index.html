@@ -7,7 +7,7 @@
   <meta name="description" content="Web GL 에서 사용하는 Vector 간략소개 ">
   <meta name="generator" content="Hugo 0.104.3" />
 
-  <title>WebGL2 - Vector 연산 [ 02 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+  <title>WebGL2 - Vector 연산 01 [ 02 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
 
     
 
@@ -203,7 +203,7 @@
 
 
 <div class="header">
-  <h1>WebGL2 - Vector 연산 [ 02 ]</h1>
+  <h1>WebGL2 - Vector 연산 01 [ 02 ]</h1>
   <h2>Web GL 에서 사용하는 Vector 간략소개 </h2>
 </div>
 <div class="content">
@@ -277,7 +277,104 @@ c의 좌표를 길이로 나눈 좌표는 [0.707106&hellip; , 0.707106&hellip;] 
 WebGL 의 연산에서 많이 사용되고 있습니다.<br>
 이런 방식을 normalize 한다고 이야기 하고 있습니다.<br>
 $$ \sqrt{2^2 + 2^2} = 2.828427 &hellip;, {2 \over \sqrt{8}} = 0.707106&hellip;  $$</p>
-
+<h1 id="javascript-로-vector-의-길이-정규화normalize-구현">Javascript 로 Vector 의 길이 정규화(Normalize) 구현</h1>
+<h2 id="백터의-길이-구하기">백터의 길이 구하기</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 백터의 길이를 계산하기 위한 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getVectorLength</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">v1</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">isValidArrayValues</span>(<span style="color:#a6e22e">v1</span>)  )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> (<span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]);
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">sqrt</span>(<span style="color:#a6e22e">sum</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h2 id="백터-정규화--unit-vector-만들기-">백터 정규화 ( Unit Vector 만들기 )</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * Normalize 하기 위한 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} needRound 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeNormalizeVector</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">needRound</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">isValidArrayValues</span>(<span style="color:#a6e22e">v1</span>)  )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">len</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lv</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">v1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">alert</span> ( <span style="color:#a6e22e">lv</span> );
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">lv</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">needRound</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeRoundValues</span>(<span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">/</span><span style="color:#a6e22e">lv</span>);
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">/</span><span style="color:#a6e22e">lv</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;       
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h2 id="사용한-함수">사용한 함수</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isValidArrayValues</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">v1</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">v1</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">length</span>  )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 2차원 배열이라도( Matrix ) Typed Array 로 사용될 경우 1차원 형식으로 구성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 그렇기 때문에 1차원 배열로 간주함
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} mat 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} roundValue 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} needClone 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeRoundValues</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">mat</span>, <span style="color:#a6e22e">roundValue</span>, <span style="color:#a6e22e">needClone</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">isValidArrayValues</span>(<span style="color:#a6e22e">mat</span>)) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mat</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">roundValue</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">roundValue</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">roundValue</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>; <span style="color:#75715e">// javascript 에서 부동 소수점 연산 오류를 피하기 위한 값
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mat</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mat</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">needClone</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">len</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">mat</span>.<span style="color:#a6e22e">rows</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mat</span>.<span style="color:#a6e22e">rows</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">mat</span>.<span style="color:#a6e22e">cols</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mat</span>.<span style="color:#a6e22e">cols</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">mat</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">roundValue</span>)<span style="color:#f92672">/</span><span style="color:#a6e22e">roundValue</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h2 id="페이지에서-사용하기">페이지에서 사용하기</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">TypedMatrixUtils</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;../js/TypedMatrixUtils.js&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">normal</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nLen</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">normal</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span> ( <span style="color:#a6e22e">v1</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">normal</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">nLen</span> );
+</span></span><span style="display:flex;"><span> &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div>
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">
