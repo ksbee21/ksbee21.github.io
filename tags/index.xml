@@ -9,20 +9,20 @@
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
     <lastBuildDate>Tue, 20 Dec 2022 21:26:00 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Canvas</title>
-      <link>/tags/canvas/</link>
-      <pubDate>Tue, 20 Dec 2022 21:26:00 +0900</pubDate>
-      
-      <guid>/tags/canvas/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Language</title>
       <link>/tags/language/</link>
       <pubDate>Tue, 20 Dec 2022 21:26:00 +0900</pubDate>
       
       <guid>/tags/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Math</title>
+      <link>/tags/math/</link>
+      <pubDate>Tue, 20 Dec 2022 21:26:00 +0900</pubDate>
+      
+      <guid>/tags/math/</guid>
       <description></description>
     </item>
     

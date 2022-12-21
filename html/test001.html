@@ -13,10 +13,21 @@
     <script type="module">
         import * as TypedMatrixUtils from "../js/TypedMatrixUtils.js"
 
-        const v1 = new Float32Array([1,2,3]);
-        const normal = TypedMatrixUtils.makeNormalizeVector(v1,true);
-        const nLen = TypedMatrixUtils.getVectorLength(normal);
-        console.log ( v1 + "\n" + normal + "\n" + nLen );
+        //  v1 에서 v2 의 방향은 시계 반대 방향 오른솝 법칙을 적용할 경우 cross product 의 결과는 양의 z 방향
+        const v1 = new Float32Array([1,0,0]);
+        const v2 = new Float32Array([1,Math.sqrt(3),0]);   //  60 도 각도로 우상향
+
+        const dotValue = TypedMatrixUtils.makeVectorDotProductValues(v1,v2);
+        const cosineTheta = TypedMatrixUtils.getCosineValue(v1,v2);
+        const cosineDegree = Math.round( Math.acos(cosineTheta)*180/Math.PI * 10000)/10000;
+
+        const crossValue = TypedMatrixUtils.makeVectorCrossProductValues(v1,v2);
+        const crossArea = TypedMatrixUtils.getVectorLength(crossValue);
+        const sinTheta = TypedMatrixUtils.getSinValue(v1,v2);
+        const sinDegree = Math.round( Math.asin(sinTheta)*180/Math.PI * 10000)/10000;
+
+        alert( "Dot Value : " + dotValue + " , 각도 " + cosineDegree + "\nCross Value : " + crossValue + " , 각도 : " + sinDegree + "\n면적 : " + crossArea );
+
     </script>
 </body>
 </html>

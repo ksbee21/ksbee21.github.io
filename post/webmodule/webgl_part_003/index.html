@@ -234,7 +234,7 @@
     
       <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="/tags/math">Math</a>&nbsp;&#47;
     
       <a class="post-taxonomy-tag" href="/tags/vector">Vector</a>
     
@@ -267,30 +267,36 @@ a - b = [ 0-2, 2-0 ] = [-2, 2] 의 값이 나옵니다.    <br>
 백터의 길이(힘)를 구할 수 있고, 방향은 왼쪽으로 45도 방향으로 움직이고 있는 것을 연상 할 수 있습니다.     <br>
 b 좌표 [ 2, 0 ] 을 기준으로 보면 [2-2, 0+2 ] = [0, 2] a 좌표 입니다.<br>
 a - b 의 의미는 b 에서 a 로 가는 방향과 힘의 vector 라고 말할 수 있을 것 같습니다. <br>
-삐기는 순서가 의미가 있는데 a - b 는 b 에서 a 방향으로 갈때의 vector 입니다.  <br>
+빼기는 순서가 의미가 있는데 a - b 는 b 에서 a 방향으로 갈때의 vector 입니다.  <br>
 나중에 연산의 순서가 중요해 질 때가 있는데 특히 vector 의 빼기가 그런것 같습니다.</p>
 <h1 id="백터의-내적-벡터곱">백터의 내적, 벡터곱</h1>
-<p>WebGL 백터 연산에서 가장 많이 사용하게될 부분이 내적과 외적 입니다. 
+<h3 id="백터-내적">백터 내적</h3>
+<p>WebGL 백터 연산에서 가장 많이 사용하게될 부분이 내적과 백터곱 입니다. 
 내적은 Dot Product ( Inner Product ) 라고 불리며 두 백터의 같은 순서 원소 끼리 곱하여 모두 더한 값입니다. 
 $$ 
-a.b = \sum{a_i \times b_i} = {a_1 \times b_1 + a_2 \times b_2 + a_3 \times b_3 + \dots + a_n \times b_n}
-$$</p>
-<p>$$ 
-a.b = ||a|| ||b|| cos\theta
-$$</p>
+a\cdot b = \sum{a_i \times b_i} = {a_1 \times b_1 + a_2 \times b_2 + a_3 \times b_3 + \dots + a_n \times b_n} \\
+a\cdot b = \begin{Vmatrix}a\end{Vmatrix} \; \begin{Vmatrix}b\end{Vmatrix} cos\theta
+$$
+삼각함수의 코사인은 직각삼각형의 (가로/빗변) 의 비율입니다. <br>
+삼각형을 기준으로 벡터 a 의 길이가 빗변의 길이라고 한다면 코사인이 ( (가로/빗변) * 빗변 ) 이니, 가로의 길이만 남게 됩니다.<br>
+이것과 벡터 b의 길이를 곱한 값이 내적이라는 것을 기억해 두면 향후 계산을 이해하는데 도움이 될 것 같습니다.</p>
+<h3 id="백터곱--cross-product-">백터곱 ( Cross Product )</h3>
 <p>벡터곱은 Vector Product ( Cross Product ) 라고 불리며 원소가 3개인 Vector 에서 사용하는 연산입니다. 
 a 가 [ 1, 2, 3] 이고 b 가 [ 4, 5, 6 ] 일 때 a x b = [ 2<em>6 - 3</em>5, 3<em>4 - 1</em>6, 1<em>5-2</em>4 ] 입니다. <br>
 연산의 결과가 3개 짜리 배열(벡터) 로 표현하게 됩니다. 
 $$
-a \times b = [ a_2 \times b_3 - a_3 \times b_2, a_3 \times b_1 - a_1 \times b_3, a_1 \times b_2 - a_2 \times b_1]
-$$</p>
+a \times b = [ a_2 \times b_3 - a_3 \times b_2, a_3 \times b_1 - a_1 \times b_3, a_1 \times b_2 - a_2 \times b_1] \\
+a \times b = \begin{Vmatrix}a\end{Vmatrix} \begin{Vmatrix}b\end{Vmatrix} sin\theta
+$$
+벡터곱은 공식에서 사인값을 곱해 주고 있습니다. 사인은 ( 높이/빗변 ) 이기 때문에 위에서와 같이 벡터 a의 길이를 빗변으로 보면<br>
+높이 x 가로 로 평행사변형의 넓이가 됩니다.   다 떠나서 뭔가 면적에 관련된 값이라는 것만 확인해 두면 좋을 것 같습니다.</p>
 <h3 id="내적의-특징">내적의 특징</h3>
 <p>두 백터가 직교(수직) 하면 값이 0 이 됩니다. <br>
 두 벡터 사이의 각도가 90 도 이내의 예각이면 값은 양수가 나옵니다. <br>
 두 벡터 사이의 각도가 90 도를 넘거가면 ( 둔각 ) 값은 음수가 나옵니다. <br>
 계산 결과가 단일값 ( Scalar ) 형태로 나타 납니다. <br>
-수식에서 두 백터의 길이와 코사인 값으로 값을 이야기 하는데 각 벡터가 단위(Unit) 벡터이면 각각 길이가 1이기 때문에 <br>
-두 벡터의 내적의 값이 코사인 Theta 값으로 사용할 수 있습니다. <br>
+수식에서 두 백터의 길이와 코사인 값으로 값을 이야기 하는데 각 벡터가 단위(Unit) <br>
+벡터이면 각각 길이가 1이기 때문에 두 벡터의 내적의 값이 코사인 Theta 값으로 사용할 수 있습니다. <br>
 나중에 해당 부분을 기재할 일이 있을 때 다시 한번 확인해 보겠습니다.<br>
 WebGL 에서 빛이 표면을 비출 때 내적의 특징을 이용하면 어느정도 빛을 반사하는지 계산할 수 있습니다.</p>
 <h3 id="벡터곱의-특징">벡터곱의 특징</h3>
@@ -304,6 +310,201 @@ WebGL 은 오른손 법칙을 따릅니다.   해당 부분은 그림 설명이 
 <p><a href="https://ko.wikipedia.org/wiki/%EC%98%A4%EB%A5%B8%EC%86%90_%EB%B2%95%EC%B9%99">한글위키</a></p>
 <p>구글 검색 하다 설명이 잘되어 있는 한글 사이트가 있어서 링크 걸었습니다. <br>
 <a href="https://m.blog.naver.com/bmw9707121/221746745710">구글검색</a></p>
+<h1 id="javascript-vector-연산-구현">Javascript Vector 연산 구현</h1>
+<h3 id="vector-사칙연산">Vector 사칙연산</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">validateVectorLength</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">isValidArrayValues</span>(<span style="color:#a6e22e">v1</span>) ) 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">isValidArrayValues</span>(<span style="color:#a6e22e">v2</span>) ) 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">len</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">v2</span>.<span style="color:#a6e22e">length</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">len</span>; 
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 노출되지 않고 계산하는 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} calcType : 1은 더하기, 2는 빼기 -- 1이 아니면 무조건 빼기로 구성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorPlusMinus</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span>, <span style="color:#a6e22e">calcType</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validateVectorLength</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">len</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">len</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">calcType</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> ) {  <span style="color:#75715e">// vector plus
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">v2</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>         } <span style="color:#66d9ef">else</span> {    <span style="color:#75715e">//  default vector minus 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">v2</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorPlusValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeVectorPlusMinus</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorMinusValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeVectorPlusMinus</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorMuliply</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>,<span style="color:#a6e22e">calcType</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validateVectorLength</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">len</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">len</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">calcType</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> ) {  <span style="color:#75715e">// vector muliply
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">v2</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>         } <span style="color:#66d9ef">else</span> {    <span style="color:#75715e">//  default vector divide 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">/</span><span style="color:#a6e22e">v2</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorMuliplyScala</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">scalarValue</span>,<span style="color:#a6e22e">calcType</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">isValidArrayValues</span>(<span style="color:#a6e22e">v1</span>) <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">scalarValue</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">len</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">calcType</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> ) {  <span style="color:#75715e">// vector muliply
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">scalarValue</span>;
+</span></span><span style="display:flex;"><span>         } <span style="color:#66d9ef">else</span> {    <span style="color:#75715e">//  default vector divide 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">/</span><span style="color:#a6e22e">scalarValue</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorMultiplyValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeVectorMuliply</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorDivideValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeVectorMuliply</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>,<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorMultiplyScalarValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">scalarValue</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeVectorMuliplyScala</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">scalarValue</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorDivideScalarValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">scalarValue</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeVectorMuliplyScala</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">scalarValue</span>,<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h3 id="vector-inner-product">Vector Inner Product</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * Vector Inner Product , Dot Product Value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns : scalar value 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorDotProductValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validateVectorLength</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">len</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> (<span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#a6e22e">i</span>]);
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 두 백터의 Dot Product 결과를 통해 cosine theta 값을 가져오기 위한 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns : cosine theta 값
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getCosineValue</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validateVectorLength</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">len</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v1Len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">v1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v2Len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dotValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeVectorDotProductValues</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dotValue</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">v1Len</span><span style="color:#f92672">*</span><span style="color:#a6e22e">v2Len</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h3 id="vector-cross-product">Vector Cross Product</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * Vector Cross Product 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns Vector 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeVectorCrossProductValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validateVectorLength</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">len</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">len</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">v1</span>[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">v1</span>[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">v1</span>[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">v1</span>[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">v1</span>[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">v1</span>[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#ae81ff">0</span>]);        
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * Cross Product 값을 이용하여 sin theta 값을 가져오기 위한 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getSinValue</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validateVectorLength</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">len</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v1Len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">v1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v2Len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">crossValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">makeVectorCrossProductValues</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">crossValue</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">v1Len</span><span style="color:#f92672">*</span><span style="color:#a6e22e">v2Len</span>);
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h3 id="페이지에서-사용">페이지에서 사용</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">TypedMatrixUtils</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;../js/TypedMatrixUtils.js&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//  v1 에서 v2 의 방향은 시계 반대 방향 오른솝 법칙을 적용할 경우 cross product 의 결과는 양의 z 방향
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">1</span>,Math.<span style="color:#a6e22e">sqrt</span>(<span style="color:#ae81ff">3</span>),<span style="color:#ae81ff">0</span>]);   <span style="color:#75715e">//    60도 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dotValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeVectorDotProductValues</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cosineTheta</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">getCosineValue</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cosineDegree</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">round</span>( Math.<span style="color:#a6e22e">acos</span>(<span style="color:#a6e22e">cosineTheta</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">180</span><span style="color:#f92672">/</span>Math.<span style="color:#a6e22e">PI</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10000</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">10000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">crossValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeVectorCrossProductValues</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">crossArea</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">getVectorLength</span>(<span style="color:#a6e22e">crossValue</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sinTheta</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">getSinValue</span>(<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sinDegree</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">round</span>( Math.<span style="color:#a6e22e">asin</span>(<span style="color:#a6e22e">sinTheta</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">180</span><span style="color:#f92672">/</span>Math.<span style="color:#a6e22e">PI</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10000</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">10000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>( <span style="color:#e6db74">&#34;Dot Value : &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">dotValue</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; , 각도 &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">cosineDegree</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\nCross Value : &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">crossValue</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; , 각도 : &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">sinDegree</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\n면적 : &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">crossArea</span> );
+</span></span><span style="display:flex;"><span> &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h3 id="기타">기타</h3>
+<p>Vector 연산을 중심으로 기술 하려고 하였지만, 삼각함수가 조금 언급되었습니다. <br>
+다음 Matrix 연산을 구현하면서 삼각함수를 약간 더 사용하게 될 텐데 그때 조금 상세하게 
+정리해 보도록 하겠습니다.</p>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
