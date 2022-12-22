@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Tue, 20 Dec 2022 21:26:00 +0900</lastBuildDate><atom:link href="/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Dec 2022 22:47:18 +0900</lastBuildDate><atom:link href="/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL2 - Matrix 연산 01 [ 04 ]</title>
+      <link>/post/webmodule/webgl_part_004/</link>
+      <pubDate>Wed, 21 Dec 2022 22:47:18 +0900</pubDate>
+      
+      <guid>/post/webmodule/webgl_part_004/</guid>
+      <description>WebGL 에서 행렬이란 ? $$ \begin{bmatrix}1&amp;amp;2&amp;amp;3\\4&amp;amp;5&amp;amp;6\\7&amp;amp;8&amp;amp;9 \end{bmatrix} \begin{bmatrix}1\\4\\7\\ \end{bmatrix} \begin{bmatrix}1&amp;amp;2&amp;amp;3 \end{bmatrix} $$
+위 표에서 전체 행렬이 1 ~ 9 까지의 내용을 담은 3 x 3 행렬 이라면, 1,4,7 은 열( Column ) 이고 1,2,3 은 행(Row) 라고 불립니다. 위 표의 행렬은 행 3개와 열 3개로 이뤄진 3 x 3 행렬인 셈입니다.
+WebGL(3D 프로그램) 에서 행렬이 왜 사용되는 걸까요? 어떤 물체가 100개의 꼭지점을 갇고, 그 꼭지점을 연결한 위치 정보를 지니고 있다고 가정하겠습니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Vector 연산 02 [ 03 ]</title>
       <link>/post/webmodule/webgl_part_003/</link>

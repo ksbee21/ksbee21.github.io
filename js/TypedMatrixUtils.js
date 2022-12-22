@@ -285,5 +285,136 @@
 
         return crossValue/(v1Len*v2Len);
     };
+
+	const cot = (v) => {
+		return 1.0/Math.tan(v);
+	}
+
+	export const makeOrthographicMatrix = (left, right, bottom, top, near, far ) => {
+		let scaleX = 2.0/(right-left);
+		let scaleY = 2.0/(top-bottom);
+		let scaleZ = -2.0/(far-near);
+		let midX = (left+right)/(left-right);
+		let midY = (bottom+top)/(bottom-top);
+		let midZ = (near+far)/(near-far);
+		const result = new Float32Array([
+			 scaleX, 0, 0, midX,
+			 0,scaleY,0,midY,
+			 0,0, scaleZ, midZ,
+			 0,0,0,1
+		]);
+        result.rows = 4;
+        result.cols = 4;
+
+        return result;
+	}
+
+	export const makePerspectiveMatrix = ( fovy, aspect, near, far ) => {
+		let cv = cot(fovy/2);
+		var nf = 1 / (near - far);
+		
+		const result = new Float32Array([
+			cv/aspect, 0, 0, 0,
+			0, cv, 0,0,
+			0, 0, -((far+near)/(far-near)), -(2*near*far/(far-near)), 
+			0, 0, -1, 0
+		]);
+        result.rows = 4;
+        result.cols = 4;
+        return result;
+	}
+
+    export const makeIdentityMatrix = (m) => {
+        const result = new Float32Array(m*m);
+        result.rows = m;
+        result.cols = m;
+
+        for ( let i = 0; i < m; i++ ) {
+            result[i*m+i] = 1;
+        }
+        return result;
+    };
+
+    export const multiplyMatrix = (m1,m2) => {
+        if ( !m1 || !m2 ) 
+            return undefined;   //  계산 할 수 없음 
+        
+        if (!m1.cols || !m2.rows || m1.cols != m2.rows ) 
+            return undefined;
+        
+        const row1 = m1.rows;
+        const col1 = m1.cols;
+        const col2 = m2.cols;
+        const result = new Float32Array(row1*col2);
+        result.rows = row1;
+        result.cols = col2;
+
+        for ( let r = 0; r < row1; r++ ) {
+            for ( let c = 0; c < col2; c++ ) {
+                let idx = r*col2+c;
+                for ( let t = 0; t < col1; t++ ) {
+                    let idx01 = r*col1+t;
+                    let idx02 = t*col2+c;
+                    result[idx] += m1[idx01]*m2[idx02];
+                    //alert ( idx + " : " + result[idx] + " => " + idx01 + " : " + m1[idx01] + " => " + idx02 + " : " + m2[idx02] );
+                }
+            }
+        }
+        return result;
+    };
+
+    export const makeTransposeMatrix = ( matrix ) => {
+		if ( !matrix ) {
+			alert( "NO DATA" );
+			return;
+		}
+
+        const rows = matrix.rows;
+        if ( !rows )    //  내부에서 사용하는 형식이 아님
+            return;
+        const cols = matrix.cols;
+        if ( !cols )    //  내부에서 사용하는 형식이 아님
+            return;
+
+        const result = new Float32Array(matrix.length);
+        result.rows = cols;
+        result.cols = rows;
+
+        for ( let i = 0; i < cols; i++ ) {
+            for ( let j = 0; j < rows; j++ ) {
+                let idx = i*rows+j;
+                let idx01 = j*cols+i;
+                result[idx] = matrix[idx01];
+            }
+        }
+
+		return result;
+	};
+
+    export const printArrayValues = ( mat ) => {
+        let ts = "";
+        if ( !mat ) 
+            return ts;
+        let len = mat.length;
+        if ( !len )
+            return ts;
+        let rows = mat.rows;
+        let cols = mat.cols;
+        if ( !rows || !cols) {
+            for ( let i = 0; i < len; i++ ) {
+                ts += "\t" + mat[i];
+            }
+            return ts;
+        }
+        for ( let i = 0; i < rows; i++ ) {
+            for ( let j = 0; j < cols; j++ ) {
+                ts += "\t" + mat[i*cols+j];
+            }
+            ts += "\n";
+        }
+        return ts;
+    }
+
+
     
     

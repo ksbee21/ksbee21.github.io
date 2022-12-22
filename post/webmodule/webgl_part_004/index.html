@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Web GL 에서 사용하는 Matrix 소개 ">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Matrix 연산 01 [ 04 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Matrix 연산 01 [ 04 ]</h1>
+  <h2>Web GL 에서 사용하는 Matrix 소개 </h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2022. 12. 21, 22:47</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/math">Math</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/matrix">Matrix</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/javascript">Javascript</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="webgl-에서-행렬이란-">WebGL 에서 행렬이란 ?</h1>
+<p>$$
+\begin{bmatrix}1&amp;2&amp;3\\4&amp;5&amp;6\\7&amp;8&amp;9 \end{bmatrix} \begin{bmatrix}1\\4\\7\\ \end{bmatrix}  \begin{bmatrix}1&amp;2&amp;3 \end{bmatrix}
+$$</p>
+<p>위 표에서 전체 행렬이 1 ~ 9 까지의 내용을 담은 3 x 3 행렬 이라면, 1,4,7 은 열( Column ) 이고 1,2,3 은 행(Row) 라고 불립니다. <br>
+위 표의 행렬은 행 3개와 열 3개로 이뤄진 3 x 3 행렬인 셈입니다.</p>
+<p>WebGL(3D 프로그램) 에서 행렬이 왜 사용되는 걸까요? <br>
+어떤 물체가 100개의 꼭지점을 갇고, 그 꼭지점을 연결한 위치 정보를 지니고 있다고 가정하겠습니다.<br>
+해당 물체의 이동, 축소, 확대, 회전이 발생한다면, 우리는 해당 물체가 처음 가지고 있는 꼭지점에서 어디로 이동하고, 어떻게 <br>
+회전하였는지 등을 알기만 하면 이동과 회전에 대한 데이터를 통해 원래의 꼭지점이 변경된 위치를 계산 할 수 있습니다. <br>
+이렇게 회전, 이동, 축소, 확대 등의 계산을 위해서 행렬을 만들어 연산을 수행하게 됩니다.</p>
+<p>꼭지점이 100개 라도, 축소, 확대 등이 공통적으로 적용된다면, 해당 행렬 하나를 구성해서 모든 꼭지점에 <br>
+동일한 연산을 수행하게 할 수 있습니다.</p>
+<p>이럴때 행렬을 사용하게 됩니다.</p>
+<h1 id="행렬계산-예시">행렬계산 예시</h1>
+<p>간단하게 평면을 대상으로 예시를 구성해 보겠습니다. <br>
+공간에서 좌표 a 는 [2, 2] 라고 가정해 보겠습니다. x 축으로 2, y 축으로 2 입니다. <br>
+이 a 좌표를 x 방향으로 5 방향으로 이동하고, y 방향으로 3이동한 위치를 유추해 보겠습니다. <br>
+그냥 보아도 [2, 2] 에서 [2+5, 2+3] 으로 이동한 것을 연상해 볼 수 있을 것입니다. <br>
+별도로 계산 하지 않아도 알 수 있는 부분인데 이를 행렬의 곱셈으로 표기 할 수 있습니다.<br>
+WebGL 은 열백터를 기준으로 하니 다음과 같은 행렬 연산으로 표기 할 수 있습니다.<br>
+$$
+\begin{bmatrix} 1&amp;0&amp;5\\0&amp;1&amp;3\\0&amp;0&amp;1 \end{bmatrix} \times \begin{bmatrix}2\\2\\1\\ \end{bmatrix} =  \begin{bmatrix} 7\\5\\1 \end{bmatrix}
+$$</p>
+<p>여기서 잠깐 의구심이 드는것이 x축으로 5 이동, y  축으로 3 이동이면, 굳이 행렬로 구하지 않아도 쉽게 구할 수 있는데 왜 행렬을 이용하는가 입니다. <br>
+아직 설명하지 않았지만, 행렬의 곱셈은 조금 복잡한 연산을 수행하여야 하는데요 &hellip;.</p>
+<p>그 이유는 축소, 확대, 회전을 행렬식을 이용해서 계산해 줄 수 있기 때문입니다.<br>
+다음의 예시된 값을 확인해 보겠습니다.</p>
+<p>$$
+\begin{bmatrix} 0&amp;-1&amp;5\\1&amp;0&amp;3\\0&amp;0&amp;1 \end{bmatrix} \times \begin{bmatrix}2\\2\\1\\ \end{bmatrix} =  \begin{bmatrix} 3\\5\\1 \end{bmatrix}
+$$</p>
+<p>이 값은 a 좌표인 [2, 2] 가 시계 반대방향으로 90도 회전한 후 [-2, 2 ] x 축으로 5 이동한 후 , y 축으로 3 이동하면 [ 3, 5 ] 좌표로 이동 한다는 의미 입니다. <br>
+먼저 회전이 이뤄지고, 그 후 이동이 진행 되었습니다.    만약 이동이 먼저 이뤄지고 회전이 이뤄지면 조금 다른 결과가 나오게 됩니다.</p>
+<p>$$
+\begin{bmatrix} 0&amp;-1&amp;0\\1&amp;0&amp;0\\0&amp;0&amp;1 \end{bmatrix} \times  \begin{bmatrix} 1&amp;0&amp;5\\0&amp;1&amp;3\\0&amp;0&amp;1 \end{bmatrix} \times \begin{bmatrix}2\\2\\1\\ \end{bmatrix}  =  \begin{bmatrix} -5\\7\\1 \end{bmatrix}
+$$</p>
+<p>이 값은 a 좌표인 [2, 2] 가 [ 5+2, 2+3 ] 으로 이동후 반시계 방향으로 90도 회전하면 값은 [ -5, 7 ] 로 이동한다는 의미 입니다. <br>
+계산식에서 보듯 회전후 이동과 이동후 회전은 다른 결과를 가져 옵니다.   계산 진행 순서가 중요한 이유 입니다. <br>
+( 순서만 정확히 지키면 오른쪽을 먼저 계산후 왼쪽을 계산해도, 왼쪽을 계산후 오른쪽을 계산 해도 결과는 같습니다. - 겹합법칙이 성립됩니다. )</p>
+<h1 id="헹렬-용어-및-javascript-type-array">헹렬 용어 및 Javascript Type Array</h1>
+<p>WebGL 에서 사용하는 행렬은 주로 3 x 3 행렬, 4 x 4 행렬 등 정사각형 형태의 행렬을 주로 사용합니다.<br>
+이를 정방행렬(Square Matrix) 이라고 지칭하고, 그중 대각선이 1로 채워지고 나머지가 0인 값을 지닌 행렬을 단위행렬(Identity Matrix ) 라고 부릅니다. <br>
+WebGL 에서 행렬 연산을 할 때 가끔 행렬의 순서를 뒤집어 사용해야 할 때가 있습니다.  이를 전치행렬 ( Transpose Matrix ) 이라고 부릅니다.<br>
+WebGL2 에서 내부적으로 지원되는 기능이 있어 구현이 필요할 까 생각이 드는 행렬중 역행렬이 있습니다.   역행렬은 원본 행렬을 곱했을 때 
+단위행렬의 결과를 가져오게 하는 행렬입니다.    구하는 방법은 몇가지 있지만, 개인적으로 가우스 소거법을 활용하는게 프로그램에서는 <br>
+가장 효율적일 것 같습니다.<br>
+구현에 앞서 용어를 나열한 이유는 행렬이 낯선 분들은 용어에서 부터 접근이 쉽지 않기 때문입니다.   제가 용어가 익숙하지 않아 헤맸던 경험이 
+많았기 때문입니다.</p>
+<p>Javascript 의 배열은 C++ 등의 배열과는 조금 차이가 있습니다.<br>
+javascript 언어의 특징이 Type이 명시적으로 사용되지 않습니다. 그렇다 보니 [] 배열기호를 사용하여도, int array 인지 object array 인지 알 수 없고,<br>
+그렇다 보니 c, c++ 등에서 같은 데이터 유형의 연속적인 메모리 공간 할당이 아예 불가능하게 됩니다.<br>
+이를 보완하고자 Float32Array 등 Type 이 지정된 Array 를 사용할 수 있도록 되었습니다. <br>
+WebGL 에서는 이런 Type 형식이 지정된 배열을 사용하게 됩니다.<br>
+하지만 한가지 문제점이 있는데 Type Array 는 1차원 배열 입니다.   4x4 등의 Matrix 를 활용하려면 2차원 배열이 등을 사용하는게 훨씬 직관적이지만, 
+Javascrpt 의 Type Array 를 사용할 경우 조금 문제가 있습니다. <br>
+그래서 WebGL 등에서는 mat4, mat3x4 등의 이름으로 어떤 형식인지를 미리 지정하여 자료형을 구성해 놓았습니다. <br>
+좋은 방법이지만, 모듈화 시킬때 하나씩 자료형을 만드는게 개인적으로 귀찮고, 번거로운 일이라, 다음과 같이 구성해 보았습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fArray</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#ae81ff">16</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fArray</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fArray</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span></code></pre></div><p>형식화된 배열을 사용하지만, javascript 객체에 속성을 추가하는 방법으로 rows, cols 를 추가하여 어떤 Matrix 인지 알 수 있도록 구현해 보았습니다.</p>
+<h1 id="행렬의-곱셈">행렬의 곱셈</h1>
+<p>행렬의 곱셈은 조금 헷갈리는 면이 없지 않습니다.   천천히 살펴보면 어려운 부분은 아닌데, 조금 어지럽게 보이는 부분이 있는 것 같습니다. 
+특히 1차원 배열로 구성된 Matrix 연산을 위해서는 위치 정보에 대한 정확한 파악이 필요해서 헷갈릴 수는 있는데 원리만 알면 어렵지는 않습니다.</p>
+<p>$$
+\begin{bmatrix} 1&amp;0&amp;5\\0&amp;1&amp;3\\0&amp;0&amp;1 \end{bmatrix} \times \begin{bmatrix}2\\2\\1\\ \end{bmatrix} =  \begin{bmatrix} 7\\5\\1 \end{bmatrix}
+\\
+\begin{bmatrix} 1 \times 2 + 0 \times 2 + 5 \times 1 \end{bmatrix} = \begin{bmatrix} 7 \end{bmatrix}
+\\
+\begin{bmatrix} 0 \times 2 + 1 \times 2 + 3 \times 1 \end{bmatrix} = \begin{bmatrix} 5 \end{bmatrix}
+\\
+\begin{bmatrix} 0 \times 2 + 0 \times 2 + 1 \times 1 \end{bmatrix} = \begin{bmatrix} 1 \end{bmatrix}
+$$
+첫번째 Matrix 의 행을 두번째 Matrix 의 열과 각 순서쌍을 곱해서 모두 더한 값이 계산된 값입니다. <br>
+앞의 행렬이 n1 x m1 의 행렬일 때 뒤의 행렬이 n2 x m2 의 행렬이면 m1 == n2 와 같다면 계산이 가능합니다. <br>
+역으로 m1 != n2 가 다르다면 행렬 곱셈은 성립하지 않습니다.   결과는 n1 x m2 행렬이 만들어 지게 됩니다.</p>
+<p>아무래도 코드를 보면 좀더 쉽게 이해 되실 수 있을것 같습니다. <br>
+다만, 1차원 배열을 행렬 계산으로 변경해야 하기 때문에 소스 코드에서 위치 정보를 주의 깊게 보아야 할 것 같습니다.</p>
+<h1 id="javascript-구현">Javascript 구현</h1>
+<h3 id="단위-행렬-identity-matrix-">단위 행렬( Identity Matrix )</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeIdentityMatrix</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">m</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">m</span><span style="color:#f92672">*</span><span style="color:#a6e22e">m</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">m</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">m</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">m</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#a6e22e">m</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h3 id="전치행렬--transpose-matrix-">전치행렬 ( Transpose Matrix )</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeTransposeMatrix</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">matrix</span> ) =&gt; {
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">matrix</span> ) {
+</span></span><span style="display:flex;"><span> 		<span style="color:#a6e22e">alert</span>( <span style="color:#e6db74">&#34;NO DATA&#34;</span> );
+</span></span><span style="display:flex;"><span> 		<span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span> 	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">matrix</span>.<span style="color:#a6e22e">rows</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">rows</span> )    <span style="color:#75715e">//  내부에서 사용하는 형식이 아님
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">matrix</span>.<span style="color:#a6e22e">cols</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">cols</span> )    <span style="color:#75715e">//  내부에서 사용하는 형식이 아님
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">matrix</span>.<span style="color:#a6e22e">length</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cols</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rows</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#a6e22e">rows</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">idx01</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cols</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">idx</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">matrix</span>[<span style="color:#a6e22e">idx01</span>];
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h3 id="행렬-곱셈">행렬 곱셈</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">multiplyMatrix</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">m1</span>,<span style="color:#a6e22e">m2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">m1</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">m2</span> ) 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;   <span style="color:#75715e">//  계산 할 수 없음 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">m1</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">m2</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">m1</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">m2</span>.<span style="color:#a6e22e">rows</span> ) 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">row1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">m1</span>.<span style="color:#a6e22e">rows</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">col1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">m1</span>.<span style="color:#a6e22e">cols</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">col2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">m2</span>.<span style="color:#a6e22e">cols</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">row1</span><span style="color:#f92672">*</span><span style="color:#a6e22e">col2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">row1</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">col2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">r</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">row1</span>; <span style="color:#a6e22e">r</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">col2</span>; <span style="color:#a6e22e">c</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">r</span><span style="color:#f92672">*</span><span style="color:#a6e22e">col2</span><span style="color:#f92672">+</span><span style="color:#a6e22e">c</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">col1</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">idx01</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">r</span><span style="color:#f92672">*</span><span style="color:#a6e22e">col1</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">idx02</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span><span style="color:#f92672">*</span><span style="color:#a6e22e">col2</span><span style="color:#f92672">+</span><span style="color:#a6e22e">c</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">idx</span>] <span style="color:#f92672">+=</span> <span style="color:#a6e22e">m1</span>[<span style="color:#a6e22e">idx01</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">m2</span>[<span style="color:#a6e22e">idx02</span>];
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><h3 id="기타">기타</h3>
+<p>역행렬, 행렬의 덧셈 뺄셈, scalar 곱 등 필요한 연산 작업이 있으나, 
+행렬을 이해하는데 중요하다고 생각 되는 영역을 ( WebGL 연산에서 ) 먼저 구현해 보았습니다.</p>
+<p>글을 구성하는 시점에 재구성한 함수들이라 향후 기회가 될 때 정비하고 설명이 필요한 부분을 
+조금 더 정돈해 보도록 하겠습니다.<br>
+행렬 연산에서 앞서의 개념과 곱셈을 이해하면 WebGL에서 연산은 거의 가능할 것 같습니다.<br>
+향후 WebGL 구현 부분에서 다시 언급하겠지만, WebGL은 열백터를 사용하고 있습니다.<br>
+1차원 배열의 데이터 전개 순서가 수학책 등에서 보여주는 순서와 약간 차이가 있습니다. 
+그때 전치 행렬은 사용하면 순서가 일치하게 됩니다. <br>
+WebGL 의 uniform 을 적용할 때 transpose 를 적용할 것인지 말 것이지 정하는 옵션이 있는데 
+그 때 다시 설명 하도록 하겠습니다.</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebmodule%2fwebgl_part_004%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebmodule%2fwebgl_part_004%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebmodule%2fwebgl_part_004%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebmodule%2fwebgl_part_004%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebmodule%2fwebgl_part_004%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebmodule%2fwebgl_part_004%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/webmodule/webgl_part_003/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/webmodule/webgl_part_003/">WebGL2 - Vector 연산 02 [ 03 ]</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+

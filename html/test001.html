@@ -28,6 +28,53 @@
 
         alert( "Dot Value : " + dotValue + " , 각도 " + cosineDegree + "\nCross Value : " + crossValue + " , 각도 : " + sinDegree + "\n면적 : " + crossArea );
 
+        let m1 = new Float32Array([
+            1,2,
+            3,4,
+            5,6
+        ]);
+        m1.rows = 3;
+        m1.cols = 2;
+        let m2 = new Float32Array([
+            1,2,3,
+            4,5,6
+        ]);
+        m2.rows = 2;
+        m2.cols = 3;
+
+        let m5 = new Float32Array([
+            1, 0, 5,
+            0, 1, 3,
+            0, 0, 1
+        ]);
+        m5.rows = 3;
+        m5.cols = 3;
+
+        let m7 = new Float32Array([
+            0, -1, 0, 
+            1, 0, 0, 
+            0, 0, 1
+        ]);
+        m7.rows = 3;
+        m7.cols = 3;
+
+        let m6 = new Float32Array([
+            2,
+            2,
+            1
+        ]);
+        m6.rows = 3;
+        m6.cols = 1;
+        let m4 = TypedMatrixUtils.multiplyMatrix(m5,m6);
+        m4 = TypedMatrixUtils.multiplyMatrix(m7,m4);   
+        
+        m4 = TypedMatrixUtils.multiplyMatrix(m7,m5)
+        m4 = TypedMatrixUtils.multiplyMatrix(m4,m6)
+        //let m4 = TypedMatrixUtils.multiplyMatrix(m1,m2);        
+
+        let m3 = TypedMatrixUtils.makeTransposeMatrix(m1);
+        alert ( TypedMatrixUtils.printArrayValues(m3) + "\n--------\n" + TypedMatrixUtils.printArrayValues(m4) );
+
     </script>
 </body>
 </html>
