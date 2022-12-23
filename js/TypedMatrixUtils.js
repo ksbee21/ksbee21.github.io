@@ -286,6 +286,20 @@
         return crossValue/(v1Len*v2Len);
     };
 
+
+	export const makeTriangleNormals = (stdVector, firstVector, secondVector) => {
+		if ( !stdVector || !firstVector || !secondVector ) {
+			return;
+		}
+
+		let v1 = makeVectorMinusValues(firstVector, stdVector);
+		let v2 = makeVectorMinusValues(secondVector, stdVector);
+
+		let result = makeVectorCrossProductValues(v1, v2);
+		return  makeNormalizeVector(result,true);
+	}
+
+
 	const cot = (v) => {
 		return 1.0/Math.tan(v);
 	}
@@ -356,7 +370,6 @@
                     let idx01 = r*col1+t;
                     let idx02 = t*col2+c;
                     result[idx] += m1[idx01]*m2[idx02];
-                    //alert ( idx + " : " + result[idx] + " => " + idx01 + " : " + m1[idx01] + " => " + idx02 + " : " + m2[idx02] );
                 }
             }
         }

@@ -75,6 +75,14 @@
         let m3 = TypedMatrixUtils.makeTransposeMatrix(m1);
         alert ( TypedMatrixUtils.printArrayValues(m3) + "\n--------\n" + TypedMatrixUtils.printArrayValues(m4) );
 
+        const av = [-1,-1, 0];
+        const bv = [1, -1, 0];
+        const cv = [0, 1, 0];
+
+        const vv = TypedMatrixUtils.makeTriangleNormals(av, bv, cv);
+        alert ( vv );
+
+
     </script>
 </body>
 </html>

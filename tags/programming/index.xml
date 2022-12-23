@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on 잊혀져 가는 기억을 기록하기 ....</title>
+    <link>/tags/programming/</link>
+    <description>Recent content in Programming on 잊혀져 가는 기억을 기록하기 ....</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2022. All right reserved.</copyright>
+    <lastBuildDate>Fri, 23 Dec 2022 19:18:51 +0900</lastBuildDate><atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL2 - Program 시작 01 [ 05 ]</title>
+      <link>/post/webmodule/webgl_part_005/</link>
+      <pubDate>Fri, 23 Dec 2022 19:18:51 +0900</pubDate>
+      
+      <guid>/post/webmodule/webgl_part_005/</guid>
+      <description>프로그램을 위한 준비 제한사항 현재 WebGL2 는 IE를 제외한 대부분의 Browser 에서 사용가능합니다.
+Web 에서 3D를 구현하는 방법도 OpenGL 기반의 WebGL 에서, 더 다양한 지원이 가능한
+WebGPU 등의 표준화가 진행중입니다. 현재 사용중인 Web 에서 3D를 구성하는 방법에도 변화가 있을 수 있는 상황입니다.
+언제나 그렇듯 변화가 많을 경우, API 하나 하나 공부하는 것은 그리 효율적인지 않은 방법 같습니다. 동작의 기본 원리를 이해해 두면, 향후 어떤 변화가 나타나도 적응하는데 유리할 것 같습니다. WebGL 관련 코드는 WebGL 2.</description>
+    </item>
+    
+  </channel>
+</rss>

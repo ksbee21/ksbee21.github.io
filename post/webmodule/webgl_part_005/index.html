@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebGL 프로그램 시작 01">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Program 시작 01 [ 05 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Program 시작 01 [ 05 ]</h1>
+  <h2>WebGL 프로그램 시작 01</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2022. 12. 23, 19:18</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/programming">Programming</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="프로그램을-위한-준비">프로그램을 위한 준비</h1>
+<h3 id="제한사항">제한사항</h3>
+<p>현재 WebGL2 는 IE를 제외한 대부분의 Browser 에서 사용가능합니다.<br>
+Web 에서 3D를 구현하는 방법도 OpenGL 기반의 WebGL 에서,  더 다양한 지원이 가능한<br>
+WebGPU 등의 표준화가 진행중입니다. <br>
+현재 사용중인 Web 에서 3D를 구성하는 방법에도 변화가 있을 수 있는 상황입니다.</p>
+<p>언제나 그렇듯 변화가 많을 경우, API 하나 하나 공부하는 것은 그리 효율적인지 않은 방법 같습니다. <br>
+동작의 기본 원리를 이해해 두면, 향후 어떤 변화가 나타나도 적응하는데 유리할 것 같습니다. <br>
+WebGL 관련 코드는 WebGL 2.0 을 기준으로 합니다. <br>
+굳이 하위 버전에 대한 호환성을 고려하지 않을 예정 입니다.</p>
+<h3 id="참조-사이트">참조 사이트</h3>
+<p>Three.js 를 구성한 분이 WebGL 에 관해 설명해 놓은 사이트 입니다.    <a href="https://webgl2fundamentals.org/webgl/lessons/ko/webgl-fundamentals.html">WebGL3Fundamentals</a> 
+앞서서 링크를 걸기도 하였지만, 이 사이트 만큼 Web 기반 3D에 대해 풍부히 설명해 놓은 사이트는 찾지 못했습니다. 
+MDM 사이트나, 그외 이런 저런 사이트가 많이 있지만, Web 기반이라는 전제 에서 볼 때, 참조하기 가장 좋은 사이트가 아닌가 합니다.</p>
+<h1 id="webgl-에서-사용하는-data">WebGL 에서 사용하는 Data</h1>
+<h3 id="좌표-position---vertices-">좌표( Position - Vertices )</h3>
+<p>표현하고자 하는 물제가 있을 때 물체의 위치를 ( x,y,z ) 좌표로 표시합니다.<br>
+이렇게 구성된 꼭지점(좌표)를 연결해서 물체를 표현하게 됩니다.<br>
+WebGL 에서는 이런 꼭지점 3개를 연결해서 삼각형을 만들고, 그 삼각형을 그리는 것으로 물체를 표현 합니다.</p>
+<p>WebGL 에서 좌표는 x, y, z 축 모두 -1 ~ 1 사이의 범위를 표현합니다.<br>
+x 좌표는 왼쪽에서 오른쪽으로 증가하고, y 좌표는 아래에서 위로 증가 합니다.<br>
+z 좌표도 뒤에서 앞으로 증가하는 구조인데 모니터의 출력이 반대방향이라 나중에 이를 보정하는 행렬을 <br>
+구성하게 됩니다.</p>
+<p>예를 들어 a (-1, -1, 0), b (1, -1, 0), c (0, 1, 0 ) 의 좌표 3개가 있다면 z축의 값이 모두 0 이므로<br>
+x, y 의 평면에서의 위치와 같습니다.   대략 이등변 삼각형의 꼭지점이라고 생각하면 좋을 것 같습니다.</p>
+<h3 id="색상--texture">색상 , Texture</h3>
+<p>앞서 언급한 꼭지점에서 사용하는 색상값을 지정할 수 있습니다.<br>
+색상은 ( R,G,B,A ) - (빨간색, 녹색, 파란색, 투명도 ) 를 기준으로 합니다. 
+범위는 (0~1) 사이로 Web에서 사용하는 기준으로 보면 (0~255)색상을 0~1 사이의 소수값으로 표기합니다. <br>
+색상과 유사하게 그림 등의 위치정보를 기반으로 색상을 가져올 수 있습니다.<br>
+이때 사용하는것이 Texture 입니다.   꼭지점이 그림에서 어느 위치 인지 알려 주면, 그 그림에서 해당 위치의 
+색상정보를 매칭하여 그려 주게 됩니다.<br>
+결국 그림의 색상 값이 적용되는 것입니다. <br>
+Texture 는 2차원 평면 데이터를 기준으로 하기 때문에 x,y 좌표가 꼭지점과 매핑 됩니다. 
+범위는 (0~1)로 왼쪽 아래가 (0,0) 이고 위로 (0,1) - 왼쪽 상단, 오른쪽 상단 ( 1, 1), 오른쪽 아래 ( 1, 0 )
+입니다.</p>
+<h3 id="법선-normal-벡터">법선 (Normal) 벡터</h3>
+<p>그림을 그리는데 직접 사용하지는 않지만, 빛, 표면에 수직 방향으로 사용할 수 있는 모든 것에 적용될 수 있는 
+아주 중요한 데이터 입니다. <br>
+삼각형을 기준으로 할 때 WebGL 에서는 오른손 법칙을 적용하기 때문에 반시계 방향의 꼭지점으로 Cross Product 
+하면 삼각형에 수직인 법선 벡터를 구할 수 있습니다. ( Cross Product 는 이전 게시물 참조 )
+물론, 이것은 삼각형 노말이고, 꼭지점에 대한 Normal 은 공유하는 삼각형 노말의 평균을 구하면 유사값을 
+구할 수 있을 것 같습니다.   ( 구(Speher) 라면 중심점에서 표면으로 방향이 Normal 방향 )</p>
+<p>위 a, b, c position 을 아래의 코드를 통해 계산하면 (0, 0, 1) 이라는 Normal vector 를 얻게 됩니다.<br>
+양의 방향 ( z ) 축으로 Normal Vector 가 구성되어 있습니다.    태양빛 등이 (0, 0, -1) 방향으로 주어졌다면, 
+가장 많은 빛을 삼각형이 받고 있다고 보아도 좋을 것 같습니다.<br>
+정오의 태양이 머리를 비추고 있는 모습 입니다. ( ^^ )</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeTriangleNormals</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">stdVector</span>, <span style="color:#a6e22e">firstVector</span>, <span style="color:#a6e22e">secondVector</span>) =&gt; {
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">stdVector</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">firstVector</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">secondVector</span> ) {
+</span></span><span style="display:flex;"><span> 		<span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span> 	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">v1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeVectorMinusValues</span>(<span style="color:#a6e22e">firstVector</span>, <span style="color:#a6e22e">stdVector</span>);
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">v2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeVectorMinusValues</span>(<span style="color:#a6e22e">secondVector</span>, <span style="color:#a6e22e">stdVector</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeVectorCrossProductValues</span>(<span style="color:#a6e22e">v1</span>, <span style="color:#a6e22e">v2</span>);
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">return</span>  <span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">result</span>,<span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><h1 id="data-sample">Data Sample</h1>
+<p>육면체( Cube ) 에 관한 데이터는 Web Site 이곳 저곳에서 찾아 볼 수 있습니다. <br>
+테스트를 위해 MDN Site 에서 기본적인 육면체 정보를 가져와 보겠습니다.</p>
+<h3 id="position">Position</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">positions</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">// Front face
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">// Back face
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">// Top face
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">// Bottom face
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">// Right face
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">// Left face
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>     ];    
+</span></span></code></pre></div><h3 id="color">Color</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">faceColors</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>      [<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>], <span style="color:#75715e">// Front face: white
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      [<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>], <span style="color:#75715e">// Back face: red
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>], <span style="color:#75715e">// Top face: green
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>], <span style="color:#75715e">// Bottom face: blue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      [<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>], <span style="color:#75715e">// Right face: yellow
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      [<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>], <span style="color:#75715e">// Left face: purple
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Convert the array of colors into a table for all the vertices.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">colors</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">faceColors</span>.<span style="color:#a6e22e">length</span>; <span style="color:#f92672">++</span><span style="color:#a6e22e">j</span>) {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">faceColors</span>[<span style="color:#a6e22e">j</span>];
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// Repeat each color four times for the four vertices of the face
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#a6e22e">colors</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">colors</span>.<span style="color:#a6e22e">concat</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">c</span>);
+</span></span><span style="display:flex;"><span> }   
+</span></span></code></pre></div><h3 id="index">Index</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">indices</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,      <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>, <span style="color:#75715e">// front
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,      <span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>, <span style="color:#75715e">// back
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>,     <span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">11</span>, <span style="color:#75715e">// top
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">14</span>,   <span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">14</span>,<span style="color:#ae81ff">15</span>, <span style="color:#75715e">// bottom
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">17</span>,<span style="color:#ae81ff">18</span>,   <span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">18</span>,<span style="color:#ae81ff">19</span>, <span style="color:#75715e">// right
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">22</span>,   <span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">22</span>,<span style="color:#ae81ff">23</span>, <span style="color:#75715e">// left
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> ];   
+</span></span></code></pre></div><h3 id="texture-coord">Texture Coord</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">textureCoordinates</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// Front
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// Back
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// Top
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// Bottom
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// Right
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// Left
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span> ];
+</span></span></code></pre></div><h3 id="vertex-normal">Vertex Normal</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vertexNormals</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Front
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Back
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Top
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Bottom
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Right
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// Left
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span>];
+</span></span></code></pre></div><h3 id="간단한-설명-및-다음글예정-소개">간단한 설명 및 다음글(예정) 소개</h3>
+<p>위치 정보는 x,y,z 의 3개씩 사각형의 꼭지점을 가지고 있습니다. 6면체이기 때문에 
+6 x 4 x 3 = ( 면의갯수 x 꼭지점갯수 x 꼭지점당좌표갯수) = 72 개입니다. 면과 꼭지점만 보면 24개 입니다. <br>
+색상은 6 x 4 x 4 = ( 면의갯수 x 꼭지점갯수 x 꼭지점당좌표갯수) = 96 개입니다. 면과 꼭지점만 보면 24개 입니다. <br>
+texture 는 6 x 4 x 2 = ( 면의갯수 x 꼭지점갯수 x 꼭지점당좌표갯수) = 48 개입니다. 면과 꼭지점만 보면 24개 입니다. <br>
+normals 은 6 x 4 x 3 = ( 면의갯수 x 꼭지점갯수 x 꼭지점당좌표갯수) = 72 개입니다. 면과 꼭지점만 보면 24개 입니다.</p>
+<p>24개의 공통항목이 있고, 각 꼭지점당 사용갯수에 따라 3, 4, 2, 3 개 입니다.   이 뒤의 숫자가 넘겨줄 형식을 결정합니다. 
+vector 의 경우 vec2, vec3, vec4 등으로 달리 표기 될 수 있습니다.  ( WebGL 에서 제공하는 자료형 )</p>
+<p>이런 정보를 가지고 무엇을 할 수 있을 까요?<br>
+WebGL 에서는 좌표, 색상, 법선 정보를 받아들어 GPU 에서 화면에 출력할 pixel 정보를 구성해서 최종적으로 모니터 화면에 
+특정색으로 출력하는 역활을 담당합니다. <br>
+처음 위치정보 등을 받아 들이는 것이 Vertex Shader라는 OpenGL 전용 언어인 GLSL 로 구성된 내용이 필요하고, 
+색상을 결정짓고 출력하는 Fragment Shader 라는 프로그램이 쌍으로 필요합니다.</p>
+<p>다음은 2 두개를 구성후 간단히 Cube 를 그려 보는 내용을 프로그램 해 볼까 합니다.</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebmodule%2fwebgl_part_005%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebmodule%2fwebgl_part_005%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebmodule%2fwebgl_part_005%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebmodule%2fwebgl_part_005%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebmodule%2fwebgl_part_005%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebmodule%2fwebgl_part_005%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/webmodule/webgl_part_004/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/webmodule/webgl_part_004/">WebGL2 - Matrix 연산 01 [ 04 ]</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+
