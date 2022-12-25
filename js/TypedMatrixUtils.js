@@ -1,14 +1,5 @@
 
-    export const makeWebGL = (canvas) => {
-        let gl = undefined;
-        try {
-            gl = canvas.getContext("webgl2") || canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-        } catch ( e ) {
-            alert ( "Unable to initialize WebGL. Your browser may not support it.");
-            gl = null;
-        }
-        return gl;
-    };
+    
 
     /**
      * 
@@ -426,7 +417,84 @@
             ts += "\n";
         }
         return ts;
-    }
+    };
+
+
+	export const makeRotateXMatrix3D = ( theta ) => {
+		let sv = Math.sin(theta);
+		let cv = Math.cos(theta);
+
+        const result = new Float32Array([
+			1,  0,  0, 0,
+			0,	cv, -sv, 0,
+			0,  sv,  cv, 0,
+			0,  0,  0, 1
+		]);
+        result.rows = 4;
+        result.cols = 4;
+        return result;
+	}
+
+	export const makeRotateYMatrix3D = ( theta ) => {
+		let sv = Math.sin(theta);
+		let cv = Math.cos(theta);
+
+        const result = new Float32Array([
+			cv,  0,  sv,0,
+			0,	 1, 0,0,
+			-sv,  0,  cv,0,
+			0,  0,  0, 1
+		]);
+        result.rows = 4;
+        result.cols = 4;
+        return result;
+	};
+
+	export const makeRotateZMatrix3D = ( theta ) => {
+		let sv = Math.sin(theta);
+		let cv = Math.cos(theta);
+
+        const result = new Float32Array([
+			cv, -sv,   0, 0,
+			sv,  cv,   0, 0,
+			0,   0,   1, 0,
+			0,  0,  0, 1,
+		]);
+        result.rows = 4;
+        result.cols = 4;
+        return result;
+	};
+
+    export const makeScaleMatrix3D = ( sx, sy, sz ) => {
+        const result = new Float32Array([
+			sx, 0,  0,  0,
+			0, sy,  0,  0, 
+			0,  0, sz,	0,
+			0,  0,  0,	1
+		]);
+        result.rows = 4;
+        result.cols = 4;
+        return result;
+	};
+
+
+	export const makeTranslateMatrix3D = ( dx, dy, dz ) => {
+
+        const result = new Float32Array([
+			1, 0,  0,  dx,
+			0, 1,  0,  dy, 
+			0,  0, 1,  dz,
+			0,  0,  0,	1
+		]);
+        result.rows = 4;
+        result.cols = 4;
+        return result;
+	};
+
+
+
+
+
 
 
     
