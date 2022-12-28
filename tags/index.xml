@@ -7,13 +7,49 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sat, 24 Dec 2022 20:05:10 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Dec 2022 23:10:59 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Canvas</title>
+      <link>/tags/canvas/</link>
+      <pubDate>Tue, 27 Dec 2022 23:10:59 +0900</pubDate>
+      
+      <guid>/tags/canvas/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Javascript</title>
       <link>/tags/javascript/</link>
-      <pubDate>Sat, 24 Dec 2022 20:05:10 +0900</pubDate>
+      <pubDate>Tue, 27 Dec 2022 23:10:59 +0900</pubDate>
       
       <guid>/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Math</title>
+      <link>/tags/math/</link>
+      <pubDate>Tue, 27 Dec 2022 23:10:59 +0900</pubDate>
+      
+      <guid>/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>/tags/web/</link>
+      <pubDate>Tue, 27 Dec 2022 23:10:59 +0900</pubDate>
+      
+      <guid>/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>삼각함수</title>
+      <link>/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98/</link>
+      <pubDate>Tue, 27 Dec 2022 23:10:59 +0900</pubDate>
+      
+      <guid>/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98/</guid>
       <description></description>
     </item>
     
@@ -36,29 +72,11 @@
     </item>
     
     <item>
-      <title>Web</title>
-      <link>/tags/web/</link>
-      <pubDate>Sat, 24 Dec 2022 20:05:10 +0900</pubDate>
-      
-      <guid>/tags/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>WebGL</title>
       <link>/tags/webgl/</link>
       <pubDate>Sat, 24 Dec 2022 20:05:10 +0900</pubDate>
       
       <guid>/tags/webgl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Math</title>
-      <link>/tags/math/</link>
-      <pubDate>Wed, 21 Dec 2022 22:47:18 +0900</pubDate>
-      
-      <guid>/tags/math/</guid>
       <description></description>
     </item>
     

@@ -218,13 +218,13 @@
   
     <article>
   <header>
-    <h2><a href="/post/webmodule/webgl_part_003/">WebGL2 - Vector 연산 02 [ 03 ]</a></h2>
+    <h2><a href="/post/math/trigonometric_001/">Canvas 를 이용한 삼각함수 이해 01</a></h2>
 
     <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2022. 12. 20, 21:26</time>
+    <time>2022. 12. 27, 23:10</time>
   </div>
 
   
@@ -241,14 +241,14 @@
     <i class="fa fa-tags fa-fw"></i>
     
       <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
     
       <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/vector">Vector</a>
+      <a class="post-taxonomy-tag" href="/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/math">Math</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98">삼각함수</a>
     
   </div>
   
@@ -259,122 +259,13 @@
   </header>
 
   <p>
-  백터의 사칙 연산 벡터의 사칙연산(더하기, 빼기, 곱하기, 나누기) 은 일반 수의 연산과 거의 동알하다고 생각하면 될 것 같습니다. 약간의 차이란, Vector 안에 있는 순서에 맞게 계산해 주는 부분만 조금 다를 뿐입니다.
-가령 [1,2,3] 의 a vector 가 있고, [4,5,6] 의 b vector 가 있을 때 a + b = [1+4, 2+5, 3+6 ] 으로 표현할 수 있습니다. a-b = [1-4, 2-5, 3-6] 이고, a*b, a/b 도 동일한 연산을 사용한다고 보면 될 것 같습니다.
+  Html5 Canvas Web 에서 일반적인 언어의 Graphics 를 사용하는 것과 유사한 작업을 가능하게 해주는 모듈이 추가된지도 꽤 오랜 시간이 흘렀습니다. 돌이켜 보면 SVG 라는 도형을 그리는 표준이 d3.js 라는 뛰어난 라이브러리로, Chart 등에서 맹위를 떨치던 시간이 그리 오래 전이 아닌데 벌써, 트랜드의 한축이 넘어가는 느낌이 듭니다.
+현재 많은 차트 라이브러리에서 SVG 에서 점차 CANVAS 로 옮겨가는 추세 입니다. svg는 web 에서 느린 자원이 아닙니다. 게다가 가 도형별 shape 별 event 처리가 canvas 에 비해 훨씬 수월 합니다.
   </p>
 
   
   <footer>
-    <a href="/post/webmodule/webgl_part_003/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="/post/webmodule/webgl_part_002/">WebGL2 - Vector 연산 01 [ 02 ]</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2022. 12. 19, 21:35</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/vector">Vector</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  WebGL 벡터란 ? 프로그래밍 관점에서 보면, WebGL 에서 사용하는 벡터란 , 대부분 x,y 로 표기되는 원소가 두개인 배열 혹은 x,y,z 으로 표기 되는 원소가 3개인 배열 정도로 이해 할 수 있을 것 같습니다. 배열을 기준으로 보면 1차원 배열의 원소의 갯수만 차이가 있는 것이고, 데이터가 [1,2,3] 이 있을 때 행(Row) 을 기준으로 보면 행백터 이고, 열(Column) 을 기준 으로 보면 열백터로 지칭하고 있습니다. 아래의 예에서와 같이 세로, 가로로 이해하면 편할것 같습니다.
-  </p>
-
-  
-  <footer>
-    <a href="/post/webmodule/webgl_part_002/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="/post/webmodule/webgl_part_001/">WebGL2 - 개발방법 [ 01 ]</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2022. 12. 18, 20:58</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  WebGL2 에 대한 간단한 소개 현재 Web에서 3D를 사용할 수 있는 방법은 WebGL2가 가장 최근에 확정된 규약이고, 해당 기술은 OpenGL ES 300 을 기준으로 구성되어 있습니다.
-WEBGPU 라는 Spec 이 공표되고 테스트가 진행 중이지만, 현재까지 Chrome 등의 Browser 에서 Default 로 지원되지는 않습니다.
-WebGL2 는 IE를 제외한 대부분의 Browser 에서 지원하고 있기 때문에, Web에서 3D를 구현하려면, WebGL2를 활용하는게 좋을 것 같습니다.
-WebGL2 Library WebGL 을 사용하는 가장 간단한 방법은 잘 구성된, 모듈을 사용하는 것이 가장 빠르고 편한 방법입니다.
-  </p>
-
-  
-  <footer>
-    <a href="/post/webmodule/webgl_part_001/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+    <a href="/post/math/trigonometric_001/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

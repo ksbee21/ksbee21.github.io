@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/js/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+    <script>
+
+        function makeCanvas(width, height) {
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+            return canvas;
+        }
+
+        function makeTriangleUI( width, height) {
+            const gaps = 80;
+            const tSize = width - gaps*2;
+            const lineLen = Math.round(Math.sqrt(tSize*tSize*2));
+            const degrees = 45;
+            const radian = (Math.PI*degrees/180);
+            const points = [];
+            const lineNames = [{name:'a',x:0,y:0},{name:'b',x:0,y:0},{name:'c',x:0,y:0}];
+            let tx = 0;
+            let ty = 0;
+            points.push([tx,ty]);
+            lineNames[0].x = Math.floor(tSize/2);
+            lineNames[0].y = 20;
+            tx = Math.cos(radian)*lineLen;
+            ty = 0;
+            points.push([tx,ty]);
+
+            tx = Math.cos(radian)*lineLen;
+            ty = Math.sin(radian)*lineLen;
+
+            lineNames[1].x = tSize + 15;
+            lineNames[1].y = -Math.round(ty/2);
+
+            lineNames[2].x = Math.floor(Math.cos(radian)*lineLen/2) - 30;
+            lineNames[2].y = -Math.round(ty/2);
+
+            points.push([tx,-ty]);
+
+            const canvas = makeCanvas(width, height);
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0,0,width,height);
+            ctx.save();
+
+            ctx.translate(gaps,tSize+gaps); //new 0,0 base
+
+            ctx.beginPath();
+
+            ctx.fillStyle = "#EEEE22";
+            ctx.strokeStyle = "#000080";
+            ctx.lineWidth = 2;
+            ctx.moveTo(0,0);
+            ctx.arc(0,0, 50, 0, -radian, true);
+            ctx.lineTo(0,0);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+            ctx.strokeStyle = "#000080";
+            ctx.font = "bold 18px consolas";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            //  theta 
+            ctx.fillStyle = "#000080";
+            ctx.fillText("θ", Math.cos(radian/2)*60, -Math.sin(radian/2)*60 );
+
+            const sizeRect = 30;
+            ctx.strokeRect(points[1][0]-sizeRect,points[1][1]-sizeRect,sizeRect,sizeRect);
+            ctx.stroke();
+            
+            for ( let i = 0; i < 3; i++ ) {
+                if ( i == 0 ) {
+                    ctx.moveTo(points[0][0], points[0][1]);
+                } else {
+                    ctx.lineTo(points[i][0], points[i][1]);
+                }
+                ctx.save();
+                ctx.fillStyle = "#EE22FE";
+                ctx.fillText(lineNames[i].name, lineNames[i].x, lineNames[i].y );
+                ctx.restore();
+            }
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+            document.body.appendChild(canvas);
+            console.log(canvas.toDataURL());
+        }
+
+        function main() {
+            makeTriangleUI(500,500);
+        }
+
+        main();
+    </script>
+</body>
+</html>
