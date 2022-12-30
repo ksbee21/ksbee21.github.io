@@ -102,8 +102,176 @@
             console.log(canvas.toDataURL());
         }
 
+        function makeCircleUI(width, height) {
+            const gaps = 30;
+            const fGap = 20;
+            const radius = width/2 - gaps*2;
+
+            const canvas = makeCanvas(width, height);
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0,0,width,height);
+            ctx.save();
+
+            ctx.translate(width/2,height/2); //new 0,0 base
+
+            ctx.save();
+            ctx.beginPath();
+
+            
+            ctx.font = "bold 18px consolas";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            ctx.fillStyle = "#EEEE22";
+            ctx.fillStyle = "#000000";
+            ctx.strokeStyle = "#000080";
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+
+            ctx.moveTo(-radius,0);
+            ctx.lineTo(radius,0);
+            ctx.moveTo(0,-radius);
+            ctx.lineTo(0,radius);
+
+            ctx.moveTo(radius,0);
+            ctx.lineTo( Math.cos(Math.PI*0.25)*radius, -Math.cos(Math.PI*0.25)*radius);
+
+            ctx.moveTo( Math.cos(Math.PI*0.25)*radius, -Math.cos(Math.PI*0.25)*radius );
+            ctx.lineTo( Math.cos(Math.PI*0.25)*radius, 0);
+
+            ctx.moveTo( Math.cos(Math.PI*0.25)*radius-10, 0);
+            ctx.lineTo( Math.cos(Math.PI*0.25)*radius-10, -10);            
+            ctx.lineTo( Math.cos(Math.PI*0.25)*radius+10, -10);                        
+            ctx.lineTo( Math.cos(Math.PI*0.25)*radius+10, 0);                                    
+
+            ctx.fillText("wt", Math.cos(Math.PI*0.25)*radius, 15 );
+
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+
+            ctx.font = "bold 18px consolas";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            ctx.beginPath();
+            ctx.fillStyle = "blue";
+            ctx.moveTo(0,0);
+            ctx.arc(0,0, 50, 0, -Math.PI*0.25, true);
+            ctx.lineTo(0,0);
+            ctx.fill();
+            ctx.fillStyle = "#EFEFEF";
+            ctx.fillText("α", Math.cos(Math.PI*22.5/180)*30, -Math.sin(Math.PI*22.5/180)*30); 
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.fillStyle = "red";
+            ctx.moveTo(0,0);
+            ctx.arc(0,0, 50, -Math.PI*0.25, -Math.PI*0.5,  true);
+            ctx.lineTo(0,0);
+            ctx.fill();
+
+            ctx.fillStyle = "#EFEFEF";
+            ctx.fillText("β", Math.cos(Math.PI*0.37)*30, -Math.sin(Math.PI*90/360)*30); 
+
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(255,255,0,0.2)";
+            ctx.strokeStyle = "#000080";
+            ctx.lineWidth = 1;
+            ctx.moveTo(0,0);
+            ctx.arc(0,0, 65, 0, -Math.PI*0.5,  true);
+            ctx.lineTo(0,0);
+            ctx.fill();
+
+            ctx.fillStyle = "#222222";
+            ctx.fillText("θ", Math.cos(Math.PI*100/360)*75, -Math.sin(Math.PI*100/360)*75);             
+            ctx.stroke();
+            ctx.closePath();
+
+
+            ctx.beginPath();
+
+            ctx.fillStyle = "#EEEE22";
+            ctx.fillStyle = "#000000";
+            ctx.strokeStyle = "#000080";
+            ctx.lineWidth = 2;
+
+            ctx.font = "bold 18px consolas";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            ctx.fillText("0(0,0)", 40,20);
+
+            const points = [{x:0,y:0}];
+
+            for ( let i = 0; i < 360; i++ ) {
+                let theta = i*Math.PI/180;
+                let sx  = Math.cos(theta);;
+                let sy = -Math.sin(theta); 
+                let tx = radius*sx;
+                let ty = radius*sy;
+
+
+                if ( i == 0 ) {
+                    ctx.moveTo(tx,ty);
+                } else {
+                    ctx.lineTo(tx,ty);
+                }
+                if ( i % 45 == 0 ) {
+                    let txt = i;
+                    if ( i == 45 ) {
+                        txt = "P (45)"
+                        points.push({x:tx,y:ty});
+                    } else if ( i == 90 ) {
+                        txt = "Q (90)"
+                        points.push({x:tx,y:ty});
+                    } else if ( i == 0 ) {
+                        txt = "  T(0)";
+                    }
+                    ctx.fillText( txt , tx+fGap*sx,ty+fGap*sy);
+                }
+            }
+
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.fillStyle = "#FF2233";
+            ctx.strokeStyle = "#FF33FF";
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+
+            ctx.beginPath();
+            for ( let i = 0; i < points.length; i++ ) {
+                if ( i == 0 )
+                    ctx.moveTo(points[i].x, points[i].y);
+                ctx.lineTo(points[i].x,points[i].y);
+            }
+
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.beginPath();
+            for ( let i = 0; i < points.length; i++ ) {
+                ctx.moveTo(points[i].x, points[i].y);
+                ctx.arc(points[i].x,points[i].y,10,0,Math.PI*2);
+            }
+            ctx.fill();
+            ctx.closePath();
+
+            ctx.restore();
+
+            document.body.appendChild(canvas);
+            console.log(canvas.toDataURL());
+        }
+
+
+
+
         function main() {
             makeTriangleUI(500,500);
+            makeCircleUI(500,500);
         }
 
         main();
