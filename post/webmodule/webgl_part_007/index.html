@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebGL2 그리기 과정과 유니폼 Matrix">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Program 시작 03 [ 07 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Program 시작 03 [ 07 ]</h1>
+  <h2>WebGL2 그리기 과정과 유니폼 Matrix</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2022. 12. 26, 21:59</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/programming">Programming</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/math">Math</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="프로그램-rendeing-과정">프로그램 Rendeing 과정</h1>
+<p>앞서 WebGL 사용 방법에 대해 간단히 정리해 보았습니다. <br>
+다시 한번 정리하면</p>
+<ol>
+<li>canvas 객체를 구성합니다.</li>
+<li>GL 객체를 가져옵니다. ( Canvas 를 통해 webgl2 를 가져옵니다. )</li>
+<li>GLSL Shader 소스(문자열) 을 Vertex Shader, Fragment Shader 를 구성합니다.</li>
+<li>Shader Program 을 각각 만들어 두개의 쌍을 사용할 GL Program 을 만들고 Compile 합니다.    일반적으로 프로그램 소스를 구성해서 Compile 하는 것과 유사한 흐름 입니다.<br>
+당연히 프로그램을 구성할 때 사용한 소스에서 정의한 input 과 output 규칙은 따라야 합니다.</li>
+<li>데이터를 구성합니다. ( 예제에서는 cube ) - 꼭지점 정보는 필수 입니다. 법선(normal), Color, Index 등을 구성하였습니다. ( 재사용 가능 )</li>
+<li>GPU 에 Attribute 와 Uniform 정보를 알려 주고 데이터를 GPU 로 복사 합니다. ( Buffer 로 만들어 Binding )</li>
+<li>GPU 에서 데이터를 사용 할 수 있는 방법을 적용합니다. 이때 WebGL2 에서 제공하는 Vertex Buffer Object 를 생성하고, 해당 객체를 Binding 하여 이후 사용할 내용을 저장하게 합니다.</li>
+<li>Vertext, Color, Index 등의 정보를 사용할 수 있는 방법을 기록 합니다.</li>
+<li>이제 Rendeing 과정이 시작됩니다.</li>
+<li>화면을 클리어 합니다. ( 이전 소스에서는 검은색으로 clear )</li>
+<li>사용할 gl program 을 선택합니다.</li>
+<li>사용할 vertex array object 를 binding 합나다. ( 이미 해당 객체에는 gpu 에서 사용할 수 있는 방법이 기록되어 있습니다. )</li>
+<li>전체에서 사용할 uniform 내용을 넘겨 줍니다. ( ex - 설명전이지만, world matrix, viewMatrix, projection matrix &hellip; )</li>
+<li>cube 등에서 사용할 지역 uniform 정보를 넘겨 줍니다. ( 여러 물체 일 경우 world 좌표가 모두 다를 수 있음 )</li>
+<li>물체를 그립니다. ( drawcall - index or 직접 )</li>
+<li>현재 binding 되어 있는 vertex array object 를 해제 합니다.</li>
+<li>현재 binding 되어 있는 program 을 해제 합니다.</li>
+</ol>
+<p>대략 이런 흐름으로 진행될 수 있습니다. 
+위 과정에서 앞의 글에서 간단하게 언급하였던 Shader 와 데이터 초기화는 아주 간략하게 나마 소스와 내용을 이야기 하였으나<br>
+이번 글에서는 Rendering 과정에 맞춰서 정리해 보고자 합니다.</p>
+<h1 id="gl-rendering-초기화">GL Rendering 초기화</h1>
+<p>처음 진행하는 것은 weggl 에서 화면을 정리하여 새롭게 그릴 준비를 하고, 
+물체의 색상을 선택하기 위해서 앞의 물체와 뒤의 물체중 그릴 물체의 색상을 정하기 위한 작업을 진행합니다.  <br>
+해당 기능을 찾아 보면 여러 option 이 있고, 렌더링 성능의 문제등도 고려 하여야 한다 라고 하지만, 일단 이런 작업이 진행된다 정도로 이해할 수 있을 것 같습니다 .</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">clearColor</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>);  <span style="color:#75715e">// Clear to black, fully opaque
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 		   <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">clearDepth</span>(<span style="color:#ae81ff">1.0</span>);                 <span style="color:#75715e">// Clear everything
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 		   <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">enable</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">DEPTH_TEST</span>);           <span style="color:#75715e">// Enable depth testing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 		   <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">depthFunc</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">LEQUAL</span>);            <span style="color:#75715e">// Near things obscure far things
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> 		   <span style="color:#75715e">// Clear the canvas before we start drawing on it.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> 		   <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">clear</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">COLOR_BUFFER_BIT</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">DEPTH_BUFFER_BIT</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">useProgram</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">program</span>);
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">bindVertexArray</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">vao</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">setUniformValues</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">uLocation</span>, 
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">dataType</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">dataKind</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">dataSize</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">drawElements</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TRIANGLES</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">indexInfos</span>.<span style="color:#a6e22e">indexSize</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">UNSIGNED_INT</span>,<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">bindVertexArray</span>(<span style="color:#66d9ef">null</span>);   <span style="color:#75715e">//  clean item
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">useProgram</span>(<span style="color:#66d9ef">null</span>);    <span style="color:#75715e">//  clean program ( shader combined )
+</span></span></span></code></pre></div><p>gl.useProgram , gl.bindVertexArray 의 함수는 현재 예제의 프로그램과, 설정된 값을 사용하겠다는 의미 입니다.  <br>
+for loop 에서 보시면 앞서 설정한 uniform 의 값을 assign 해주고 있습니다. <br>
+아무런 설정이 없으니, 초기 단위 행렬의 값이라 변화가 없을 것입니다.<br>
+행렬에 들어 있는 내용은 projectionMatrix, viewMatrix, worldMatrix 입니다. <br>
+이 글에서는 먼저 worldMatrix, 다음 projectionMatrix, 그리고 viewMatrix 순서로 간단하게 정리해 보고자 합니다. 
+논리적인 순서는 world, view(camera), projection 순서 이겠지만, 무엇인가 표출되는 것이 필요한 개발자의 속성(?) 때문에 
+위 순서로 정리하려고 합니다.</p>
+<p>gl.drawElement 에서 인덱스로 넘겨준 값을 기준으로 결정된 색상이 출력됩니다. <br>
+위의 코드처럼 진행되면 결과는 빨간색 화면이 나타나게 됩니다.   그 과정을 찾아가 보겠습니다.</p>
+<h3 id="cube-에-저장된-데이터">Cube 에 저장된 데이터</h3>
+<ol>
+<li>위치 정보중 앞면과 뒷면만을 보면 아래와 같습니다.</li>
+</ol>
+<blockquote>
+<p>앞면 ( Front face ) <br>
+-1.0,-1.0,1.0,  1.0,-1.0,1.0,  1.0,1.0,1.0,  -1.0,1.0,1.0, <br>
+뒷면 ( Back face ) <br>
+-1.0,-1.0,-1.0,  -1.0,1.0,-1.0,  1.0,1.0,-1.0,  1.0,-1.0,-1.0, <br>
+-1 ~ 1 사이의 값으로 구성되어 있습니다.    그리고 각 세번째 항목을 살펴보면 앞면은 1 이고 뒷면을 -1 입니다. <br>
+Z 좌표가 중심점 에서 눈앞으로 양수 그 뒤로 음수로 되어 있는 구조 입니다.</p>
+</blockquote>
+<ol start="2">
+<li>색상의 앞과 뒷면의 값입니다.</li>
+</ol>
+<blockquote>
+<p>앞면 ( Front face ) <br>
+[1.0,  1.0,  1.0,  1.0], ( 하얀색 입니다. )
+뒷면 ( Back face ) <br>
+[1.0,  0.0,  0.0,  1.0] ( 빨간색 입니다. )<br>
+각 색상은 0~1 사이의 실수값 입니다. ( float )</p>
+</blockquote>
+<h3 id="저장된-데이터를-아무런-조작없이-출력하면-빨간색이-출력됩니다">저장된 데이터를 아무런 조작없이 출력하면 빨간색이 출력됩니다.</h3>
+<p>앞면이 힌색인데 출력되는 결과는 빨간색입니다.<br>
+뒷면이 출력되고 있습니다.  <br>
+화면전체가 빨간색으로 출력되고 있으니 구별이 되지 않아 일단 물체의 사이즈를 줄여 보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">worldMatrix</span>             <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">viewMatrix</span>              <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">projectionMatrix</span>        <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>);   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#75715e">//  [ 주석 1 ] : x,y,z 모두 0.4 로 축소 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">worldMatrix</span>                 <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeScaleMatrix3D</span>(<span style="color:#ae81ff">0.4</span>,<span style="color:#ae81ff">0.4</span>,<span style="color:#ae81ff">0.4</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#75715e">//  [ 주석 2 ] : x, y 방향으로 45도 변경
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">radian</span>  <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">PI</span><span style="color:#f92672">*</span><span style="color:#ae81ff">45</span><span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>; <span style="color:#75715e">//    Math.PI * 0.25
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">worldMatrix</span>                 <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldMatrix</span>, <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRotateXMatrix3D</span>(<span style="color:#a6e22e">radian</span>));
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">worldMatrix</span>                 <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldMatrix</span>, <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRotateYMatrix3D</span>(<span style="color:#a6e22e">radian</span>));
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">data</span>    <span style="color:#f92672">=</span> <span style="color:#a6e22e">worldMatrix</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">data</span>    <span style="color:#f92672">=</span> <span style="color:#a6e22e">viewMatrix</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">data</span>    <span style="color:#f92672">=</span> <span style="color:#a6e22e">projectionMatrix</span>;                
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">setUniformValues</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">uLocation</span>, 
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">dataType</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">dataKind</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">uniformArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">dataSize</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">drawElements</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TRIANGLES</span>, <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">indexInfos</span>.<span style="color:#a6e22e">indexSize</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">UNSIGNED_INT</span>,<span style="color:#ae81ff">0</span>);
+</span></span></code></pre></div><p>전체화면이 빨간색으로 보이는 것에서 오른쪽 중간의 빨간색으로 사이즈가 줄어 들었습니다.  <br>
+입체감이 전혀 들지 않으니 x 방향과, y 방향으로 45 도 정도 틀어 보겠습니다.<br>
+<img src="/imgs/gl_07_00.png#small" alt="scaleimage">   <img src="/imgs/gl_07_01.png#small" alt="scaleimage">    <img src="/imgs/gl_07_02.png#small" alt="scaleimage"></p>
+<p>위 소스의 주석 1과 주석 2 부분을 순차적으로 적용하면 위 화면과 같은 결과를 얻을 수 있습니다.</p>
+<h3 id="행렬-matrix-javascript">행렬 Matrix Javascript</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>      <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeRotateXMatrix3D</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">theta</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">1</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,	<span style="color:#a6e22e">cv</span>, <span style="color:#f92672">-</span><span style="color:#a6e22e">sv</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#a6e22e">sv</span>,  <span style="color:#a6e22e">cv</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>         ]);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeRotateYMatrix3D</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">theta</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">cv</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#a6e22e">sv</span>,<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,	 <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">-</span><span style="color:#a6e22e">sv</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#a6e22e">cv</span>,<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>         ]);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeRotateZMatrix3D</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">theta</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">cv</span>, <span style="color:#f92672">-</span><span style="color:#a6e22e">sv</span>,   <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sv</span>,  <span style="color:#a6e22e">cv</span>,   <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,   <span style="color:#ae81ff">0</span>,   <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         ]);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeScaleMatrix3D</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">sx</span>, <span style="color:#a6e22e">sy</span>, <span style="color:#a6e22e">sz</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sx</span>, <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">sy</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, 
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">sz</span>,	<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,	<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>         ]);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeTranslateMatrix3D</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">dx</span>, <span style="color:#a6e22e">dy</span>, <span style="color:#a6e22e">dz</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#a6e22e">dx</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#a6e22e">dy</span>, 
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>,  <span style="color:#a6e22e">dz</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">0</span>,	<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>         ]);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span></code></pre></div><h3 id="ndc-좌표">NDC 좌표</h3>
+<p>잠깐 확인해 보았지만,  앞면은 흰색인데, 뒷면의 빨간색이 출력되었습니다. <br>
+화면을 출력하는 마지막 단계에서 모니터의 좌표는 OpenGL 에서 사용하는 오른손 좌표계가 아니라, <br>
+x, y 는 같으나, z 축은 앞면이 -1, 뒤로가면서 +1 의 왼손 좌표계를 사용합니다. <br>
+그래서 해당 좌표를 뒤집어서 표현하여야 합니다. <br>
+물체의 원근법을 적용하는 projection matrix 를 구성할 때 z 좌표만 변경해서 구성하면 정상적인 화면이 <br>
+출력 됩니다. <br>
+Projection 을 구성할 때 시야각(field of view), 종횡비 (aspect), near (출력할 근거리), far( 출력할 원거리 ) 를 기준으로<br>
+화면에 출력할 위치를 만들어 줍니다. <br>
+그런데 cube 의 원래 위치가 -1 ~ 1 사이이기 때문에 z 축을 보정해 주어도 가까운 거리 ( near ) 가 0이상의 값을 사용하게 되고, 
+그렇게 되면 뒷면의 -1 좌표가 보이게 됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>             <span style="color:#75715e">//  [ 주석 2 ] : x, y 방향으로 45도 변경
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">radian</span>  <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">PI</span><span style="color:#f92672">*</span><span style="color:#ae81ff">45</span><span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>; <span style="color:#75715e">//    Math.PI * 0.25
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">worldMatrix</span>                 <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldMatrix</span>, <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRotateXMatrix3D</span>(<span style="color:#a6e22e">radian</span>));
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">worldMatrix</span>                 <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldMatrix</span>, <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRotateYMatrix3D</span>(<span style="color:#a6e22e">radian</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#75715e">//  [ 주석 3 ] : translation 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#75715e">//worldMatrix = TypedMatrixUtils.multiplyMatrix(worldMatrix,TypedMatrixUtils.makeTranslateMatrix3D(0,0,-10));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">worldMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeTranslateMatrix3D</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>), <span style="color:#a6e22e">worldMatrix</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#75715e">//  [ 주석 4 ] : projection 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             <span style="color:#a6e22e">projectionMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makePerspectiveMatrix</span>(<span style="color:#ae81ff">48</span><span style="color:#f92672">*</span>Math.<span style="color:#a6e22e">PI</span><span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span>, <span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">1000</span>);
+</span></span></code></pre></div><p>화면은 빨간색 , 하얀색,  입체 순으로 나타나는데 이번 주석은 4번만 적용했을 때 빨간색이 나타납니다.<br>
+3번 주석 내용을 실행하면 하얀색 화면이 나타나고, 2번 주석까지 실행하면 입체가 나타납니다. <br>
+<img src="/imgs/gl_07_00.png#small" alt="scaleimage">   <img src="/imgs/gl_07_03.png#small" alt="scaleimage">    <img src="/imgs/gl_07_04.png#small" alt="scaleimage"></p>
+<h3 id="projecion-행렬-입니다">Projecion 행렬 입니다.</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cot</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>Math.<span style="color:#a6e22e">tan</span>(<span style="color:#a6e22e">v</span>);
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makePerspectiveMatrix</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">fovy</span>, <span style="color:#a6e22e">aspect</span>, <span style="color:#a6e22e">near</span>, <span style="color:#a6e22e">far</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cot</span>(<span style="color:#a6e22e">fovy</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">nf</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> (<span style="color:#a6e22e">near</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">far</span>);
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">cv</span><span style="color:#f92672">/</span><span style="color:#a6e22e">aspect</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">cv</span>, <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span>((<span style="color:#a6e22e">far</span><span style="color:#f92672">+</span><span style="color:#a6e22e">near</span>)<span style="color:#f92672">/</span>(<span style="color:#a6e22e">far</span><span style="color:#f92672">-</span><span style="color:#a6e22e">near</span>)), <span style="color:#f92672">-</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">near</span><span style="color:#f92672">*</span><span style="color:#a6e22e">far</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">far</span><span style="color:#f92672">-</span><span style="color:#a6e22e">near</span>)), 
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>      ]);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span></code></pre></div><h3 id="기타">기타</h3>
+<p>Open GL ( WebGL ) 에서는 열백터를 사용합니다. <br>
+데이터를 Float32Array 로 구성하는 과정에서 가로의 순서대로 데이터를 넘기면 행렬 계산에서 의도한 데로 결과가 
+나타나지 않는 현상에 마주치게 됩니다. <br>
+다행히 uniform matrix 를 webgl 로 구성할 때 transpose option 이 있어 이를 true 로 구성하면 가로 순서로 입력된 
+내용이 정상적으로 출력 되는 것을 확인하였습니다. ( 당연하겠지요 .. 순서를 변경했으니요 &hellip; )<br>
+그래서 일단 정리를 위한 모듈은 일반적인 행렬을 설명하는 방식으로 모듈을 구성해 보았습니다. <br>
+transpose true 가 연산에서 그리 큰 성능저하를 보이지는 않을 것 같습니다.  ^^</p>
+<p>행렬의 회전은 삼각함수에서 간단히 다뤄 보았기 때문에 여기서는 언급하지 않았습니다. ^^</p>
+<p>실행 결과는 <a href="/html/WebGL_PART_007_01.html">이곳</a> 에서 확인 할 수 있습니다.</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebmodule%2fwebgl_part_007%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebmodule%2fwebgl_part_007%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebmodule%2fwebgl_part_007%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebmodule%2fwebgl_part_007%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebmodule%2fwebgl_part_007%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebmodule%2fwebgl_part_007%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/webmodule/webgl_part_006/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/webmodule/webgl_part_006/">WebGL2 - Program 시작 02 [ 06 ]</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/math/trigonometric_001/">Canvas 를 이용한 삼각함수 이해 01</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/math/trigonometric_001/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+

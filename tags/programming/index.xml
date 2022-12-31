@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sat, 24 Dec 2022 20:05:10 +0900</lastBuildDate><atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 21:59:21 +0900</lastBuildDate><atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL2 - Program 시작 03 [ 07 ]</title>
+      <link>/post/webmodule/webgl_part_007/</link>
+      <pubDate>Mon, 26 Dec 2022 21:59:21 +0900</pubDate>
+      
+      <guid>/post/webmodule/webgl_part_007/</guid>
+      <description>프로그램 Rendeing 과정 앞서 WebGL 사용 방법에 대해 간단히 정리해 보았습니다. 다시 한번 정리하면
+canvas 객체를 구성합니다. GL 객체를 가져옵니다. ( Canvas 를 통해 webgl2 를 가져옵니다. ) GLSL Shader 소스(문자열) 을 Vertex Shader, Fragment Shader 를 구성합니다. Shader Program 을 각각 만들어 두개의 쌍을 사용할 GL Program 을 만들고 Compile 합니다. 일반적으로 프로그램 소스를 구성해서 Compile 하는 것과 유사한 흐름 입니다.
+당연히 프로그램을 구성할 때 사용한 소스에서 정의한 input 과 output 규칙은 따라야 합니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Program 시작 02 [ 06 ]</title>
       <link>/post/webmodule/webgl_part_006/</link>

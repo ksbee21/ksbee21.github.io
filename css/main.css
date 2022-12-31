@@ -5,5 +5,16 @@
     border : 0px solid black;
     padding : 0px;
     margin : 0px;
-    background-color: red;
+    background-color: green;
+}
+
+.sampleSmallImgs {
+    width : 200px;
+    height : 200px;
+}
+
+img[src$='#small']
+{
+    width : 200px;
+    height : 200px;
 }
