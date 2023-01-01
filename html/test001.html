@@ -65,6 +65,10 @@
         ]);
         m6.rows = 3;
         m6.cols = 1;
+
+        alert ( "RT \n" +  TypedMatrixUtils.printArrayValues(TypedMatrixUtils.multiplyMatrix(m7, m5)));
+        alert ( "TR \n" +  TypedMatrixUtils.printArrayValues(TypedMatrixUtils.multiplyMatrix(m5, m7)));        
+
         let m4 = TypedMatrixUtils.multiplyMatrix(m5,m6);
         m4 = TypedMatrixUtils.multiplyMatrix(m7,m4);   
         
@@ -81,6 +85,13 @@
 
         const vv = TypedMatrixUtils.makeTriangleNormals(av, bv, cv);
         alert ( vv );
+
+
+        const eye = [0, 0, 10];
+        const at = [0, 2, 1];
+        const up = [0, 1, 0];
+
+        TypedMatrixUtils.makeCameraMatrix3D(eye, at, up);
 
 
     </script>

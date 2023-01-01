@@ -7,11 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Wed, 28 Dec 2022 22:59:31 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Jan 2023 14:12:44 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Canvas</title>
       <link>/tags/canvas/</link>
-      <pubDate>Wed, 28 Dec 2022 22:59:31 +0900</pubDate>
+      <pubDate>Sun, 01 Jan 2023 14:12:44 +0900</pubDate>
       
       <guid>/tags/canvas/</guid>
       <description></description>
@@ -20,9 +20,27 @@
     <item>
       <title>Javascript</title>
       <link>/tags/javascript/</link>
-      <pubDate>Wed, 28 Dec 2022 22:59:31 +0900</pubDate>
+      <pubDate>Sun, 01 Jan 2023 14:12:44 +0900</pubDate>
       
       <guid>/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Language</title>
+      <link>/tags/language/</link>
+      <pubDate>Sun, 01 Jan 2023 14:12:44 +0900</pubDate>
+      
+      <guid>/tags/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>/tags/web/</link>
+      <pubDate>Sun, 01 Jan 2023 14:12:44 +0900</pubDate>
+      
+      <guid>/tags/web/</guid>
       <description></description>
     </item>
     
@@ -36,29 +54,11 @@
     </item>
     
     <item>
-      <title>Web</title>
-      <link>/tags/web/</link>
-      <pubDate>Wed, 28 Dec 2022 22:59:31 +0900</pubDate>
-      
-      <guid>/tags/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>삼각함수</title>
       <link>/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98/</link>
       <pubDate>Wed, 28 Dec 2022 22:59:31 +0900</pubDate>
       
       <guid>/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Language</title>
-      <link>/tags/language/</link>
-      <pubDate>Mon, 26 Dec 2022 21:59:21 +0900</pubDate>
-      
-      <guid>/tags/language/</guid>
       <description></description>
     </item>
     

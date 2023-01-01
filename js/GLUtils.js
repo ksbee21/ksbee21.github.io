@@ -1,6 +1,6 @@
 
 export const makeCanvasObject = (idValue, parentObj) => {
-    const canvasObj = document.getElementById(idValue);
+    let canvasObj = document.getElementById(idValue);
     if ( !canvasObj ) {
         canvasObj = document.createElement("CANVAS");
         canvasObj.setAttribute("id", idValue);

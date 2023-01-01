@@ -491,6 +491,59 @@
         return result;
 	};
 
+    export const makeCameraMatrix3D = ( eye, at, up ) => {
+        //  z 축의 방향 at 에서 eye 방향으로 설정
+        let nObj = makeNormalizeVector( makeVectorMinusValues(eye,at) );
+
+        //  n(z) vector 에서 up 으로 진행 u(x) vector 를 구함 cross product 는 두 벡터 평면에 수직
+        let uObj = makeNormalizeVector( makeVectorCrossProductValues(up, nObj));
+
+        //  u(x) 에서 n(z) 축 방향으로 cross product v(y) 방향 vector 를 구함
+        //  이미 normalize 된 수직인 두 벡터의 cross product 결과는 normalize 된 벡터 
+        let vObj = makeVectorCrossProductValues(nObj,uObj);
+
+        //  world 공간의 원점을 통합하기 위해서 translate 이후 rotation 진행
+        //  translate 는 eye 값을 -부호 붙이값 
+        //  rotation 은 u, v, n 의 transpose 값으로 얻음
+        const translate = makeTranslateMatrix3D(-eye[0], -eye[1], -eye[2]) ;
+        const rotate = new Float32Array([
+            uObj[0], uObj[1], uObj[2], 0,
+            vObj[0], vObj[1], vObj[2], 0,
+            nObj[0], nObj[1], nObj[2], 0,
+            0, 0, 0, 1            
+        ]);
+        rotate.rows = 4;
+        rotate.cols = 4;
+
+        const result = multiplyMatrix(rotate, translate);
+        //const result = multiplyMatrix(translate, rotate);        
+
+        console.log ( result );
+        return result;
+    };
+
+
+	function lookupCameraMatrix(eye,at,up) {
+		let nObj = makeMinusVectors(eye,at);
+		nObj = makeNormalizeVector(nObj);
+		nObj.push(0);
+		let uObj = makeCrossProductVectors(up,nObj);
+		uObj = makeNormalizeVector(uObj);
+		uObj.push(0);
+		let vObj = makeCrossProductVectors(nObj,uObj);
+		vObj.push(0);
+
+		let trm = makeTranslateMatrix3D(-eye[0], -eye[1], -eye[2]);
+//		alert ( makeRowVectorFromColumn(at,1) );
+//		trm = multiplyFn(trm,makeRowVectorFromColumn(at,1));
+		let uvn = [uObj,vObj,nObj,[0,0,0,1]];
+
+//		alert ("mmm " + uvn + "\n" + trm );
+
+		return makeRoundValues(multiplyFn(uvn,trm));
+	}
+
+
 
 
 

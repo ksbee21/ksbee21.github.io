@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+
+    <p>
+        <a href="/post/webcanvas/web_canvas_001/">돌아가기(Back)</a>
+    </p>
+    
+
+    <script type="module">
+        import * as CanvasUtils from "/js/CanvasUtils.js";
+
+		//	Object.assign({}, source); 
+		//	IE NOT WORKING ....
+		function getDefaultOptions() {
+			var obj = {
+				strokeStyle : "#000000",
+				fillStyle : "#000000",
+				lineWidth : 2, 
+				lineCap : 'round',
+				joinCap : 'round',
+			};
+			return obj;
+		}
+
+
+        function setCurrentOptions(ctx, sOptions) {
+			if ( !ctx ) {
+				return;
+			}
+			if ( !sOptions ) {
+				return;
+			}
+
+			ctx.strokeStyle = sOptions.strokeStyle;
+			ctx.lineWidth = sOptions.lineWidth;
+			ctx.fillStyle = sOptions.fillStyle;
+			ctx.lineCap = sOptions.lineCap ? sOptions.lineCap : 'round';
+			ctx.joinCap = sOptions.joinCap ? sOptions.joinCap : 'round';
+		}
+
+
+
+        function drawArrowPoints(ctx, tx, ty, radians,pw,ph,sOptions ) {
+			ctx.save();
+			setCurrentOptions(ctx, sOptions);
+			ctx.beginPath();
+			ctx.translate(tx,ty);
+			ctx.rotate(radians);
+			ctx.moveTo(ph/2,0);
+			ctx.lineTo(-ph/2,-pw/2);
+			ctx.lineTo(-ph/2,pw/2);
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+			ctx.restore();
+		}
+
+
+		function drawClockSecond(ctx, cx, cy, radious ,now, sOptions) {
+			ctx.save();
+			setCurrentOptions(ctx, sOptions);
+			
+			let s = now.getSeconds();
+			let rd = ((s-15)*Math.PI*6)/180;
+			let tx = Math.cos(rd)*radious+cx
+			let ty = Math.sin(rd)*radious+cy;
+
+			ctx.beginPath();
+			ctx.moveTo(cx,cy);
+			ctx.lineTo(tx,ty);
+			ctx.stroke();
+			ctx.closePath();
+
+			if ( !sOptions ) {
+				sOptions = getDefaultOptions();
+			}
+			sOptions.strokeStyle = "blue";
+			sOptions.fillStyle = "#008080";
+			sOptions.lineWidth = 1;
+			sOptions.lineCap = 'butt';
+			sOptions.joinCap = 'butt';
+			drawArrowPoints(ctx, tx,ty, rd, 6,12, sOptions);
+			ctx.restore();
+		}
+
+		function drawClockMinute(ctx, cx, cy, radious , now, sOptions) {
+			ctx.save();
+
+			setCurrentOptions(ctx, sOptions);
+			let s = now.getSeconds();
+
+			let m = now.getMinutes();
+			let rd = ((m-15)*6+s/10)*Math.PI/180;
+			let tx = Math.cos(rd)*radious+cx
+			let ty = Math.sin(rd)*radious+cy;
+
+
+			ctx.beginPath();
+			ctx.moveTo(cx,cy);
+			ctx.lineTo(tx,ty);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.restore();
+		}
+
+		function drawClockHour(ctx, cx, cy, radious , now, sOptions) {
+			ctx.save();
+
+			setCurrentOptions(ctx, sOptions);
+			let s = now.getSeconds();
+
+			let m = now.getMinutes();
+			let h = now.getHours();
+			let rd = (((h-3))*30+m/2+s/120)*Math.PI/180;
+			let tx = Math.cos(rd)*radious+cx
+			let ty = Math.sin(rd)*radious+cy;
+
+			ctx.beginPath();
+			ctx.moveTo(cx,cy);
+			ctx.lineTo(tx,ty);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.lineWidth = 2;
+			ctx.fillStyle = "#00FFFF";
+			ctx.strokeStyle = "#0000FF";
+
+			ctx.beginPath();
+			ctx.arc(cx,cy,6,0,Math.PI*2);
+			ctx.fill();
+
+			ctx.closePath();
+
+			ctx.beginPath();
+
+			ctx.arc(cx,cy,6,0,Math.PI*2);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.restore();
+		}
+
+		function drawClockLayers(ctx,cx,cy,radious, sOptions ) {
+			ctx.save();
+			ctx.beginPath();
+			setCurrentOptions(ctx, sOptions);
+			ctx.arc(cx,cy,radious,0, Math.PI*2);
+			ctx.stroke();
+			ctx.closePath();
+			ctx.restore();
+		}
+
+		function drawClockTextArea(ctx, cx, cy, txtRadious, markRadious, innerLineWidth ) {
+			ctx.save();
+			ctx.beginPath();
+			ctx.font = "12px consolas";
+			ctx.textAlign = "center";
+			ctx.textBaseline = "middle";
+			ctx.lineCap = "butt";
+			ctx.lineWidth = 1;
+			ctx.beginPath();
+			for ( let i = 0 ; i < 12 ; i++ ) {
+				ctx.lineWidth = 1;
+				ctx.strokeStyle = "#000080";
+				let rd = i*Math.PI/6;
+				let tx = txtRadious*Math.cos(rd)+cx;
+				let ty = txtRadious*Math.sin(rd)+cy;
+				let numStr = ((3+i)%12);
+				if ( numStr == 0 ) {
+					numStr = 12;
+				}
+				ctx.strokeText(numStr, tx,ty);
+
+				ctx.lineWidth = 2;
+				ctx.strokeStyle = "#00FFFF";
+
+				let tsx = (markRadious)*Math.cos(rd)+cx;
+				let tex = (markRadious+innerLineWidth)*Math.cos(rd)+cx;
+
+				let tsy = (markRadious)*Math.sin(rd)+cy;
+				let tey = (markRadious+innerLineWidth)*Math.sin(rd)+cy;
+				
+				ctx.moveTo(tsx,tsy);
+				ctx.lineTo(tex,tey);
+				ctx.stroke();
+			}
+			ctx.closePath();
+			ctx.restore();
+		}
+
+
+        function makeClocks(ctx, cw, ch, radious) {
+			let cx = cw/2;
+			let cy = ch/2;
+
+			ctx.clearRect(0,0,cw,ch);
+			var innerLineWidth = 12;
+			var outerLineWidth = 4;
+			var sOptions = getDefaultOptions();
+			sOptions.strokeStyle = "#008080";
+			sOptions.lineWidth = innerLineWidth;
+			drawClockLayers(ctx, cx, cy, radious, sOptions);
+
+			sOptions.lineWidth = outerLineWidth;
+			sOptions.strokeStyle = "#000080";
+			drawClockLayers(ctx, cx, cy, (radious+innerLineWidth/2+outerLineWidth+1), sOptions);
+
+			var markRadious = radious-innerLineWidth/2;
+			var txtRadious = markRadious-8;
+
+			drawClockTextArea(ctx, cx,cy, txtRadious, markRadious, innerLineWidth);
+
+			var now = new Date();
+			sOptions.strokeStyle = "#008080";
+			sOptions.lineCap = 'butt';
+			sOptions.joinCap = 'butt';
+			sOptions.lineWidth = 2;
+			drawClockSecond(ctx, cx, cy, txtRadious-4, now, sOptions);
+			sOptions.strokeStyle = "#000080";
+			sOptions.lineWidth = 4;
+			drawClockMinute(ctx, cx, cy, txtRadious-8, now, sOptions);
+			sOptions.strokeStyle = "#000080";
+			sOptions.lineWidth = 8;
+			drawClockHour(ctx, cx, cy, txtRadious-12, now, sOptions);
+		}
+
+        function main() {
+            const width = 500;
+            const height = 500;
+            const canvas = CanvasUtils.makeCanvasObject("testID", undefined, width, height);
+            const ctx = canvas.getContext("2d");
+
+            function setRepeatClocks(time) {
+                makeClocks(ctx, width, height, 200);
+                requestAnimationFrame(setRepeatClocks);
+            }
+            requestAnimationFrame(setRepeatClocks);
+        }
+
+        main();
+
+    </script>
+</body>
+</html>
