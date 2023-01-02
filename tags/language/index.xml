@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sun, 01 Jan 2023 14:12:44 +0900</lastBuildDate><atom:link href="/tags/language/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Jan 2023 21:08:32 +0900</lastBuildDate><atom:link href="/tags/language/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Web_Canvas 기반 도형 맞추기 Game 01</title>
+      <link>/post/webcanvas/web_canvas_002/</link>
+      <pubDate>Sun, 01 Jan 2023 21:08:32 +0900</pubDate>
+      
+      <guid>/post/webcanvas/web_canvas_002/</guid>
+      <description>Canvas 만들고자 하는 Game 은? HTML5 가 도입되면서, 정확히는 canvas 가 기술 표준으로 정해지면서, Web 에서 구성할 수 있는 Application 같은 프로그램을 만들 가능성이 많이 높아진것 같습니다. 하지만, 표(Table 같은 Grid) 와 이미지 정렬, Text 정보 등을 기반으로 하는 업무 시스템에서는 Canvas 와 같은 기술은 그렇게 많이 활용되지는 못하고 있는것 같습니다. 그나마, Chart 등에서 SVG 에서 Canvas 로 점차 기술적인 전환이 이뤄지고 있지만, 아직도 많은 시스템에서는 활용하지 있지 않은것도 사실입니다.</description>
+    </item>
+    
     <item>
       <title>Html Canvas 로 그려본 아날로그 시계</title>
       <link>/post/webcanvas/web_canvas_001/</link>

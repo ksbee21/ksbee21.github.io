@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Canvas 테트리스 도형구성하기 ">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>Web_Canvas 기반 도형 맞추기 Game 01 &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Web_Canvas 기반 도형 맞추기 Game 01</h1>
+  <h2>Canvas 테트리스 도형구성하기 </h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 01. 01, 21:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/javascript">Javascript</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="canvas-만들고자-하는-game-은">Canvas 만들고자 하는 Game 은?</h1>
+<p>HTML5 가 도입되면서, 정확히는 canvas 가 기술 표준으로 정해지면서, Web 에서 구성할 수 있는 Application 같은 프로그램을 만들 가능성이 많이 높아진것 같습니다. <br>
+하지만, 표(Table 같은 Grid) 와 이미지 정렬, Text 정보 등을 기반으로 하는 업무 시스템에서는 Canvas 와 같은 기술은 
+그렇게 많이 활용되지는 못하고 있는것 같습니다. <br>
+그나마, Chart 등에서 SVG 에서 Canvas 로 점차 기술적인 전환이 이뤄지고 있지만, 아직도 많은 시스템에서는 활용하지 있지 않은것도 사실입니다.</p>
+<p>그렇지만 점차 Web 에서 간간히 이미지 처리, 간단한 게임등을 개발하고자 하는 필요성이 발생하고 있고, Chart 중 3D Rendering 이 필요한 곳에서는 
+Canvas WebGL 이 사용되기도 하는것 같습니다.</p>
+<p>Canvas로 조금 재미있는 것을 찾아보다가, 도형 맞추기 게임을 벤치 마킹해서 Web 으로 간단한 Prototype Game을 만들어 볼까 합니다. <br>
+개인적으로 Game 이 익숙한 분야는 아니기 때문에, Sound 등 기타 내용은 모두 생략하고, 구현의 핵심만 Canvas로 만들어 보겠습니다.     <br>
+코드가 길어 질 수 있어서 2개의 챕터로 구분해서 구현해 보도록 하겠습니다.</p>
+<p>첫번째는 UI 구성이고, 다음은 Event 처리및 Game Logic 입니다. <br>
+편의상 나눈 것이고, 아마도 정리해서 글을 쓰다 보면 중복되지 않을까 합니다.  ^^</p>
+<p><a href="/html/WebCanvas/Web_Canvas_002_01.html">다음주소</a> 에서 확인해 보실 수 있습니다.</p>
+<h1 id="canvas-layer-구성">Canvas Layer 구성</h1>
+<h3 id="layer-란-">Layer 란 ?</h3>
+<h4 id="1-canvas-데이터-구조">1. Canvas 데이터 구조</h4>
+<p>화면에 항상 보여야 하는 부분이 있고, 사용자의 Action 을 받아들이고 변경해야 하는 영역이 있을 수 있습니다. <br>
+더 복잡한 Game 에서는 이런 Layer 를 잘게 구분해서 필요한 영역만 갱신하는 구조면 아무래도 성능면에서 이점이 있을 것 같습니다. <br>
+지금 만들고자 하는 Game은 그리 복잡한 내용이 아니기 때문에 두개의 Canvas Layer 를 구성해서 구현해 보려고 합니다.</p>
+<p>그때 그때 참조하여야 하기 때문에 json 구조의 자료구조를 활요합니다.   class 나 function 구조로 구성해도 괜찮을 것 같지만,<br>
+핵심 구현 로직에만 집중하도록 하겠습니다.<br>
+여기서는 아래와 같은 자료 구조를 만들어 사용하도록 하겠습니다.  <br>
+baseCanvas, activeCanvas 의 두개 Layer 로 구성할 예정 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">canvasInfos</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">baseCanvas</span> <span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">activeCanvas</span> <span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">fullWidth</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">fullHeight</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">cellSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">30</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">columnSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">12</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">rowSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">12</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">startX</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">startY</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">strokeStyles</span> <span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;#AFAFAF&#39;</span>, <span style="color:#e6db74">&#39;#AFAFAF&#39;</span>],
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">fillStyles</span> <span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;#EFEFEF&#39;</span>,<span style="color:#e6db74">&#39;#FEFEFE&#39;</span>],
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">markStartX</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">markStartY</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">points</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>      };
+</span></span></code></pre></div><h4 id="2-어떻게-구성할까요">2. 어떻게 구성할까요?</h4>
+<p>처음 화면이 로딩하는 시점에 두개의 canvas 생성합니다. <br>
+canvas 는 default 가 투명하기 때문에 같은 위치에 포개어 겹쳐 놓습니다.(z index 를 명시적으로 사용할 수도 있고, 동일 객체에 포개는 순서에 의해  Active canvas 를 구분할 수 도 있습니다. )   <br>
+위에 놓인 객체만 Event 를 받아 들이기 때문에 아래에 있는 canvas 는 필요할 때 배경을 그리는 용도로 사용할 수 있습니다.</p>
+<p>조금 복잡한 시스템이라면, Event Handling 을 위한 전용 Layer 도 생각해 볼 수 있지만, 현재 구현하고자 하는 시스템에서는<br>
+이 정도로 구성하여도 크게 문제가 되지 않을것 같습니다. <br>
+앞에 구성된 자료 구조에 로딩한 시점에 생성한 객체를 할당 합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">initBaseSizeUI</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gap</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">innerWidth</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">innerHeight</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">outerDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;outerDiv&#34;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">outerDiv</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">outerDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">outerDiv</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;outerDiv&#34;</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">outerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">w</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gap</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">outerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">h</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gap</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">outerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">margin</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">outerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">padding</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">outerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">border</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gap</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;px solid black&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">outerDiv</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">layerDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;myDiv&#34;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">layerDiv</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">layerDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;myDiv&#34;</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">w</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gap</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">h</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gap</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">margin</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">padding</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">border</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0px solid black&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">position</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;relative&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">outerDiv</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">layerDiv</span>);
+</span></span><span style="display:flex;"><span>      window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;resize&#34;</span>, <span style="color:#a6e22e">initBaseSizeUI</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cw</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">clientWidth</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">clientHeight</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">baseCanvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;baseCanvas&#34;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">baseCanvas</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">baseCanvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;canvas&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;baseCanvas&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">baseContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#34;2d&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseCanvas</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseContext</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">baseCanvas</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">activeCanvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;activeCanvas&#34;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">activeCanvas</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">activeCanvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;canvas&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;id&#34;</span>,<span style="color:#e6db74">&#34;activeCanvas&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">position</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;absolute&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">top</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">activeContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#34;2d&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">activeCanvas</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">activeContext</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">layerDiv</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">activeCanvas</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cw</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ch</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cw</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ch</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cw</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ch</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;px&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cw</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ch</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">fullWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cw</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">fullHeight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ch</span>;
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startX</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">cw</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">columnSize</span>))<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startY</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">ch</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">rowSize</span>))<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">baseH</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startY</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">rowSize</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">baseH</span> <span style="color:#f92672">+=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">ch</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">baseH</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">markStartX</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">cw</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span><span style="color:#f92672">+</span><span style="color:#ae81ff">30</span>))<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">markStartY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseH</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">drawBaseCanvasUI</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">makeCanvasInfoValues</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">layerDiv</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span></code></pre></div><p>위 소스는 전체 사이즈를 알아와서, Border 의 크기만큼 축소된 Div 를 만들고, 그 안에 다시 div layer 를 구성해서, 2개이 canvas 객체를 만들어서 포개는 방식으로 진행한 것을 확인할 수 있습니다. <br>
+dhtml 에 관한 부분은 기회가 될 때 정리해 보도록 하겠습니다. <br>
+Canvas 에서 격자를 출력할 위치를 표현할 cell 크기와 갯수를 기준으로 표현할 위치를 구성 합니다 .</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startX</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">cw</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">columnSize</span>))<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startY</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">ch</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">rowSize</span>))<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span></code></pre></div><p>사용자가 선택할 항목과 그 이벤트를 감지하기 위한 위치를 구성합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">baseH</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startY</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">rowSize</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">baseH</span> <span style="color:#f92672">+=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">ch</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">baseH</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">markStartX</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>((<span style="color:#a6e22e">cw</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span><span style="color:#f92672">+</span><span style="color:#ae81ff">30</span>))<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">markStartY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">baseH</span>;
+</span></span></code></pre></div><h1 id="도형-cell-ui-구성">도형 Cell UI 구성</h1>
+<p>전체적으로 기본 구조와 Canvas 객체를 만들어 적재하였다면, 이제 구체적으로 도형을 그리는 작업을 진행합니다. <br>
+도형을 그리는 방법은 구성에 따라 천차만별이지만,  이 소스에서는 격자(Matrix)를 구성하고, 그 격자에 true, false 값을 주어 
+true 일때 cell 을 칠하고 그렇지 않을 때 그리지 않는 방법으로 구성하였습니다. <br>
+사용할 수 있는 도형 종류는 만들기 나름이지만, 50개 정도 입니다.</p>
+<p><img src="/imgs/shape_01.png" alt="shape"></p>
+<h4 id="도형을-구성하는-항목을-구성하는-소스-입니다">도형을 구성하는 항목을 구성하는 소스 입니다.</h4>
+<p>배열에서 true, false 로 출력 여부를 확인합니다.   <br>
+첫번째 항목을 보면, [true, true, true], [true, true, true], [true, true, true] 로 첫번째 모든게 그려진 도형 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getShapeTypeArray</span>(<span style="color:#a6e22e">typeNum</span>) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">switch</span>(<span style="color:#a6e22e">typeNum</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [[<span style="color:#66d9ef">true</span>]];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;	
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">7</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;							
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">9</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">11</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">12</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">13</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">14</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">15</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">16</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">17</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">18</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">19</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">20</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">21</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">22</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">23</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">24</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">25</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">27</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">28</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">29</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">30</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">31</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">32</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">33</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">34</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">35</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">36</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">37</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">38</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">39</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">41</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">42</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">43</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">44</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">45</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">46</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">48</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">49</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">50</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">default</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">shapeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],
+</span></span><span style="display:flex;"><span>                                 [<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>]
+</span></span><span style="display:flex;"><span>                             ];
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">shapeArray</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><h4 id="도형을-그리는-함수-입니다">도형을 그리는 함수 입니다.</h4>
+<p>위의 도형을 그리는 함수 입니다. <br>
+예상하셨겠지만, canvas 에서 cell 크기 만큼 그려 주고 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawCell</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">h</span>) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">beginPath</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillRect</span>(<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>,<span style="color:#a6e22e">w</span>,<span style="color:#a6e22e">h</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">strokeRect</span>(<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>,<span style="color:#a6e22e">w</span>,<span style="color:#a6e22e">h</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">closePath</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawCells</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">disArray</span>,<span style="color:#a6e22e">strokeStyle</span>,<span style="color:#a6e22e">fillStyle</span>,<span style="color:#a6e22e">lineWidth</span>) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">save</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">strokeStyle</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">strokeStyle</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">fillStyle</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fillStyle</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">lineWidth</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">lineWidth</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">disArray</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">disArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">r</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">disArray</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">c</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">disArray</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>] ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">drawCell</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">size</span><span style="color:#f92672">*</span><span style="color:#a6e22e">j</span>,<span style="color:#a6e22e">y</span><span style="color:#f92672">+</span><span style="color:#a6e22e">size</span><span style="color:#f92672">*</span><span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">size</span>);
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">restore</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><h1 id="game-ui-구성">Game UI 구성.</h1>
+<p>이제 UI 는 게임판과, 사용자가 선택할 도형을 random 하게 나오도록 구성하면 
+UI 에서 할 수 있는 것은 대략 완성된 상태가 될 것입니다. <br>
+물론 점수판등 정말 Game으로 구성하기 위해 필요한 부분은 훨씬 더 많지만, 이번 모듈에서는 
+다루지 않을 주제 이기 때문에 이정도로 UI 구성은 완료할 예정 입니다.</p>
+<p><img src="/imgs/shape_02.png" alt="Game Board"></p>
+<h4 id="game-판-구성">Game 판 구성</h4>
+<p>Game 에서 사용자가 Drag 해서 도형을 맞출 판을 구성합니다. <br>
+사용자의 Event 가 진행중일 때 이미 그려진 상태를 유지 할 것이기 때문에  밑에 배경처럼 보이도록 baseCanvas 에서 그림을 그려줍니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawBaseCanvasUI</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">canvas</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">baseCanvas</span>.<span style="color:#a6e22e">ctx</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startX</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">startY</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">columnSize</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">rowSize</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">clearRect</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">save</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">remakeFlag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">isCompleted</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">remakeFlag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">isCompleted</span>  ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">push</span>([]);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">i</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> ) { 
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">idx</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">j</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">idx</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">strokeStyles</span>[<span style="color:#a6e22e">idx</span>];
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">fillStyles</span>[<span style="color:#a6e22e">idx</span>];
+</span></span><span style="display:flex;"><span>                     
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">strokeStyle</span>;
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fillStyle</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">px</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sx</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">py</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sy</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#a6e22e">size</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">isCompleted</span>  ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">px</span>;
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">py</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isOver</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">save</span>();
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> 	<span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">strokeStyles</span>[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">fillStyles</span>[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">drawCell</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">px</span>,<span style="color:#a6e22e">py</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">size</span>);
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">restore</span>();
+</span></span><span style="display:flex;"><span>                     } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isFilled</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">save</span>();
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> 	<span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">strokeStyles</span>[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">fillStyles</span>[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">drawCell</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">px</span>,<span style="color:#a6e22e">py</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">size</span>);
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">restore</span>();
+</span></span><span style="display:flex;"><span>                     } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                         <span style="color:#a6e22e">drawCell</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">px</span>,<span style="color:#a6e22e">py</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">size</span>);
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                 } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">makeCellPosition</span>(<span style="color:#a6e22e">px</span>,<span style="color:#a6e22e">py</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">size</span>,<span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>));
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">drawCell</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">px</span>,<span style="color:#a6e22e">py</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">size</span>);
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">isCompleted</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">restore</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><p>위 소스를 보면 gameMatrixInfos 가 사용되고 있습니다.<br>
+초기화 하면서 빈 값을 입력하고 있습니다.    나중에 사용자가 drag &amp; drop 으로 데이터를 채워 넣으면 넣은데로 그려줄 예정 입니다. 
+그리는 함수는 그리는 역활만 충실히 수행합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gameMatrixInfos</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">makeCellPosition</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>,<span style="color:#a6e22e">w</span>,<span style="color:#a6e22e">h</span>,<span style="color:#a6e22e">fill</span>,<span style="color:#a6e22e">over</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">x</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">x</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">y</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">y</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">w</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">w</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">h</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">h</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fill</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">isOver</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">over</span>,
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">isCompleted</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">strokeStyles</span> <span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;#FEFEFE&#39;</span>, <span style="color:#e6db74">&#39;#FEFEFE&#39;</span>, <span style="color:#e6db74">&#39;#FF00FF&#39;</span>],
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">fillStyles</span> <span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;#777777&#39;</span>,<span style="color:#e6db74">&#39;#000080&#39;</span>,<span style="color:#e6db74">&#39;#77FE77&#39;</span>],
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><h4 id="사용자가-선택할-도형-random-구성">사용자가 선택할 도형 Random 구성</h4>
+<p>시스템은 사용자가 도형을 선택 할 수 있도록 random 하게 그려 줘야 합니다. <br>
+그 역활을 구성하는 UI 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">makeCanvasInfoValues</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">ctx</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">clearRect</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">save</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">round</span>(Math.<span style="color:#a6e22e">random</span>()<span style="color:#f92672">*</span><span style="color:#ae81ff">49</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">160</span><span style="color:#f92672">*</span><span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">markStartX</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">markStartY</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">typeArray</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getShapeTypeArray</span>(<span style="color:#a6e22e">type</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">push</span> ( <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">makeCellPosition</span>(<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">type</span>,<span style="color:#a6e22e">typeArray</span>, <span style="color:#66d9ef">false</span>,<span style="color:#66d9ef">false</span>) );
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#000080&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">drawCells</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">strokeStyle</span>, <span style="color:#a6e22e">fillStyle</span>);
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">restore</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><p>사용자 Event 를 받아 들여야 하기 때문에 activeCanvas 인 위에 있는 canvas 에 그림을 그려 줍니다. <br>
+무엇을 선택하였는지 확인하여야 하기 때문에 gameSelectedInfos 자료형을 사용하고 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gameSelectedInfos</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">makeCellPosition</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">y</span>,<span style="color:#a6e22e">w</span>,<span style="color:#a6e22e">h</span>,<span style="color:#a6e22e">type</span>,<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">moved</span>,<span style="color:#a6e22e">matched</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">x</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">x</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">y</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">y</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">w</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">w</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">h</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">h</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">type</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">type</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">typeArray</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">typeArray</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">movedX</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">movedY</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">moved</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">moved</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">matched</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">matched</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">selected</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">moveStartX</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">moveStartY</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">isUsed</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">isCompleted</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">whichSelected</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cx</span>,<span style="color:#a6e22e">cy</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">len</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">isUsed</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tArray</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">typeArray</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tx</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">ty</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tSize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">w</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">cx</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">tx</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">ty</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">cy</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">tArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">tArray</span>[<span style="color:#a6e22e">t</span>].<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">u</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">tArray</span>[<span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">u</span>] ) {
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">tx</span><span style="color:#f92672">+</span><span style="color:#a6e22e">tSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">cx</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">tx</span><span style="color:#f92672">+</span><span style="color:#a6e22e">tSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">u</span><span style="color:#f92672">+</span><span style="color:#a6e22e">tSize</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">cx</span> 
+</span></span><span style="display:flex;"><span>                                 <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">ty</span><span style="color:#f92672">+</span><span style="color:#a6e22e">tSize</span><span style="color:#f92672">*</span><span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">cy</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">ty</span><span style="color:#f92672">+</span><span style="color:#a6e22e">tSize</span><span style="color:#f92672">*</span>(<span style="color:#a6e22e">t</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">cy</span> ) {
+</span></span><span style="display:flex;"><span>                                     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">selected</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                                     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">moveStartX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cx</span>;
+</span></span><span style="display:flex;"><span>                                     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">moveStartY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cy</span>;
+</span></span><span style="display:flex;"><span>                                 <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">i</span>;
+</span></span><span style="display:flex;"><span>                             }
+</span></span><span style="display:flex;"><span>                         }
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mouseEventInfos</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">which</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">startX</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">startY</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">mouseDown</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><p>mouse event 에서 선택한 위치와 항목 등을 알 수 있도록 자료형도 함께 만들어 보았습니다.</p>
+<p>이제 대략적인 UI 가 구성되었으니, 다음은 사용자의 도형선택, 이동, 그리고 drag&amp;drop 으로 매칭되는 구조를 구성해 보도록 하겠습니다. <br>
+다음글에서 정리할 예정 입니다.</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebcanvas%2fweb_canvas_002%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebcanvas%2fweb_canvas_002%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebcanvas%2fweb_canvas_002%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebcanvas%2fweb_canvas_002%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebcanvas%2fweb_canvas_002%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebcanvas%2fweb_canvas_002%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/webcanvas/web_canvas_001/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/webcanvas/web_canvas_001/">Html Canvas 로 그려본 아날로그 시계</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+

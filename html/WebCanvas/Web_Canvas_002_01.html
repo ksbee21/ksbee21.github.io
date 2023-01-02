@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+    <script>
+        const canvasInfos = {
+            baseCanvas : {
+                canvas : null,
+                ctx : null,
+            },
+            activeCanvas : {
+                canvas : null,
+                ctx : null,
+            },
+            fullWidth : -1,
+            fullHeight : -1,
+            cellSize : 30,
+            columnSize : 12,
+            rowSize : 12,
+            startX : -1,
+            startY : -1,
+            strokeStyles : ['#AFAFAF', '#AFAFAF'],
+            fillStyles : ['#EFEFEF','#FEFEFE'],
+
+            markStartX : -1,
+            markStartY : -1, 
+            points : 0,
+        };
+
+        const gameMatrixInfos = {
+            data : [],
+            makeCellPosition : function(x,y,w,h,fill,over) {
+                return {
+                    x : x,
+                    y : y,
+                    w : w,
+                    h : h,
+                    isFilled : fill,
+                    isOver : over,
+                }
+            },
+            isCompleted : false,
+
+            strokeStyles : ['#FEFEFE', '#FEFEFE', '#FF00FF'],
+            fillStyles : ['#777777','#000080','#77FE77'],
+        }
+
+        const gameSelectedInfos = {
+            data : [],
+
+            makeCellPosition : function(x,y,w,h,type,typeArray, moved,matched) {
+                return {
+                    x : x,
+                    y : y,
+                    w : w,
+                    h : h,
+                    type : type,
+                    typeArray : typeArray,
+                    movedX : -1,
+                    movedY : -1,
+                    moved : moved,
+                    matched : matched,
+                    selected : false,
+                    moveStartX : -1,
+                    moveStartY : -1,
+                    isUsed : false,
+                }
+            },
+            isCompleted : function() {
+            },
+
+            whichSelected : function(cx,cy) {
+                let len = this.data.length;
+                if (!len ) {
+                    return -1;
+                }
+
+                for ( let i = 0; i < len; i++ ) {
+                    if ( this.data[i].isUsed ) {
+                        continue;
+                    }
+                    let tArray = this.data[i].typeArray;
+                    let tx = this.data[i].x;
+                    let ty = this.data[i].y;
+                    let tSize = this.data[i].w;
+
+                    if ( cx < tx || ty > cy ) {
+                        continue;
+                    }
+
+                    for ( let t = 0; t < tArray.length; t++ ) {
+                        for ( let u = 0; u < tArray[t].length; u++ ) {
+                            if ( tArray[t][u] ) {
+                                if ( tx+tSize*u <= cx && tx+tSize*u+tSize >= cx 
+                                    && ty+tSize*t <= cy && ty+tSize*(t+1) >= cy ) {
+                                        this.data[i].selected = true;
+                                        this.data[i].moveStartX = cx;
+                                        this.data[i].moveStartY = cy;
+                                    return i;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return -1;
+            }
+        }
+
+        const mouseEventInfos = {
+            which : -1, 
+            startX : -1,
+            startY : -1,
+            mouseDown : false,
+        }
+
+        function isInRange(cx,cy, dataArray,size ) {
+            let rows = dataArray.length;
+            let cols = -1;
+            if ( rows > 0 )	{
+                cols = rows[0].length;
+            }
+            let gap = size/2;
+            for ( let i = 0; i < rows; i++ ) {
+                for ( let j = 0; j < cols; j++ ) {
+                    if ( dataArray[i][j].x-gap < cx && dataArray[i][j].x + gap <= cx 
+                        && dataArray[i][j].y-gap < cy && dataArray[i][j].y + gap <= cy ) {
+                        
+                        return [i, j];
+                    }
+                }
+            }
+
+            return undefined;
+        }
+
+        function isInRangeShape(cx,cy, dataArray, shape, size, isOver ) {
+
+            let rows = dataArray.length;
+            let cols = -1;
+            if ( rows > 0 )	{
+                cols = dataArray[0].length;
+            }
+            let gap = size/2;
+            for ( let i = 0; i < rows; i++ ) {
+                for ( let j = 0; j < cols; j++ ) {
+                    if ( dataArray[i][j].x-gap < cx && dataArray[i][j].x + gap >= cx 
+                        && dataArray[i][j].y-gap < cy && dataArray[i][j].y + gap >= cy ) {
+
+                        //	alert ( i + " : " + j + " : " + shape.length + " : " + dataArray[i][j].x + " : " + cx  );
+                        
+                        for ( let t = 0; t < shape.length; t++ ) {
+                            for ( let u = 0; u < shape[t].length; u++ ) {
+                                if ( t+i >= rows ) {
+    //								alert ( "row Limit ");
+                                    return false;
+                                }
+                                if ( u+j >= cols ) {
+    //								alert ( "Col LImit" );
+                                    return false;
+                                }
+
+                                if ( shape[t][u] && dataArray[i+t][j+u].isFilled ) { 
+    //								alert ( "shape is filled ... " + t + ", " + u + "\n" + i + ", " + j  );
+                                    return false;
+                                }
+                            }
+                        }
+                        for ( let t = 0; t < shape.length; t++ ) {
+                            for ( let u = 0; u < shape[t].length; u++ ) {
+
+                                if ( shape[t][u] ) {
+    //								alert ( t + " , " + u + "\n" + i+t + ", " + j+u );
+                                    if ( isOver ) {
+                                        dataArray[i+t][j+u].isOver = true;
+                                    } else {
+                                        dataArray[i+t][j+u].isFilled = true;
+                                    }
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+    //		alert ( cx + ", " + cy +" : " + shape );
+            return false;
+        }
+
+        function checkDataPointValues() {
+            var points = 0;
+            var repeat = 1;
+
+
+            let rows = gameMatrixInfos.data.length;
+            let cols = rows > 0 ? gameMatrixInfos.data[0].length : 0;
+
+            var verticalArray	= [];
+            var horizontalArray	= [];
+
+            for ( let i = 0; i < rows; i++ ) {
+                let flag = true;
+                for ( let j = 0; j < cols; j++ ) {
+                    if ( !gameMatrixInfos.data[i][j].isFilled ) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if ( flag ) {
+                    verticalArray.push(i);
+                }
+            }
+
+            for ( let i = 0; i < cols; i++ ) {
+                let flag = true;
+                for ( let j = 0; j < rows; j++ ) {
+                    if ( !gameMatrixInfos.data[j][i].isFilled ) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if ( flag ) {
+                    horizontalArray.push(i);
+                }
+            }
+
+            for ( let i = 0; i < rows; i += 3 ) {
+                for ( let j = 0; j < cols; j += 3 ) {
+                    let flag = true;
+                    for ( let t = 0; t < 3; t++ ) {
+                        for ( let u = 0; u < 3; u++ ) {
+                            if ( !gameMatrixInfos.data[i+t][j+u].isFilled ) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if ( !flag ) 
+                            break;
+                    }
+                    if ( flag ) {
+                        for ( let t = 0; t < 3; t++ ) {
+                            for ( let u = 0; u < 3; u++ ) {
+                                gameMatrixInfos.data[i+t][j+u].isFilled = false;
+                            }
+                        }
+
+                        points += 9*repeat;
+                        ++repeat;
+                    }
+                }
+            }
+
+            for ( let i = 0; i < verticalArray.length; i++ ) {
+                for (let j = 0; j < cols; j++ ) {
+                    gameMatrixInfos.data[verticalArray[i]][j].isFilled = false;
+                }
+
+                points += 12*repeat;
+                ++repeat;
+
+            }
+
+            for ( let i = 0; i < horizontalArray.length; i++ ) {
+                for (let j = 0; j < rows; j++ ) {
+                    gameMatrixInfos.data[j][horizontalArray[i]].isFilled = false;
+                }
+
+                points += 12*repeat;
+                ++repeat;
+
+            }
+            
+            let isAll = true;
+            for ( let i = 0; i < gameSelectedInfos.data.length; i++ ) {
+                if ( !gameSelectedInfos.data[i].isUsed ) {
+                    isAll = false;
+                    break;
+                }
+            }
+
+            if ( isAll ) {
+                makeCanvasInfoValues();
+            }
+            drawBaseCanvasUI();
+        }
+
+
+        function checkDataOverValues() {
+
+            let rows = gameMatrixInfos.data.length;
+            let cols = rows > 0 ? gameMatrixInfos.data[0].length : 0;
+
+            var verticalArray	= [];
+            var horizontalArray	= [];
+
+            for ( let i = 0; i < rows; i++ ) {
+                let flag = true;
+                for ( let j = 0; j < cols; j++ ) {
+                    if ( !(gameMatrixInfos.data[i][j].isFilled || gameMatrixInfos.data[i][j].isOver) ) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if ( flag ) {
+                    verticalArray.push(i);
+                }
+            }
+
+            for ( let i = 0; i < cols; i++ ) {
+                let flag = true;
+                for ( let j = 0; j < rows; j++ ) {
+                    if ( !(gameMatrixInfos.data[j][i].isFilled || gameMatrixInfos.data[j][i].isOver) ) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if ( flag ) {
+                    horizontalArray.push(i);
+                }
+            }
+
+            for ( let i = 0; i < rows; i += 3 ) {
+                for ( let j = 0; j < cols; j += 3 ) {
+                    let flag = true;
+                    for ( let t = 0; t < 3; t++ ) {
+                        for ( let u = 0; u < 3; u++ ) {
+                            if ( !(gameMatrixInfos.data[i+t][j+u].isFilled || gameMatrixInfos.data[i+t][j+u].isOver) ) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if ( !flag ) 
+                            break;
+                    }
+                    if ( flag ) {
+                        for ( let t = 0; t < 3; t++ ) {
+                            for ( let u = 0; u < 3; u++ ) {
+                                gameMatrixInfos.data[i+t][j+u].isOver = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for ( let i = 0; i < verticalArray.length; i++ ) {
+                for (let j = 0; j < cols; j++ ) {
+                    gameMatrixInfos.data[verticalArray[i]][j].isOver = true;
+                }
+            }
+
+            for ( let i = 0; i < horizontalArray.length; i++ ) {
+                for (let j = 0; j < rows; j++ ) {
+                    gameMatrixInfos.data[j][horizontalArray[i]].isOver = true;
+                }
+            }
+            
+            drawBaseCanvasUI();
+        }
+
+
+        function resetMouseOverFlag() {
+		let rows = gameMatrixInfos.data.length;
+		let cols = gameMatrixInfos.data[0].length;
+		for ( let i = 0; i < rows; i++ ) {
+			for ( let j = 0; j < cols; j++ ) {
+				gameMatrixInfos.data[i][j].isOver = false;
+			}
+		}
+	}
+
+
+	function drawMovingSelectCells() {
+		var canvas = canvasInfos.activeCanvas.canvas;
+		var ctx = canvasInfos.activeCanvas.ctx;
+
+		ctx.clearRect(0,0,canvas.width, canvas.height);
+		ctx.save();
+
+		var strokeStyle = "white";
+		var fillStyle = "#000080";
+
+		for ( let i = 0; i < gameSelectedInfos.data.length; i++ ) {
+			if ( gameSelectedInfos.data[i].isUsed ) {
+				continue;
+			}
+			if ( gameSelectedInfos.data[i].selected ) {
+				let gapX = gameSelectedInfos.data[i].moveStartX - gameSelectedInfos.data[i].movedX;
+				let gapY = gameSelectedInfos.data[i].moveStartY - gameSelectedInfos.data[i].movedY;
+				let msx = gameSelectedInfos.data[i].x-gapX;
+				let msy = gameSelectedInfos.data[i].y-gapY;
+				drawCells(ctx,msx,msy, gameSelectedInfos.data[i].w, gameSelectedInfos.data[i].typeArray, strokeStyle, fillStyle);
+
+			} else {
+
+				drawCells(ctx,gameSelectedInfos.data[i].x,gameSelectedInfos.data[i].y, gameSelectedInfos.data[i].w, gameSelectedInfos.data[i].typeArray, strokeStyle, fillStyle);
+			}
+		}
+
+
+		ctx.restore();
+	}
+
+
+        function getShapeTypeArray(typeNum) {
+            var shapeArray = null;
+            switch(typeNum) {
+                case 1 : 
+                    shapeArray = [
+                                    [true,true,true],
+                                    [true,true,true],
+                                    [true,true,true]
+                                ];
+                    break;
+                case 2 :
+                    shapeArray = [[true]];
+                    break;
+                case 3:
+                    shapeArray = [
+                                    [true,true]
+                                ];
+                    break;
+                case 4 :
+                    shapeArray = [
+                                    [true],
+                                    [true]
+                                ];
+                    break;
+                case 5:
+                    shapeArray = [
+                                    [true,true],
+                                    [true,false],
+                                ];
+                    break;
+                case 6 :
+                    shapeArray = [
+                                    [true,true],
+                                    [false,true],
+                                ];
+                    break;	
+                case 7:
+                    shapeArray = [
+                                    [true,false],
+                                    [true,true],
+                                ];
+                    break;
+                case 8 :
+                    shapeArray = [
+                                    [false,true],
+                                    [true,true],
+                                ];
+                    break;							
+                case 9:
+                    shapeArray = [
+                                    [true,true],
+                                    [true,true],
+                                ];
+                    break;
+                case 10 :
+                    shapeArray = [
+                                    [false,true],
+                                    [true,false],
+                                ];
+                    break;
+                case 11 :
+                    shapeArray = [
+                                    [true,false],
+                                    [false,true],
+                                ];
+                    break;
+                case 12 : 
+                    shapeArray = [
+                                    [true,true,true],
+                                ];
+                    break;
+                case 13 :
+                    shapeArray = [
+                                    [true],
+                                    [true],
+                                    [true]
+                                ];
+                    break;
+                case 14:
+                    shapeArray = [
+                                    [true,true,true],
+                                    [true,false,false],
+                                ];
+                    break;
+                case 15 :
+                    shapeArray = [
+                                    [true,true,true],
+                                    [false,true,false],
+                                ];
+                    break;
+                case 16 :
+                    shapeArray = [
+                                    [true,true,true],
+                                    [false,false,true],
+                                ];
+                    break;
+                case 17 :
+                    shapeArray = [
+                                    [true,true,true],
+                                    [true,false,true],
+                                ];
+                    break;
+                case 18:
+                    shapeArray = [
+                                    [true,false,false],
+                                    [true,true,true],
+                                ];
+                    break;
+                case 19:
+                    shapeArray = [
+                                    [false,true,false],
+                                    [true,true,true],
+                                ];
+                    break;
+                case 20:
+                    shapeArray = [
+                                    [false,false,true],
+                                    [true,true,true],
+                                ];
+                    break;
+                case 21 :
+                    shapeArray = [
+                                    [true,false,true],
+                                    [true,true,true],
+                                ];
+                    break;
+                case 22 :
+                    shapeArray = [
+                                    [true,true,false],
+                                    [false,true,true],
+                                ];
+                    break;
+                case 23 :
+                    shapeArray = [
+                                    [false,true,true],
+                                    [true,true,false],
+                                ];
+                    break;
+                case 24:
+                    shapeArray = [
+                                    [true,true],
+                                    [true,false],
+                                    [true,false]
+                                ];
+                    break;
+                case 25:
+                    shapeArray = [
+                                    [true,true],
+                                    [true,false],
+                                    [true,true]
+                                ];
+                    break;
+                case 26 :
+                    shapeArray = [
+                                    [true,false],
+                                    [true,true],
+                                    [true,false]
+                                ];
+                    break;
+                case 27 :
+                    shapeArray = [
+                                    [true,false],
+                                    [true,false],
+                                    [true,true]
+                                ];
+                    break;
+                case 28:
+                    shapeArray = [
+                                    [true,true],
+                                    [false,true],
+                                    [false,true]
+                                ];
+                    break;
+                case 29:
+                    shapeArray = [
+                                    [true,true],
+                                    [false,true],
+                                    [true,true]
+                                ];
+                    break;
+                case 30:
+                    shapeArray = [
+                                    [false,true],
+                                    [true,true],
+                                    [false,true]
+                                ];
+                    break;
+                case 31 :
+                    shapeArray = [
+                                    [false,true],
+                                    [false,true],
+                                    [true,true]
+                                ];
+                    break;
+                case 32 :
+                    shapeArray = [
+                                    [false,true],
+                                    [true,true],
+                                    [true,false]
+                                ];
+                    break;
+                case 33 :
+                    shapeArray = [
+                                    [true,false],
+                                    [true,true],
+                                    [false,true]
+                                ];
+                    break;
+                case 34 : 
+
+                    shapeArray = [
+                                    [true,true,true],
+                                    [true,false,false],
+                                    [true,false,false]
+                                ];
+                    break;
+                case 35 : 
+                    shapeArray = [
+                                    [true,true,true],
+                                    [false,false,true],
+                                    [false,false,true]
+                                ];
+                    break;
+                case 36 : 
+                    shapeArray = [
+                                    [true,true,true],
+                                    [false,true,false],
+                                    [false,true,false]
+                                ];
+                    break;
+                case 37 : 
+                    shapeArray = [
+                                    [true,false,false],
+                                    [true,true,true],
+                                    [true,false,false]
+                                ];
+                    break;
+                case 38 : 
+                    shapeArray = [
+                                    [false,false,true],
+                                    [true,true,true],
+                                    [false,false,true]
+                                ];
+                    break;
+                case 39 : 
+                    shapeArray = [
+                                    [false,false,true],
+                                    [false,false,true],
+                                    [true,true,true]
+                                ];
+                    break;
+                case 40 : 
+                    shapeArray = [
+                                    [true,false,false],
+                                    [true,false,false],
+                                    [true,true,true]
+                                ];
+                    break;
+                case 41 : 
+                    shapeArray = [
+                                    [false,true,false],
+                                    [false,true,false],
+                                    [true,true,true]
+                                ];
+                    break;
+                case 42 : 
+                    shapeArray = [
+                                    [true,false,false],
+                                    [false,true,false],
+                                    [false,false,true]
+                                ];
+                    break;
+                case 43 : 
+                    shapeArray = [
+                                    [false,false,true],
+                                    [false,true,false],
+                                    [true,false,false]
+                                ];
+                    break;
+                case 44 : 
+                    shapeArray = [
+                                    [false,true,false],
+                                    [true,true,true],
+                                    [false,true,false]
+                                ];
+                    break;
+                case 45 : 
+                    shapeArray = [
+                                    [true,true,true,true],
+                                ];
+                    break;
+                case 46 : 
+                    shapeArray = [
+                                    [true],[true],[true],[true],
+                                ];
+                    break;
+                case 47 : 
+                    shapeArray = [
+                                    [true,true,true,true,true],
+                                ];
+                    break;
+                case 48 : 
+                    shapeArray = [
+                                    [true],[true],[true],[true],[true],
+                                ];
+                    break;
+                case 49 : 
+                    shapeArray = [
+                                    [false,true,false],
+                                    [true,false,true],
+                                    [false,true,false]
+                                ];
+                    break;
+                case 50 : 
+                    shapeArray = [
+                                    [true,false,true],
+                                    [false,false,false],
+                                    [true,false,true]
+                                ];
+                    break;
+                default : 
+                    shapeArray = [
+                                    [true,true,true],
+                                    [true,true,true],
+                                    [true,true,true]
+                                ];
+                    break;
+            }
+            return shapeArray;
+        }
+
+
+        function drawCell(ctx, x, y, w, h) {
+            ctx.beginPath();
+            ctx.fillRect(x,y,w,h);
+            ctx.strokeRect(x,y,w,h);
+            ctx.closePath();
+        }
+
+        function drawCells(ctx,x,y,size,disArray,strokeStyle,fillStyle,lineWidth) {
+            ctx.save();
+            if ( strokeStyle ) {
+                ctx.strokeStyle = strokeStyle;
+            }
+            if ( fillStyle ) {
+                ctx.fillStyle = fillStyle;
+            }
+
+            if ( !lineWidth ) {
+                lineWidth = 0.2;
+            }
+
+            if ( disArray ) {
+                for ( let i = 0, r = disArray.length; i < r; i++ ) {
+                    for ( let j = 0, c = disArray[i].length; j < c; j++ ) {
+                        if ( disArray[i][j] ) {
+                            drawCell(ctx,x+size*j,y+size*i, size,size);
+                        }
+                    }
+                }
+            }
+            ctx.restore();
+        }
+
+
+        function drawBaseCanvasUI() {
+            var canvas = canvasInfos.baseCanvas.canvas;
+            var ctx = canvasInfos.baseCanvas.ctx;
+
+            var sx = canvasInfos.startX;
+            var sy = canvasInfos.startY;
+            var size = canvasInfos.cellSize;
+            var cols = canvasInfos.columnSize;
+            var rows = canvasInfos.rowSize;
+
+            let idx = 0;
+
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+
+            goBackUI(ctx);
+
+            ctx.save();
+            let remakeFlag = true;
+            if ( gameMatrixInfos.isCompleted ) {
+                remakeFlag = false;
+            }
+
+            for( let i = 0; i < rows; i++ ) {
+
+                if ( !gameMatrixInfos.isCompleted  ) {
+                    gameMatrixInfos.data.push([]);
+                }
+                if ( i % 3 == 0 ) { 
+                    idx = (idx == 0 ? 1 : 0);
+                }
+                for ( let j = 0; j < cols; j++ ) {
+                    if ( j % 3 == 0 ) {
+                        idx = (idx == 0 ? 1 : 0);
+                        let strokeStyle = canvasInfos.strokeStyles[idx];
+                        let fillStyle = canvasInfos.fillStyles[idx];
+                        
+                        ctx.strokeStyle = strokeStyle;
+                        ctx.fillStyle = fillStyle;
+
+                    }
+                    let px = sx+j*size;
+                    let py = sy+i*size;
+                    if ( gameMatrixInfos.isCompleted  ) {
+                        gameMatrixInfos.data[i][j].x = px;
+                        gameMatrixInfos.data[i][j].y = py;
+
+                        if ( gameMatrixInfos.data[i][j].isOver ) {
+                            ctx.save();
+                            ctx.strokeStyle = 	gameMatrixInfos.strokeStyles[2];
+                            ctx.fillStyle = gameMatrixInfos.fillStyles[2];
+                            drawCell(ctx,px,py,size,size);
+                            ctx.restore();
+                        } else if ( gameMatrixInfos.data[i][j].isFilled ) {
+                            ctx.save();
+                            ctx.strokeStyle = 	gameMatrixInfos.strokeStyles[1];
+                            ctx.fillStyle = gameMatrixInfos.fillStyles[1];
+                            drawCell(ctx,px,py,size,size);
+                            ctx.restore();
+                        } else {
+                            drawCell(ctx,px,py,size,size);
+                        }
+                    } else {
+                        gameMatrixInfos.data[i].push(gameMatrixInfos.makeCellPosition(px,py,size,size,false,false));
+                        drawCell(ctx,px,py,size,size);
+                    }
+                }
+            }
+
+            gameMatrixInfos.isCompleted = true;
+            ctx.restore();
+        }
+
+        function makeCanvasInfoValues() {
+            var canvas = canvasInfos.activeCanvas.canvas;
+            var ctx = canvasInfos.activeCanvas.ctx;
+
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.save();
+
+    //		ctx.fillRect(10,10,100,100);
+    //		ctx.clearRect(0,0,canvas.width, canvas.height);
+
+    //		alert ( gameMatrixInfos.data.length );
+
+            /*
+
+
+            for ( let i = 0; i < gameMatrixInfos.data.length; i++ ) {
+                for ( let j = 0; j < gameMatrixInfos.data[i].length; j++ ) {
+                    if ( gameMatrixInfos.data[i][j].isFilled ) {
+                        ctx.strokeStyle = 	gameMatrixInfos.strokeStyles[1];
+                        ctx.fillStyle = gameMatrixInfos.fillStyles[1];
+                        drawCell(ctx,  gameMatrixInfos.data[i][j].x,  gameMatrixInfos.data[i][j].y,  gameMatrixInfos.data[i][j].w,  gameMatrixInfos.data[i][j].h );
+                    } else if ( gameMatrixInfos.data[i][j].isOver ) {
+                        ctx.strokeStyle = 	gameMatrixInfos.strokeStyles[0];
+                        ctx.fillStyle = gameMatrixInfos.fillStyles[0];
+
+                        drawCell(ctx,  gameMatrixInfos.data[i][j].x,  gameMatrixInfos.data[i][j].y,  gameMatrixInfos.data[i][j].w,  gameMatrixInfos.data[i][j].h );
+                    }
+                }
+            }
+            */
+
+    //		ctx.fillRect(canvasInfos.markStartX, canvasInfos.markStartY, 160*4-10, 160);
+            gameSelectedInfos.data.length = 0;
+            for ( let i = 0; i < 4; i++ ) {
+                let type = Math.round(Math.random()*49)+2;
+                let x = 160*i+canvasInfos.markStartX;
+                let y = canvasInfos.markStartY;
+                let size = canvasInfos.cellSize;
+                let typeArray = getShapeTypeArray(type);
+    //			alert ( type + " : " + typeArray );
+                gameSelectedInfos.data.push ( gameSelectedInfos.makeCellPosition(x,y,size,size,type,typeArray, false,false) );
+
+            }
+
+
+            var strokeStyle = "white";
+            var fillStyle = "#000080";
+
+    //		var ctx = canvasInfos.activeCanvas.ctx;
+    //		ctx.clearRect(0,0,canvasInfos.w, canvasInfos.h);
+            for ( let i = 0; i < gameSelectedInfos.data.length; i++ ) {
+    //			alert ( gameSelectedInfos.data[i].typeArray + "\n" + i );
+                drawCells(ctx,gameSelectedInfos.data[i].x,gameSelectedInfos.data[i].y, gameSelectedInfos.data[i].w, gameSelectedInfos.data[i].typeArray, strokeStyle, fillStyle);
+            }
+
+
+            ctx.restore();
+        }
+
+
+        function initBaseSizeUI() {
+
+            var gap = 10;
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+
+            var outerDiv = document.getElementById("outerDiv");
+            if ( !outerDiv ) {
+                outerDiv = document.createElement("div");
+                outerDiv.setAttribute("id","outerDiv");
+            }
+
+            outerDiv.style.width = (w-gap*2)+"px";
+            outerDiv.style.height = (h-gap*2)+"px";
+            outerDiv.style.margin = "0px";
+            outerDiv.style.padding = "0px";
+            outerDiv.style.border = gap + "px solid black";
+
+            document.body.appendChild(outerDiv);
+
+
+            var layerDiv = document.getElementById("myDiv");
+            if ( !layerDiv ) {
+                layerDiv = document.createElement("div");
+                layerDiv.setAttribute("id","myDiv");
+            }
+
+            layerDiv.style.width = (w-gap*2)+"px";
+            layerDiv.style.height = (h-gap*2)+"px";
+            layerDiv.style.margin = "0px";
+            layerDiv.style.padding = "0px";
+            layerDiv.style.border = "0px solid black";
+            layerDiv.style.position = "relative";
+
+            outerDiv.appendChild(layerDiv);
+            window.addEventListener("resize", initBaseSizeUI);
+
+            var cw = layerDiv.clientWidth;
+            var ch = layerDiv.clientHeight;
+
+
+            var baseCanvas = document.getElementById("baseCanvas");
+            if ( !baseCanvas ) {
+                baseCanvas = document.createElement("canvas");
+                baseCanvas.setAttribute("id", "baseCanvas");
+
+                var baseContext = baseCanvas.getContext("2d");
+                canvasInfos.baseCanvas.canvas = baseCanvas;
+                canvasInfos.baseCanvas.ctx = baseContext;
+
+                layerDiv.appendChild(baseCanvas);
+
+            }
+
+            var activeCanvas = document.getElementById("activeCanvas");
+            if ( !activeCanvas ) {
+                activeCanvas = document.createElement("canvas");
+                activeCanvas.setAttribute("id","activeCanvas");
+                activeCanvas.style.position = "absolute";
+                activeCanvas.style.left = "0";
+                activeCanvas.style.top = "0";
+                var activeContext = activeCanvas.getContext("2d");
+
+                canvasInfos.activeCanvas.canvas = activeCanvas;
+                canvasInfos.activeCanvas.ctx = activeContext;
+
+                layerDiv.appendChild(activeCanvas);
+            }
+
+            baseCanvas.style.width = cw+"px";
+            baseCanvas.style.height = ch+"px";
+            baseCanvas.width = cw;
+            baseCanvas.height = ch;
+
+            activeCanvas.style.width = cw+"px";
+            activeCanvas.style.height = ch+"px";
+            activeCanvas.width = cw;
+            activeCanvas.height = ch;
+
+            canvasInfos.fullWidth = cw;
+            canvasInfos.fullHeight = ch;
+
+
+            canvasInfos.startX = Math.floor((cw-(canvasInfos.cellSize*canvasInfos.columnSize))/2);
+            canvasInfos.startY = Math.floor((ch-(canvasInfos.cellSize*canvasInfos.rowSize))/2);
+
+            var baseH = canvasInfos.startY + canvasInfos.cellSize*canvasInfos.rowSize;
+            baseH += Math.floor((ch - baseH - canvasInfos.cellSize*5)/2);
+
+            canvasInfos.markStartX = Math.floor((cw-(canvasInfos.cellSize*5*4+30))/2);
+            canvasInfos.markStartY = baseH;
+
+
+            drawBaseCanvasUI();
+            makeCanvasInfoValues();
+            return layerDiv;
+        }
+
+        function initCanvas() {
+            var gap = 10;
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+
+
+            initBaseSizeUI();
+
+
+            var disArray = [[true,true],[true,false]];
+            var size = 15;
+
+            var strokeStyle = "white";
+            var fillStyle = "#000080";
+            var diff = 100;
+
+            var ctx = canvasInfos.activeCanvas.ctx;
+            ctx.clearRect(0,0,canvasInfos.w, canvasInfos.h);
+            /*
+            for ( let i = 0; i < 50; i++ ) {
+                let col = i%11
+                let row = Math.floor(i/11);
+
+                drawCells(ctx,diff+diff*col,diff+diff*row, size, getShapeTypeArray((i+1)), strokeStyle, fillStyle);
+            }
+
+            if ( true )
+            {
+                return;
+            }
+            */
+
+            canvasInfos.activeCanvas.canvas.addEventListener("mousedown", function(e) {
+                let cx = e.x;
+                let cy = e.y;
+
+                let idx = gameSelectedInfos.whichSelected(cx,cy);
+                if ( idx >= 0 ) {
+                    canvasInfos.activeCanvas.canvas.style.cursor = "move";
+                    mouseEventInfos.which = idx;
+                    mouseEventInfos.mouseDown = true;
+                }
+            }, false);
+
+            canvasInfos.activeCanvas.canvas.addEventListener("mousemove", function(e) {
+                if ( !mouseEventInfos.mouseDown ) {
+                    return;
+                }
+
+                let cx = e.x;
+                let cy = e.y;
+
+                gameSelectedInfos.data[mouseEventInfos.which].movedX = cx;
+                gameSelectedInfos.data[mouseEventInfos.which].movedY = cy;
+
+                drawMovingSelectCells();
+
+                resetMouseOverFlag();
+
+                let sx = gameSelectedInfos.data[mouseEventInfos.which].moveStartX;
+                let sy = gameSelectedInfos.data[mouseEventInfos.which].moveStartY;
+                let ox = gameSelectedInfos.data[mouseEventInfos.which].x;
+                let oy = gameSelectedInfos.data[mouseEventInfos.which].y;
+
+                let flag = isInRangeShape(cx-(sx-ox),cy-(sy-oy), gameMatrixInfos.data, gameSelectedInfos.data[mouseEventInfos.which].typeArray, canvasInfos.cellSize, true );
+
+                if ( flag ) {
+                    checkDataOverValues();
+                    drawBaseCanvasUI();
+
+                    resetMouseOverFlag();
+
+                }
+
+
+            }, false);
+
+            canvasInfos.activeCanvas.canvas.addEventListener("mouseup", function(e) {
+                if ( !mouseEventInfos.mouseDown ) {
+                    return;
+                }
+
+
+                gameSelectedInfos.data[mouseEventInfos.which].selected = false;
+
+                let cx = e.x;
+                let cy = e.y;
+
+                gameSelectedInfos.data[mouseEventInfos.which].movedX = cx;
+                gameSelectedInfos.data[mouseEventInfos.which].movedY = cy;
+
+
+                let sx = gameSelectedInfos.data[mouseEventInfos.which].moveStartX;
+                let sy = gameSelectedInfos.data[mouseEventInfos.which].moveStartY;
+                let ox = gameSelectedInfos.data[mouseEventInfos.which].x;
+                let oy = gameSelectedInfos.data[mouseEventInfos.which].y;
+
+
+
+
+                let flag = isInRangeShape(cx-(sx-ox),cy-(sy-oy), gameMatrixInfos.data, gameSelectedInfos.data[mouseEventInfos.which].typeArray, canvasInfos.cellSize );
+
+                if ( flag ) {
+                    gameSelectedInfos.data[mouseEventInfos.which].isUsed = true;
+                }
+                drawMovingSelectCells();
+
+                mouseEventInfos.mouseDown = false;
+                mouseEventInfos.which = -1;
+
+                drawBaseCanvasUI();
+                canvasInfos.activeCanvas.canvas.style.cursor = "default";
+                setTimeout(checkDataPointValues,500);
+
+            }, false);
+
+            goBack();
+            
+        }
+
+        function goBackUI(ctx) {
+            ctx.save();
+
+            ctx.fillText("돌아가기 ( back ) ", 30, 30 );
+
+            ctx.restore();
+        }
+
+        function goBack() {
+            canvasInfos.activeCanvas.canvas.addEventListener("click", function(e) {
+                if ( e.y < 100 && e.y < 50 ) {
+                    document.location = "/post/webcanvas/web_canvas_002/";
+                }
+            }, false);
+        }
+
+
+        function main() {
+            document.body.style.margin = "0px";
+    		document.body.style.padding = "0px";
+	    	document.body.style.width = "100%";
+		    document.body.style.height = "100%";
+		    initCanvas();
+        }
+
+        main();
+    </script>
+    
+</body>
+</html>
