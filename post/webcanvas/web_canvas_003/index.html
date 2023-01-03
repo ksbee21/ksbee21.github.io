@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Canvas 테트리스 도형 Event">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>Web Canvas 기반 도형 맞추기 Game 02 &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Web Canvas 기반 도형 맞추기 Game 02</h1>
+  <h2>Canvas 테트리스 도형 Event</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 01. 03, 21:49</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/canvas">Canvas</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/game">Game</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="canvas-game-event-구성">Canvas Game Event 구성</h1>
+<p>도형 구성과 배치를 위한 UI 가 구성되었으면, 이제 사용자가 선택후 Drag &amp; Drop 으로 위치를 맞추고, 
+그 결과를 담아 내기 위한 Event 처리가 필요합니다. <br>
+요즘은 PC 가 아닌, 핸드폰에서도 Web 접근이 가능하기 때문에 Phone Device 를 위한 Event 처리를 위해서는 
+touchstart 등의 이벤트도 정리하여야 하지만, 이 글에서는 다루지 않겠습니다.</p>
+<p><a href="/html/WebCanvas/Web_Canvas_002_01.html">다음주소</a> 에서 확인해 보실 수 있습니다.</p>
+<h4 id="initialize-시점에-event-구성">Initialize 시점에 Event 구성</h4>
+<p>초기화 과정에 Canvas 에 Mouse Event 를 할당 하는 과정 입니다. 
+mousedown 에서 event 시작과 위치등을 기록합니다. 
+mousemove 에서 사용자에게 놓일 위치, 성공했을 때 삭제될 모형 등을 미리 보여주는 Event 를 처리 합니다. 
+mousedown 에서 실제로 삭제할 영역, 그리고 점수 등을 계산 한후 전체를 다시 그리는 함수를 호출합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>        <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mousedown&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {   
+</span></span><span style="display:flex;"><span>         ...
+</span></span><span style="display:flex;"><span>     });
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mousemove&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>         ...
+</span></span><span style="display:flex;"><span>     });
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mouseup&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {            
+</span></span><span style="display:flex;"><span>         ...
+</span></span><span style="display:flex;"><span>     });
+</span></span></code></pre></div><p>처음 초기화 단계에서 호출 되는 함수 입니다.  <br>
+자료형은 앞 Post 에서 간단하게 언급한  mouseEventInfos,  gameSelectedInfos 가 event 진행중에 사용되고, 
+gameMatrixInfos 가 최종 화면을 갱신할 때 사용하게 됩니다.</p>
+<h4 id="아래는-초기화-과정-소스-입니다">아래는 초기화 과정 소스 입니다.</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">initCanvas</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gap</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">innerWidth</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">innerHeight</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">initBaseSizeUI</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">disArray</span> <span style="color:#f92672">=</span> [[<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">true</span>],[<span style="color:#66d9ef">true</span>,<span style="color:#66d9ef">false</span>]];
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#000080&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">diff</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">ctx</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">clearRect</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">h</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mousedown&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">whichSelected</span>(<span style="color:#a6e22e">cx</span>,<span style="color:#a6e22e">cy</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">idx</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">cursor</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;move&#34;</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">idx</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">mouseDown</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mousemove&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">mouseDown</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">movedX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cx</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">movedY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cy</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">drawMovingSelectCells</span>();
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">resetMouseOverFlag</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">moveStartX</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">moveStartY</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">ox</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">oy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isInRangeShape</span>(<span style="color:#a6e22e">cx</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">sx</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ox</span>),<span style="color:#a6e22e">cy</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">sy</span><span style="color:#f92672">-</span><span style="color:#a6e22e">oy</span>), <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span>, <span style="color:#66d9ef">true</span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">checkDataOverValues</span>();
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">drawBaseCanvasUI</span>();
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">resetMouseOverFlag</span>();
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         }, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mouseup&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">mouseDown</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">selected</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">movedX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cx</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">movedY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cy</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">moveStartX</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">moveStartY</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">ox</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">oy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isInRangeShape</span>(<span style="color:#a6e22e">cx</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">sx</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ox</span>),<span style="color:#a6e22e">cy</span><span style="color:#f92672">-</span>(<span style="color:#a6e22e">sy</span><span style="color:#f92672">-</span><span style="color:#a6e22e">oy</span>), <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">cellSize</span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span>].<span style="color:#a6e22e">isUsed</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">drawMovingSelectCells</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">mouseDown</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">mouseEventInfos</span>.<span style="color:#a6e22e">which</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">drawBaseCanvasUI</span>();
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">cursor</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;default&#34;</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">checkDataPointValues</span>,<span style="color:#ae81ff">500</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         }, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><h4 id="mouse-move-up-진행-과정">Mouse Move, Up 진행 과정</h4>
+<ol>
+<li>User 가 선택한 도형을 그립니다.</li>
+</ol>
+<blockquote>
+<p>drawMovingSelectCells 함수는 사용자가 이동한 위치를 기반으로 선택하 도형을 그리는 역활을 수행합니다.</p>
+</blockquote>
+<ol start="2">
+<li>사용자 편의를 위해 Drop 이 가능한 위치를 표시합니다.</li>
+</ol>
+<blockquote>
+<p>isInRangeShape 함수에서 현재 도형의 위치를 기반으로 어디에 어떻게 적용되는지를 그려 줍니다. <br>
+대략 픽셀의 반이 걸리쳐 그 안의 내용을 기준으로 출력합니다.</p>
+</blockquote>
+<ol start="3">
+<li>현재 위치 기준 점수를 올릴 수 있는 영역인지 확인합니다.</li>
+</ol>
+<blockquote>
+<p>checkDataOverValues 함수는 선택한 도형과, 위치를 기반으로 점수를 가져올 수 있는 영역 인지 판정합니다.</p>
+</blockquote>
+<ol start="4">
+<li>사용자 선택이 완료 되면 약간의 시간을 주고 최종 결과를 확인합니다.</li>
+</ol>
+<blockquote>
+<p>checkDataPointValues 함수에서 전체를 재 구성하는 역활을 수행 합니다.   이 때 Game 점수를 누증 시킬 수 있습니다 .</p>
+</blockquote>
+<h4 id="코드-입니다">코드 입니다.</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawMovingSelectCells</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">ctx</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">clearRect</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">save</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#000080&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">isUsed</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">selected</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">gapX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">moveStartX</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">movedX</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">gapY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">moveStartY</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">movedY</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">msx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">x</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gapX</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">msy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">y</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gapY</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">drawCells</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">msx</span>,<span style="color:#a6e22e">msy</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">strokeStyle</span>, <span style="color:#a6e22e">fillStyle</span>);
+</span></span><span style="display:flex;"><span>             } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">drawCells</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">strokeStyle</span>, <span style="color:#a6e22e">fillStyle</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">restore</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isInRangeShape</span>(<span style="color:#a6e22e">cx</span>,<span style="color:#a6e22e">cy</span>, <span style="color:#a6e22e">dataArray</span>, <span style="color:#a6e22e">shape</span>, <span style="color:#a6e22e">size</span>, <span style="color:#a6e22e">isOver</span> ) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">dataArray</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">rows</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> )	{
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">dataArray</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">gap</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">dataArray</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">x</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gap</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cx</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">dataArray</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">gap</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">cx</span> 
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">dataArray</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">y</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gap</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cy</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">dataArray</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">y</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">gap</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">cy</span> ) {
+</span></span><span style="display:flex;"><span>                 
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">shape</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">shape</span>[<span style="color:#a6e22e">t</span>].<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">u</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">t</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">rows</span> ) {
+</span></span><span style="display:flex;"><span>                                 <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                             }
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">u</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">cols</span> ) {
+</span></span><span style="display:flex;"><span>                                 <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                             }
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">shape</span>[<span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">u</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">dataArray</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isFilled</span> ) { 
+</span></span><span style="display:flex;"><span>                                 <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                             }
+</span></span><span style="display:flex;"><span>                         }
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">shape</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">shape</span>[<span style="color:#a6e22e">t</span>].<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">u</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">shape</span>[<span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">u</span>] ) {
+</span></span><span style="display:flex;"><span>                                 <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">isOver</span> ) {
+</span></span><span style="display:flex;"><span>                                     <span style="color:#a6e22e">dataArray</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isOver</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                                 } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                                     <span style="color:#a6e22e">dataArray</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                                 }
+</span></span><span style="display:flex;"><span>                             }
+</span></span><span style="display:flex;"><span>                         }
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkDataPointValues</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">points</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">repeat</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">length</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">verticalArray</span>	<span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">horizontalArray</span>	<span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isFilled</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">verticalArray</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">isFilled</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">horizontalArray</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">u</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isFilled</span> ) {
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                         }
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">flag</span> ) 
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">u</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                         }
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">points</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">9</span><span style="color:#f92672">*</span><span style="color:#a6e22e">repeat</span>;
+</span></span><span style="display:flex;"><span>                     <span style="color:#f92672">++</span><span style="color:#a6e22e">repeat</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">verticalArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">verticalArray</span>[<span style="color:#a6e22e">i</span>]][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">points</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">12</span><span style="color:#f92672">*</span><span style="color:#a6e22e">repeat</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#f92672">++</span><span style="color:#a6e22e">repeat</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">horizontalArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">horizontalArray</span>[<span style="color:#a6e22e">i</span>]].<span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">points</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">12</span><span style="color:#f92672">*</span><span style="color:#a6e22e">repeat</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#f92672">++</span><span style="color:#a6e22e">repeat</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isAll</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">isUsed</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">isAll</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">isAll</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">makeCanvasInfoValues</span>();
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">drawBaseCanvasUI</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkDataOverValues</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">length</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">verticalArray</span>	<span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">horizontalArray</span>	<span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(<span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isOver</span>) ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">verticalArray</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(<span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">isOver</span>) ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">horizontalArray</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">u</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(<span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isFilled</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isOver</span>) ) {
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                         }
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">flag</span> ) 
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">t</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">t</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">u</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                             <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">t</span>][<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#a6e22e">u</span>].<span style="color:#a6e22e">isOver</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                         }
+</span></span><span style="display:flex;"><span>                     }
+</span></span><span style="display:flex;"><span>                 }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">verticalArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">verticalArray</span>[<span style="color:#a6e22e">i</span>]][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isOver</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">horizontalArray</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span>][<span style="color:#a6e22e">horizontalArray</span>[<span style="color:#a6e22e">i</span>]].<span style="color:#a6e22e">isOver</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">drawBaseCanvasUI</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">resetMouseOverFlag</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">rows</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">cols</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">gameMatrixInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">isOver</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawMovingSelectCells</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">canvas</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasInfos</span>.<span style="color:#a6e22e">activeCanvas</span>.<span style="color:#a6e22e">ctx</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">clearRect</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">save</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#000080&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">isUsed</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">selected</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">gapX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">moveStartX</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">movedX</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">gapY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">moveStartY</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">movedY</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">msx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">x</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gapX</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">msy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">y</span><span style="color:#f92672">-</span><span style="color:#a6e22e">gapY</span>;
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">drawCells</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">msx</span>,<span style="color:#a6e22e">msy</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">strokeStyle</span>, <span style="color:#a6e22e">fillStyle</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">drawCells</span>(<span style="color:#a6e22e">ctx</span>,<span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">x</span>,<span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">gameSelectedInfos</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">typeArray</span>, <span style="color:#a6e22e">strokeStyle</span>, <span style="color:#a6e22e">fillStyle</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">restore</span>();
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><h4 id="정리">정리</h4>
+<ol>
+<li>Html Mouse Event 로 down, move, up 을 사용 하였습니다.</li>
+</ol>
+<blockquote>
+<p>down 에서 사용자 선택 초기 위치 등의 정보를 담고 있습니다. <br>
+move 에서 사용자 움직임에 따른 Game Hint 가 구성됩니다. <br>
+up 에서 점수 획득에 관련한 부분과, 최종적인 UI 구성이 완료 됩니다.</p>
+</blockquote>
+<ol start="2">
+<li>touchstart 등의 mobile 환경은 고려 하지 않았습니다.</li>
+</ol>
+<blockquote>
+<p>UI 부터 더 적게 구성하고 진행하여야 해서 적용하지 않습니다.</p>
+</blockquote>
+<ol start="3">
+<li>한계</li>
+</ol>
+<blockquote>
+<p>기본적인 로직만을 보기 위한 부분이라서 많은 부분은 생략 하였습니다. <br>
+event 를 mouse position 으로 할 때는 사이즈 변경등에 더 고려할 내용이 많으나, 일단 모두 무시 하였습니다.<br>
+Mobile 환경은 고려 하지 않았습니다.   ^^</p>
+</blockquote>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebcanvas%2fweb_canvas_003%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebcanvas%2fweb_canvas_003%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebcanvas%2fweb_canvas_003%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebcanvas%2fweb_canvas_003%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebcanvas%2fweb_canvas_003%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebcanvas%2fweb_canvas_003%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/webcanvas/web_canvas_002/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/webcanvas/web_canvas_002/">Web Canvas 기반 도형 맞추기 Game 01</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+

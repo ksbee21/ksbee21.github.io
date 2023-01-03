@@ -366,46 +366,46 @@
 
 
         function resetMouseOverFlag() {
-		let rows = gameMatrixInfos.data.length;
-		let cols = gameMatrixInfos.data[0].length;
-		for ( let i = 0; i < rows; i++ ) {
-			for ( let j = 0; j < cols; j++ ) {
-				gameMatrixInfos.data[i][j].isOver = false;
-			}
-		}
-	}
+            let rows = gameMatrixInfos.data.length;
+            let cols = gameMatrixInfos.data[0].length;
+            for ( let i = 0; i < rows; i++ ) {
+                for ( let j = 0; j < cols; j++ ) {
+                    gameMatrixInfos.data[i][j].isOver = false;
+                }
+            }
+        }
 
 
-	function drawMovingSelectCells() {
-		var canvas = canvasInfos.activeCanvas.canvas;
-		var ctx = canvasInfos.activeCanvas.ctx;
+        function drawMovingSelectCells() {
+            var canvas = canvasInfos.activeCanvas.canvas;
+            var ctx = canvasInfos.activeCanvas.ctx;
 
-		ctx.clearRect(0,0,canvas.width, canvas.height);
-		ctx.save();
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.save();
 
-		var strokeStyle = "white";
-		var fillStyle = "#000080";
+            var strokeStyle = "white";
+            var fillStyle = "#000080";
 
-		for ( let i = 0; i < gameSelectedInfos.data.length; i++ ) {
-			if ( gameSelectedInfos.data[i].isUsed ) {
-				continue;
-			}
-			if ( gameSelectedInfos.data[i].selected ) {
-				let gapX = gameSelectedInfos.data[i].moveStartX - gameSelectedInfos.data[i].movedX;
-				let gapY = gameSelectedInfos.data[i].moveStartY - gameSelectedInfos.data[i].movedY;
-				let msx = gameSelectedInfos.data[i].x-gapX;
-				let msy = gameSelectedInfos.data[i].y-gapY;
-				drawCells(ctx,msx,msy, gameSelectedInfos.data[i].w, gameSelectedInfos.data[i].typeArray, strokeStyle, fillStyle);
+            for ( let i = 0; i < gameSelectedInfos.data.length; i++ ) {
+                if ( gameSelectedInfos.data[i].isUsed ) {
+                    continue;
+                }
+                if ( gameSelectedInfos.data[i].selected ) {
+                    let gapX = gameSelectedInfos.data[i].moveStartX - gameSelectedInfos.data[i].movedX;
+                    let gapY = gameSelectedInfos.data[i].moveStartY - gameSelectedInfos.data[i].movedY;
+                    let msx = gameSelectedInfos.data[i].x-gapX;
+                    let msy = gameSelectedInfos.data[i].y-gapY;
+                    drawCells(ctx,msx,msy, gameSelectedInfos.data[i].w, gameSelectedInfos.data[i].typeArray, strokeStyle, fillStyle);
 
-			} else {
+                } else {
 
-				drawCells(ctx,gameSelectedInfos.data[i].x,gameSelectedInfos.data[i].y, gameSelectedInfos.data[i].w, gameSelectedInfos.data[i].typeArray, strokeStyle, fillStyle);
-			}
-		}
+                    drawCells(ctx,gameSelectedInfos.data[i].x,gameSelectedInfos.data[i].y, gameSelectedInfos.data[i].w, gameSelectedInfos.data[i].typeArray, strokeStyle, fillStyle);
+                }
+            }
 
 
-		ctx.restore();
-	}
+            ctx.restore();
+        }
 
 
         function getShapeTypeArray(typeNum) {
