@@ -5,22 +5,22 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
-    <script src='../js/main.js'></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../css/main.css'>
+    <script src='../../js/main.js'></script>
 </head>
 <body>
     <p>
-    <a href="/post/webmodule/webgl_part_008/">돌아가기(Back)</a>
+    <a href="/post/webmodule/webgl_part_007/">돌아가기(Back)</a>
     </p>
     <canvas id="myCanvas"></canvas>
 
     <script type="module" defer>
-        import * as TypedMatrixUtils from '../js/TypedMatrixUtils.js';
-        import * as GLUtils from '../js/GLUtils.js';
-        import * as GLDataUtils from '../js/GLDataUtils.js';
+        import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
+        import * as GLUtils from '../../js/GLUtils.js';
+        import * as GLDataUtils from '../../js/GLDataUtils.js';
         
 
-        function render(obj) {
+        function render(obj,gp) {
             const gl = obj.gl;
 
             let delta = 0;
@@ -55,22 +55,25 @@
                 //  [ 주석 1 ] : x,y,z 모두 0.4 로 축소 
                 //worldMatrix                 = TypedMatrixUtils.makeScaleMatrix3D(0.4,0.4,0.4);
 
+
                 //  [ 주석 2 ] : x, y 방향으로 45도 변경 주석...
-                //let radian  = delta;        //Math.PI*45/180; //    Math.PI * 0.25
+                let radian  = delta;        //Math.PI*45/180; //    Math.PI * 0.25
                 //worldMatrix                 = TypedMatrixUtils.multiplyMatrix(worldMatrix, TypedMatrixUtils.makeRotateXMatrix3D(radian));
                 //worldMatrix                 = TypedMatrixUtils.multiplyMatrix(worldMatrix, TypedMatrixUtils.makeRotateYMatrix3D(radian));
 
                 //  [ 주석 3 ] : translation 
                 //worldMatrix = TypedMatrixUtils.multiplyMatrix(worldMatrix,TypedMatrixUtils.makeTranslateMatrix3D(1,0,-8));
                 worldMatrix = TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0,-8), worldMatrix);
+
                 //worldMatrix = TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeRotateYMatrix3D(radian), worldMatrix);
+                          
 
-                let eye = [0, 0, 2];
+                let eye = [0, 0, 10];
 
-                let v = Math.sin(delta) * 10-8 ;
-                let c = -Math.cos(delta) * 10 ;
+                let v = Math.sin(delta) * 20 -8 ;
+                let c = -Math.cos(delta) * 20 ;
                 eye = [c, 0, v];
-                //eye = [0,0, 200];
+                eye = [0,0, 10];
                 let at = [0, 0, -8];
                 let up = [0, 1, 0];
 
@@ -78,7 +81,7 @@
                 viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
 
                 //  [ 주석 4 ] : projection 
-                projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(48*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+                projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
                 
                 obj.uniformArray[0].data    = worldMatrix;
                 obj.uniformArray[1].data    = viewMatrix;
@@ -94,6 +97,17 @@
                 gl.bindVertexArray(null);   //  clean item
                 gl.useProgram(null);    //  clean program ( shader combined )
                 requestAnimationFrame(drawScene);
+
+
+                obj.uniformArray[0].data    = worldMatrix;
+                obj.uniformArray[1].data    = viewMatrix;
+                obj.uniformArray[2].data    = projectionMatrix;                
+
+                gp.setUniformMatrix("worldMatrix",TypedMatrixUtils.makeIdentityMatrix(4));
+                gp.setUniformMatrix("viewMatrix", viewMatrix);
+                gp.setUniformMatrix("projectionMatrix", projectionMatrix);
+
+                gp.render(gl, true);
             };
 
             requestAnimationFrame(drawScene);
@@ -145,7 +159,20 @@
                 attributeArray:attributeArray,
                 indexInfos:indexInfos,
             }
-            render(obj);
+
+
+            const gProgram = new GLDataUtils.GLProgram("programID");
+            gProgram.initResource(gl, program, uniformArray );
+
+            const gItem = new GLDataUtils.GLItem("itemID");
+            //attributeArray, uniformArray, indexInfos, textureInfos, userWorldName
+            gItem.initResource( gl, program, attributeArray, uniformArray, indexInfos, undefined, "worldMatrix");
+
+            gItem.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(1,5, -6));
+
+            gProgram.appendItem(gItem);
+
+            render(obj, gProgram);
         }
 
         main();
