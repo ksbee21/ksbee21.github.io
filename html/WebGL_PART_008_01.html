@@ -136,6 +136,9 @@
             GLUtils.setAttributeValues(gl, program, attributeArray);
             const indexInfos = { data : new Uint32Array(cube.indices), indexSize : cube.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
 
+
+
+
             GLUtils.setIndexInfos(gl, indexInfos);
             const obj = {
                 gl:gl,

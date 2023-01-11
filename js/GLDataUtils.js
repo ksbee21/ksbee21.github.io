@@ -168,15 +168,6 @@ export class GLItem {
         this.uWorldName = userWorldName;
         this.offset = indexInfos.offset;
         this.animationTime    = undefined;
-
-        this.makeRotateAnimations(1, 0.05, 1);
-        this.makeRotateAnimations(2, 0.05, 1);        
-        this.makeRotateAnimations(3, 0.05, 1);          
-
-        this.makePendulumAnimation(1, 0.001, 1);    
-        this.makePendulumAnimation(3, 0.01, 1, -5, 5);            
-
-        this.makeOrbitAnimations(3, 0.05, 1);            
     };
 
     makeRotateAnimations = (axis, step, direction) => {
@@ -311,6 +302,74 @@ export class GLItem {
         gl.bindVertexArray(null);
     };
 };
+
+export class BasicPlane {
+    constructor(item) {
+        this.positions = [
+            // Front face
+            -1.0, -1.0,  0.0,
+            1.0, -1.0,  0.0,
+            1.0,  1.0,  0.0,
+            -1.0,  1.0,  0.0,
+        ];
+
+        this.textureCoordinates = [
+            // 앞
+            0.0,  0.0,
+            1.0,  0.0,
+            1.0,  1.0,
+            0.0,  1.0,
+        ];
+
+        this.normals = [
+            0.0,  0.0,  1.0,
+            0.0,  0.0,  1.0,
+            0.0,  0.0,  1.0,
+            0.0,  0.0,  1.0,
+        ]
+        this.colors = [
+            1.0,  0.0,  0.0,  1.0,    // first : red
+            0.0,  1.0,  0.0,  1.0,    // second: green
+            0.0,  0.0,  1.0,  1.0,    // third : blue
+            1.0,  0.0,  1.0,  1.0,    // forth vertex: cyan            
+        ];
+
+        this.indices = [
+            0,  1,  2,      0,  2,  3,    // front
+        ];
+    };
+
+    setColors = (colors) => {
+        if ( colors.length == 16 ) {
+            for ( let i = 0; i < 16; i++ ) {
+                this.colors[i] = colors[i];
+            }
+        } else if ( colors.length == 4 ) {
+            for ( let i = 0; i < 4; i++ ) {
+                for ( let j = 0; j < 4; j++ ) {
+                    this.colors[i*4+j] = colors[j];
+                }
+            }
+        } else if ( colors.length == 3 ) {
+            for ( let i = 0; i < 4; i++ ) {
+                for ( let j = 0; j < 3; j++ ) {
+                    this.colors[i*4+j] = colors[j];
+                }
+                this.colors[i*4+3] = 1.0;
+            }
+        }
+    };
+
+    getCurrentData = () => {
+        return {
+            positions : positions,
+            colors : colors,
+            normals : normals, 
+            textures : textureCoordinates, 
+            indices : indices,
+        };
+    }
+}
 
 export const makeCubeData = () => {
     const positions = [

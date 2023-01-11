@@ -20,8 +20,7 @@
         import * as GLDataUtils from '../../js/GLDataUtils.js';
         
 
-        function render(obj,gp) {
-            const gl = obj.gl;
+        function render(gl,gp) {
 
             let delta = 0;
             let curData = 0;
@@ -36,10 +35,6 @@
 			    // Clear the canvas before we start drawing on it.
 
 			    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-                gl.useProgram(obj.program);
-
-                
-                gl.bindVertexArray(obj.vao);
 
                 if ( curData == 0 ) {
                     curData = time;
@@ -47,70 +42,34 @@
                     delta = time - curData;
                 }
 
-
-                let worldMatrix             = TypedMatrixUtils.makeIdentityMatrix(4);
-                let viewMatrix              = TypedMatrixUtils.makeIdentityMatrix(4);
-                let projectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);   
-
-                //  [ 주석 1 ] : x,y,z 모두 0.4 로 축소 
-                //worldMatrix                 = TypedMatrixUtils.makeScaleMatrix3D(0.4,0.4,0.4);
-
-
-                //  [ 주석 2 ] : x, y 방향으로 45도 변경 주석...
-                let radian  = delta;        //Math.PI*45/180; //    Math.PI * 0.25
-                //worldMatrix                 = TypedMatrixUtils.multiplyMatrix(worldMatrix, TypedMatrixUtils.makeRotateXMatrix3D(radian));
-                //worldMatrix                 = TypedMatrixUtils.multiplyMatrix(worldMatrix, TypedMatrixUtils.makeRotateYMatrix3D(radian));
-
-                //  [ 주석 3 ] : translation 
-                //worldMatrix = TypedMatrixUtils.multiplyMatrix(worldMatrix,TypedMatrixUtils.makeTranslateMatrix3D(1,0,-8));
-                worldMatrix = TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0,-8), worldMatrix);
-
-                //worldMatrix = TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeRotateYMatrix3D(radian), worldMatrix);
-                          
-
-                let eye = [0, 0, 10];
-
-                let v = Math.sin(delta) * 20 -8 ;
-                let c = -Math.cos(delta) * 20 ;
-                eye = [c, 0, v];
-                eye = [0,0, 10];
-                let at = [0, 0, -8];
-                let up = [0, 1, 0];
-
-                //  view
-                viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
-
-                //  [ 주석 4 ] : projection 
-                projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
-                
-                obj.uniformArray[0].data    = worldMatrix;
-                obj.uniformArray[1].data    = viewMatrix;
-                obj.uniformArray[2].data    = projectionMatrix;                
-
-                for ( let i = 0; i < obj.uniformArray.length; i++ ) {
-                    GLUtils.setUniformValues( gl, obj.uniformArray[i].uLocation, 
-                        obj.uniformArray[i].data, obj.uniformArray[i].dataType, obj.uniformArray[i].dataKind, obj.uniformArray[i].dataSize, true);
-                }
-
-                gl.drawElements(gl.TRIANGLES, obj.indexInfos.indexSize, gl.UNSIGNED_INT,0);
-                
-                gl.bindVertexArray(null);   //  clean item
-                gl.useProgram(null);    //  clean program ( shader combined )
-                requestAnimationFrame(drawScene);
-
-
-                obj.uniformArray[0].data    = worldMatrix;
-                obj.uniformArray[1].data    = viewMatrix;
-                obj.uniformArray[2].data    = projectionMatrix;                
-
-                gp.setUniformMatrix("worldMatrix",TypedMatrixUtils.makeIdentityMatrix(4));
-                gp.setUniformMatrix("viewMatrix", viewMatrix);
-                gp.setUniformMatrix("projectionMatrix", projectionMatrix);
-
                 gp.render(gl, true);
+                requestAnimationFrame(drawScene);
             };
 
             requestAnimationFrame(drawScene);
+        }
+
+        function setProgramUniformValues( gl,  glProgram ) {
+
+            let worldMatrix             = TypedMatrixUtils.makeIdentityMatrix(4);
+            let viewMatrix              = TypedMatrixUtils.makeIdentityMatrix(4);
+            let projectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);   
+
+            let eye = [0, -10, 10];
+            let at = [0, 0, -8];
+            let up = [0, 1, 0];
+
+            //  view
+            viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
+
+            //  [ 주석 4 ] : projection 
+            projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+            //projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
+            
+
+            glProgram.setUniformMatrix("worldMatrix",TypedMatrixUtils.makeIdentityMatrix(4));
+            glProgram.setUniformMatrix("viewMatrix", viewMatrix);
+            glProgram.setUniformMatrix("projectionMatrix", projectionMatrix);
         }
 
         function main() {
@@ -165,14 +124,45 @@
             gProgram.initResource(gl, program, uniformArray );
 
             const gItem = new GLDataUtils.GLItem("itemID");
-            //attributeArray, uniformArray, indexInfos, textureInfos, userWorldName
             gItem.initResource( gl, program, attributeArray, uniformArray, indexInfos, undefined, "worldMatrix");
-
             gItem.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(1,5, -6));
 
-            gProgram.appendItem(gItem);
+            const gItem02 = new GLDataUtils.GLItem("itemID02");
+            gItem02.initResource( gl, program, attributeArray, uniformArray, indexInfos, undefined, "worldMatrix");
+            gItem02.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0,-8), TypedMatrixUtils.makeScaleMatrix3D(2,2,2)));
 
-            render(obj, gProgram);
+            gItem02.makeRotateAnimations(3,0.02,-1);
+
+
+            gItem.makeRotateAnimations(1, 0.05, 1);
+            gItem.makeRotateAnimations(2, 0.05, 1);        
+            //gItem.makeRotateAnimations(3, 0.05, 1);        
+            
+            gItem.makePendulumAnimation(3, 0.005, 1, -2, 2);            
+            gItem.makeOrbitAnimations(3, 0.05, 1);   
+
+            gProgram.appendItem(gItem);
+            gProgram.appendItem(gItem02);
+
+            const plane = new GLDataUtils.BasicPlane('aa');
+            const planeItem = new GLDataUtils.GLItem("planeItemID");
+
+            const planeAttributeArray = [
+                {attributeName : "position", data : new Float32Array(plane.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normal", data : new Float32Array(plane.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : new Float32Array(plane.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},        
+            ];
+
+            const planeIndexInfos = { data : new Uint32Array(plane.indices), indexSize : plane.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
+
+            planeItem.initResource( gl, program, planeAttributeArray, uniformArray, planeIndexInfos, undefined, "worldMatrix");      
+
+            planeItem.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(15,15,15)) );
+            gProgram.appendItem(planeItem)      
+            
+            setProgramUniformValues(gl, gProgram);
+
+            render(gl, gProgram);
         }
 
         main();

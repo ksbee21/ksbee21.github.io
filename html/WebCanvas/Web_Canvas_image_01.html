@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+    <script type="module">
+        import * as CanvasUtils from '../../js/CanvasUtils.js';
+
+        function changeRedBluePositions( orgData, newData ) {
+            for ( let i = 0, iSize = orgData.data.length; i < iSize; i += 4 ) {
+                //  r g b a
+                newData.data[i+2] = orgData.data[i];     //  r
+                newData.data[i+1] = orgData.data[i+1];   //  g
+                newData.data[i] = orgData.data[i+2];     //  b
+                newData.data[i+3] = orgData.data[i+3];   //  a
+            }
+        }
+
+        const loadSampleData = async (url) => {
+            let imageData = await CanvasUtils.makeCanvasImageData(url);
+            const canvas = CanvasUtils.makeCanvasObject("testID", null, imageData.width, imageData.height );
+            const ctx = canvas.getContext("2d");
+            ctx.putImageData(imageData, 0, 0);
+
+            const nImageData = ctx.createImageData(imageData.width, imageData.height);
+
+            //changeRedBluePositions(imageData, nImageData);
+            //CanvasUtils.inverseImageData(imageData, nImageData);
+            CanvasUtils.translateGrayScaleData(imageData, nImageData);
+            ctx.putImageData(nImageData, 0, 0);
+            console.log(canvas.toDataURL());
+        }
+        loadSampleData("/imgs/sea01.jpg");
+    </script>    
+</body>
+</html>

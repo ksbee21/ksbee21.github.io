@@ -7,11 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sat, 07 Jan 2023 22:12:46 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Jan 2023 21:50:03 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Canvas</title>
+      <link>/tags/canvas/</link>
+      <pubDate>Tue, 10 Jan 2023 21:50:03 +0900</pubDate>
+      
+      <guid>/tags/canvas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Image Processing</title>
+      <link>/tags/image-processing/</link>
+      <pubDate>Tue, 10 Jan 2023 21:50:03 +0900</pubDate>
+      
+      <guid>/tags/image-processing/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Javascript</title>
       <link>/tags/javascript/</link>
-      <pubDate>Sat, 07 Jan 2023 22:12:46 +0900</pubDate>
+      <pubDate>Tue, 10 Jan 2023 21:50:03 +0900</pubDate>
       
       <guid>/tags/javascript/</guid>
       <description></description>
@@ -20,9 +38,18 @@
     <item>
       <title>Language</title>
       <link>/tags/language/</link>
-      <pubDate>Sat, 07 Jan 2023 22:12:46 +0900</pubDate>
+      <pubDate>Tue, 10 Jan 2023 21:50:03 +0900</pubDate>
       
       <guid>/tags/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>/tags/web/</link>
+      <pubDate>Tue, 10 Jan 2023 21:50:03 +0900</pubDate>
+      
+      <guid>/tags/web/</guid>
       <description></description>
     </item>
     
@@ -45,29 +72,11 @@
     </item>
     
     <item>
-      <title>Web</title>
-      <link>/tags/web/</link>
-      <pubDate>Sat, 07 Jan 2023 22:12:46 +0900</pubDate>
-      
-      <guid>/tags/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>WebGL</title>
       <link>/tags/webgl/</link>
       <pubDate>Sat, 07 Jan 2023 22:12:46 +0900</pubDate>
       
       <guid>/tags/webgl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Canvas</title>
-      <link>/tags/canvas/</link>
-      <pubDate>Tue, 03 Jan 2023 21:49:38 +0900</pubDate>
-      
-      <guid>/tags/canvas/</guid>
       <description></description>
     </item>
     

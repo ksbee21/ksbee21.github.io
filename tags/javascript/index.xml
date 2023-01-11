@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sat, 07 Jan 2023 22:12:46 +0900</lastBuildDate><atom:link href="/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Jan 2023 21:50:03 +0900</lastBuildDate><atom:link href="/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Web Canvas Image 기초</title>
+      <link>/post/webcanvas/web_canvas_image_001/</link>
+      <pubDate>Tue, 10 Jan 2023 21:50:03 +0900</pubDate>
+      
+      <guid>/post/webcanvas/web_canvas_image_001/</guid>
+      <description>Canvas 에서 Image ? WebGL에서 Texture 부분을 정리하다 보면, Nearest, Bilinear 등의 용어를 접하게 됩니다. 프로그램을 개발하는 관점에서는 추출하는 방식을 지정한 후, GPU 에서 수행한 결과를 확인하면 되는 것이니, 구체적인 알고리즘을 굳이 확인하지 않아도 문제가 되지는 않습니다. 하지만, Web 특히 Canvas 에서 제공하는 강력한 기능중 하나가, Image 를 Uint8Array 의 8bit 이미지 배열로 다룰 수 있도록 데이터를 제공하고 있는 것입니다. 이런 데이터를 기반으로 간단한 Image Processing 작업, 더 나아가 OpenCV 에서 제공하는 기능도 일부 활용할 수 있는 수준에 있습니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Program 시작 04 [ 08 ]</title>
       <link>/post/webmodule/webgl_part_008/</link>
