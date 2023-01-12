@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Tue, 10 Jan 2023 21:50:03 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Jan 2023 22:12:45 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Web Canvas Image Kernel</title>
+      <link>/post/webcanvas/web_canvas_image_002/</link>
+      <pubDate>Wed, 11 Jan 2023 22:12:45 +0900</pubDate>
+      
+      <guid>/post/webcanvas/web_canvas_image_002/</guid>
+      <description>Image Kernel Image Processing 관련한 문서를 검색하면 일단 용어 자체가 그리 익숙하지 않은 상황에서 kernel, convolution matrix, mask 등의 용어를 접하기도 합니다. 사실 아주 오래전 Windows Application 을 구성하면서 데이터에 필터 ( 행렬 값 - kernel )를 적용하며, 시각화 하여 보여주는 프로그램을 개발한 적이 있었습니다. Application 에서만, 그것도 범용적이지 않은 프로그램에서 사용하던 기능들이었는데, 이제는 Web 에서 이런 기능이 가능한 것을 보면서, 개발환경의 변화를 새삼스레 느끼게 됩니다. Copy &amp;amp; Paste 의 대명사 였던 javascript 가 이제는 어떤면에서는 가장 첨단을 달리는 언어로 탈바꿈한것을 보면, 어쩌면 당연한 일인지도 모르겠습니다.</description>
+    </item>
+    
     <item>
       <title>Web Canvas Image 기초</title>
       <link>/post/webcanvas/web_canvas_image_001/</link>

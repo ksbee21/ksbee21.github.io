@@ -32,7 +32,11 @@
 
             //changeRedBluePositions(imageData, nImageData);
             //CanvasUtils.inverseImageData(imageData, nImageData);
-            CanvasUtils.translateGrayScaleData(imageData, nImageData);
+            //CanvasUtils.translateGrayScaleData(imageData, nImageData);
+            //CanvasUtils.executeConvolution(2, imageData, nImageData, 1);
+            //CanvasUtils.executeConvolution(3, imageData, nImageData, 1);
+            CanvasUtils.executeConvolution(6, imageData, nImageData, 1);            
+            //CanvasUtils.executeConvolution(7, imageData, nImageData, 1);            
             ctx.putImageData(nImageData, 0, 0);
             console.log(canvas.toDataURL());
         }

@@ -90,7 +90,7 @@
         const idx = y*w*4+x*4;
         
         for ( let t = 0; t < 4; t++ ) {
-            result[t] = pixels[idx+t];
+            result[t] = pixels.data[idx+t];
         }
         return result;
     };
@@ -145,6 +145,165 @@
             }
             transData.data[i+j] = originalData.data[i+j]; // alpha(투명도) 값은 변화 없음
         }    
+        return transData;
+    };
+
+    /**
+     * 
+     * @param {*} typeNum => 1 : ridge, 2 : edge detection, 3 : sharpen, 4 : box blur 
+     *                      , 5 : gaussian blur(3x3) , 6 : gaussian blur(5x5), 7 : unsharp masking(5x5 )
+     * 
+     * @returns 
+     */
+    export const getImageKernelByType = ( typeNum ) => {
+        //  Ridge 
+        let result = undefined;
+
+        switch( typeNum ) {
+            case 1 :    //  ridge
+                result = new Float32Array( [
+                    0, -1, 0, 
+                    -1, 4, -1, 
+                    0, -1, 0
+                ]);
+                result.rows = 3;
+                result.cols = 3;
+                result.xPos = 1;
+                result.yPos = 1;
+                break;
+            case 2 : 
+                result = new Float32Array( [
+                    -1, -1, -1, 
+                    -1, 8, -1, 
+                    -1, -1, -1
+                ]);
+                result.rows = 3;
+                result.cols = 3;
+                result.xPos = 1;
+                result.yPos = 1;
+                break;
+            case 3 :
+                result = new Float32Array( [
+                    0, -1, 0, 
+                    -1, 5, -1, 
+                    0, -1, 0
+                ]);
+                result.rows = 3;
+                result.cols = 3;
+                result.xPos = 1;
+                result.yPos = 1;
+                break;
+            case 4 :
+                result = new Float32Array( [
+                    1/9, 1/9, 1/9, 
+                    1/9, 1/9, 1/9, 
+                    1/9, 1/9, 1/9
+                ]);
+                result.rows = 3;
+                result.cols = 3;
+                result.xPos = 1;
+                result.yPos = 1;
+                break;
+            case 5 :
+                result = new Float32Array( [
+                    1/16, 2/16, 1/16, 
+                    2/16, 4/16, 2/16, 
+                    1/16, 2/16, 1/16
+                ]);
+                result.rows = 3;
+                result.cols = 3;
+                result.xPos = 1;
+                result.yPos = 1;
+                break;
+            case 6 :
+                result = new Float32Array( [
+                    1/256, 4/256, 6/256, 4/256, 1/256,
+                    4/256, 16/256, 24/256, 16/256, 4/256,
+                    6/256, 24/256, 36/256, 24/256, 6/256,
+                    4/256, 16/256, 24/256, 16/256, 4/256,
+                    1/256, 4/256, 6/256, 4/256, 1/256,                    
+                ]);
+                result.rows = 5;
+                result.cols = 5;
+                result.xPos = 2;
+                result.yPos = 2;
+                break;
+            case 7 :
+                result = new Float32Array( [
+                    -1/256, -4/256, -6/256, -4/256, -1/256,
+                    -4/256, -16/256, -24/256, -16/256, -4/256,
+                    -6/256, -24/256, 476/256, -24/256, -6/256,
+                    -4/256, -16/256, -24/256, -16/256, -4/256,
+                    -1/256, -4/256, -6/256, -4/256, -1/256,               
+                ]);
+                result.rows = 5;
+                result.cols = 5;
+                result.xPos = 2;
+                result.yPos = 2;
+                break;
+            default :
+                result = new Float32Array( [
+                    0, 0, 0, 
+                    0, 1, 0, 
+                    0, 0, 0
+                ]);
+                result.rows = 3;
+                result.cols = 3;
+                result.xPos = 1;
+                result.yPos = 1;
+                break;
+        }
+        return result;
+    };
+
+    export const executeConvolution = (typeNum, originalData, transData, paddingType) => {
+        if ( !originalData || !transData  ) {
+            alert( "Data 확인이 필요합니다. ");
+            return transData;
+        }
+        
+        const len = originalData.data.length;
+        if ( len != transData.data.length ) {
+            alert ( "Data 길이가 일치하지 않습니다. ");
+            return transData;
+        }
+        const kernel = getImageKernelByType(typeNum);
+        const kRows = kernel.rows;
+        const kCols = kernel.cols;
+        const xPos = kernel.xPos;
+        const yPos = kernel.yPos;
+
+        const width = originalData.width;
+        const height = originalData.height;
+
+        const calcPixels = new Float32Array(4);
+
+        for ( let r = 0; r < height; r++ ) {
+            for ( let c = 0; c < width; c++ ) {
+                for ( let t = 0; t < 4; t++ ) {
+                    calcPixels[t] = 0;
+                }
+                for ( let kr = 0; kr < kRows; kr++ ) {
+                    for ( let kc = 0; kc < kCols; kc++ ) {
+                        let x = c+kc-xPos;
+                        let y = r+kr-yPos;
+                        let pixels = getPixels(x,y,paddingType,width,height,originalData);
+                        let tdx = kr*kCols+kc;
+                        for ( let t = 0; t < 3; t++ ) {
+                            calcPixels[t] += (pixels[t]*kernel[tdx]);
+                        }
+                    }
+                }
+
+                const idx = r*width*4+c*4;
+                for ( let t = 0; t < 3; t++ ) {
+                    let v = Math.round(calcPixels[t]);
+                    v = (v > 255 ? 255 : (v < 0 ? 0 : v));
+                    transData.data[idx+t] = v;
+                }                
+                transData.data[idx+3] = originalData.data[idx+3];
+            }
+        }
         return transData;
     };
 
