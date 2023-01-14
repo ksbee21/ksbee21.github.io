@@ -7,13 +7,49 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Wed, 11 Jan 2023 22:12:45 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Jan 2023 22:08:35 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Canvas</title>
       <link>/tags/canvas/</link>
-      <pubDate>Wed, 11 Jan 2023 22:12:45 +0900</pubDate>
+      <pubDate>Fri, 13 Jan 2023 22:08:35 +0900</pubDate>
       
       <guid>/tags/canvas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Interpolation</title>
+      <link>/tags/interpolation/</link>
+      <pubDate>Fri, 13 Jan 2023 22:08:35 +0900</pubDate>
+      
+      <guid>/tags/interpolation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>/tags/javascript/</link>
+      <pubDate>Fri, 13 Jan 2023 22:08:35 +0900</pubDate>
+      
+      <guid>/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Language</title>
+      <link>/tags/language/</link>
+      <pubDate>Fri, 13 Jan 2023 22:08:35 +0900</pubDate>
+      
+      <guid>/tags/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>/tags/web/</link>
+      <pubDate>Fri, 13 Jan 2023 22:08:35 +0900</pubDate>
+      
+      <guid>/tags/web/</guid>
       <description></description>
     </item>
     
@@ -23,33 +59,6 @@
       <pubDate>Wed, 11 Jan 2023 22:12:45 +0900</pubDate>
       
       <guid>/tags/image-processing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Javascript</title>
-      <link>/tags/javascript/</link>
-      <pubDate>Wed, 11 Jan 2023 22:12:45 +0900</pubDate>
-      
-      <guid>/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Language</title>
-      <link>/tags/language/</link>
-      <pubDate>Wed, 11 Jan 2023 22:12:45 +0900</pubDate>
-      
-      <guid>/tags/language/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Web</title>
-      <link>/tags/web/</link>
-      <pubDate>Wed, 11 Jan 2023 22:12:45 +0900</pubDate>
-      
-      <guid>/tags/web/</guid>
       <description></description>
     </item>
     

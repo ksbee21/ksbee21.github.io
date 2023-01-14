@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Wed, 11 Jan 2023 22:12:45 +0900</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Jan 2023 22:08:35 +0900</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Web Canvas Image Bilinear intepolation </title>
+      <link>/post/webcanvas/web_canvas_image_003/</link>
+      <pubDate>Fri, 13 Jan 2023 22:08:35 +0900</pubDate>
+      
+      <guid>/post/webcanvas/web_canvas_image_003/</guid>
+      <description>Canvas Image Pixel 은 ? 앞서 간단히 정리한 Web 에서 이미지를 다루는 방법은 Image Pixel을 직접 다룰 수 있는 Typed Array 를 Canvas 가 제공해 준다는 것입니다. 이미지가 100 x 100 정도의 size 라면 10000 개의 pixel 정보가 있고, 10000 개의 pixel 에는 각각 r, g, b, a 의 값이 각 1byte 씩 저장되어 (각 pixel당 4byte) 개발자가 접근할 수 있도록 데이터를 제공합니다. 어쩌면 이것이 Canvas 가 지닌 가장 강력한 도구가 아닌가 합니다.</description>
+    </item>
+    
     <item>
       <title>Web Canvas Image Kernel</title>
       <link>/post/webcanvas/web_canvas_image_002/</link>

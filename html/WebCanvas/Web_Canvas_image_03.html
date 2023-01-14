@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+    <p>
+        <a href="/post/webcanvas/web_canvas_image_003/">돌아가기(Back)</a>
+    </p>
+
+    <script type="module">
+        import * as CanvasUtils from '../../js/CanvasUtils.js';
+
+        const xSize = 10;
+        const ySize = 10;
+        const colorRgbArray = [];
+
+        for ( let i = 0; i < ySize; i++ ) {
+            for ( let j = 0; j < xSize; j++ ) {
+                const cArray = [];
+                for ( let t = 0; t < 3; t++ ) {
+                    cArray.push(CanvasUtils.getRandomIntValue(0,256));
+                }
+                colorRgbArray.push(cArray);
+            }
+        }
+
+        function makeOriginaCanvasColors(scale) {
+            let scaleX = xSize*scale;
+            let scaleY = ySize*scale;
+            const canvas   = CanvasUtils.makeCanvasObject("originalCanvas", undefined, scaleX, scaleY);
+            const ctx      = canvas.getContext("2d");
+
+            const imageData = ctx.createImageData(scaleX, scaleY);
+            for ( let r = 0; r < scaleY; r++ ) {
+                let yPos = Math.floor(r/(scale));
+                for ( let c = 0; c < scaleX; c++ ) {
+                    let xPos = Math.floor(c/(scale));
+                    let idx = yPos*xSize+xPos;
+                    let cIdx = r*scaleX*4+c*4;
+                    let t = 0;
+                    for( ; t < 3; t++ ) {
+                        imageData.data[cIdx+t] = colorRgbArray[idx][t];
+                    } 
+                    imageData.data[cIdx+t] = 255;
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+        }
+
+
+        const canvasWidth   = 500;
+        const canvasHeight  = 500;
+
+        const xGap          = canvasWidth/(xSize-1);
+        const yGap          = canvasHeight/(ySize-1);
+
+
+        function makeNearestCanvasColors() {
+
+            const canvas   = CanvasUtils.makeCanvasObject("nearestCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            const imageData = ctx.createImageData(canvasWidth, canvasHeight);
+            for ( let r = 0; r < canvasHeight; r++ ) {
+                let yPos = Math.round(r/(yGap));
+                for ( let c = 0; c < canvasWidth; c++ ) {
+                    let xPos = Math.round(c/(xGap));
+                    let idx = yPos*xSize+xPos;
+                    let cIdx = r*canvasWidth*4+c*4;
+                    let t = 0;
+                    for( ; t < 3; t++ ) {
+                        imageData.data[cIdx+t] = colorRgbArray[idx][t];
+                    } 
+                    imageData.data[cIdx+t] = 255;
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+        }
+
+        function makeBilinearCanvasColors() {
+
+            const canvas   = CanvasUtils.makeCanvasObject("bilinearCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            const imageData = ctx.createImageData(canvasWidth, canvasHeight);
+            for ( let r = 0; r < canvasHeight; r++ ) {
+                let yPos = (r/yGap);
+                let yFloor = Math.floor(yPos);
+                let dy = yPos-yFloor;
+                for ( let c = 0; c < canvasWidth; c++ ) {
+                    let xPos = c/xGap;
+                    let xFloor = Math.floor(xPos);
+                    let dx = xPos - xFloor;
+                    let idx01 = yFloor*xSize+xFloor;
+                    let idx02 = idx01+1;
+                    let idx03 = (yFloor+1)*xSize+xFloor;
+                    let idx04 = idx03+1;
+
+                    let colors = CanvasUtils.makeBilinearColors(dx,dy,colorRgbArray[idx01],colorRgbArray[idx02], colorRgbArray[idx03], colorRgbArray[idx04] );
+                    let cIdx = r*canvasWidth*4+c*4;
+                    let t = 0;
+                    for( ; t < 3; t++ ) {
+                        imageData.data[cIdx+t] = colors[t];
+                    } 
+                    imageData.data[cIdx+t] = 255;
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+        }
+
+        makeOriginaCanvasColors(10);
+        makeNearestCanvasColors();
+        makeBilinearCanvasColors();
+    
+    </script>
+</body>
+</html>

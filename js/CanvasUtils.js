@@ -307,3 +307,106 @@
         return transData;
     };
 
+	export const convertRgbToHex = ( rgbStr ) => {
+		if ( !rgbStr ) 
+			return undefined;
+		
+		const rgb = rgbStr.replace(/\s|;/g,'').match(/^rgba?\(([\d]+),([\d]+),([\d]+)(,([\d.]+))?\)/i);
+		if ( !rgb || !rgb.length )
+			return undefined;
+		let r = (rgb[1]&255);
+		let g = (rgb[2]&255);
+		let b = (rgb[3]&255);
+		let a = (rgb[5] ? parseFloat(rgb[5]) : '');
+		//	alpha ... skip ..
+		return "#" + (r < 16 ? '0' : '') + r.toString(16) + (g < 16 ? '0' : '') + g.toString(16) + (b < 16 ? '0' : '') + b.toString(16); 
+	};
+
+
+	export const convertHexToRgb = ( hexStr ) => {
+		if ( !hexStr )
+			return undefined;
+		const hex = hexStr.replace(/\s|;/g,'').match(/^#([a-z|A-Z|0-9]{3,6})/i);
+		if ( !hex || !hex[1] ) {
+			return undefined;
+		}
+		let len = hex[1].length;
+		let hStr = "0x";
+		if ( len == 3 ) {
+			let arr = hex[1].split('');
+			hStr += arr[0]+arr[0]+arr[1]+arr[1]+arr[2]+arr[2];
+		} else if ( len == 6 ) {
+			hStr += hex[1];
+		} else {
+			return undefined;
+		}
+		return "rgb("+((hStr>>16)&255) + "," + ((hStr>>8)&255)+","+(hStr&255)+")";
+	};
+
+
+    /**
+     * max 는 포함안됨 ...
+     * Range : min <= value < max 
+     */
+    export const getRandomIntValue = (min,max) => {
+        return Math.floor(Math.random() * (max-min) + min);
+    };
+
+    export const getHtmlRamdonHexColor = () => {
+        let r = getRandomIntValue(0,256);
+        let g = getRandomIntValue(0,256);
+        let b = getRandomIntValue(0,256); 
+        return getHtmlHexColor(r,g,b);
+    };
+
+
+    export const getHtmlHexColor = (r,g,b) => {
+        if ( isNaN(r) || isNaN(g) || isNaN(b)  ) 
+            return undefined;
+        
+        r = (r < 0 ? 0 : (r > 255 ? 255 : r));
+        g = (g < 0 ? 0 : (g > 255 ? 255 : g));
+        b = (b < 0 ? 0 : (b > 255 ? 255 : b));        
+        let colors = "#";
+        if ( r < 16 ) {
+            colors += "0";
+        }
+        colors += r.toString(16);
+        if ( g < 16 ) {
+            colors += "0";
+        }
+        colors += g.toString(16);
+        if ( b < 16 ) {
+            colors += "0";
+        }
+        colors += b.toString(16);
+        return colors;
+    };
+
+    /**
+     * position :   c01             c02
+     *                  dx,dy
+     *              c03             c04
+     * @param {*} dx : 단위 1을 기준으로 dx + 1- dx = 1, dx 는 c01 과 c02 사이의 c01 에서 떨어진 비율, 0 이면 c01 값이고 1이면 c02 값이 됩니다. ( c03, c04 동일)
+     * @param {*} dy : 단위 1 기준 dx 와 동일한 로직 
+     * @param {*} c01 
+     * @param {*} c02 
+     * @param {*} c03 
+     * @param {*} c04 
+     */
+    export const makeBilinearColors = ( dx, dy, c01, c02, c03, c04 ) => {
+        const firstRow = [0,0,0];
+        const secondRow = [0,0,0];
+        const result = [0,0,0];
+        for ( let i = 0; i < 3; i++ ) {
+            firstRow[i] = (c01[i]*(1-dx) + c02[i]*(dx));
+            secondRow[i] = (c03[i]*(1-dx) + c04[i]*(dx));            
+        }
+
+        for ( let i = 0; i < 3; i++ ) {
+            result[i] = Math.round(firstRow[i]*(1-dy)+secondRow[i]*(dy));
+            result[i] = (result[i] < 0 ? 0 : (result[i] > 255 ? 255 : result[i]));
+        }
+        return result;
+    };
+
