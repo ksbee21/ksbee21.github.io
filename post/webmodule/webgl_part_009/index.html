@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebGL2 Texture 기초 정리">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Program 시작 05 - Texture - [ 09 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="/css/main.css">
+    
+  
+  
+    
+        <script src="/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Program 시작 05 - Texture - [ 09 ]</h1>
+  <h2>WebGL2 Texture 기초 정리</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 01. 15, 13:03</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/programming">Programming</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/math">Math</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="webgl-에서-texture-란-">WebGL 에서 Texture 란 ?</h1>
+<p>WebGL 에서 해주는 것은 어떤 특정 pixel 이 무슨 색을 입혀서 출력해야 하는 가를 판단하고, 표현하는 것이 어쩌면 가장 주요한 일이라고 볼 수 있을 것 같습니다. <br>
+그 공간에서 하는 일이 앞에 놓인것은 출력하고, 뒤에 있는 것은 출력하지 않고, 만약 투명하다면 색을 투명도에 따라 혼합하여 보여주는 등 내부적인 일은 복잡합니다. <br>
+그래도 주어진 좌표를 기준으로 해당 위치에 어떤 색을 출력해야하는지 결정하는 일은 변하지 않습니다. <br>
+Texture 는 사용에 따라 여러 가지 일을 할 수도 있지만, 가장 본질적인 것은 특정 좌표의 색을 texture 에 기록된 값으로 보정하여 출력하는데 사용되는 것일 겁니다. <br>
+가장 일반적인 예는 특정 그림을 z 좌표를 무시 한다면, x, y 에 해당 색상을 선택하고 출력하는 역활을 담당하게 될 것입니다.</p>
+<h3 id="texture-좌표">Texture 좌표</h3>
+<p>앞서 WebGL 에서의 좌표가 x : -1 ~ 1 ( 왼쪽에서 오른쪽 ), y : -1 ~ 1 ( 아래에서 위로 ), z : -1 ~ 1 ( 뒤에서 앞으로 ) 입니다.  z 좌표는 스크린에 표기될 때 앞에서 뒤의 
+방향으로( 왼손좌표계 ) 변환되기 때문에 투영행렬에서 보정해 주고 있습니다. <br>
+Texture 좌표는 x : 0 ~ 1 ( 왼쪽에서 오른쪽으로 ), y : 0 ~ 1 ( 아래에서 위로 ) 의 좌표 공간을 갖습니다.  <br>
+Fragment 가 색상을 보간하는 방식을 의미합니다.    다만, 우리가 일반적으로 사용하는 그림은 pixel 단위로 저장 되어 있습니다.    pixel 은 왼쪽 상단을 시작으로 오른쪽 하단에서 종료 됩니다. <br>
+그림을 연상하신다면  (0,0) 왼쪽 상단, (1,0) 오른쪽 상단, (1, 1) ( 오른쪽 하단 ), (0,1) (왼쪽 하단) 으로 보면 좋을 것 같습니다.<br>
+처음 Texture 를 로딩 하면서 그림이 뒤집혀 있는 것을 보고 의아해 했던 기억이 납니다.   입력되는 pixel 이 보정되는 시작이 opengl 에서는 0, 0 에서 시작되기 때문에 그림이 뒤집혀 보이게 됩니다.<br>
+엄밀히 말해 공간은 좌표를 기준으로 행렬에 의해 변환 되기 때문에 위, 아래 등의 위치 개념이 적절하진 않지만, 이해를 돕기 위해 사용하였습니다.</p>
+<h3 id="texture-보간">Texture 보간</h3>
+<p>네모를 그리면서 위치 정보가 (-1,1,0), (1,1,0), (1,-1,0), (-1,-1,0) 이 있고, Texture 좌표가 (0,1),(1.1),(1,0),(0,0) 이고 그리기 위해 Index 는 반 시계 방향으로 구성해야 합니다. <br>
+(0,2,1,  0,3,1) 로 Index 가  구성되어 있다고 가정하고, 표현할 내용이 화면에 100 x 100 pixel 에 그려진다고 생각해 보겠습니다.    좌표값 사이에 있는 색상은 WebGL 의 Fragment 에서 보간 하여 
+화면에 출력하게 됩니다.   이때 사용하는 방식을 크게는 두개로 나누어 볼 수 있습니다.  NEAREST, 혹은 LINEAR 입니다.<br>
+NEAREST 는 가장 가까운 위치의 색상을 가져오는 방식이고, LINEAR 는 주변 4개 pixel 의 값을 보간한 값을 반환합니다.
+원본 이미지를 비율적으로 축소해(1/4) 비슷한 크기의 data 를 사용하기도 합니다.   이 때 사용하기 위한 정보를 mipmap 이라고 하고, 이를 미리 생성하도록 요청할 수 있습니다.</p>
+<h1 id="texture-program-진행-과정">Texture Program 진행 과정</h1>
+<p>상자(Cube)를 보여주는 예에서 그림을 출력하기 위해서 평면 4개를 지닌 간단한 javasscript 평면을 구성해 보았습니다.<br>
+javascript class 로 구성된 내용입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BasicPlane</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">item</span>) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">positions</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,            
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,            
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,            
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span>         ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">textureCoordinates</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,            
+</span></span><span style="display:flex;"><span>         ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">normals</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,    <span style="color:#75715e">// first : red
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,    <span style="color:#75715e">// second: green
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>               <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">1.0</span>,    <span style="color:#75715e">// third : blue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>               <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">0.0</span>,  <span style="color:#ae81ff">1.0</span>,  <span style="color:#ae81ff">1.0</span>,    <span style="color:#75715e">// forth vertex: cyan            
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">indices</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">2</span>,  <span style="color:#ae81ff">1</span>,      <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">3</span>,  <span style="color:#ae81ff">2</span>,    
+</span></span><span style="display:flex;"><span>         ];
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setColors</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">colors</span>) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">colors</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">16</span> ) {
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">16</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">colors</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>               }
+</span></span><span style="display:flex;"><span>         } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">colors</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> ) {
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                  <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">colors</span>[<span style="color:#a6e22e">j</span>];
+</span></span><span style="display:flex;"><span>                  }
+</span></span><span style="display:flex;"><span>               }
+</span></span><span style="display:flex;"><span>         } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">colors</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span> ) {
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                  <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">colors</span>[<span style="color:#a6e22e">j</span>];
+</span></span><span style="display:flex;"><span>                  }
+</span></span><span style="display:flex;"><span>                  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span><span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>;
+</span></span><span style="display:flex;"><span>               }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">getCurrentData</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">positions</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">positions</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">colors</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">normals</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">normals</span>, 
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">textures</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">textureCoordinates</span>, 
+</span></span><span style="display:flex;"><span>               <span style="color:#a6e22e">indices</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">indices</span>,
+</span></span><span style="display:flex;"><span>         };
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>   }
+</span></span></code></pre></div><p>조금 주의 깊게 보아야 할 부분은 좌표와 색상, 그리고 texture 위치 입니다 <br>
+z 좌표가 모두 0인 평면이니, x,y 좌표만 확인해 보면 , 
+Position의 좌상단(-1, 1) 의 색상은 (1,0,0)-red 이고, 우상단(1,1) 은 (0,1,0) - green , 우하단 (1, -1) 은 (0,0,1) blue, 좌하단은 (-1,-1) 은 ( 1, 0, 1) - cyan 입니다.<br>
+동일한 좌표가 textureCoordinate 에서는 (0,0) - 좌하단, (1,0) 좌상단, (1,1) 우상단, (0, 1) 좌상단 을 지칭하고 있습니다.    pixel 이 보간되는 순서가 0,0 에서 시작 되기 때문에
+만약 1,0 을 이미지의 왼쪽 상단을 연상하고 좌표를 구성해 놓으면, 이미지가 뒤집혀 보이는 현상이 나타나게 될 것 같습니다.</p>
+<h3 id="기존-shader를-통해-화면-입니다">기존 Shader를 통해 화면 입니다.</h3>
+<p>아직 Texture 를 다루기 전에 사용한 내용은 이전에 사용한 Shader 와 동일한 Shader 를 사용하였습니다.</p>
+<p><a href="/html/WebGL2/WebGL_PART_009_01.html">해당하는 결과는 다음에서 확인해 보실 수 있습니다.</a></p>
+<p><img src="/imgs/gl_09_01.png" alt="기본이미지"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span> <span style="color:#a6e22e">defer</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">TypedMatrixUtils</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../../js/TypedMatrixUtils.js&#39;</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">GLUtils</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../../js/GLUtils.js&#39;</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">GLDataUtils</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../../js/GLDataUtils.js&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">gl</span>,<span style="color:#a6e22e">gp</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">delta</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">curData</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawScene</span>(<span style="color:#a6e22e">time</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">time</span> <span style="color:#f92672">*=</span> <span style="color:#ae81ff">0.001</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">clearColor</span>(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>);  <span style="color:#75715e">// Clear to black, fully opaque
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 		    <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">clearDepth</span>(<span style="color:#ae81ff">1.0</span>);                 <span style="color:#75715e">// Clear everything
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 		    <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">enable</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">DEPTH_TEST</span>);           <span style="color:#75715e">// Enable depth testing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> 		    <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">depthFunc</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">LEQUAL</span>);            <span style="color:#75715e">// Near things obscure far things
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> 		    <span style="color:#75715e">// Clear the canvas before we start drawing on it.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> 		    <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">clear</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">COLOR_BUFFER_BIT</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">DEPTH_BUFFER_BIT</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">curData</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> ) {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">curData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">time</span>;
+</span></span><span style="display:flex;"><span>             } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                 <span style="color:#a6e22e">delta</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">curData</span>;
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">gp</span>.<span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">requestAnimationFrame</span>(<span style="color:#a6e22e">drawScene</span>);
+</span></span><span style="display:flex;"><span>         };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">requestAnimationFrame</span>(<span style="color:#a6e22e">drawScene</span>);
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setProgramUniformValues</span>( <span style="color:#a6e22e">gl</span>,  <span style="color:#a6e22e">glProgram</span> ) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">worldMatrix</span>             <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">viewMatrix</span>              <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">projectionMatrix</span>        <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>);   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">eye</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>];
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">at</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>];
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">up</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  view
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#a6e22e">viewMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeCameraMatrix3D</span>( <span style="color:#a6e22e">eye</span>, <span style="color:#a6e22e">at</span>, <span style="color:#a6e22e">up</span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  [ 주석 4 ] : projection 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#a6e22e">projectionMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makePerspectiveMatrix</span>(<span style="color:#ae81ff">90</span><span style="color:#f92672">*</span>Math.<span style="color:#a6e22e">PI</span><span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span><span style="color:#f92672">/</span><span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span>, <span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">glProgram</span>.<span style="color:#a6e22e">setUniformMatrix</span>(<span style="color:#e6db74">&#34;worldMatrix&#34;</span>,<span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>));
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">glProgram</span>.<span style="color:#a6e22e">setUniformMatrix</span>(<span style="color:#e6db74">&#34;viewMatrix&#34;</span>, <span style="color:#a6e22e">viewMatrix</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">glProgram</span>.<span style="color:#a6e22e">setUniformMatrix</span>(<span style="color:#e6db74">&#34;projectionMatrix&#34;</span>, <span style="color:#a6e22e">projectionMatrix</span>);
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">makeCanvasObject</span>(<span style="color:#e6db74">&#34;myCanvas&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gl</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">makeWebGL</span>(<span style="color:#a6e22e">canvas</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">gl</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">alert</span> ( <span style="color:#e6db74">&#34;WEBGL 을 사용할 수 없습니다. &#34;</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cube</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GLDataUtils</span>.<span style="color:#a6e22e">makeCubeData</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">typeNum</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">program</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">createProgramByType</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">typeNum</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">program</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">alert</span> ( <span style="color:#e6db74">&#34;WEBGL을 사용중 오류가 발생하였습니다. &#34;</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">uniformArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;worldMatrix&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>, <span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;viewMatrix&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>, <span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;projectionMatrix&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>},                
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;uSampler&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                                
+</span></span><span style="display:flex;"><span>         ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">attributeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;position&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">cube</span>.<span style="color:#a6e22e">positions</span>) , <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;normal&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">cube</span>.<span style="color:#a6e22e">normals</span>) , <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;colors&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">cube</span>.<span style="color:#a6e22e">colors</span>) , <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},      
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;texCoord&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">cube</span>.<span style="color:#a6e22e">textures</span>) , <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},      
+</span></span><span style="display:flex;"><span>         ];
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">setUniformLocations</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">uniformArray</span>);            
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vao</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">createVertexArray</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">bindVertexArray</span>(<span style="color:#a6e22e">vao</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">setAttributeValues</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">attributeArray</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">indexInfos</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint32Array</span>(<span style="color:#a6e22e">cube</span>.<span style="color:#a6e22e">indices</span>), <span style="color:#a6e22e">indexSize</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">cube</span>.<span style="color:#a6e22e">indices</span>.<span style="color:#a6e22e">length</span> , <span style="color:#a6e22e">indexType</span> <span style="color:#f92672">:</span>  <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">UNSIGNED_INT</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">setIndexInfos</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">indexInfos</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gProgram</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">GLDataUtils</span>.<span style="color:#a6e22e">GLProgram</span>(<span style="color:#e6db74">&#34;programID&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gProgram</span>.<span style="color:#a6e22e">initResource</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">uniformArray</span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gItem</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">GLDataUtils</span>.<span style="color:#a6e22e">GLItem</span>(<span style="color:#e6db74">&#34;itemID&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem</span>.<span style="color:#a6e22e">initResource</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">attributeArray</span>, <span style="color:#a6e22e">uniformArray</span>, <span style="color:#a6e22e">indexInfos</span>, <span style="color:#66d9ef">undefined</span>, <span style="color:#e6db74">&#34;worldMatrix&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem</span>.<span style="color:#a6e22e">setLocalMatrix</span>( <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeTranslateMatrix3D</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">gItem02</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">GLDataUtils</span>.<span style="color:#a6e22e">GLItem</span>(<span style="color:#e6db74">&#34;itemID02&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem02</span>.<span style="color:#a6e22e">initResource</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">attributeArray</span>, <span style="color:#a6e22e">uniformArray</span>, <span style="color:#a6e22e">indexInfos</span>, <span style="color:#66d9ef">undefined</span>, <span style="color:#e6db74">&#34;worldMatrix&#34;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem02</span>.<span style="color:#a6e22e">setLocalMatrix</span>( <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeTranslateMatrix3D</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>), <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeScaleMatrix3D</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem02</span>.<span style="color:#a6e22e">makeRotateAnimations</span>(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">0.02</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem</span>.<span style="color:#a6e22e">makeRotateAnimations</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem</span>.<span style="color:#a6e22e">makeRotateAnimations</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">1</span>);        
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//gItem.makeRotateAnimations(3, 0.05, 1);        
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem</span>.<span style="color:#a6e22e">makePendulumAnimation</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0.005</span>, <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>);            
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem</span>.<span style="color:#a6e22e">makeOrbitAnimations</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">1</span>);   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gProgram</span>.<span style="color:#a6e22e">appendItem</span>(<span style="color:#a6e22e">gItem</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gProgram</span>.<span style="color:#a6e22e">appendItem</span>(<span style="color:#a6e22e">gItem02</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">plane</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">GLDataUtils</span>.<span style="color:#a6e22e">BasicPlane</span>(<span style="color:#e6db74">&#39;aa&#39;</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">plane</span>.<span style="color:#a6e22e">getCurrentData</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">planeItem</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">GLDataUtils</span>.<span style="color:#a6e22e">GLItem</span>(<span style="color:#e6db74">&#34;planeItemID&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">planeAttributeArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;position&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">pData</span>.<span style="color:#a6e22e">positions</span>) , <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;normal&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">pData</span>.<span style="color:#a6e22e">normals</span>) , <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;colors&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">pData</span>.<span style="color:#a6e22e">colors</span>) , <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},  
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">attributeName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;texCoord&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span>  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">pData</span>.<span style="color:#a6e22e">textures</span>), <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">FLOAT</span>, <span style="color:#a6e22e">normalize</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">stride</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">loc</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>},                            
+</span></span><span style="display:flex;"><span>         ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">planeIndexInfos</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint32Array</span>(<span style="color:#a6e22e">plane</span>.<span style="color:#a6e22e">indices</span>), <span style="color:#a6e22e">indexSize</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">plane</span>.<span style="color:#a6e22e">indices</span>.<span style="color:#a6e22e">length</span> , <span style="color:#a6e22e">indexType</span> <span style="color:#f92672">:</span>  <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">UNSIGNED_INT</span>, <span style="color:#a6e22e">offset</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">planeItem</span>.<span style="color:#a6e22e">initResource</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">planeAttributeArray</span>, <span style="color:#a6e22e">uniformArray</span>, <span style="color:#a6e22e">planeIndexInfos</span>, <span style="color:#66d9ef">undefined</span>, <span style="color:#e6db74">&#34;worldMatrix&#34;</span>);      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">planeItem</span>.<span style="color:#a6e22e">setLocalMatrix</span>( <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeTranslateMatrix3D</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>), <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeScaleMatrix3D</span>(<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">20</span>)) );
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gProgram</span>.<span style="color:#a6e22e">appendItem</span>(<span style="color:#a6e22e">planeItem</span>)      
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">setProgramUniformValues</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">gProgram</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">gProgram</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">maxTextureUnits</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">getParameter</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">MAX_COMBINED_TEXTURE_IMAGE_UNITS</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">maxVertexShaderTextureUnits</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">getParameter</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">MAX_VERTEX_TEXTURE_IMAGE_UNITS</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">maxFragmentShaderTextureUnits</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">getParameter</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">MAX_TEXTURE_IMAGE_UNITS</span>);            
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//alert (  maxTextureUnits + &#34;\n&#34; + maxVertexShaderTextureUnits + &#34; , &#34; + maxFragmentShaderTextureUnits );
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">main</span>();
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><p>소스에서 GLProgram GLItem 은 render 를 위한 데이터 묶음인데 물체를 여러개 그리고자 할 때 조금 편한게 구현하기 위한 부분입니다. <br>
+나중에 정리할 시간이 있을 때 자세히 기술 하고, 여기서는 texture 부분에 집중해서 정리해 보도록 하겠습니다. <br>
+위 소스는 기존 Shader를 통해 로딩하고 평면의 좌표에서 색상이 어떤 위치에 놓여 있는지를 확인하는 정도로 정리하면 될 것 같습니다.</p>
+<p>그럼 다음에 Texture 를 어떻게 로딩할 까요 ?</p>
+<h3 id="texture-loading">Texture Loading</h3>
+<p>앞선 소스에서 몇가지 변경을 해 보도록 하겠습니다.<br>
+가장 먼저 Texture 를 사용하기 위해서는 Shader 내용을 변경하여야 합니다.   변경된 Shader 는 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">vs</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`#version 300 es
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         uniform mat4 worldMatrix, viewMatrix, projectionMatrix;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         in vec3 position;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         in vec3 normal;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         in vec4 colors;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         in vec2 texCoord;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         out vec3 vNormal ;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         out vec2 vTexCoord ;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         out vec4 vColors;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         void main() {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             gl_Position = projectionMatrix * viewMatrix  * worldMatrix * vec4(position, 1.0);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             vNormal = normalize(transpose(inverse(mat3(worldMatrix))) * normal);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             vTexCoord = texCoord;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             vColors = colors;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         `</span>                   
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`#version 300 es
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         precision highp float;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         in vec2 vTexCoord;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         in vec3 vNormal;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         in vec4 vColors; 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         uniform sampler2D uTexture;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         out vec4 fragColor;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         void main() {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             fragColor = texture(uTexture,vTexCoord);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">     `</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//  호출하는 페이지 에서 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">typeNum</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">program</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">createProgramByType</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">typeNum</span>);
+</span></span></code></pre></div><p>처음 GL Program 을 구성할 때 Vertex Shader 에서 texCoord 를 전달하고, Fragment Shader 에서  uniform sampler2D uTexture 를 받아 texture 정보를 매핑한 후 , 
+texture(uTexture,vTexCoord); 함수를 통해 uv 좌표로 부터 데이터를 fragment shader 에서 처리 할 수 있도록 전달하고 있습니다.</p>
+<p><a href="/html/WebGL2/WebGL_PART_009_02.html">해당하는 결과는 다음에서 확인해 보실 수 있습니다.</a></p>
+<p><img src="/imgs/gl_09_02.png" alt="기본이미지"></p>
+<p>호출하는 페이지 에서도 Texture 를 사용 할 수 있도록 다음과 같은 코드가 추가 되어 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>         ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url01</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/imgs/fabric.jpg&#34;</span>;<span style="color:#75715e">//&#34;/imgs/8k_earth_daymap.jpg&#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url02</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/imgs/wall.jpg&#34;</span>;                        
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url03</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/imgs/sea01.jpg&#34;</span>;            
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">textureInfos</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">texture</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">loadGLTextureData</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">url01</span>),
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">index</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">uTextureName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;uSampler&#34;</span>,
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">textureInfos02</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">texture</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">loadGLTextureData</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">url02</span>),
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">index</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">uTextureName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;uSampler&#34;</span>,                
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">textureInfos03</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">texture</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">GLUtils</span>.<span style="color:#a6e22e">loadGLTextureData</span>(<span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">url03</span>),
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">index</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">uTextureName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;uSampler&#34;</span>,                
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         ... 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem</span>.<span style="color:#a6e22e">initResource</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">attributeArray</span>, <span style="color:#a6e22e">uniformArray</span>, <span style="color:#a6e22e">indexInfos</span>, <span style="color:#a6e22e">textureInfos</span>, <span style="color:#e6db74">&#34;worldMatrix&#34;</span>);
+</span></span><span style="display:flex;"><span>         ... 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gItem02</span>.<span style="color:#a6e22e">initResource</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">attributeArray</span>, <span style="color:#a6e22e">uniformArray</span>, <span style="color:#a6e22e">indexInfos</span>, <span style="color:#a6e22e">textureInfos02</span>, <span style="color:#e6db74">&#34;worldMatrix&#34;</span>);
+</span></span><span style="display:flex;"><span>         ... 
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">planeItem</span>.<span style="color:#a6e22e">initResource</span>( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">planeAttributeArray</span>, <span style="color:#a6e22e">uniformArray</span>, <span style="color:#a6e22e">planeIndexInfos</span>, <span style="color:#a6e22e">textureInfos03</span>, <span style="color:#e6db74">&#34;worldMatrix&#34;</span>);      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         ...
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">loadGLTextureData</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">gl</span>, <span style="color:#a6e22e">url</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">texture</span>           <span style="color:#f92672">=</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">createTexture</span>();
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">level</span>             <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">internalFormat</span>    <span style="color:#f92672">=</span> <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">RGBA</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">width</span>             <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">height</span>            <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">border</span>            <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">bindTexture</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>, <span style="color:#a6e22e">texture</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">texImage2D</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>, <span style="color:#a6e22e">level</span>, <span style="color:#a6e22e">internalFormat</span>, <span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">height</span>, <span style="color:#a6e22e">border</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">RGBA</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">UNSIGNED_BYTE</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>]));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">CanvasUtils</span>.<span style="color:#a6e22e">loadImageFromURL</span>(<span style="color:#a6e22e">url</span>).<span style="color:#a6e22e">then</span>( <span style="color:#a6e22e">image</span> =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">bindTexture</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>, <span style="color:#a6e22e">texture</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">texImage2D</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>, <span style="color:#a6e22e">level</span>, <span style="color:#a6e22e">internalFormat</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">RGBA</span>,<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">UNSIGNED_BYTE</span>, <span style="color:#a6e22e">image</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">//      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);                
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">texParameteri</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_MAG_FILTER</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">LINEAR</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">texParameteri</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_MIN_FILTER</span>, <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">LINEAR_MIPMAP_NEAREST</span>);        
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">generateMipmap</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">bindTexture</span>(<span style="color:#a6e22e">gl</span>.<span style="color:#a6e22e">TEXTURE_2D</span>, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>         });
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">texture</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span></code></pre></div><p>여러 이미지를 로딩할 때 sampler 를 여러개 구성해야 하지 않을까 생각해 보았습니다.    두개 이상의 texture 를 혼합하거나, 
+다른 특수 효과가 필요한 경우에는 그렇게 구성하여도 괜찮지만, opengl guide 에서 active texture 가 0 이고 sampler 가 하나일 때 
+동시에 여러 texture 를 구성해서 사용할 수 있다고 명시 되어 있습니다.   사용전 해당 물체가 사용할 textuer 를 binding 하면 
+그 값으로 매핑이 되는 구조 입니다. <br>
+효율화를 고려 한다면 해야할 부분이 많이 있지만, texture 를 어떻게 사용하는지 기본적인 내용을 정리해 보았습니다.</p>
+<p>여러 물체를 그리는 방법등은 향후 시간이 될 때 정리해 보고자 합니다.  ^^</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2fwebmodule%2fwebgl_part_009%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2fwebmodule%2fwebgl_part_009%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2fwebmodule%2fwebgl_part_009%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2fwebmodule%2fwebgl_part_009%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2fwebmodule%2fwebgl_part_009%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2fwebmodule%2fwebgl_part_009%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/webcanvas/web_canvas_image_003/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/webcanvas/web_canvas_image_003/">Web Canvas Image Bilinear intepolation </a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+

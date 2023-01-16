@@ -10,7 +10,7 @@
 </head>
 <body>
     <p>
-    <a href="/post/webmodule/webgl_part_007/">돌아가기(Back)</a>
+    <a href="/post/webmodule/webgl_part_009/">돌아가기(Back)</a>
     </p>
     <canvas id="myCanvas"></canvas>
 
@@ -18,7 +18,6 @@
         import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
         import * as GLUtils from '../../js/GLUtils.js';
         import * as GLDataUtils from '../../js/GLDataUtils.js';
-        
 
         function render(gl,gp) {
 
@@ -55,7 +54,7 @@
             let viewMatrix              = TypedMatrixUtils.makeIdentityMatrix(4);
             let projectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);   
 
-            let eye = [0, -10, 10];
+            let eye = [0, 0, 10];
             let at = [0, 0, -8];
             let up = [0, 1, 0];
 
@@ -93,13 +92,14 @@
                 {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "projectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
+                {uniformName : "uSampler", data : 0, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                
             ];
 
-//        indices : indices,
             const attributeArray = [
                 {attributeName : "position", data : new Float32Array(cube.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
                 {attributeName : "normal", data : new Float32Array(cube.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
-                {attributeName : "colors", data : new Float32Array(cube.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},        
+                {attributeName : "colors", data : new Float32Array(cube.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+                {attributeName : "texCoord", data : new Float32Array(cube.textures) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
             ];
             
             GLUtils.setUniformLocations(gl, program, uniformArray);            
@@ -110,15 +110,6 @@
             const indexInfos = { data : new Uint32Array(cube.indices), indexSize : cube.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
 
             GLUtils.setIndexInfos(gl, indexInfos);
-            const obj = {
-                gl:gl,
-                program:program,
-                vao:vao,
-                uniformArray:uniformArray,
-                attributeArray:attributeArray,
-                indexInfos:indexInfos,
-            }
-
 
             const gProgram = new GLDataUtils.GLProgram("programID");
             gProgram.initResource(gl, program, uniformArray );
@@ -145,19 +136,21 @@
             gProgram.appendItem(gItem02);
 
             const plane = new GLDataUtils.BasicPlane('aa');
+            const pData = plane.getCurrentData();
             const planeItem = new GLDataUtils.GLItem("planeItemID");
 
             const planeAttributeArray = [
-                {attributeName : "position", data : new Float32Array(plane.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
-                {attributeName : "normal", data : new Float32Array(plane.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
-                {attributeName : "colors", data : new Float32Array(plane.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},        
+                {attributeName : "position", data : new Float32Array(pData.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normal", data : new Float32Array(pData.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : new Float32Array(pData.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},  
+                {attributeName : "texCoord", data :  new Float32Array(pData.textures), size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},                            
             ];
 
             const planeIndexInfos = { data : new Uint32Array(plane.indices), indexSize : plane.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
 
             planeItem.initResource( gl, program, planeAttributeArray, uniformArray, planeIndexInfos, undefined, "worldMatrix");      
 
-            planeItem.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(15,15,15)) );
+            planeItem.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(20,20,20)) );
             gProgram.appendItem(planeItem)      
             
             setProgramUniformValues(gl, gProgram);
@@ -165,7 +158,6 @@
             render(gl, gProgram);
 
             const maxTextureUnits = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
-
             const maxVertexShaderTextureUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
             const maxFragmentShaderTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);            
 
@@ -174,6 +166,6 @@
 
         main();
     </script>
-    
+    <img src = "/imgs/sea01.jpg"/>
 </body>
 </html>

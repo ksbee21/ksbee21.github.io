@@ -2,6 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/tags/javascript/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/language/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/math/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/post/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/programming/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/web/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/webgl/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/post/webmodule/webgl_part_009/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
     <loc>/tags/canvas/</loc>
     <lastmod>2023-01-13T22:08:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -10,31 +50,7 @@
     <lastmod>2023-01-13T22:08:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>/tags/javascript/</loc>
-    <lastmod>2023-01-13T22:08:35+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/tags/language/</loc>
-    <lastmod>2023-01-13T22:08:35+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/post/</loc>
-    <lastmod>2023-01-13T22:08:35+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2023-01-13T22:08:35+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/tags/web/</loc>
-    <lastmod>2023-01-13T22:08:35+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>/post/webcanvas/web_canvas_image_003/</loc>
-    <lastmod>2023-01-13T22:08:35+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/</loc>
     <lastmod>2023-01-13T22:08:35+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -48,18 +64,6 @@
   </url><url>
     <loc>/post/webcanvas/web_canvas_image_001/</loc>
     <lastmod>2023-01-10T21:50:03+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/tags/math/</loc>
-    <lastmod>2023-01-07T22:12:46+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/tags/programming/</loc>
-    <lastmod>2023-01-07T22:12:46+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/tags/webgl/</loc>
-    <lastmod>2023-01-07T22:12:46+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>/post/webmodule/webgl_part_008/</loc>

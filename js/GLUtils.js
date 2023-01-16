@@ -1,22 +1,34 @@
+import * as CanvasUtils from "./CanvasUtils.js";
 
+//makeCanvasObject
 export const makeCanvasObject = (idValue, parentObj) => {
-    let canvasObj = document.getElementById(idValue);
-    if ( !canvasObj ) {
-        canvasObj = document.createElement("CANVAS");
-        canvasObj.setAttribute("id", idValue);
-        canvasObj.width = 800;
-        canvasObj.height = 800;
-        if ( parentObj ) {
-            parentObj.appendChild(canvasObj);
-        } else {
-            document.body.appendChild(canvasObj);
-        }
-    } else {
-        canvasObj.width = canvasObj.clientWidth;
-        canvasObj.height = canvasObj.clientHeight;
-    }
-	return canvasObj;
+    return CanvasUtils.makeCanvasObject(idValue, parentObj, 800, 800);
 };
+
+export const loadGLTextureData = ( gl, url ) => {
+    const texture           = gl.createTexture();
+    const level             = 0;
+    const internalFormat    = gl.RGBA;
+    const width             = 1;
+    const height            = 1;
+    const border            = 0;
+
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, width, height, border, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 255, 255]));
+
+    CanvasUtils.loadImageFromURL(url).then( image => {
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, gl.RGBA,gl.UNSIGNED_BYTE, image);
+//      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+//      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);                
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);        
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+    });
+    return texture;
+};
+
 
 export const makeWebGL = (canvas) => {
     let gl = undefined;
@@ -98,7 +110,27 @@ export const getVertexShaderSource = ( typeNum ) => {
                 vNormal = normalize(transpose(inverse(mat3(worldMatrix))) * normal);
                 vColors = colors;
             }
-            `            
+            ` 
+        case 2 : 
+            vs = `#version 300 es
+            uniform mat4 worldMatrix, viewMatrix, projectionMatrix;
+            in vec3 position;
+            in vec3 normal;
+            in vec4 colors;
+            in vec2 texCoord;
+        
+            out vec3 vNormal ;
+            out vec2 vTexCoord ;
+            out vec4 vColors;
+        
+            void main() {
+                gl_Position = projectionMatrix * viewMatrix  * worldMatrix * vec4(position, 1.0);
+                vNormal = normalize(transpose(inverse(mat3(worldMatrix))) * normal);
+                vTexCoord = texCoord;
+                vColors = colors;
+            }
+            `                   
+            break;
         default :
             break;
     }
@@ -134,6 +166,22 @@ export const getFragmentShaderSource = ( typeNum ) => {
                 fragColor = vColors;
             }
             `            
+            break;
+        case 2 : 
+            fs = `#version 300 es
+            precision highp float;
+    
+            in vec2 vTexCoord;
+            in vec3 vNormal;
+            in vec4 vColors; 
+    
+            uniform sampler2D uTexture;
+            out vec4 fragColor;
+    
+            void main() {
+                fragColor = texture(uTexture,vTexCoord);
+            }
+        `
             break;
         default :
             break;

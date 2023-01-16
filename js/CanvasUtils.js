@@ -40,6 +40,7 @@
         });
     };
 
+
     export const makeCanvasImageData = async (url) => {
         const image = await loadImageFromURL(url);
         const canvas = document.createElement("canvas");

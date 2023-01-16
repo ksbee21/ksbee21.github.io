@@ -138,6 +138,9 @@ export class GLItem {
         this.indexSize      = 0;
         this.indexType      = undefined;//gl.UNSIGNED_INT;  //gl.UNSIGNED_SHORT
         this.offset         = 0;
+        this.texture        = undefined;
+        this.textureIndex   = 0;
+        this.uTextureName   = undefined;
         this.subItems       = new Map();
         /**
          * {animationType:1, axis : 1, step : 0, min : 0, max : 360, current : 0, direction : 1,  }
@@ -159,6 +162,11 @@ export class GLItem {
             let flag = (uName === userWorldName);
             this.uniformMap.get(uName).isLocal = flag;
         }
+        if ( textureInfos ) {
+            this.texture = textureInfos.texture;
+            this.textureIndex = textureInfos.index;
+            this.uTextureName = textureInfos.uTextureName;
+        }
         this.vao = gl.createVertexArray();
         gl.bindVertexArray(this.vao);
         GLUtils.setAttributeValues(gl, program, attributeArray);
@@ -167,6 +175,7 @@ export class GLItem {
         this.indexType = indexInfos.indexType;
         this.uWorldName = userWorldName;
         this.offset = indexInfos.offset;
+        
         this.animationTime    = undefined;
     };
 
@@ -283,12 +292,26 @@ export class GLItem {
     render = (gl, isAutoClean) => {
         this.resetWorldUniformValues();
 
+        if ( this.texture ) {
+            gl.activeTexture(gl.TEXTURE0+this.textureIndex);
+            gl.bindTexture(gl.TEXTURE_2D, this.texture);
+        }
+
         gl.bindVertexArray(this.vao);
         let uniform = this.uniformMap.get(this.uWorldName);
 
         //console.log (uniform.uniformName , uniform.data );
         GLUtils.setUniformValues( gl, uniform.uLocation, 
             uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
+
+        if ( this.texture && this.uTextureName ) {
+            uniform = this.uniformMap.get(this.uTextureName) ;
+            if ( uniform ) {
+                uniform.data = this.textureIndex;
+                GLUtils.setUniformValues( gl, uniform.uLocation, 
+                    uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
+            }
+        }
 
         if ( this.indexSize > 0 ) {
             gl.drawElements(gl.TRIANGLES, this.indexSize, this.indexType,this.offset);
@@ -300,25 +323,24 @@ export class GLItem {
 
     clean = (gl) => {
         gl.bindVertexArray(null);
+        gl.bindTexture(gl.TEXTURE_2D, null);
     };
 };
 
 export class BasicPlane {
     constructor(item) {
         this.positions = [
-            // Front face
+            -1.0,  1.0,  0.0,            
+            1.0,  1.0,  0.0,            
+            1.0, -1.0,  0.0,            
             -1.0, -1.0,  0.0,
-            1.0, -1.0,  0.0,
-            1.0,  1.0,  0.0,
-            -1.0,  1.0,  0.0,
         ];
 
         this.textureCoordinates = [
-            // 앞
             0.0,  0.0,
             1.0,  0.0,
             1.0,  1.0,
-            0.0,  1.0,
+            0.0,  1.0,            
         ];
 
         this.normals = [
@@ -335,7 +357,7 @@ export class BasicPlane {
         ];
 
         this.indices = [
-            0,  1,  2,      0,  2,  3,    // front
+            0,  2,  1,      0,  3,  2,    
         ];
     };
 
@@ -362,14 +384,14 @@ export class BasicPlane {
 
     getCurrentData = () => {
         return {
-            positions : positions,
-            colors : colors,
-            normals : normals, 
-            textures : textureCoordinates, 
-            indices : indices,
+            positions : this.positions,
+            colors : this.colors,
+            normals : this.normals, 
+            textures : this.textureCoordinates, 
+            indices : this.indices,
         };
     }
-}
+};
 
 export const makeCubeData = () => {
     const positions = [
