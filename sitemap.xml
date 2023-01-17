@@ -2,11 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/tags/javascript/</loc>
-    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
+    <loc>/tags/application/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/post/crossplaformapp/intro/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/crossplatform/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/java/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>/tags/language/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/openjfx/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/post/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/pyqt6/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/swing/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2023-01-17T20:34:10+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>/tags/javascript/</loc>
     <lastmod>2023-01-15T13:03:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -14,15 +54,7 @@
     <lastmod>2023-01-15T13:03:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>/post/</loc>
-    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>/tags/programming/</loc>
-    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2023-01-15T13:03:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -35,10 +67,6 @@
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>/post/webmodule/webgl_part_009/</loc>
-    <lastmod>2023-01-15T13:03:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>/</loc>
     <lastmod>2023-01-15T13:03:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>

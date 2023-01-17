@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenJFX on 잊혀져 가는 기억을 기록하기 ....</title>
+    <link>/tags/openjfx/</link>
+    <description>Recent content in OpenJFX on 잊혀져 가는 기억을 기록하기 ....</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2022. All right reserved.</copyright>
+    <lastBuildDate>Tue, 17 Jan 2023 20:34:10 +0900</lastBuildDate><atom:link href="/tags/openjfx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cross Platform Applications</title>
+      <link>/post/crossplaformapp/intro/</link>
+      <pubDate>Tue, 17 Jan 2023 20:34:10 +0900</pubDate>
+      
+      <guid>/post/crossplaformapp/intro/</guid>
+      <description>Cross Platform Application 들 프로그램 개발이 Web일 경우, Service 환경이 Linux 로 구성된 Server 일지라도, Client 환경이 Web Browser 로 접속하게 되기 때문에 Server 환경은 그렇게 중요한 개발 요건이 되지 않습니다. .NET 등의 언어로 개발할 경우 Server 가 MS 계열이어야 하지만, Java 일 경우, 대부분 Linux 이겠지만, 그렇지 않아도 크게 영향을 받지는 않습니다. ( 사실 성능면에서는 차이가 있겠지요 &amp;hellip; ^^ )
+하지만, 개발해야 하는 내용이 Application 일 경우 조금 다른 양상을 보이게 됩니다.</description>
+    </item>
+    
+  </channel>
+</rss>
