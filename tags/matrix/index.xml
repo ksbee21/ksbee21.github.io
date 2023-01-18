@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Matrix on 잊혀져 가는 기억을 기록하기 ....</title>
-    <link>/tags/matrix/</link>
+    <link>https://ksbee21.github.io/tags/matrix/</link>
     <description>Recent content in Matrix on 잊혀져 가는 기억을 기록하기 ....</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Wed, 21 Dec 2022 22:47:18 +0900</lastBuildDate><atom:link href="/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Dec 2022 22:47:18 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WebGL2 - Matrix 연산 01 [ 04 ]</title>
-      <link>/post/webmodule/webgl_part_004/</link>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_004/</link>
       <pubDate>Wed, 21 Dec 2022 22:47:18 +0900</pubDate>
       
-      <guid>/post/webmodule/webgl_part_004/</guid>
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_004/</guid>
       <description>WebGL 에서 행렬이란 ? $$ \begin{bmatrix}1&amp;amp;2&amp;amp;3\\4&amp;amp;5&amp;amp;6\\7&amp;amp;8&amp;amp;9 \end{bmatrix} \begin{bmatrix}1\\4\\7\\ \end{bmatrix} \begin{bmatrix}1&amp;amp;2&amp;amp;3 \end{bmatrix} $$
 위 표에서 전체 행렬이 1 ~ 9 까지의 내용을 담은 3 x 3 행렬 이라면, 1,4,7 은 열( Column ) 이고 1,2,3 은 행(Row) 라고 불립니다. 위 표의 행렬은 행 3개와 열 3개로 이뤄진 3 x 3 행렬인 셈입니다.
 WebGL(3D 프로그램) 에서 행렬이 왜 사용되는 걸까요? 어떤 물체가 100개의 꼭지점을 갇고, 그 꼭지점을 연결한 위치 정보를 지니고 있다고 가정하겠습니다.</description>

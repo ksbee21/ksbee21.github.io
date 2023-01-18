@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on 잊혀져 가는 기억을 기록하기 ....</title>
-    <link>/tags/go/</link>
+    <link>https://ksbee21.github.io/tags/go/</link>
     <description>Recent content in Go on 잊혀져 가는 기억을 기록하기 ....</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sun, 18 Dec 2022 12:07:36 +0900</lastBuildDate><atom:link href="/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Dec 2022 12:07:36 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo Blog로 시작하기</title>
-      <link>/post/common/init/</link>
+      <link>https://ksbee21.github.io/post/common/init/</link>
       <pubDate>Sun, 18 Dec 2022 12:07:36 +0900</pubDate>
       
-      <guid>/post/common/init/</guid>
+      <guid>https://ksbee21.github.io/post/common/init/</guid>
       <description>Hugo Blog 설치를 위한 간단한 내용</description>
     </item>
     

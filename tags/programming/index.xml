@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Programming on 잊혀져 가는 기억을 기록하기 ....</title>
-    <link>/tags/programming/</link>
+    <link>https://ksbee21.github.io/tags/programming/</link>
     <description>Recent content in Programming on 잊혀져 가는 기억을 기록하기 ....</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sun, 15 Jan 2023 13:03:43 +0900</lastBuildDate><atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Jan 2023 13:03:43 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WebGL2 - Program 시작 05 - Texture - [ 09 ]</title>
-      <link>/post/webmodule/webgl_part_009/</link>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_009/</link>
       <pubDate>Sun, 15 Jan 2023 13:03:43 +0900</pubDate>
       
-      <guid>/post/webmodule/webgl_part_009/</guid>
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_009/</guid>
       <description>WebGL 에서 Texture 란 ? WebGL 에서 해주는 것은 어떤 특정 pixel 이 무슨 색을 입혀서 출력해야 하는 가를 판단하고, 표현하는 것이 어쩌면 가장 주요한 일이라고 볼 수 있을 것 같습니다. 그 공간에서 하는 일이 앞에 놓인것은 출력하고, 뒤에 있는 것은 출력하지 않고, 만약 투명하다면 색을 투명도에 따라 혼합하여 보여주는 등 내부적인 일은 복잡합니다. 그래도 주어진 좌표를 기준으로 해당 위치에 어떤 색을 출력해야하는지 결정하는 일은 변하지 않습니다. Texture 는 사용에 따라 여러 가지 일을 할 수도 있지만, 가장 본질적인 것은 특정 좌표의 색을 texture 에 기록된 값으로 보정하여 출력하는데 사용되는 것일 겁니다.</description>
     </item>
     
     <item>
       <title>WebGL2 - Program 시작 04 [ 08 ]</title>
-      <link>/post/webmodule/webgl_part_008/</link>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_008/</link>
       <pubDate>Sat, 07 Jan 2023 22:12:46 +0900</pubDate>
       
-      <guid>/post/webmodule/webgl_part_008/</guid>
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_008/</guid>
       <description>WebGL 에서 Camera 란 ? 우리가 사진기( 아마도 핸드폰이겠지요 ^^ )로 물체를 찍는 다고 가정해 보겠습니다. 핸드폰을 들고, 물체를 보면, 핸드폰 화면에는 찍을 대상이 출력되고 있을 겁니다. 이때 카메라 위치가 눈에 해당하고, 찍을 물체가 대상이되고, 핸드폰을 위로 혹은 약간 기울여서 보게 되는게 사진에 찍힐 모습이 될 것 같습니다. 이를 단순화 하면, eye (사진기위치), at( 사진찍을 물체), up ( 핸드폰을 어떻게 기울였는지 - 대부분 위로 ) 에 따라 사진속의 내용이 어떻게 표현될지가 결정 될 것 같습니다.</description>
     </item>
     
     <item>
       <title>WebGL2 - Program 시작 03 [ 07 ]</title>
-      <link>/post/webmodule/webgl_part_007/</link>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_007/</link>
       <pubDate>Mon, 26 Dec 2022 21:59:21 +0900</pubDate>
       
-      <guid>/post/webmodule/webgl_part_007/</guid>
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_007/</guid>
       <description>프로그램 Rendeing 과정 앞서 WebGL 사용 방법에 대해 간단히 정리해 보았습니다. 다시 한번 정리하면
 canvas 객체를 구성합니다. GL 객체를 가져옵니다. ( Canvas 를 통해 webgl2 를 가져옵니다. ) GLSL Shader 소스(문자열) 을 Vertex Shader, Fragment Shader 를 구성합니다. Shader Program 을 각각 만들어 두개의 쌍을 사용할 GL Program 을 만들고 Compile 합니다. 일반적으로 프로그램 소스를 구성해서 Compile 하는 것과 유사한 흐름 입니다.
 당연히 프로그램을 구성할 때 사용한 소스에서 정의한 input 과 output 규칙은 따라야 합니다.</description>
@@ -39,10 +39,10 @@ canvas 객체를 구성합니다. GL 객체를 가져옵니다. ( Canvas 를 통
     
     <item>
       <title>WebGL2 - Program 시작 02 [ 06 ]</title>
-      <link>/post/webmodule/webgl_part_006/</link>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_006/</link>
       <pubDate>Sat, 24 Dec 2022 20:05:10 +0900</pubDate>
       
-      <guid>/post/webmodule/webgl_part_006/</guid>
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_006/</guid>
       <description>처음 시작할 때 주의할 내용 WebGL을 처음 구성하려 할 때 가장 먼저 부딛히는 부분이 저 같은 경우, 익숙하지 않은 용어와 수식이 난무 하는 설명 이었습니다.
 이미 수학적인 기초가 튼튼하게 다져진 분들은 상관이 없겠지만, 저처럼 익숙하지 않은 용어에, 덧붙인 수식 기호 등은 프로그램밍에 대한 접근을 막는 부분 이었습니다.
 프로그램을 구현할 때 필요한 부분은 해당 수식에 대한 증명이 아니라, 원리에 대한 기본적인 이해와,
@@ -51,10 +51,10 @@ canvas 객체를 구성합니다. GL 객체를 가져옵니다. ( Canvas 를 통
     
     <item>
       <title>WebGL2 - Program 시작 01 [ 05 ]</title>
-      <link>/post/webmodule/webgl_part_005/</link>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_005/</link>
       <pubDate>Fri, 23 Dec 2022 19:18:51 +0900</pubDate>
       
-      <guid>/post/webmodule/webgl_part_005/</guid>
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_005/</guid>
       <description>프로그램을 위한 준비 제한사항 현재 WebGL2 는 IE를 제외한 대부분의 Browser 에서 사용가능합니다.
 Web 에서 3D를 구현하는 방법도 OpenGL 기반의 WebGL 에서, 더 다양한 지원이 가능한
 WebGPU 등의 표준화가 진행중입니다. 현재 사용중인 Web 에서 3D를 구성하는 방법에도 변화가 있을 수 있는 상황입니다.

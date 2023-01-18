@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on 잊혀져 가는 기억을 기록하기 ....</title>
-    <link>/categories/</link>
+    <link>https://ksbee21.github.io/categories/</link>
     <description>Recent content in Categories on 잊혀져 가는 기억을 기록하기 ....</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2022. All right reserved.</copyright><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2022. All right reserved.</copyright><atom:link href="https://ksbee21.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
