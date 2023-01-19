@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Tue, 17 Jan 2023 20:34:10 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Jan 2023 18:17:47 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>QT, PYQT, SWING, JFX - Entry Point</title>
+      <link>https://ksbee21.github.io/post/crossplaformapp/cross_app_001/</link>
+      <pubDate>Thu, 19 Jan 2023 18:17:47 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/crossplaformapp/cross_app_001/</guid>
+      <description>GUI Program 시작 앞선 예제에서 Window 창을 뛰우는 간단한 예제를 QT, PYQT, SWING, JFX 로 살펴 보았습니다. 핵심적인 모듈만 띄어서 살펴 보면 다음과 같은 코드 들 입니다.
+# QT6 QGuiApplicatin app(arac, argv); .. return app.exec(); # PyQT6 app = QApplication(sys.argv) .. app.exec(); # swing JFrame jf = new JFrame(&amp;#34;Hello World!!&amp;#34;); jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ... jf.setVisible(true); # JFX extends Application ( Applicaiton 상속 ) ... launch(); stage.show(); Java Swing 에서 JFrame 은 Top Level Container 라고 이야기 합니다.</description>
+    </item>
+    
     <item>
       <title>Cross Platform Applications</title>
       <link>https://ksbee21.github.io/post/crossplaformapp/intro/</link>
