@@ -10,20 +10,20 @@
     <lastBuildDate>Thu, 19 Jan 2023 18:17:47 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>QT PYQT  SWING JFX Program 진입지점 </title>
-      <link>https://ksbee21.github.io/post/crossplaformapp/cross_app_001/</link>
+      <link>https://ksbee21.github.io/post/crossplatformapp/cross_app_001/</link>
       <pubDate>Thu, 19 Jan 2023 18:17:47 +0900</pubDate>
       
-      <guid>https://ksbee21.github.io/post/crossplaformapp/cross_app_001/</guid>
+      <guid>https://ksbee21.github.io/post/crossplatformapp/cross_app_001/</guid>
       <description>GUI Program 시작 앞선 예제에서 Window 창을 뛰우는 간단한 예제를 QT, PYQT, SWING, JFX 로 살펴 보았습니다. 핵심적인 모듈만 띄어서 살펴 보면 다음과 같은 코드 들 입니다.
 # QT6 QGuiApplicatin app(arac, argv); .. return app.exec(); # PyQT6 app = QApplication(sys.argv) .. app.exec(); # swing JFrame jf = new JFrame(&amp;#34;Hello World!!&amp;#34;); jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ... jf.setVisible(true); # JFX extends Application ( Applicaiton 상속 ) ... launch(); stage.show(); Java Swing 에서 JFrame 은 Top Level Container 라고 이야기 합니다.</description>
     </item>
     
     <item>
       <title>Cross Platform Applications</title>
-      <link>https://ksbee21.github.io/post/crossplaformapp/intro/</link>
+      <link>https://ksbee21.github.io/post/crossplatformapp/intro/</link>
       <pubDate>Tue, 17 Jan 2023 20:34:10 +0900</pubDate>
       
-      <guid>https://ksbee21.github.io/post/crossplaformapp/intro/</guid>
+      <guid>https://ksbee21.github.io/post/crossplatformapp/intro/</guid>
       <description>Cross Platform Application 들 프로그램 개발이 Web일 경우, Service 환경이 Linux 로 구성된 Server 일지라도, Client 환경이 Web Browser 로 접속하게 되기 때문에 Server 환경은 그렇게 중요한 개발 요건이 되지 않습니다. .NET 등의 언어로 개발할 경우 Server 가 MS 계열이어야 하지만, Java 일 경우, 대부분 Linux 이겠지만, 그렇지 않아도 크게 영향을 받지는 않습니다. ( 사실 성능면에서는 차이가 있겠지요 &amp;hellip; ^^ )
 하지만, 개발해야 하는 내용이 Application 일 경우 조금 다른 양상을 보이게 됩니다.</description>
     </item>
