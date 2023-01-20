@@ -259,6 +259,48 @@
   <h1 id="gui-program-시작">GUI Program 시작</h1>
 <p>앞선 예제에서 Window 창을 뛰우는 간단한 예제를 QT, PYQT, SWING, JFX 로 살펴 보았습니다. <br>
 핵심적인 모듈만 띄어서 살펴 보면 다음과 같은 코드 들 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span> <span style="color:#75715e"># QT6 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> QGuiApplicatin <span style="color:#a6e22e">app</span>(arac, argv);
+</span></span><span style="display:flex;"><span> ..
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> app.exec();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e"># PyQT6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> app <span style="color:#f92672">=</span> QApplication(sys.argv)
+</span></span><span style="display:flex;"><span> ..
+</span></span><span style="display:flex;"><span> app.exec();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e"># swing 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> JFrame jf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JFrame(<span style="color:#e6db74">&#34;Hello World!!&#34;</span>);
+</span></span><span style="display:flex;"><span> jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+</span></span><span style="display:flex;"><span> ...
+</span></span><span style="display:flex;"><span> jf.setVisible(true);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e"># JFX 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> extends <span style="color:#a6e22e">Application</span> ( Applicaiton <span style="color:#960050;background-color:#1e0010">상속</span> )
+</span></span><span style="display:flex;"><span> ...
+</span></span><span style="display:flex;"><span> launch();
+</span></span><span style="display:flex;"><span> stage.show();
+</span></span></code></pre></div><h3 id="java-swing-에서-jframe-은-top-level-container-라고-이야기-합니다">Java Swing 에서 JFrame 은 Top Level Container 라고 이야기 합니다.</h3>
+<p>이 의미는 다른 클래스 없이 GUI Program 을 구성할 때 독립적으로 화면을 구성할 수 있는 Class 라는 의미 입니다. <br>
+조금씩 확인해 보겠지만, 다른 종류의 GUI Widets 들은 독립적으로 화면을 구성할 수 없습니다. ( Swing 에서는 JFrame 외에 몇개 더 있습니다. ) 
+jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 이 라인이 표현하고 있는 부분이 무엇일까요?  <br>
+다른 소스에서는 자동으로 구성되기 때문에 표기가 되지 않고 있지만, 해당 GUI 가 종료 될 때 해야 할 일을 정의 하고 있습니다. <br>
+대략 의미하는 바는 GUI 를 종료 시키고, 그를 감싸고 있는 JVM 환경에 쓰인 자원을 시스템에 반납한다 정도로 해석 할 수 있을 것 같습니다. <br>
+현재 소스에서는 감춰져 있지만, GUI 프로그램은 내부적으로 시스템 자원으로 부터 Key, Mouse 등의 User Input Event 를 확인하기 위해서 무한히 반복하며 Event 를 기다리는 
+프로그램 입니다.  그렇기 때문에 그런 역활을 하는 클래스를 한정해 놓고 관리하는것인 아닌가 합니다. Swing 에서는 대표적인 것이 JFrame 입니다.</p>
+<h3 id="jfx-application-class-는-application-시작-class-입니다">JFX Application Class 는 Application 시작 Class 입니다.</h3>
+<p>JFX API 에서는 Application Class 에 대한 설명을 대략 다음과 같이 설명하고 있습니다.</p>
+<ol>
+<li>JavaFX runtime 을 시작 합니다.</li>
+<li>Application Class 를 생성(메모리에 로딩)합니다.</li>
+<li>init() 메소드를 호출하여 구성한 내용을 실행 합니다.</li>
+<li>start( Stage ) 를 호출하여 UI 구성 내용을 실행 합니다.</li>
+<li>Application 이 종료 할 때 까지 Event 를 반복하여 기다립니다.</li>
+<li>종료 이벤트를 받으면 자원을 종료하고, stop() 메소드를 호출합니다.</li>
+</ol>
+<p>중간에 Stage Class 는 Swing 의 JFrame 처럼 Top Level Container 입니다. <br>
+JFX 에서 조금 자세히 정리한 것은 Swing 의 JFrame 이 하는 것처럼 보인 일을 분리하여 Application 과 Stage 라는 두개로 구성되어 있다는 것을 확인하기 위함입니다. <br>
+QT 등의 모듈에서도 QApplication, QWidget() 의 관계와 유사하지 않을까 해서 입니다.</p>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
