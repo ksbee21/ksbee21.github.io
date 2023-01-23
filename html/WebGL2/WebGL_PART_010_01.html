@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../css/main.css'>
+    <script src='../../js/main.js'></script>
+</head>
+<body>
+    <p>
+    <a href="/post/webmodule/webgl_part_009/">돌아가기(Back)</a>
+    </p>
+    <canvas id="myCanvas"></canvas>
+
+    <script type="module" defer>
+        import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
+        import * as GLUtils from '../../js/GLUtils.js';
+        import * as GLDataUtils from '../../js/GLDataUtils.js';
+        
+
+        function render(gl,gp) {
+
+            let delta = 0;
+            let curData = 0;
+
+            function drawScene(time) {
+                time *= 0.001;
+                gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
+			    gl.clearDepth(1.0);                 // Clear everything
+			    gl.enable(gl.DEPTH_TEST);           // Enable depth testing
+			    gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
+
+			    // Clear the canvas before we start drawing on it.
+
+			    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+                if ( curData == 0 ) {
+                    curData = time;
+                } else {
+                    delta = time - curData;
+                }
+
+                gp.render(gl, true);
+                requestAnimationFrame(drawScene);
+            };
+
+            requestAnimationFrame(drawScene);
+        }
+
+        function setProgramUniformValues( gl,  glProgram ) {
+
+            let worldMatrix             = TypedMatrixUtils.makeIdentityMatrix(4);
+            let viewMatrix              = TypedMatrixUtils.makeIdentityMatrix(4);
+            let projectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);   
+
+            let eye = [0, 0, 10];
+            let at = [0, 0, -8];
+            let up = [0, 1, 0];
+
+            //  view
+            viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
+
+            //  [ 주석 4 ] : projection 
+            projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+            //projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
+            
+
+            glProgram.setUniformMatrix("worldMatrix",TypedMatrixUtils.makeIdentityMatrix(4));
+            glProgram.setUniformMatrix("viewMatrix", viewMatrix);
+            glProgram.setUniformMatrix("projectionMatrix", projectionMatrix);
+        }
+
+        function main() {
+            const canvas = GLUtils.makeCanvasObject("myCanvas");
+            const gl = GLUtils.makeWebGL(canvas);
+
+            if ( !gl ) {
+                alert ( "WEBGL 을 사용할 수 없습니다. ");
+                return;
+            }
+            const cube = GLDataUtils.makeCubeData();
+            const typeNum = 2;
+            const program = GLUtils.createProgramByType(gl, typeNum);
+
+            if ( !program ) {
+                alert ( "WEBGL을 사용중 오류가 발생하였습니다. ");
+                return;
+            }
+
+            const uniformArray = [
+                {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
+                {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
+                {uniformName : "projectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
+                {uniformName : "uSampler", data : 0, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                
+            ];
+
+            const attributeArray = [
+                {attributeName : "position", data : new Float32Array(cube.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normal", data : new Float32Array(cube.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : new Float32Array(cube.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+                {attributeName : "texCoord", data : new Float32Array(cube.textures) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+            ];
+            
+            GLUtils.setUniformLocations(gl, program, uniformArray);            
+            const vao = gl.createVertexArray();
+            gl.bindVertexArray(vao);
+
+            GLUtils.setAttributeValues(gl, program, attributeArray);
+            const indexInfos = { data : new Uint32Array(cube.indices), indexSize : cube.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
+
+            GLUtils.setIndexInfos(gl, indexInfos);
+
+            const url01 = "/imgs/fabric.jpg";//"/imgs/8k_earth_daymap.jpg";
+            const url02 = "/imgs/wall.jpg";                        
+            const url03 = "/imgs/sea01.jpg";            
+            const textureInfos = {
+                texture : GLUtils.loadGLTextureData(gl, url01),
+                index : 0,
+                uTextureName : "uSampler",
+            }
+
+            const textureInfos02 = {
+                texture : GLUtils.loadGLTextureData(gl, url02),
+                index : 0,
+                uTextureName : "uSampler",                
+            }
+            const textureInfos03 = {
+                texture : GLUtils.loadGLTextureData(gl, url03),
+                index : 0,
+                uTextureName : "uSampler",                
+            }
+
+            const gProgram = new GLDataUtils.GLProgram("programID");
+            gProgram.initResource(gl, program, uniformArray );
+
+            const gItem = new GLDataUtils.GLItem("itemID");
+            gItem.initResource( gl, program, attributeArray, uniformArray, indexInfos, textureInfos, "worldMatrix");
+            gItem.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(1,5, -6));
+
+            const gItem02 = new GLDataUtils.GLItem("itemID02");
+            gItem02.initResource( gl, program, attributeArray, uniformArray, indexInfos, textureInfos02, "worldMatrix");
+            gItem02.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0,-8), TypedMatrixUtils.makeScaleMatrix3D(2,2,2)));
+
+            gItem02.makeRotateAnimations(3,0.02,-1);
+
+
+            gItem.makeRotateAnimations(1, 0.05, 1);
+            gItem.makeRotateAnimations(2, 0.05, 1);        
+            //gItem.makeRotateAnimations(3, 0.05, 1);        
+            
+            gItem.makePendulumAnimation(3, 0.005, 1, -2, 2);            
+            gItem.makeOrbitAnimations(3, 0.05, 1);   
+
+            gProgram.appendItem(gItem);
+            gProgram.appendItem(gItem02);
+
+            const plane = new GLDataUtils.BasicPlane('aa');
+            const pData = plane.getCurrentData();
+            const planeItem = new GLDataUtils.GLItem("planeItemID");
+
+            const planeAttributeArray = [
+                {attributeName : "position", data : new Float32Array(pData.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normal", data : new Float32Array(pData.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : new Float32Array(pData.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},  
+                {attributeName : "texCoord", data :  new Float32Array(pData.textures), size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},                            
+            ];
+
+            const planeIndexInfos = { data : new Uint32Array(plane.indices), indexSize : plane.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
+
+            planeItem.initResource( gl, program, planeAttributeArray, uniformArray, planeIndexInfos, textureInfos03, "worldMatrix");      
+
+            planeItem.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(20,20,20)) );
+            gProgram.appendItem(planeItem)      
+            
+            setProgramUniformValues(gl, gProgram);
+
+            render(gl, gProgram);
+
+            const maxTextureUnits = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+            const maxVertexShaderTextureUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
+            const maxFragmentShaderTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);            
+
+            //alert (  maxTextureUnits + "\n" + maxVertexShaderTextureUnits + " , " + maxFragmentShaderTextureUnits );
+        }
+
+        main();
+    </script>
+    <img src = "/imgs/sea01.jpg"/>
+</body>
+</html>

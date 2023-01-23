@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+    <p>
+        <a href="/post/webcanvas/web_canvas_image_003/">돌아가기(Back)</a>
+    </p>
+
+    <script type="module">
+        import * as CanvasUtils from '../../js/CanvasUtils.js';
+
+        const canvasWidth   = 500;
+        const canvasHeight  = 500;
+
+        function makeBasicCanvasSphere(xSize,ySize) {
+            const roundValue    = 10000;
+            const radious       = 200;
+            const thetaDelta    = Math.floor(180/ySize * roundValue)/roundValue;
+            const phiDelta      = Math.floor(360/xSize * roundValue)/roundValue;
+            const canvas   = CanvasUtils.makeCanvasObject("basicCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            ctx.save();
+
+            ctx.translate(canvasWidth/2, canvasHeight/2);
+            
+            for ( let r = 0; r <= ySize; r++ ) {
+                let thetaDeg = r*thetaDelta;
+                if ( r == ySize ) {
+                    thetaDeg = Math.round(thetaDeg);
+                }
+                
+                let uvy = r/ySize; 
+                //  만약 pixel 로 uv y 를 가져올려면 webgl 에서는 1-uvy
+                //uvy = 1-uvy;
+                let theta = Math.PI*thetaDeg/180;
+                ctx.beginPath();
+                for ( let c = 0; c <= xSize; c++ ) {
+                    let phiDeg = c*phiDelta;
+                    let uvx = c/xSize;
+                    if ( c == xSize ) 
+                        phiDeg = Math.round(phiDeg);
+
+                    let phi = Math.PI*phiDeg/180;
+
+                    let xPos = Math.sin(theta)*Math.cos(phi);
+                    let yPos = Math.sin(theta)*Math.sin(phi);
+                    let zPos = Math.cos(theta);
+
+                    let trX = Math.round(xPos*radious);
+                    let trY = -Math.round(yPos*radious); 
+                    let trZ = Math.round(zPos*radious);
+
+                    if ( zPos < 0 ) {
+                        //continue;
+                    }
+
+                    ctx.moveTo(trX, trY);
+                    ctx.arc(trX,trY , 2, 0, Math.PI*2 );
+                    console.log(c,r, phiDeg, thetaDeg, '[',trX, trY, trZ, ']', uvx, uvy);
+                }
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            ctx.restore();
+        }
+
+        function makeSphereValues( xSize, ySize) {
+            const roundValue    = 10000;
+            const radious       = 200;
+            const thetaDelta    = Math.floor(180/ySize * roundValue)/roundValue;
+            const phiDelta      = Math.floor(360/xSize * roundValue)/roundValue;
+            
+            for ( let r = 0; r <= ySize; r++ ) {
+                let thetaDeg = r*thetaDelta;
+                if ( r == ySize ) {
+                    thetaDeg = Math.round(thetaDeg);
+                }
+                
+                let uvy = r/ySize; 
+                //  만약 pixel 로 uv y 를 가져올려면 webgl 에서는 1-uvy
+                uvy = 1-uvy;
+                let theta = Math.PI*thetaDeg/180;
+                ctx.beginPath();
+                for ( let c = 0; c <= xSize; c++ ) {
+                    let phiDeg = c*phiDelta;
+                    let uvx = c/xSize;
+                    if ( c == xSize ) 
+                        phiDeg = Math.round(phiDeg);
+
+                    let phi = Math.PI*phiDeg/180;
+
+                    let xPos = Math.sin(theta)*Math.cos(phi);
+                    let yPos = Math.sin(theta)*Math.sin(phi);
+                    let zPos = Math.cos(theta);
+
+
+                    console.log(c,r, phiDeg, thetaDeg, '[',trX, trY, trZ, ']', uvx, uvy);
+                }
+            }
+
+            ctx.restore();
+
+        }
+
+        function makeLineCanvasSphere(xSize,ySize) {
+            const roundValue    = 10000;
+            const radious       = 200;
+            const thetaDelta    = Math.floor(180/ySize * roundValue)/roundValue;
+            const phiDelta      = Math.floor(360/xSize * roundValue)/roundValue;
+            const canvas   = CanvasUtils.makeCanvasObject("basicCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            ctx.save();
+
+            ctx.translate(canvasWidth/2, canvasHeight/2);
+            
+            for ( let r = 0; r <= ySize; r++ ) {
+                let thetaDeg = r*thetaDelta;
+                if ( r == ySize ) {
+                    thetaDeg = Math.round(thetaDeg);
+                }
+                
+                let uvy = r/ySize; 
+                //  만약 pixel 로 uv y 를 가져올려면 webgl 에서는 1-uvy
+                uvy = 1-uvy;
+                let theta = Math.PI*thetaDeg/180;
+                ctx.beginPath();
+                for ( let c = 0; c <= xSize; c++ ) {
+                    let phiDeg = c*phiDelta;
+                    let uvx = c/xSize;
+                    if ( c == xSize ) 
+                        phiDeg = Math.round(phiDeg);
+
+                    let phi = Math.PI*phiDeg/180;
+
+                    let xPos = Math.sin(theta)*Math.cos(phi);
+                    let yPos = Math.sin(theta)*Math.sin(phi);
+                    let zPos = Math.cos(theta);
+
+                    let trX = Math.round(xPos*radious);
+                    let trY = -Math.round(yPos*radious); 
+                    let trZ = Math.round(zPos*radious);
+
+                    if ( zPos < 0 ) {
+                        //continue;
+                    }
+
+                    ctx.moveTo(trX, trY);
+                    ctx.arc(trX,trY , 2, 0, Math.PI*2 );
+                    console.log(c,r, phiDeg, thetaDeg, '[',trX, trY, trZ, ']', uvx, uvy);
+                }
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            ctx.restore();
+        }
+
+
+        function makeImageCanvasSphere(orgImageData) {
+            const roundValue    = 10000;
+            const radious       = 200;
+            const xSize = orgImageData.width;
+            const ySize = orgImageData.height;
+
+            const thetaDelta    = Math.floor(180/ySize * roundValue)/roundValue;
+            const phiDelta      = Math.floor(360/xSize * roundValue)/roundValue;
+            const canvas   = CanvasUtils.makeCanvasObject("imageCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            const imageData = ctx.createImageData(canvasWidth, canvasHeight);      
+            
+
+            ctx.save();
+
+            const cx = canvasWidth/2;
+            const cy = canvasHeight/2;
+
+            const currentSet = new Set();
+            let samePositions = 0;
+            
+            for ( let r = 0; r <= ySize; r++ ) {
+                let thetaDeg = r*thetaDelta;
+                if ( r == ySize ) {
+                    thetaDeg = Math.round(thetaDeg);
+                }
+                
+                let uvy = r/ySize; 
+                //  만약 pixel 로 uv y 를 가져올려면 webgl 에서는 1-uvy
+                uvy = 1-uvy;
+                let theta = Math.PI*thetaDeg/180;
+                for ( let c = 0; c <= xSize; c++ ) {
+                    let phiDeg = c*phiDelta;
+                    let uvx = c/xSize;
+                    if ( c == xSize ) 
+                        phiDeg = Math.round(phiDeg);
+
+                    let phi = Math.PI*phiDeg/180;
+
+                    let xPos = Math.sin(theta)*Math.cos(phi);
+                    let yPos = Math.sin(theta)*Math.sin(phi);
+                    let zPos = Math.cos(theta);
+
+                    if ( zPos < 0 ) {
+                        continue;
+                    }
+
+
+                    let trX = Math.round(xPos*radious);
+                    let trY = -Math.round(yPos*radious); 
+                    let trZ = Math.round(zPos*radious);
+
+                    let keys = trX+"#"+trY;
+                    if ( currentSet.has(keys) ) {
+                        samePositions++;
+                        continue;
+                    }
+                    currentSet.add(keys);
+                    let imgIdx = (trY+cy)*500*4+(trX+cx)*4;
+                    let pixels = CanvasUtils.getPixels(c,r,1,xSize,ySize,orgImageData);
+                    for ( let t = 0; t < 4; t++ ) {
+                        imageData.data[imgIdx+t] = pixels[t];
+                    }
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+            ctx.restore();
+            console.log ( currentSet.size + " : " + samePositions);
+        }
+
+
+        function makeImageCanvasSphereByUV(xSize, ySize, orgImageData) {
+            const roundValue    = 10000;
+            const radious       = 200;
+            const imgWidth      = orgImageData.width;
+            const imgHeight     = orgImageData.height;
+
+            const thetaDelta    = Math.floor(180/ySize * roundValue)/roundValue;
+            const phiDelta      = Math.floor(360/xSize * roundValue)/roundValue;
+            const canvas   = CanvasUtils.makeCanvasObject("imageCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            const imageData = ctx.createImageData(canvasWidth, canvasHeight);      
+            
+
+            ctx.save();
+
+            const cx = canvasWidth/2;
+            const cy = canvasHeight/2;
+
+            const currentSet = new Set();
+            let samePositions = 0;
+            
+            for ( let r = 0; r <= ySize; r++ ) {
+                let thetaDeg = r*thetaDelta;
+                if ( r == ySize ) {
+                    thetaDeg = Math.round(thetaDeg);
+                }
+                
+                let uvy = r/ySize; 
+                //  만약 pixel 로 uv y 를 가져올려면 webgl 에서는 1-uvy
+                uvy = 1-uvy;
+                let theta = Math.PI*thetaDeg/180;
+                for ( let c = 0; c <= xSize; c++ ) {
+                    let phiDeg = c*phiDelta;
+                    let uvx = c/xSize;
+                    if ( c == xSize ) 
+                        phiDeg = Math.round(phiDeg);
+
+                    let phi = Math.PI*phiDeg/180;
+
+                    let xPos = Math.sin(theta)*Math.cos(phi);
+                    let yPos = Math.sin(theta)*Math.sin(phi);
+                    let zPos = Math.cos(theta);
+
+                    if ( zPos < 0 ) {
+                        continue;
+                    }
+
+
+                    let trX = Math.round(xPos*radious);
+                    let trY = -Math.round(yPos*radious); 
+                    let trZ = Math.round(zPos*radious);
+
+                    let keys = trX+"#"+trY;
+                    if ( currentSet.has(keys) ) {
+                        samePositions++;
+                        continue;
+                    }
+                    currentSet.add(keys);
+                    let imgIdx = (trY+cy)*500*4+(trX+cx)*4;
+                    let pixels = CanvasUtils.getPixels(c,r,1,xSize,ySize,orgImageData);
+                    for ( let t = 0; t < 4; t++ ) {
+                        imageData.data[imgIdx+t] = pixels[t];
+                    }
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+            ctx.restore();
+            console.log ( currentSet.size + " : " + samePositions);
+        }
+
+
+
+
+/*
+
+
+
+        function makeNearestCanvasColors() {
+
+            const canvas   = CanvasUtils.makeCanvasObject("nearestCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            const imageData = ctx.createImageData(canvasWidth, canvasHeight);
+            for ( let r = 0; r < canvasHeight; r++ ) {
+                let yPos = Math.round(r/(yGap));
+                for ( let c = 0; c < canvasWidth; c++ ) {
+                    let xPos = Math.round(c/(xGap));
+                    let idx = yPos*xSize+xPos;
+                    let cIdx = r*canvasWidth*4+c*4;
+                    let t = 0;
+                    for( ; t < 3; t++ ) {
+                        imageData.data[cIdx+t] = colorRgbArray[idx][t];
+                    } 
+                    imageData.data[cIdx+t] = 255;
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+        }
+
+        function makeBilinearCanvasColors() {
+
+            const canvas   = CanvasUtils.makeCanvasObject("bilinearCanvas", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+
+            const imageData = ctx.createImageData(canvasWidth, canvasHeight);
+            for ( let r = 0; r < canvasHeight; r++ ) {
+                let yPos = (r/yGap);
+                let yFloor = Math.floor(yPos);
+                let dy = yPos-yFloor;
+                for ( let c = 0; c < canvasWidth; c++ ) {
+                    let xPos = c/xGap;
+                    let xFloor = Math.floor(xPos);
+                    let dx = xPos - xFloor;
+                    let idx01 = yFloor*xSize+xFloor;
+                    let idx02 = idx01+1;
+                    let idx03 = (yFloor+1)*xSize+xFloor;
+                    let idx04 = idx03+1;
+
+                    let colors = CanvasUtils.makeBilinearColors(dx,dy,colorRgbArray[idx01],colorRgbArray[idx02], colorRgbArray[idx03], colorRgbArray[idx04] );
+                    let cIdx = r*canvasWidth*4+c*4;
+                    let t = 0;
+                    for( ; t < 3; t++ ) {
+                        imageData.data[cIdx+t] = colors[t];
+                    } 
+                    imageData.data[cIdx+t] = 255;
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+        }
+*/
+        //makeOriginaCanvasColors(10);
+        //makeNearestCanvasColors();
+        //makeBilinearCanvasColors();
+
+        makeBasicCanvasSphere(20,20);
+        const url = "/imgs/8k_earth_daymap.jpg";
+        CanvasUtils.makeCanvasImageData(url).then( imgData => {
+            makeImageCanvasSphere(imgData);
+        });
+        
+    
+    </script>
+
+    <img src="/imgs/8k_earth_daymap.jpg" style="width:1280px;"/>
+</body>
+</html>

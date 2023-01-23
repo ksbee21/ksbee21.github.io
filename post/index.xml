@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Thu, 19 Jan 2023 18:17:47 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Jan 2023 19:53:43 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>QT PYQT  SWING JFX Program Event 기초</title>
+      <link>https://ksbee21.github.io/post/crossplatformapp/cross_app_002/</link>
+      <pubDate>Fri, 20 Jan 2023 19:53:43 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/crossplatformapp/cross_app_002/</guid>
+      <description>Application 에서 Event 란? 우리가 사용하는 PC, Web, 휴대폰등 거의 모든 IT 기기 혹은 모듈은 사용자가 클릭, 변경, 선택, 이동 등 무엇인가를 했을 때 그 행동에 반응하는 시스템입니다. 뭔지 모를 그 행동을 사건 즉 Event 라고 생각해 보겠습니다. Event 에는 Keyboard 관련한 부분, Mouse 관련한 부분, Touch(Touch Screen) 등에 관련한 부분 등이 있을 것 같습니다.
+우리가 사용하는 컴퓨터를 키면, OS 가 로딩되면서 최종 우리가 보는 컴퓨터 첫화면이 나타납니다. OS ( Operating System ) 은 끄기 전까지, 무엇인가 발생할 Event 를 무한 반복하면 기다립니다.</description>
+    </item>
+    
     <item>
       <title>QT PYQT  SWING JFX Program 진입지점 </title>
       <link>https://ksbee21.github.io/post/crossplatformapp/cross_app_001/</link>
