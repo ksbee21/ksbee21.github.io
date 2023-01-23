@@ -393,6 +393,92 @@ export class BasicPlane {
     }
 };
 
+export const makeSphereValues = ( xSize, ySize, defColors ) => {
+    const roundValue    = 10000;
+    const thetaDelta    = Math.floor(180/ySize * roundValue)/roundValue;
+    const phiDelta      = Math.floor(360/xSize * roundValue)/roundValue;
+
+    const positions             = [];
+    const colors                = [];
+    const vertexNormals         = [];
+    const textureCoordinates    = [];
+    const indices               = [];
+    let defaultColors           = undefined;
+    if ( defColors ) {
+        defaultColors = defColors;
+    } else {
+        defaultColors = [0.5, 0.5, 1.0, 1.0];
+    }
+    
+    for ( let r = 0; r <= ySize; r++ ) {
+        let thetaDeg = r*thetaDelta;
+        if ( r == ySize ) {
+            thetaDeg = Math.round(thetaDeg);
+        }
+        
+        let uvy = r/ySize; 
+        //  만약 pixel 로 uv y 를 가져오려면 webgl 에서는 1-uvy
+        uvy = 1-uvy;
+        let theta = Math.PI*thetaDeg/180;
+        for ( let c = 0; c <= xSize; c++ ) {
+            let phiDeg = c*phiDelta;
+            let uvx = c/xSize;
+            if ( c == xSize ) 
+                phiDeg = Math.round(phiDeg);
+
+            let phi = Math.PI*phiDeg/180;
+
+            let xPos = Math.sin(theta)*Math.cos(phi);
+            let yPos = Math.sin(theta)*Math.sin(phi);
+            let zPos = Math.cos(theta);
+
+            positions.push(xPos);
+            positions.push(yPos);
+            positions.push(zPos);
+
+            vertexNormals.push(xPos);
+            vertexNormals.push(yPos);
+            vertexNormals.push(zPos);
+
+            textureCoordinates.push(uvx);
+            textureCoordinates.push(uvy);
+
+            for ( let t = 0; t < 4; t++ ) {
+                colors.push(defaultColors[t]);
+            }
+
+            /*
+                idx01, idx02,
+                idx03, idx04
+            */
+            if ( r > 0 && c > 0 ) {
+                let idx01 = (r-1)*(xSize+1) + (c-1);
+                let idx02 = idx01+1;
+                let idx03 = idx01+xSize+1;
+                let idx04 = idx03+1; // r, c 의 현재 위치
+
+                //  GL 에서는 삼각형이 반시계 방향 
+                indices.push(idx01);
+                indices.push(idx03);
+                indices.push(idx04);
+
+                indices.push(idx01);
+                indices.push(idx04);
+                indices.push(idx02);
+            }
+        }
+    }
+
+    return {
+        positions : positions,
+        colors : colors,
+        normals : vertexNormals, 
+        textures : textureCoordinates, 
+        indices : indices,
+    }
+}
+
+
 export const makeCubeData = () => {
     const positions = [
         // Front face
