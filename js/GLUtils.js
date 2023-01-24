@@ -131,6 +131,33 @@ export const getVertexShaderSource = ( typeNum ) => {
             }
             `                   
             break;
+
+        case 3 : 
+            vs = `#version 300 es
+            uniform mat4 worldMatrix, viewMatrix, projectionMatrix;
+            uniform vec3 eyePos;
+
+            in vec3 position;
+            in vec3 normal;
+            in vec4 colors;
+            in vec2 texCoord;
+            
+        
+            out vec3 vNormal ;
+            out vec2 vTexCoord ;
+            out vec4 vColors;
+            out vec3 vEyePos;
+        
+            void main() {
+                vec3 worldPos = (worldMatrix * vec4(position,1.0)).xyz;
+                vEyePos = normalize(eyePos-worldPos);
+                vNormal = normalize(transpose(inverse(mat3(worldMatrix))) * normal);
+                vTexCoord = texCoord;
+                vColors = colors;
+                gl_Position = projectionMatrix * viewMatrix  * vec4(worldPos, 1.0);
+            }
+            `                   
+            break;
         default :
             break;
     }
@@ -181,8 +208,67 @@ export const getFragmentShaderSource = ( typeNum ) => {
             void main() {
                 fragColor = texture(uTexture,vTexCoord);
             }
+            `
+            break;
+
+        case 3 : 
+            fs = `#version 300 es
+            precision highp float;
+    
+            in vec2 vTexCoord;
+            in vec3 vNormal;
+            in vec4 vColors; 
+            in vec3 vEyePos;            
+    
+            uniform sampler2D uTexture;
+
+            uniform int uDisplayType;
+
+            uniform vec3 directionLight;
+            uniform vec3 dirLightColor;
+            uniform vec3 specularColor;
+            uniform vec3 ambientColor;
+            uniform vec3 emitColor;
+
+
+            
+            uniform float shineCoef;
+            uniform float ambientCoef;  //  rgb 로 제어하려면 vec3            
+            uniform float emitCoef;     //  rgb 로 제어하려면 vec3
+            
+            out vec4 fragColor;
+    
+            void main() {
+               
+                vec3 normal = normalize(vNormal);
+                vec3 viewDir = normalize(vEyePos);
+               
+                vec3 light = normalize(directionLight);
+                vec3 matDiff = texture(uTexture,vTexCoord).rgb;
+                vec3 diffuse = max(dot(light,normal),0.0)*matDiff;
+             
+                vec3 reflactDir = 2.0*normal*dot(light,normal) - light;
+                vec3 specular = pow( max( dot(reflactDir, viewDir),0.0),shineCoef ) * dirLightColor * specularColor;
+                
+                vec3 ambient = ambientColor*ambientCoef;
+                
+                vec3 emit = emitColor*emitCoef;
+
+                if ( uDisplayType == 1 ) {
+                    fragColor = texture(uTexture,vTexCoord);
+                } else if ( uDisplayType == 2 ) {
+                    fragColor = vec4(diffuse,1.0);
+                } else if ( uDisplayType == 3 ) {
+                    fragColor = vec4(diffuse+specular,1.0);
+                } else if ( uDisplayType == 4 ) {
+                    fragColor = vec4(diffuse+ambient,1.0);
+                } else {
+                    fragColor = vec4(diffuse+specular+ambient+emit ,1.0);
+                }
+            }
         `
             break;
+
         default :
             break;
     }
