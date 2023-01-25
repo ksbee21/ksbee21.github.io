@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sun, 15 Jan 2023 13:03:43 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Jan 2023 21:34:09 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL2 - Program 시작 06 - Lighting - [ 10 ]</title>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_010/</link>
+      <pubDate>Sun, 22 Jan 2023 21:34:09 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_010/</guid>
+      <description>Phong Lighting 3D 관련하여 빛에 대한 자료를 찾아 보면, Phong 모델에 관한 글을 쉽게 접합 수 있습니다. 그만큼 많이 사용되고, 개념을 이해하는데 도움이 되기 때문에 많이 언급되는 것 같습니다. Phong 모델에서 이야기 하는 난반사(Diffuse), 정반사(Specular), 배경광(Ambient), 발산광(Emit) 을 간단하게 정리해 보고 WegGL로 어떻게 구현할 수 있는지 정리해 보고자 합니다.
+이곳에서 적용된 예제를 확인할 수 있습니다.
+난반사 ( Diffuse ) 빛이 물체에 부딛혀 여기저기로 흩어지는 상황을 모사하는 방법 입니다.
+쉽게 생각해서 정오의 태양이 머리에 있을 때(머리와 직각)일 때 빛을 가장 많이 받을 수 있다는 가정에서 출발하고 있습니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Program 시작 05 - Texture - [ 09 ]</title>
       <link>https://ksbee21.github.io/post/webmodule/webgl_part_009/</link>

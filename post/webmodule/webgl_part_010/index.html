@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebGL 조명(Lighting) 기본 개념 ( Phong 모델 )">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Program 시작 06 - Lighting - [ 10 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ksbee21.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://ksbee21.github.io/css/main.css">
+    
+  
+  
+    
+        <script src="https://ksbee21.github.io/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Program 시작 06 - Lighting - [ 10 ]</h1>
+  <h2>WebGL 조명(Lighting) 기본 개념 ( Phong 모델 )</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 01. 22, 21:34</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/programming">Programming</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/math">Math</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="phong-lighting">Phong Lighting</h1>
+<p>3D 관련하여 빛에 대한 자료를 찾아 보면, Phong 모델에 관한 글을 쉽게 접합 수 있습니다. <br>
+그만큼 많이 사용되고, 개념을 이해하는데 도움이 되기 때문에 많이 언급되는 것 같습니다.   <br>
+Phong 모델에서 이야기 하는 난반사(Diffuse), 정반사(Specular), 배경광(Ambient), 발산광(Emit) 을 
+간단하게 정리해 보고 WegGL로 어떻게 구현할 수 있는지 정리해 보고자 합니다.</p>
+<p><a href="/html/WebGL2/WebGL_PART_010_01.html">이곳에서 적용된 예제를 확인할 수 있습니다.</a></p>
+<h3 id="난반사--diffuse-">난반사 ( Diffuse )</h3>
+<p>빛이 물체에 부딛혀 여기저기로 흩어지는 상황을 모사하는 방법 입니다.<br>
+쉽게 생각해서 정오의 태양이 머리에 있을 때(머리와 직각)일 때 빛을 가장 많이 받을 수 있다는 가정에서 출발하고 있습니다.<br>
+저녁에 해 저물 무렵의 빛은 약하고 정오의 빛이 강한 원리와 비슷하다고 보면 좋을 것 같습니다 .<br>
+그것을 모사한 방법으로 앞서 삼각형 평면에 수직인 Normal(법선) 으로 꼭지점(Vertex) 의 Normal 을 구해 놓았는데, 이를 기반으로 계산하게 됩니다.<br>
+꼭지점의 Normal 은 길이가 1인 단위 벡터 이고, 빛의 방향도 단위 벡터로 방향만 표시 할 수 있습니다.<br>
+예를 들어 빛의 방향이 [0,0,-1] 이라는 의미는 x,y 가 원점인 곳에서 z 방향이 음의 방향으로 비추고 있다는 의미 입니다.   만약 꼭지점 Noraml 이 [0, 0, 1] 이면
+빛의 방향을 계산을 편하게 하기 위해 꼭지점에서 부터의 방향으로 변화 하면 [0,0,-1] * -1 [0, 0, 1] 이 됩니다. 두 방향을 각 항목을 곱하여 더하면 ( dot product ) 
+0 x 0 + 0 x 0 + 1 x 1 = 1 이 됩니다. 빛의 양을 1까지 받을 수 있으면 최대치의 빛을 받는 다는 의미 입니다.<br>
+이렇게 빛의 방향을 부딛히는 지점에서 부터로 변환하고, 해당 꼭지점의 Normal 과 dot product 를 수행하면 표면이 빛을 어느 정도 받을 수 있는지 알 수 있다는 것이
+난반사 입니다 .   범위는 0 ~ 1 사이이니, 빛을 받지 못하면 0으로 치환하게 됩니다.</p>
+<p>shader 에서 대부분의 계산을 수행하겠지만, javascript 로 구성한다면 다음과 같은 코드가 될 것 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {Float32Array} v1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {Float32Array} v2 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      */</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeDotProductVectors</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">v1</span>,<span style="color:#a6e22e">v2</span>) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">v1</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">v2</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">len</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">len</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">v2</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">len</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">v1</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">v2</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>     };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">originalLightDir</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lightDir</span>        <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>]) ; <span style="color:#75715e">//  originalLightDir * -1 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">vertexNormal</span>    <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">diffValue</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(<span style="color:#a6e22e">makeDotProductVectors</span>(<span style="color:#a6e22e">lightDir</span>, <span style="color:#a6e22e">vertexNormal</span>),<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//  color 값 곱하기 ...
+</span></span></span></code></pre></div><p>실제로 Fragment Shader 에서는 다음과 같이 사용됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>             vec3 normal <span style="color:#f92672">=</span> normalize(vNormal);
+</span></span><span style="display:flex;"><span>             vec3 light <span style="color:#f92672">=</span> normalize(directionLight);
+</span></span><span style="display:flex;"><span>             vec3 matDiff <span style="color:#f92672">=</span> texture(uTexture,vTexCoord).rgb;
+</span></span><span style="display:flex;"><span>             vec3 diffuse <span style="color:#f92672">=</span> max(dot(light,normal),<span style="color:#ae81ff">0.0</span>)<span style="color:#f92672">*</span>matDiff;
+</span></span></code></pre></div><p>빛의 방향은 이미 부딛히는 점에서 빛으로 향하도록 부호가 변경된 상태로 전달 됩니다. <br>
+내장 함수인 normalize 를 호출해 단위 벡터로 만들고 있습니다. <br>
+그림에서 보간된 위치의 pixel 값을 가져오고 있습니다. texture(uTexture,vTexCoord).rgb<br>
+내장된 dot product 함수를 이용해서 두 벡터의 cos(theta) 값을 가져오고, 그 값이 0 미만이 되지 않도록 구성후 추출한 pixel 값에 곱해 주고 있습니다. 
+( max(dot(light,normal),0.0)*matDiff )</p>
+<h4 id="diffuse-를-사용하기-전과-후의-예제-입니다">diffuse 를 사용하기 전과 후의 예제 입니다.</h4>
+<p>원본은 구에 간단한 Texture 를 입힌 화면입니다.    <br>
+<img src="/imgs/gl_10_01.png" alt="원본이미지">   <br>
+Diffuse 조명을 사용했을 때의 이미지 입니다.  광원은 우측 상단 입니다. (1, 1, 1) <br>
+<img src="/imgs/gl_10_02.png" alt="Diffuse 이미지"></p>
+<h3 id="정반사--specular-">정반사 ( Specular )</h3>
+<p>정반사는 빛이 물체에 부딛힌 후 들어온 각도와 동일한 각도로 빠져 나가는 반사광이 우리눈에 끼치는 영향 정도라고 생각할 수 있습니다. <br>
+실생활에서 보면 낮에 햇빛이 유리창에 비추어 눈부심을 느끼게 하는 경우를 생각해 보면 좋을 것 같습니다.   유리창이 있다고 다 그렇게 되는 것이 아니고, 
+햇빛이 유리창을 비출때 우리 눈이 햇빛이 유리창에 비친 각도와 공교롭게 반사각이 일치할 때 유리창에 비친 햇빛에 눈이 부신 경험이 있을 것 입니다. <br>
+입사각과, 반사각이 바라보는 시선과 일치할 때 그런 현상이 나타나곤 합니다. 그런 현상을 모사한 것입니다.     <br>
+Phong 모델에서는 이것을 어떻게 계량화 하여 표현할까요? <br>
+평면위에 빛이 왼쪽에서 45도 방향으로 들어온다면 원칙적으로 빛의 방향은 왼쪽 위 45도 각도에서 들어 오는 것으로 생각할 수 있습니다.    평면이 평평하다면, Normal 이라고 불리는 값은 
+평면에 수직이 될 것입니다. 이럴 경우 반사각은 오른쪽 45도 방향이 될 것이고, 빛은 이 방향으로 반짝일 겁니다.    거울을 연상해 보시면 거울에 비친 햇빛이 반사되는 것과 유사하다는 것을 
+연상할 수 있습니다.    그 때 우리의 시선이 반사되는 각도인 오른쪽 45도에 놓여 있으면, 가장 강한 빛을 받을 것이지만, 조금 떨어져 있다면 그 빛을 약간만 받게 될 것입니다. <br>
+평면의 표면에서 수직으로 위로 올라간 방향이 Normal Vector 이고, 빛이 들어오는 방향이 Light Vector 인데 평면에서 Ligth 방향으로 빛의 방향을 변경해 보면 계산이 편하기 때문에 빛의 방향을 
+반대로 뒤집에서 표현합니다. Light Vector 이하 L , Normal Vector 이하 N, 이라고 표현하면 우리가 구하고자 하는 반사 Vector, Reflect Vector , 이하 R 은 다음과 같은 방식으로 구할 수 있습니다.<br>
+L 을 단위 벡터로 만들고, N 을 단위 벡터로 만든후 구 벡터를 Dot Product 하면 단일 값을 구할 수 있는데 이 값이 cos(theta) 입니다. N.L = cos(theta) N, 과 L 이 단위벡터라 길이가 1이라서 그렇습니다. 
+L 과 N 사이의 각을 입사각이라고 하고( cos(theta) ) 이 크기는 반사각인 R 과 N 사이의 각과 동일한 크기를 가집니다. ( 이것은 물리법칙으로 주어진 것입니다. ) <br>
+N.L 이 cos(theta) 라고 했으니 cos(theta) * N 이면 평면 표면에서 N 방향으로 L 과 R 을 연결하는 중간 지점을 향하는 벡터를 구할 수 있습니다. 이를 편의상 A 라고 하겠습니다. <br>
+삼각함수의 cos(theta) = 밑변 / 빗변 이니 , cos(theta) * N 이렇게 하면 N 의 길이가 빗변이니 N 으로 향하는 어느 지점( A ) 에 이르는 벡터라고 볼 수 있습니다. <br>
+L 에서 A 로 향하는 벡터는 A - L 이라고 하고, S1 이라고 하겠습니다.    A 에서 R 로 향하는 벡터는 R - A = S2 라고 하겠습니다. <br>
+그런데 S1 하고 S2 의 크기가 같으니 두개를 연결하면, A - L = R - A 입니다.   우리가 구하고자 하는 것은 R 이니 R 로 정리하면 R = 2A - L 이 됩니다. 
+A 가  N*(N.L) 이었으니, 다 풀어서 보면 R = 2<em>N</em>(N.L) - L 로 표현할 수 있습니다. ( 빛의 방향이 평면에서 빛의 방향으로 뒤집어진 상태에서 계산한 것입니다.  )</p>
+<p>그렇게 반사각을 구한 후에 보는 눈하고 dot product 를 구성하면 위의 diffuse 와 같이 비치는 세기를 알 수 있습니다.    여기서 조금 더 생각할 부분은, 
+모든 각도가 다 빛을 볼 수 있는 것은 아니니 dot product 의 결과를 몇승해서 시야 범위를 좁히는 과정을 거치게 됩니다.    예제에서는 32승을 사용하였습니다.  64승 정도를 추천하고 있습니다.</p>
+<p>실제로 Fragment Shader 에는 다음과 같이 사용됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>             vec3 reflactDir <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span><span style="color:#f92672">*</span>normal<span style="color:#f92672">*</span>dot(light,normal) <span style="color:#f92672">-</span> light;
+</span></span><span style="display:flex;"><span>             vec3 specular <span style="color:#f92672">=</span> pow( max( dot(reflactDir, viewDir),<span style="color:#ae81ff">0.0</span>),shineCoef ) <span style="color:#f92672">*</span> dirLightColor <span style="color:#f92672">*</span> specularColor;
+</span></span></code></pre></div><h4 id="specular-를-사용한-예제-입니다">Specular 를 사용한 예제 입니다.</h4>
+<p><img src="/imgs/gl_10_03.png" alt="Specular 이미지"></p>
+<h3 id="ambient-배경광--emit--자발광-">Ambient( 배경광 ), Emit ( 자발광 ?)</h3>
+<p>배경광은 어두운 곳에서도 윤곽정도는 구분할 수 있는 것처럼 빛이 어디에서 오는지는 모르지만 구분할 수 있을 정도로 있다고 가정하고, 그냥 표현하는 빛의 세기 입니다. 
+rgb 의 배경색과, 그것을 반사하는 정도를 다시 rgb 별로 설정할 수 있지만, 예제에서는 실수로 동일한 정도를 반사하는 것으로 구성하였습니다.</p>
+<p>자발광은 이름 그대로 자기가 빛을 내는 것을 모사한 것입니다.   주어진 값을 그대로 사용합니다.</p>
+<h4 id="ambient-를-사용한-예제-입니다">Ambient 를 사용한 예제 입니다.</h4>
+<p><img src="/imgs/gl_10_04.png" alt="Ambient 이미지">
+너무 조금 주어 그리 큰 차이가 나진 않으나 아주 살짝 음영 부분이 밝아 졌습니다. ^^ 
+자발광 예제는 담지 않았습니다.   주어진 색상을 그대로 표현하는 것이라 별도 예제를 구성하지는 않았습니다.</p>
+<h4 id="이-전체를-연결한-예제-입니다">이 전체를 연결한 예제 입니다.</h4>
+<p><img src="/imgs/gl_10_05.png" alt="Sample 이미지"></p>
+<h3 id="정리">정리</h3>
+<p>Diffuse 는 난반사로, 빛의 방향과 노말(법선) 을 이용해서 받아들이는 빛의 세기를 결정 지었습니다. <br>
+Specular 는 빛의 방향과 Noraml 을 이용해 반사 벡터를 구하고, 반사벡터와 시야벡터를 Diffuse 처럼 dot product 를 세기를 정하는데, 
+너무 넓은 시야각을 보정하기 위해서  n 승을 해 줍니다. 예제에서는 32승을 하였습니다. 
+Ambient 는 완전 암흑이 아닌 빛이 어디에서 들어왔는지 모르지만 있는 상황을 모사한 것이고, 자발광은 말 그대로 자기 색을 가진 물체 입니다.</p>
+<p>언급하진 않았지만, 빛을 멀리 떨어진 단방향으로만 정의 했지만, 백열등 같은 빛도 방향을 정의하고, 거리에 따른 감소를 어떻게 할 것인지만 정하면, 
+거의 동일한 로직으로 구현할 수 있을것 같습니다.</p>
+<h1 id="구현된-중요-소스-부분-입니다">구현된 중요 소스 부분 입니다.</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-glsl" data-lang="glsl"><span style="display:flex;"><span>         <span style="color:#960050;background-color:#1e0010">#</span>version <span style="color:#ae81ff">300</span> es
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec2</span> vTexCoord;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec3</span> vNormal;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec4</span> vColors; 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec3</span> vEyePos;            
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">sampler2D</span> uTexture;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">int</span> uDisplayType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> directionLight;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> dirLightColor;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> specularColor;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> ambientColor;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> emitColor;
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">float</span> shineCoef;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">float</span> ambientCoef;  <span style="color:#75715e">//  rgb 로 제어하려면 vec3            </span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">float</span> emitCoef;     <span style="color:#75715e">//  rgb 로 제어하려면 vec3</span>
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">void</span> main() {
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> normal <span style="color:#f92672">=</span> normalize(vNormal);
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> viewDir <span style="color:#f92672">=</span> normalize(vEyePos);
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> light <span style="color:#f92672">=</span> normalize(directionLight);
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> matDiff <span style="color:#f92672">=</span> texture(uTexture,vTexCoord).rgb;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> diffuse <span style="color:#f92672">=</span> max(dot(light,normal),<span style="color:#ae81ff">0.0</span>)<span style="color:#f92672">*</span>matDiff;
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> reflactDir <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span><span style="color:#f92672">*</span>normal<span style="color:#f92672">*</span>dot(light,normal) <span style="color:#f92672">-</span> light;
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> specular <span style="color:#f92672">=</span> pow( max( dot(reflactDir, viewDir),<span style="color:#ae81ff">0.0</span>),shineCoef ) <span style="color:#f92672">*</span> dirLightColor <span style="color:#f92672">*</span> specularColor;
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> ambient <span style="color:#f92672">=</span> ambientColor<span style="color:#f92672">*</span>ambientCoef;
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">vec3</span> emit <span style="color:#f92672">=</span> emitColor<span style="color:#f92672">*</span>emitCoef;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">if</span> ( uDisplayType <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> ) {
+</span></span><span style="display:flex;"><span>                 fragColor <span style="color:#f92672">=</span> texture(uTexture,vTexCoord);
+</span></span><span style="display:flex;"><span>             } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( uDisplayType <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> ) {
+</span></span><span style="display:flex;"><span>                 fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(diffuse,<span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>             } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( uDisplayType <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span> ) {
+</span></span><span style="display:flex;"><span>                 fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(diffuse<span style="color:#f92672">+</span>specular,<span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>             } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( uDisplayType <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span> ) {
+</span></span><span style="display:flex;"><span>                 fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(diffuse<span style="color:#f92672">+</span>ambient,<span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>             } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                 fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(diffuse<span style="color:#f92672">+</span>specular<span style="color:#f92672">+</span>ambient<span style="color:#f92672">+</span>emit ,<span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>         }
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  dataType : 1 : float, 2 : int, 3 : uint, 4 : boolean
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//  dataKind : 1 : value, 2 : vector , 3 : matrix 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//  dataSize : 1 : 1, 2 : 2, 3 : 3, 4 : 4 =&gt; ex vec3, mat3 ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">uniformArray</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;worldMatrix&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>, <span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;viewMatrix&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>, <span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>},
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;projectionMatrix&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeIdentityMatrix</span>(<span style="color:#ae81ff">4</span>), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>},                
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;uSampler&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},         
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;uDisplayType&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>, <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;eyePos&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">0.0</span>,<span style="color:#ae81ff">0.0</span>,<span style="color:#ae81ff">20.0</span>]), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                                                
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;directionLight&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">1.0</span>]), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                                                                
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;dirLightColor&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">0.1</span>]), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                                                                                
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;specularColor&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">0.8</span>,<span style="color:#ae81ff">0.8</span>,<span style="color:#ae81ff">0.8</span>]), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                                                                                                
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ambientColor&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">0.1</span>,<span style="color:#ae81ff">0.1</span>,<span style="color:#ae81ff">0.1</span>]), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                                                                                                                
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;emitColor&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([<span style="color:#ae81ff">0.0</span>,<span style="color:#ae81ff">0.0</span>,<span style="color:#ae81ff">0.0</span>]), <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},     
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;shineCoef&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">32.0</span>, <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},         
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ambientCoef&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0.5</span>, <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},         
+</span></span><span style="display:flex;"><span>             {<span style="color:#a6e22e">uniformName</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;emitCoef&#34;</span>, <span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0.1</span>, <span style="color:#a6e22e">dataType</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataKind</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">dataSize</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">uLocation</span><span style="color:#f92672">:</span><span style="color:#66d9ef">undefined</span>,<span style="color:#a6e22e">transpose</span><span style="color:#f92672">:</span><span style="color:#66d9ef">false</span>},                                                     
+</span></span><span style="display:flex;"><span>         ];
+</span></span></code></pre></div><p><a href="/html/WebGL2/WebGL_PART_010_01.html">이곳에서 적용된 예제를 확인할 수 있습니다.</a></p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_010%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_010%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_010%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_010%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_010%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_010%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ksbee21.github.io/post/crossplatformapp/cross_app_002/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ksbee21.github.io/post/crossplatformapp/cross_app_002/">QT PYQT  SWING JFX Program Event 기초</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://ksbee21.github.io/post/webcanvas/web_canvas_sphere/">Canvas 로 Sphere 구성 하기</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://ksbee21.github.io/post/webcanvas/web_canvas_sphere/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ksbee21.github.io/js/ui.js"></script>
+<script src="https://ksbee21.github.io/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+

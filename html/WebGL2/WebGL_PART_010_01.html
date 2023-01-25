@@ -98,25 +98,22 @@
             uniform vec3 specularColor;
             uniform vec3 ambientColor;
             uniform vec3 emitColor;
-
             
             uniform float shineCoef;
             uniform float ambientCoef;  //  rgb 로 제어하려면 vec3            
             uniform float emitCoef;     //  rgb 로 제어하려면 vec3
-*/
 
-/*
-    //  dataType : 1 : float, 2 : int, 3 : uint, 4 : boolean
-    //  dataKind : 1 : value, 2 : vector , 3 : matrix 
-    //  dataSize : 1 : 1, 2 : 2, 3 : 3, 4 : 4 => ex vec3, mat3 ...
 
+        //  dataType : 1 : float, 2 : int, 3 : uint, 4 : boolean
+        //  dataKind : 1 : value, 2 : vector , 3 : matrix 
+        //  dataSize : 1 : 1, 2 : 2, 3 : 3, 4 : 4 => ex vec3, mat3 ...
 */
             const uniformArray = [
                 {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "projectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
                 {uniformName : "uSampler", data : 0, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},         
-                {uniformName : "uDisplayType", data : 4, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                     
+                {uniformName : "uDisplayType", data : 5, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                     
 
                 {uniformName : "eyePos", data : new Float32Array([0.0,0.0,20.0]), dataType : 1, dataKind : 2, dataSize : 3, uLocation:undefined,transpose:false},                                                
                 {uniformName : "directionLight", data : new Float32Array([1.0,1.0,1.0]), dataType : 1, dataKind : 2, dataSize : 3, uLocation:undefined,transpose:false},                                                                

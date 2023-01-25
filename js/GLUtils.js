@@ -229,8 +229,6 @@ export const getFragmentShaderSource = ( typeNum ) => {
             uniform vec3 specularColor;
             uniform vec3 ambientColor;
             uniform vec3 emitColor;
-
-
             
             uniform float shineCoef;
             uniform float ambientCoef;  //  rgb 로 제어하려면 vec3            
