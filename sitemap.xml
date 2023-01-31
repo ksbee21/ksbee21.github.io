@@ -2,6 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ksbee21.github.io/tags/application/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/crossplatform/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/java/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/language/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/openjfx/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/post/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/pyqt6/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/qt/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/post/crossplatformapp/cross_app_003/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/swing/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/tags/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ksbee21.github.io/</loc>
+    <lastmod>2023-01-26T19:54:05+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
     <loc>https://ksbee21.github.io/tags/canvas/</loc>
     <lastmod>2023-01-22T22:26:52+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -18,15 +66,7 @@
     <lastmod>2023-01-22T22:26:52+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://ksbee21.github.io/post/</loc>
-    <lastmod>2023-01-22T22:26:52+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://ksbee21.github.io/tags/sphere/</loc>
-    <lastmod>2023-01-22T22:26:52+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/</loc>
     <lastmod>2023-01-22T22:26:52+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
@@ -36,14 +76,6 @@
   </url><url>
     <loc>https://ksbee21.github.io/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98/</loc>
     <lastmod>2023-01-22T22:26:52+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/</loc>
-    <lastmod>2023-01-22T22:26:52+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/language/</loc>
-    <lastmod>2023-01-22T21:34:09+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ksbee21.github.io/tags/programming/</loc>
@@ -58,35 +90,7 @@
     <lastmod>2023-01-22T21:34:09+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>
-    <loc>https://ksbee21.github.io/tags/application/</loc>
-    <lastmod>2023-01-20T19:53:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/crossplatform/</loc>
-    <lastmod>2023-01-20T19:53:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/java/</loc>
-    <lastmod>2023-01-20T19:53:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/openjfx/</loc>
-    <lastmod>2023-01-20T19:53:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/pyqt6/</loc>
-    <lastmod>2023-01-20T19:53:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/qt/</loc>
-    <lastmod>2023-01-20T19:53:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
     <loc>https://ksbee21.github.io/post/crossplatformapp/cross_app_002/</loc>
-    <lastmod>2023-01-20T19:53:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-  </url><url>
-    <loc>https://ksbee21.github.io/tags/swing/</loc>
     <lastmod>2023-01-20T19:53:43+09:00</lastmod>
     <changefreq>weekly</changefreq>
   </url><url>

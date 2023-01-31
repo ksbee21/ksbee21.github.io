@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="각 언어별 Layout Class 중심 정리">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>QT PYQT  SWING JFX Layout 기초 1 &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ksbee21.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://ksbee21.github.io/css/main.css">
+    
+  
+  
+    
+        <script src="https://ksbee21.github.io/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>QT PYQT  SWING JFX Layout 기초 1</h1>
+  <h2>각 언어별 Layout Class 중심 정리</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 01. 26, 19:54</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/crossplatform">CrossPlatform</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/application">Application</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/java">JAVA</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/qt">QT</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/pyqt6">PYQT6</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/swing">SWING</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/openjfx">OpenJFX</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="application-layout">Application Layout</h1>
+<p>GUI 프로그램을 구성할 때, 첫인상을 좌우 하는 것은 전체적인 Widet(Component) 의 배치 입니다. <br>
+이를 도와 주는 역할을 담당하는 것이 Layout 인데 언어마다 유사하지만 조금씩 다른 내용을 가지고 있습니다. <br>
+각 언어의 Layout 을 모두 하나씩 살펴보는 것은 너무 많기 때문에 이런 것들이 있다 정도로 정리하고자 합니다.<br>
+나중에 시간이 되면, 간단한 Toy Project를 구성하면서, 각 언어별 사용법을 정리해 보고자 합니다. 
+그래도 대부분 제공 하는 것이, 상하,좌우 센터에 Anchor 할 수 있는 Layout, 가로, 세로로 정렬할 수 있는 Layout, 
+Table 처럼 cell 로 정렬할 수 있는 Layout, 자유롭게 배치 할 수 있는 Layout 등이 있습니다.    각 언어별 제공하는 
+Layout class 들을 정리해 보겠습니다.</p>
+<h1 id="qt">QT</h1>
+<h3 id="qt-layout-class-link">QT Layout Class Link</h3>
+<p><a href="https://doc.qt.io/qt-6/layout.html">https://doc.qt.io/qt-6/layout.html</a> <br>
+QT 에서 사용하는 Layout 과 사용상의 주의점 등을 정리하여 보여 주고 있습니다. <br>
+GUI를 개발하다 보면, 기본 Layout 구조외에 별도록 구성해야 할 경우가 있는데, 그 경우 구현해야될 
+메소드와 구성하는 방법 등에 대해서도 설명하고 있는 페이지 입니다.    개발 과정에서 틈틈히 참조해야 할 부분인데 , 
+해당 페이지에서 소개하고 있는 기본 Layout Class 들은 아래와 같은 것이 있습니다.</p>
+<h4 id="qboxlayout">QBoxLayout</h4>
+<p>이름 그대로 정렬된 상태를 구성하기 위한 Layout 입니다. 
+enum	Direction { LeftToRight, RightToLeft, TopToBottom, BottomToTop } 을 제공하고 있습니다.  명명된 그대로라고 생각하면 좋을 것 같습니다.</p>
+<h4 id="qbuttongroup">QButtonGroup</h4>
+<p>버튼을 묶어서 담고, 그 버튼간에 어떤것이 active 상태 인지등을 확인할 때 사용하는 Layout 이라고 합니다.<br>
+하나씩 테스트 해보진 않았지만, exclusive() const 함수가 bool 을 return 하고, setExclusive(bool) 메소드가 있습니다.</p>
+<h4 id="qformlayout">QFormLayout</h4>
+<p>API 에는 2개의 column form을 배치하기 위한 Layout 이라고 표현하고 있습니다.<br>
+메소드에는 몇개의 overloading 된 내용이 있는데 addRow(QWidget *label, QWidget *field)가 기본이 되는것 같습니다. QWidget 을 상속 받은 모든 형태가 
+가능하고, label, field 의 명명으로 볼때 기본형은 문자열, 입력Widget 가 될 수 있습니다.  addRow(const QString &amp;labelText, QLayout *field) 함수로 제공합니다.</p>
+<h4 id="qgraphicsanchor--qgraphicsanchorlayout">QGraphicsAnchor , QGraphicsAnchorLayout</h4>
+<p>QGraphicsAnchorLayout class 는 QGraphicsAnchor class 를 상속 받았습니다. 
+예시로 되어 있는 내용을 보면 왼쪽 b 가 오른쪽 a 위치의 상대 위치를 의미 합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span> layout<span style="color:#f92672">-&gt;</span>addAnchor(b, Qt<span style="color:#f92672">::</span>AnchorLeft, a, Qt<span style="color:#f92672">::</span>AnchorRight);
+</span></span><span style="display:flex;"><span> layout<span style="color:#f92672">-&gt;</span>addAnchor(b, Qt<span style="color:#f92672">::</span>AnchorTop, a, Qt<span style="color:#f92672">::</span>AnchorBottom);
+</span></span></code></pre></div><p>위와 같은 코드 일 때 b는 a 의 오론쪽, a 아래 위치하는 구성이 됩니다.   <br>
+<a href="https://doc.qt.io/qt-6/qgraphicsanchorlayout.html">https://doc.qt.io/qt-6/qgraphicsanchorlayout.html</a> 사이트 에서 자세히 확인가능합니다.</p>
+<h4 id="qgridlayout">QGridLayout</h4>
+<p>말 그대로 Grid 에 배치할 수 있는 Layout 입니다. HTML table 같은것을 연상하셔도 될것 같습니다.   많이 사용하는 부분이니 예제에서 상세히 확인해 보겠습니다.</p>
+<h4 id="qgroupbox">QGroupBox</h4>
+<p>타이틀과 격자 틀을 제공하는 Layout 입니다.    묶음을 표현할 때 사용할 수 있습니다.</p>
+<h4 id="qhboxlayout--qvboxlayout">QHBoxLayout , QVBoxLayout</h4>
+<p>QBoxLayou 과 유사하나, 수평선으로 정렬 혹은 수직방향으로 정렬을 제공 하는 Layout 입니다.</p>
+<h4 id="qlayout-qlayoutitem">QLayout, QLayoutItem</h4>
+<p>Resize 등 전체 사이즈 변경에 대한 처리 등을 관리하는 Base Class 입니다.<br>
+API 문서에는 다음과 같이 기재되어 있습니다.<br>
+This is an abstract base class inherited by the concrete classes QBoxLayout, QGridLayout, QFormLayout, and QStackedLayout.<br>
+위에서 살펴본 대다수의 Layout class 가 QLayout 을 상속 받았고, 해당 클래스는 abstract class 입니다.<br>
+제공하는 enum type 으로 enum	SizeConstraint { SetDefaultConstraint, SetFixedSize, SetMinimumSize, SetMaximumSize, SetMinAndMaxSize, SetNoConstraint }  이 있습니다. 
+개발자가 직접 Layout 을 만들고자 할 때 해당 클래스를 상속 받아 구현하면 될 것 같습니다.<br>
+QLayoutItem 은 QLayout 의 부모 클래스 입니다.</p>
+<h4 id="qsizepolicy">QSizePolicy</h4>
+<p>Layout 관련 수평, 수직, resizing 에 관련한 속성 관련한 class 입니다.</p>
+<h4 id="qspaceritem">QSpacerItem</h4>
+<p>Layout 안에서 공백 관련한 클래스 입니다.</p>
+<h4 id="qstackedlayout">QStackedLayout</h4>
+<p>말 그대로 Stack 에 올려 놓고, 그중 한개만 보여주기 위한 Layout 입니다.<br>
+addItem(QLayoutItem *item) override 의 메소드에서 보듯 Layout 객체를 Stack 에 담을 대상으로 합니다.</p>
+<h4 id="qstackedwidget">QStackedWidget</h4>
+<p>위와 유사하나, addWidget(QWidget *widget) 의 함수를 제공합니다. QWidget 이 담을 수 있는 대상 입니다.</p>
+<h4 id="qwidgetitem">QWidgetItem</h4>
+<p>API 에서는 개발자가 사용할 일은 별로 없다고 하네요 &hellip; ^^ QLayoutItem 을 상속 받고 있습니다.</p>
+<h3 id="qt-기본-layout-예제-입니다">QT 기본 Layout 예제 입니다.</h3>
+<p><a href="https://doc.qt.io/qt-6/examples-layouts.html">https://doc.qt.io/qt-6/examples-layouts.html</a><br>
+해당 예제는 Qt Creator 에서 소스를 제공하고 있기 때문에  주요 부분만 확인해 보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>   <span style="color:#75715e">// Copyright (C) 2016 The Qt Company Ltd.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#ifndef DIALOG_H
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">#define DIALOG_H
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;QDialog&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>   QT_BEGIN_NAMESPACE
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QAction</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QDialogButtonBox</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QGroupBox</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QLabel</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QLineEdit</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QMenu</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QMenuBar</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QPushButton</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QTextEdit</span>;
+</span></span><span style="display:flex;"><span>   QT_END_NAMESPACE
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [0]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dialog</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> QDialog
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>      Q_OBJECT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      Dialog();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">void</span> createMenu();
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">createHorizontalGroupBox</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">createGridGroupBox</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">createFormGroupBox</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">enum</span> { NumGridRows <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, NumButtons <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      QMenuBar <span style="color:#f92672">*</span>menuBar;
+</span></span><span style="display:flex;"><span>      QGroupBox <span style="color:#f92672">*</span>horizontalGroupBox;
+</span></span><span style="display:flex;"><span>      QGroupBox <span style="color:#f92672">*</span>gridGroupBox;
+</span></span><span style="display:flex;"><span>      QGroupBox <span style="color:#f92672">*</span>formGroupBox;
+</span></span><span style="display:flex;"><span>      QTextEdit <span style="color:#f92672">*</span>smallEditor;
+</span></span><span style="display:flex;"><span>      QTextEdit <span style="color:#f92672">*</span>bigEditor;
+</span></span><span style="display:flex;"><span>      QLabel <span style="color:#f92672">*</span>labels[NumGridRows];
+</span></span><span style="display:flex;"><span>      QLineEdit <span style="color:#f92672">*</span>lineEdits[NumGridRows];
+</span></span><span style="display:flex;"><span>      QPushButton <span style="color:#f92672">*</span>buttons[NumButtons];
+</span></span><span style="display:flex;"><span>      QDialogButtonBox <span style="color:#f92672">*</span>buttonBox;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      QMenu <span style="color:#f92672">*</span>fileMenu;
+</span></span><span style="display:flex;"><span>      QAction <span style="color:#f92672">*</span>exitAction;
+</span></span><span style="display:flex;"><span>   };
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [0]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#endif </span><span style="color:#75715e">// DIALOG_H
+</span></span></span></code></pre></div><p>구현 부위의 각 함수를 보면 다음과 같습니다. 
+메뉴 구성 영역입니다.    &amp;F 는 단축키 설정을 하고 있습니다.   exitAction 에서 signal 을  &amp;QAction::triggered 의 QAction 으로 구성후 QDialog 에서 accept slot 으로 받아 
+Exit Action 이 수행되도록 구성하고 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>   <span style="color:#75715e">//! [6]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">void</span> Dialog<span style="color:#f92672">::</span>createMenu()
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>      menuBar <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QMenuBar;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      fileMenu <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QMenu(tr(<span style="color:#e6db74">&#34;&amp;File&#34;</span>), <span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>      exitAction <span style="color:#f92672">=</span> fileMenu<span style="color:#f92672">-&gt;</span>addAction(tr(<span style="color:#e6db74">&#34;E&amp;xit&#34;</span>));
+</span></span><span style="display:flex;"><span>      menuBar<span style="color:#f92672">-&gt;</span>addMenu(fileMenu);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      connect(exitAction, <span style="color:#f92672">&amp;</span>QAction<span style="color:#f92672">::</span>triggered, <span style="color:#66d9ef">this</span>, <span style="color:#f92672">&amp;</span>QDialog<span style="color:#f92672">::</span>accept);
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [6]
+</span></span></span></code></pre></div><p>Group Box 와 QHBoxLayout 을 구성한후 layout 에 담고, GroupBox 에 담는 구조 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [7]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">void</span> Dialog<span style="color:#f92672">::</span>createHorizontalGroupBox()
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>      horizontalGroupBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QGroupBox(tr(<span style="color:#e6db74">&#34;Horizontal layout&#34;</span>));
+</span></span><span style="display:flex;"><span>      QHBoxLayout <span style="color:#f92672">*</span>layout <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QHBoxLayout;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> NumButtons; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>         buttons[i] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QPushButton(tr(<span style="color:#e6db74">&#34;Button %1&#34;</span>).arg(i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>         layout<span style="color:#f92672">-&gt;</span>addWidget(buttons[i]);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      horizontalGroupBox<span style="color:#f92672">-&gt;</span>setLayout(layout);
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [7]
+</span></span></span></code></pre></div><p>동일하게 Group Box 를 사용하는데 이번에는 QGridLayout 에 담는 예제 입니다. 
+QTextEdit 를 담는 메소드는 layout-&gt;addWidget(smallEditor, 0, 2, 4, 1); 입니다. 첫번째 객체, 두번째 row index, 세번째 column index 네번째 4는 row 4칸의 의미 입니다. 
+다섯번째 1은 column 1칸 입니다.     setColumnStretch 의 첫번째 인자는 column index 이고 두번째는 상대값입니다.   default 가 0이니 첫번째는 0, 두번째는 10, 세번째가 20 입니다.<br>
+상대적으로 마지막 cell 인 QTextEdit 가 가장 크게 표현됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>   <span style="color:#75715e">//! [8]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">void</span> Dialog<span style="color:#f92672">::</span>createGridGroupBox()
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>      gridGroupBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QGroupBox(tr(<span style="color:#e6db74">&#34;Grid layout&#34;</span>));
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [8]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      QGridLayout <span style="color:#f92672">*</span>layout <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QGridLayout;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [9]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> NumGridRows; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>         labels[i] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QLabel(tr(<span style="color:#e6db74">&#34;Line %1:&#34;</span>).arg(i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>         lineEdits[i] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QLineEdit;
+</span></span><span style="display:flex;"><span>         layout<span style="color:#f92672">-&gt;</span>addWidget(labels[i], i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>         layout<span style="color:#f92672">-&gt;</span>addWidget(lineEdits[i], i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [9] //! [10]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      smallEditor <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QTextEdit;
+</span></span><span style="display:flex;"><span>      smallEditor<span style="color:#f92672">-&gt;</span>setPlainText(tr(<span style="color:#e6db74">&#34;This widget takes up about two thirds of the &#34;</span>
+</span></span><span style="display:flex;"><span>                                    <span style="color:#e6db74">&#34;grid layout.&#34;</span>));
+</span></span><span style="display:flex;"><span>      layout<span style="color:#f92672">-&gt;</span>addWidget(smallEditor, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [10]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [11]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      layout<span style="color:#f92672">-&gt;</span>setColumnStretch(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>      layout<span style="color:#f92672">-&gt;</span>setColumnStretch(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">20</span>);
+</span></span><span style="display:flex;"><span>      gridGroupBox<span style="color:#f92672">-&gt;</span>setLayout(layout);
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//! [11]
+</span></span></span></code></pre></div><p>위 사이트 내용중 일부를 조금 살펴 보았습니다.   QT 에서의 Lay out 은 약간씩 차이가 있어도 대략 위에 기재한 정도로 사용되고 있는 것 같습니다.</p>
+<h1 id="pyqt6">PYQT6</h1>
+<h3 id="pyqt6-layout-class-link">PYQT6 Layout Class Link</h3>
+<p><a href="https://www.riverbankcomputing.com/static/Docs/PyQt6/">https://www.riverbankcomputing.com/static/Docs/PyQt6/</a><br>
+<a href="https://www.riverbankcomputing.com/static/Docs/PyQt6/search.html?q=QLayout">https://www.riverbankcomputing.com/static/Docs/PyQt6/search.html?q=QLayout</a><br>
+PYQT6를 구성한 riverbankcomputing 에서 제공하는 내용입니다. QLayout 으로 검색하면 해당 내용을 확인할 수 있습니다.    QT 의 class 들을 Python 으로 매핑해 놓았음을 설명하고 있습니다. 
+QT 에서 설명한 클래스 들을 활용하고 있기 때문에 별도로 정리하지는 않겠습니다. <br>
+탭을 클릭하면 선택한 항목이 출력되는 예제 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">from</span> PyQt6.QtWidgets <span style="color:#f92672">import</span> QWidget
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">from</span> PyQt6.QtGui <span style="color:#f92672">import</span> QPalette, QColor
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>(QWidget):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">def</span> __init__(self, color):
+</span></span><span style="display:flex;"><span>         super(Color, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>setAutoFillBackground(<span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>         palette <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>palette()
+</span></span><span style="display:flex;"><span>         palette<span style="color:#f92672">.</span>setColor(QPalette<span style="color:#f92672">.</span>ColorRole<span style="color:#f92672">.</span>Window, QColor(color))
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>setPalette(palette)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">from</span> PyQt6.QtCore <span style="color:#f92672">import</span> Qt 
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">from</span> PyQt6.QtWidgets <span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>      QApplication, 
+</span></span><span style="display:flex;"><span>      QHBoxLayout, 
+</span></span><span style="display:flex;"><span>      QLabel,
+</span></span><span style="display:flex;"><span>      QMainWindow, 
+</span></span><span style="display:flex;"><span>      QPushButton, 
+</span></span><span style="display:flex;"><span>      QStackedLayout,
+</span></span><span style="display:flex;"><span>      QVBoxLayout, 
+</span></span><span style="display:flex;"><span>      QWidget, 
+</span></span><span style="display:flex;"><span>   )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">from</span> color <span style="color:#f92672">import</span> Color
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainWindow</span>(QMainWindow):
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>         super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>setWindowTitle(<span style="color:#e6db74">&#34;My App&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         pagelayout <span style="color:#f92672">=</span> QVBoxLayout();
+</span></span><span style="display:flex;"><span>         button_layout <span style="color:#f92672">=</span> QHBoxLayout();
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>stacklayout <span style="color:#f92672">=</span> QStackedLayout();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         pagelayout<span style="color:#f92672">.</span>addLayout(button_layout)
+</span></span><span style="display:flex;"><span>         pagelayout<span style="color:#f92672">.</span>addLayout(self<span style="color:#f92672">.</span>stacklayout)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         btn <span style="color:#f92672">=</span> QPushButton(<span style="color:#e6db74">&#34;red&#34;</span>)
+</span></span><span style="display:flex;"><span>         btn<span style="color:#f92672">.</span>pressed<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>activate_tab_1)
+</span></span><span style="display:flex;"><span>         button_layout<span style="color:#f92672">.</span>addWidget(btn)
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>stacklayout<span style="color:#f92672">.</span>addWidget(Color(<span style="color:#e6db74">&#34;red&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         btn <span style="color:#f92672">=</span> QPushButton(<span style="color:#e6db74">&#34;green&#34;</span>)
+</span></span><span style="display:flex;"><span>         btn<span style="color:#f92672">.</span>pressed<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>activate_tab_2)
+</span></span><span style="display:flex;"><span>         button_layout<span style="color:#f92672">.</span>addWidget(btn)
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>stacklayout<span style="color:#f92672">.</span>addWidget(Color(<span style="color:#e6db74">&#34;green&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         btn <span style="color:#f92672">=</span> QPushButton(<span style="color:#e6db74">&#34;blue&#34;</span>)
+</span></span><span style="display:flex;"><span>         btn<span style="color:#f92672">.</span>pressed<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>activate_tab_3)
+</span></span><span style="display:flex;"><span>         button_layout<span style="color:#f92672">.</span>addWidget(btn)
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>stacklayout<span style="color:#f92672">.</span>addWidget(Color(<span style="color:#e6db74">&#34;blue&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         widget <span style="color:#f92672">=</span> QWidget();
+</span></span><span style="display:flex;"><span>         widget<span style="color:#f92672">.</span>setLayout(pagelayout)
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>setCentralWidget(widget)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">activate_tab_1</span>(self):
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>stacklayout<span style="color:#f92672">.</span>setCurrentIndex(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">activate_tab_2</span>(self):
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>stacklayout<span style="color:#f92672">.</span>setCurrentIndex(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">activate_tab_3</span>(self):
+</span></span><span style="display:flex;"><span>         self<span style="color:#f92672">.</span>stacklayout<span style="color:#f92672">.</span>setCurrentIndex(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   app <span style="color:#f92672">=</span> QApplication(sys<span style="color:#f92672">.</span>argv)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   window <span style="color:#f92672">=</span> MainWindow()
+</span></span><span style="display:flex;"><span>   window<span style="color:#f92672">.</span>show();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   app<span style="color:#f92672">.</span>exec()        
+</span></span></code></pre></div><h1 id="swing">SWING</h1>
+<h3 id="swing-layout-class-link">SWING Layout Class Link</h3>
+<p><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/module-summary.html">https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/module-summary.html</a>
+Swing 은 Java 에서 GUI 를 구성하기 위해 제공한 두번째 framework 입니다.  java 1.2 version 에서 처음 제공하였고, 그 이전에는 AWT 라는 toolkit 처럼 제공하는 api 모음이 있었습니다. <br>
+그러다 보니 Class 구조가 AWT 와 SWING 에서 공유하는 부분이 있었고, class tree 구조가 약간 혼합되어 있는 느낌도 있었습니다. <br>
+API 는 참조로 확인해 보면 될 것 같고, 아래의 사이트에서 예제와, Layout 에 대한 설명을 하고 있습니다.<br>
+이번 글에서는 Layout 만 확인해 보도록 하겠습니다.</p>
+<h3 id="layout-sample-url">Layout Sample URL</h3>
+<p><a href="https://docs.oracle.com/javase/tutorial/uiswing/layout/visual.html">https://docs.oracle.com/javase/tutorial/uiswing/layout/visual.html</a></p>
+<h4 id="borderlayout">BorderLayout</h4>
+<p>Border Layout 은 동서남북, 그리고 중앙에 배치할 수 있는 Layout 입니다.   Center 는 나머지 전체 Size 를 담게 됩니다. <br>
+API 에서 더 상세히 위치 지정할 수 있는 항목을 정의하고 있습니다.    static final String 으로 위치를 지정할 수 있도록 제공하고 있습니다. 
+(AFTER_LAST_LINE, AFTER_LINE_ENDS, BEFORE_FIRST_LINE, BEFORE_LINE_BEGINS, CENTER, EAST, LINE_END, LINE_START, NORTH, PAGE_END, PAGE_START, SOUTH, WEST ) <br>
+JFrame, JApplet, JDialog 등에서 ContentPane 의 기본 Layout 으로 사용되고 있습니다.</p>
+<h4 id="boxlayout">BoxLayout</h4>
+<p>수직 혹은 수평으로 배열할 수 있는 Layout 입니다. <br>
+(X_AXIS, Y_AXIS, LINE_AXIS, PAGE_AXIS ) 는 가로 혹은 세로로 지정된 내용으로 담겨진 객체들을 배열할 수 있습니다.</p>
+<h4 id="cardlayout">CardLayout</h4>
+<p>QT 의 QStackedLayout 과 유사하게 여러개의 화면중 하나를 표현할 수 있는 Layout 입니다.  사용법은 조금 차이가 있지만, 거의 유사한 기능을 하는 Layout 입니다.</p>
+<h4 id="flowlayout">FlowLayout</h4>
+<p>등록한 순서대로 출력하기 위한 Layout 입니다.    가로 방향으로 길이가 넘쳐나면 다음 아랫줄로 이동하여 표현합니다.</p>
+<h4 id="gridbaglayout">GridBagLayout</h4>
+<p>아래 GridLayout 보다 세부적인 조정이 더 가능한 Layout 입니다.   Cell별 크기 등, GridLayout 보다 강력하지만, 사용하기는 조금 더 어렵습니다.</p>
+<h4 id="gridlayout">GridLayout</h4>
+<p>격자 형태로 UI 를 구성하기 위한 Layout 입니다.</p>
+<h4 id="grouplayout">GroupLayout</h4>
+<p>세로 혹은 가로로 묶음이 필요한 영역을 구성하기 위한 Layout 입니다.   swing 에서는 박스와 title 등은 TitledBorder 클래스에서 지원하고 있습니다.</p>
+<h4 id="springlayout">SpringLayout</h4>
+<p>다른 component 의 edge 에 영향을 받아서 정렬하는 Low level Layout 입니다.  간격등을 기준으로 구성할 때 편할 것 같습니다.</p>
+<p>사이트에서 제공하는 간단한 예제 입니다. 
+아래의 예제에서 BorderLayout 사용을 어떻게 한다라는 것을 확인할 수 있습니다.   Swing 애서는 조금더 살펴 보아야 할 것이,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>         <span style="color:#75715e">//Schedule a job for the event dispatch thread:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//creating and showing this application&#39;s GUI.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         javax<span style="color:#f92672">.</span><span style="color:#a6e22e">swing</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SwingUtilities</span><span style="color:#f92672">.</span><span style="color:#a6e22e">invokeLater</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Runnable<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                  createAndShowGUI<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">});</span>
+</span></span></code></pre></div><p>의 구문 입니다. 향후 글이 이어지다 보면 다시 언급되겠지만, UI 가 Thread Safe 하지 않습니다.   말이 조금 어려운데요, GUI 를 어떤 순으로 그려야 할 경우, 각 Event 에서 
+변경을 호출하면 경우에 따라서 원하는 UI 변경을 확인하지 못할 수도 있습니다.   그것을 방지하고자, UI 갱신등을 관리하는 invokeLater 등의 메소드로 순차적인 갱신이 가능하도록 
+구성하고 있습니다.   Swing 이 1.2 version 으로 발표되고, 1.4 정도에 보완되고, 더이상 크게 진전 없이 JFX 로 API 구조가 변경된 것도 이런 원인이 있는 것은 아닌지 하는 지극히 
+개인적인 생각도 드는 부분입니다.  ^^^</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Redistribution and use in source and binary forms, with or without
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * modification, are permitted provided that the following conditions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * are met:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *   - Redistributions of source code must retain the above copyright
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *     notice, this list of conditions and the following disclaimer.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *   - Redistributions in binary form must reproduce the above copyright
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *     notice, this list of conditions and the following disclaimer in the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *     documentation and/or other materials provided with the distribution.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *   - Neither the name of Oracle or the names of its
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *     contributors may be used to endorse or promote products derived
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *     from this software without specific prior written permission.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &#34;AS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * IS&#34; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">package</span> layout<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * BorderLayoutDemo.java
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javax.swing.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> java.awt.BorderLayout<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> java.awt.Container<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> java.awt.Dimension<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BorderLayoutDemo</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> RIGHT_TO_LEFT <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addComponentsToPane</span><span style="color:#f92672">(</span>Container pane<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!(</span>pane<span style="color:#f92672">.</span><span style="color:#a6e22e">getLayout</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">instanceof</span> BorderLayout<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               pane<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> JLabel<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Container doesn&#39;t use BorderLayout!&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>RIGHT_TO_LEFT<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               pane<span style="color:#f92672">.</span><span style="color:#a6e22e">setComponentOrientation</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                     java<span style="color:#f92672">.</span><span style="color:#a6e22e">awt</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ComponentOrientation</span><span style="color:#f92672">.</span><span style="color:#a6e22e">RIGHT_TO_LEFT</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         JButton button <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JButton<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Button 1 (PAGE_START)&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         pane<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>button<span style="color:#f92672">,</span> BorderLayout<span style="color:#f92672">.</span><span style="color:#a6e22e">PAGE_START</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//Make the center component big, since that&#39;s the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//typical usage of BorderLayout.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         button <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JButton<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Button 2 (CENTER)&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         button<span style="color:#f92672">.</span><span style="color:#a6e22e">setPreferredSize</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Dimension<span style="color:#f92672">(</span>200<span style="color:#f92672">,</span> 100<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>         pane<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>button<span style="color:#f92672">,</span> BorderLayout<span style="color:#f92672">.</span><span style="color:#a6e22e">CENTER</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         button <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JButton<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Button 3 (LINE_START)&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         pane<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>button<span style="color:#f92672">,</span> BorderLayout<span style="color:#f92672">.</span><span style="color:#a6e22e">LINE_START</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         button <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JButton<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Long-Named Button 4 (PAGE_END)&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         pane<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>button<span style="color:#f92672">,</span> BorderLayout<span style="color:#f92672">.</span><span style="color:#a6e22e">PAGE_END</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         button <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JButton<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;5 (LINE_END)&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         pane<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>button<span style="color:#f92672">,</span> BorderLayout<span style="color:#f92672">.</span><span style="color:#a6e22e">LINE_END</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * Create the GUI and show it.  For thread safety,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * this method should be invoked from the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * event dispatch thread.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">createAndShowGUI</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//Create and set up the window.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         JFrame frame <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JFrame<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;BorderLayoutDemo&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         frame<span style="color:#f92672">.</span><span style="color:#a6e22e">setDefaultCloseOperation</span><span style="color:#f92672">(</span>JFrame<span style="color:#f92672">.</span><span style="color:#a6e22e">EXIT_ON_CLOSE</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//Set up the content pane.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         addComponentsToPane<span style="color:#f92672">(</span>frame<span style="color:#f92672">.</span><span style="color:#a6e22e">getContentPane</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//Use the content pane&#39;s default BorderLayout. No need for
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//setLayout(new BorderLayout());
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//Display the window.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         frame<span style="color:#f92672">.</span><span style="color:#a6e22e">pack</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>         frame<span style="color:#f92672">.</span><span style="color:#a6e22e">setVisible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">/* Use an appropriate Look and Feel */</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#75715e">//UIManager.setLookAndFeel(&#34;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>               UIManager<span style="color:#f92672">.</span><span style="color:#a6e22e">setLookAndFeel</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;javax.swing.plaf.metal.MetalLookAndFeel&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>UnsupportedLookAndFeelException ex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               ex<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IllegalAccessException ex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               ex<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>InstantiationException ex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               ex<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>ClassNotFoundException ex<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               ex<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">/* Turn off metal&#39;s use bold fonts */</span>
+</span></span><span style="display:flex;"><span>         UIManager<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;swing.boldMetal&#34;</span><span style="color:#f92672">,</span> Boolean<span style="color:#f92672">.</span><span style="color:#a6e22e">FALSE</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//Schedule a job for the event dispatch thread:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//creating and showing this application&#39;s GUI.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         javax<span style="color:#f92672">.</span><span style="color:#a6e22e">swing</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SwingUtilities</span><span style="color:#f92672">.</span><span style="color:#a6e22e">invokeLater</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Runnable<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                  createAndShowGUI<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">});</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h1 id="jfx">JFX</h1>
+<h3 id="jfx-layout-class-link">JFX Layout Class Link</h3>
+<p><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/layout/package-tree.html">https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/layout/package-tree.html</a></p>
+<h4 id="anchorpane">AnchorPane</h4>
+<p>Top, Left, Bottom, Right  구석에 Layout을 배치할 수 있는 Layout 입니다. <br>
+아래 코드에서 보듯 사용하는 방법은 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates an anchor pane using the provided grid and an HBox with buttons
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param grid Grid to anchor to the top of the anchor pane
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> AnchorPane <span style="color:#a6e22e">addAnchorPane</span><span style="color:#f92672">(</span>GridPane grid<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            AnchorPane anchorpane <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AnchorPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            Button buttonSave <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Save&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Button buttonCancel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Cancel&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            HBox hb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 10<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">setSpacing</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>buttonSave<span style="color:#f92672">,</span> buttonCancel<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            anchorpane<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>grid<span style="color:#f92672">,</span>hb<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Anchor buttons to bottom right, anchor grid to top
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            AnchorPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setBottomAnchor</span><span style="color:#f92672">(</span>hb<span style="color:#f92672">,</span> 8<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            AnchorPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setRightAnchor</span><span style="color:#f92672">(</span>hb<span style="color:#f92672">,</span> 5<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            AnchorPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setTopAnchor</span><span style="color:#f92672">(</span>grid<span style="color:#f92672">,</span> 10<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> anchorpane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>소스의 HBox 는 Bottom, Right 으로 구성되어 있으니, 오른쪽 하단에 위치하게 됩니다.  Grid 는 상단에 위치합니다.</p>
+<h4 id="borderpane">BorderPane</h4>
+<p>Swing 의 BorderLayout 과 유사한 Layout 입니다.    Top, Left, Right, Bottom 에 둘수 있고, Center 는 나머지 전체를 차지 합니다. 
+예시된 소스에서 보듯 AnchorPane 이 Center 에 적용되어 있습니다.   대부분의 영역을 차지하게 될 것입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>            BorderPane border <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BorderPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            HBox hbox <span style="color:#f92672">=</span> addHBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setTop</span><span style="color:#f92672">(</span>hbox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setLeft</span><span style="color:#f92672">(</span>addVBox<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// Add a stack to the HBox in the top region
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            addStackPane<span style="color:#f92672">(</span>hbox<span style="color:#f92672">);</span>  
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// To see only the grid in the center, uncomment the following statement
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// comment out the setCenter() call farther down        
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">//        border.setCenter(addGridPane());
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// Choose either a TilePane or FlowPane for right region and comment out the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// one you aren&#39;t using        
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setRight</span><span style="color:#f92672">(</span>addFlowPane<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//        border.setRight(addTilePane());
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// To see only the grid in the center, comment out the following statement
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// If both setCenter() calls are executed, the anchor pane from the second
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// call replaces the grid from the first call        
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setCenter</span><span style="color:#f92672">(</span>addAnchorPane<span style="color:#f92672">(</span>addGridPane<span style="color:#f92672">()));</span>
+</span></span></code></pre></div><h4 id="flowpane">FlowPane</h4>
+<p>Swing 의 FlowLayout 과 유사합니다.   적재되는 데로 표현되고, 넘치면 아래로 밀리는 구성 입니다.</p>
+<p>아래의 소스에서 보면  flow.setPrefWrapLength(170); // preferred width allows for two columns 이런 구문이 있습니다. 
+이미지 사이즈가 width 81px 정도 이니 두개가 들어갈 수 있는 너비를 셋팅한 것입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a horizontal flow pane with eight icons in four rows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> FlowPane <span style="color:#a6e22e">addFlowPane</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            FlowPane flow <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FlowPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 5<span style="color:#f92672">,</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setVgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefWrapLength</span><span style="color:#f92672">(</span>170<span style="color:#f92672">);</span> <span style="color:#75715e">// preferred width allows for two columns
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-fx-background-color: DAE6F3;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            ImageView pages<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">[</span>8<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>8<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;graphics/chart_&#34;</span><span style="color:#f92672">+(</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">)+</span><span style="color:#e6db74">&#34;.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>               flow<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> flow<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="gridpane">GridPane</h4>
+<p>격자 모양의 Layout 이라고 생각하면 될 것 같습니다.  어떻게 보면 HTML TABLE 구조와 유사한 구조라고 보아도 될것 같습니다. 
+아래는 예제 코드 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a grid for the center region with four columns and three rows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> GridPane <span style="color:#a6e22e">addGridPane</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            GridPane grid <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GridPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgap</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">setVgap</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 10<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Category in column 2, row 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text category <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Sales:&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            category<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Arial&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 20<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>category<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span> 
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Title in column 3, row 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text chartTitle <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Current Year&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            chartTitle<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Arial&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 20<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>chartTitle<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Subtitle in columns 2-3, row 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text chartSubtitle <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Goods and Services&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>chartSubtitle<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// House icon in column 1, rows 1-2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            ImageView imageHouse <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;graphics/house.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>imageHouse<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Left label in column 1 (bottom), row 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text goodsPercent <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Goods\n80%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            GridPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setValignment</span><span style="color:#f92672">(</span>goodsPercent<span style="color:#f92672">,</span> VPos<span style="color:#f92672">.</span><span style="color:#a6e22e">BOTTOM</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>goodsPercent<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Chart in columns 2-3, row 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            ImageView imageChart <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;graphics/piechart.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>imageChart<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Right label in column 4 (top), row 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text servicesPercent <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Services\n20%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            GridPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setValignment</span><span style="color:#f92672">(</span>servicesPercent<span style="color:#f92672">,</span> VPos<span style="color:#f92672">.</span><span style="color:#a6e22e">TOP</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>servicesPercent<span style="color:#f92672">,</span> 3<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//        grid.setGridLinesVisible(true);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> grid<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="hbox--vbox">HBox , VBox</h4>
+<p>이름에서 보듯 가로 세로로 담을 수 있는 Layout 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates an HBox with two buttons for the top region
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> HBox <span style="color:#a6e22e">addHBox</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            HBox hbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>15<span style="color:#f92672">,</span> 12<span style="color:#f92672">,</span> 15<span style="color:#f92672">,</span> 12<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setSpacing</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>   <span style="color:#75715e">// Gap between nodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-fx-background-color: #336699;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            Button buttonCurrent <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Current&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            buttonCurrent<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefSize</span><span style="color:#f92672">(</span>100<span style="color:#f92672">,</span> 20<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            Button buttonProjected <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Projected&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            buttonProjected<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefSize</span><span style="color:#f92672">(</span>100<span style="color:#f92672">,</span> 20<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>buttonCurrent<span style="color:#f92672">,</span> buttonProjected<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> hbox<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a VBox with a list of links for the left region
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> VBox <span style="color:#a6e22e">addVBox</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            VBox vbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> VBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>10<span style="color:#f92672">));</span> <span style="color:#75715e">// Set all sides to 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setSpacing</span><span style="color:#f92672">(</span>8<span style="color:#f92672">);</span>              <span style="color:#75715e">// Gap between nodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   
+</span></span><span style="display:flex;"><span>            Text title <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Data&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            title<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Arial&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 14<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>title<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            Hyperlink options<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">[]</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Sales&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Marketing&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Distribution&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Costs&#34;</span><span style="color:#f92672">)};</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>4<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#75715e">// Add offset to left side to indent from title
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>               VBox<span style="color:#f92672">.</span><span style="color:#a6e22e">setMargin</span><span style="color:#f92672">(</span>options<span style="color:#f92672">[</span>i<span style="color:#f92672">],</span> <span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 8<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>               vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>options<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> vbox<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="stackpane">StackPane</h4>
+<p>Swing 의 CardLayout 과 유사합니다. QT 에서 제공하는 QStackedLayout 과 유사합니다.   <br>
+언어는 달라도 사용자의 편의성을 보장하기 위해서 API 단에서 유사한 Layout 들을 제공하고 있는 것 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Uses a stack pane to create a help icon and adds it to the right side of an HBox
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param hb HBox to add the stack to
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addStackPane</span><span style="color:#f92672">(</span>HBox hb<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            StackPane stack <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StackPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            Rectangle helpIcon <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Rectangle<span style="color:#f92672">(</span>30<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">,</span> 25<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setFill</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> LinearGradient<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span>0<span style="color:#f92672">,</span>0<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> CycleMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">NO_CYCLE</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">[]{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#4977A3&#34;</span><span style="color:#f92672">)),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">(</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">,</span> Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#B0C6DA&#34;</span><span style="color:#f92672">)),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">(</span>1<span style="color:#f92672">,</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#9CB6CF&#34;</span><span style="color:#f92672">)),}));</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setStroke</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#D0E6FA&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setArcHeight</span><span style="color:#f92672">(</span>3<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setArcWidth</span><span style="color:#f92672">(</span>3<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            Text helpText <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;?&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpText<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Verdana&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 18<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            helpText<span style="color:#f92672">.</span><span style="color:#a6e22e">setFill</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">WHITE</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpText<span style="color:#f92672">.</span><span style="color:#a6e22e">setStroke</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#7080A0&#34;</span><span style="color:#f92672">));</span> 
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            stack<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>helpIcon<span style="color:#f92672">,</span> helpText<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            stack<span style="color:#f92672">.</span><span style="color:#a6e22e">setAlignment</span><span style="color:#f92672">(</span>Pos<span style="color:#f92672">.</span><span style="color:#a6e22e">CENTER_RIGHT</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Add offset to right for question mark to compensate for RIGHT 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// alignment of all nodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            StackPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setMargin</span><span style="color:#f92672">(</span>helpText<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>stack<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            HBox<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgrow</span><span style="color:#f92672">(</span>stack<span style="color:#f92672">,</span> Priority<span style="color:#f92672">.</span><span style="color:#a6e22e">ALWAYS</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                  
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="tilepane">TilePane</h4>
+<p>수평 수직으로 타일처럼 배치할 수 있는 Layout 입니다.  구성하는 전체의 Layout 크기에 따라 가변적으로 구성될 수 있습니다.<br>
+아래의 예에서  tile.setPrefColumns(2); 의 메소드 호출은 column 이 2개로 유지되면 좋겠다는 선언이고, 전체 크기가 그에 적당하면 2개의 Column 이 표기되나, 
+사이즈가 변경되면 적절한 크기에 맞게 변형됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a horizontal (default) tile pane with eight icons in four rows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> TilePane <span style="color:#a6e22e">addTilePane</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            TilePane tile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TilePane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 5<span style="color:#f92672">,</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setVgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefColumns</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-fx-background-color: DAE6F3;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            ImageView pages<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">[</span>8<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>8<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;graphics/chart_&#34;</span><span style="color:#f92672">+(</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">)+</span><span style="color:#e6db74">&#34;.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>               tile<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> tile<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="layout-sample-url-1">Layout Sample URL</h4>
+<p><a href="https://docs.oracle.com/javafx/2/layout/jfxpub-layout.htm">https://docs.oracle.com/javafx/2/layout/jfxpub-layout.htm</a>
+<a href="https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm">https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm</a></p>
+<p>위에 사용하였던 소스 전체 입니다. <br>
+위 예제 사이트에서 다운로드 받아 사용할 수 있습니다.    출처를 밝히기 위해 전체를 게시 하였습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Copyright (c) 2012, 2013 Oracle and/or its affiliates.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * All rights reserved. Use is subject to license terms.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * This file is available and licensed under the following license:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Redistribution and use in source and binary forms, with or without
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * modification, are permitted provided that the following conditions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * are met:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *  - Redistributions of source code must retain the above copyright
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *    notice, this list of conditions and the following disclaimer.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *  - Redistributions in binary form must reproduce the above copyright
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *    notice, this list of conditions and the following disclaimer in
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *    the documentation and/or other materials provided with the distribution.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *  - Neither the name of Oracle nor the names of its
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *    contributors may be used to endorse or promote products derived
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *    from this software without specific prior written permission.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * &#34;AS IS&#34; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                              
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//package layoutsample;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.application.Application<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.geometry.Insets<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.geometry.Pos<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.geometry.VPos<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.Scene<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.control.Button<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.control.Hyperlink<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.image.Image<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.image.ImageView<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.AnchorPane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.BorderPane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.FlowPane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.GridPane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.HBox<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.Priority<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.StackPane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.TilePane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.layout.VBox<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.paint.Color<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.paint.CycleMethod<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.paint.LinearGradient<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.paint.Stop<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.shape.Rectangle<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.text.Font<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.text.FontWeight<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.scene.text.Text<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">import</span> javafx.stage.Stage<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Sample application that shows examples of the different layout panes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * provided by the JavaFX layout API.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * The resulting UI is for demonstration purposes only and is not interactive.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LayoutSample</span> <span style="color:#66d9ef">extends</span> Application <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">         * @param args the command line arguments
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">         */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            launch<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> args<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">start</span><span style="color:#f92672">(</span>Stage stage<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// Use a border pane as the root for scene
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            BorderPane border <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BorderPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            HBox hbox <span style="color:#f92672">=</span> addHBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setTop</span><span style="color:#f92672">(</span>hbox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setLeft</span><span style="color:#f92672">(</span>addVBox<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// Add a stack to the HBox in the top region
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            addStackPane<span style="color:#f92672">(</span>hbox<span style="color:#f92672">);</span>  
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// To see only the grid in the center, uncomment the following statement
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// comment out the setCenter() call farther down        
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">//        border.setCenter(addGridPane());
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// Choose either a TilePane or FlowPane for right region and comment out the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// one you aren&#39;t using        
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setRight</span><span style="color:#f92672">(</span>addFlowPane<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//        border.setRight(addTilePane());
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// To see only the grid in the center, comment out the following statement
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// If both setCenter() calls are executed, the anchor pane from the second
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// call replaces the grid from the first call        
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            border<span style="color:#f92672">.</span><span style="color:#a6e22e">setCenter</span><span style="color:#f92672">(</span>addAnchorPane<span style="color:#f92672">(</span>addGridPane<span style="color:#f92672">()));</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            Scene scene <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scene<span style="color:#f92672">(</span>border<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            stage<span style="color:#f92672">.</span><span style="color:#a6e22e">setScene</span><span style="color:#f92672">(</span>scene<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            stage<span style="color:#f92672">.</span><span style="color:#a6e22e">setTitle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Layout Sample&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            stage<span style="color:#f92672">.</span><span style="color:#a6e22e">show</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates an HBox with two buttons for the top region
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> HBox <span style="color:#a6e22e">addHBox</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            HBox hbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>15<span style="color:#f92672">,</span> 12<span style="color:#f92672">,</span> 15<span style="color:#f92672">,</span> 12<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setSpacing</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>   <span style="color:#75715e">// Gap between nodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-fx-background-color: #336699;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            Button buttonCurrent <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Current&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            buttonCurrent<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefSize</span><span style="color:#f92672">(</span>100<span style="color:#f92672">,</span> 20<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            Button buttonProjected <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Projected&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            buttonProjected<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefSize</span><span style="color:#f92672">(</span>100<span style="color:#f92672">,</span> 20<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            hbox<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>buttonCurrent<span style="color:#f92672">,</span> buttonProjected<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> hbox<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a VBox with a list of links for the left region
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> VBox <span style="color:#a6e22e">addVBox</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            VBox vbox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> VBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>10<span style="color:#f92672">));</span> <span style="color:#75715e">// Set all sides to 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">setSpacing</span><span style="color:#f92672">(</span>8<span style="color:#f92672">);</span>              <span style="color:#75715e">// Gap between nodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   
+</span></span><span style="display:flex;"><span>            Text title <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Data&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            title<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Arial&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 14<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>title<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            Hyperlink options<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">[]</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Sales&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Marketing&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Distribution&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Hyperlink<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Costs&#34;</span><span style="color:#f92672">)};</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>4<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#75715e">// Add offset to left side to indent from title
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>               VBox<span style="color:#f92672">.</span><span style="color:#a6e22e">setMargin</span><span style="color:#f92672">(</span>options<span style="color:#f92672">[</span>i<span style="color:#f92672">],</span> <span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 8<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>               vbox<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>options<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> vbox<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Uses a stack pane to create a help icon and adds it to the right side of an HBox
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param hb HBox to add the stack to
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addStackPane</span><span style="color:#f92672">(</span>HBox hb<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            StackPane stack <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StackPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            Rectangle helpIcon <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Rectangle<span style="color:#f92672">(</span>30<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">,</span> 25<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setFill</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> LinearGradient<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span>0<span style="color:#f92672">,</span>0<span style="color:#f92672">,</span>1<span style="color:#f92672">,</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> CycleMethod<span style="color:#f92672">.</span><span style="color:#a6e22e">NO_CYCLE</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">[]{</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#4977A3&#34;</span><span style="color:#f92672">)),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">(</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">,</span> Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#B0C6DA&#34;</span><span style="color:#f92672">)),</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">new</span> Stop<span style="color:#f92672">(</span>1<span style="color:#f92672">,</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#9CB6CF&#34;</span><span style="color:#f92672">)),}));</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setStroke</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#D0E6FA&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setArcHeight</span><span style="color:#f92672">(</span>3<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpIcon<span style="color:#f92672">.</span><span style="color:#a6e22e">setArcWidth</span><span style="color:#f92672">(</span>3<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            Text helpText <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;?&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpText<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Verdana&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 18<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            helpText<span style="color:#f92672">.</span><span style="color:#a6e22e">setFill</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">WHITE</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            helpText<span style="color:#f92672">.</span><span style="color:#a6e22e">setStroke</span><span style="color:#f92672">(</span>Color<span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;#7080A0&#34;</span><span style="color:#f92672">));</span> 
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            stack<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>helpIcon<span style="color:#f92672">,</span> helpText<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            stack<span style="color:#f92672">.</span><span style="color:#a6e22e">setAlignment</span><span style="color:#f92672">(</span>Pos<span style="color:#f92672">.</span><span style="color:#a6e22e">CENTER_RIGHT</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Add offset to right for question mark to compensate for RIGHT 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// alignment of all nodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            StackPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setMargin</span><span style="color:#f92672">(</span>helpText<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>stack<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            HBox<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgrow</span><span style="color:#f92672">(</span>stack<span style="color:#f92672">,</span> Priority<span style="color:#f92672">.</span><span style="color:#a6e22e">ALWAYS</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                  
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a grid for the center region with four columns and three rows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> GridPane <span style="color:#a6e22e">addGridPane</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            GridPane grid <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GridPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgap</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">setVgap</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 10<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Category in column 2, row 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text category <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Sales:&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            category<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Arial&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 20<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>category<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span> 
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Title in column 3, row 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text chartTitle <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Current Year&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            chartTitle<span style="color:#f92672">.</span><span style="color:#a6e22e">setFont</span><span style="color:#f92672">(</span>Font<span style="color:#f92672">.</span><span style="color:#a6e22e">font</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Arial&#34;</span><span style="color:#f92672">,</span> FontWeight<span style="color:#f92672">.</span><span style="color:#a6e22e">BOLD</span><span style="color:#f92672">,</span> 20<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>chartTitle<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Subtitle in columns 2-3, row 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text chartSubtitle <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Goods and Services&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>chartSubtitle<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// House icon in column 1, rows 1-2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            ImageView imageHouse <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;graphics/house.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>imageHouse<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Left label in column 1 (bottom), row 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text goodsPercent <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Goods\n80%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            GridPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setValignment</span><span style="color:#f92672">(</span>goodsPercent<span style="color:#f92672">,</span> VPos<span style="color:#f92672">.</span><span style="color:#a6e22e">BOTTOM</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>goodsPercent<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Chart in columns 2-3, row 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            ImageView imageChart <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;graphics/piechart.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>imageChart<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Right label in column 4 (top), row 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            Text servicesPercent <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Text<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Services\n20%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            GridPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setValignment</span><span style="color:#f92672">(</span>servicesPercent<span style="color:#f92672">,</span> VPos<span style="color:#f92672">.</span><span style="color:#a6e22e">TOP</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            grid<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>servicesPercent<span style="color:#f92672">,</span> 3<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//        grid.setGridLinesVisible(true);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> grid<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a horizontal flow pane with eight icons in four rows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> FlowPane <span style="color:#a6e22e">addFlowPane</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            FlowPane flow <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FlowPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 5<span style="color:#f92672">,</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setVgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefWrapLength</span><span style="color:#f92672">(</span>170<span style="color:#f92672">);</span> <span style="color:#75715e">// preferred width allows for two columns
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            flow<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-fx-background-color: DAE6F3;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            ImageView pages<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">[</span>8<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>8<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;graphics/chart_&#34;</span><span style="color:#f92672">+(</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">)+</span><span style="color:#e6db74">&#34;.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>               flow<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> flow<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates a horizontal (default) tile pane with eight icons in four rows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> TilePane <span style="color:#a6e22e">addTilePane</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            TilePane tile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TilePane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>5<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> 5<span style="color:#f92672">,</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setVgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setHgap</span><span style="color:#f92672">(</span>4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrefColumns</span><span style="color:#f92672">(</span>2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">.</span><span style="color:#a6e22e">setStyle</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-fx-background-color: DAE6F3;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            ImageView pages<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">[</span>8<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>8<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>               pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ImageView<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> Image<span style="color:#f92672">(</span>LayoutSample<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getResourceAsStream</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;graphics/chart_&#34;</span><span style="color:#f92672">+(</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">)+</span><span style="color:#e6db74">&#34;.png&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>               tile<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>pages<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> tile<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Creates an anchor pane using the provided grid and an HBox with buttons
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param grid Grid to anchor to the top of the anchor pane
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">private</span> AnchorPane <span style="color:#a6e22e">addAnchorPane</span><span style="color:#f92672">(</span>GridPane grid<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            AnchorPane anchorpane <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AnchorPane<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            Button buttonSave <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Save&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Button buttonCancel <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Button<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Cancel&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            HBox hb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HBox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">setPadding</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Insets<span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 10<span style="color:#f92672">,</span> 10<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">setSpacing</span><span style="color:#f92672">(</span>10<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            hb<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>buttonSave<span style="color:#f92672">,</span> buttonCancel<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            anchorpane<span style="color:#f92672">.</span><span style="color:#a6e22e">getChildren</span><span style="color:#f92672">().</span><span style="color:#a6e22e">addAll</span><span style="color:#f92672">(</span>grid<span style="color:#f92672">,</span>hb<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Anchor buttons to bottom right, anchor grid to top
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            AnchorPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setBottomAnchor</span><span style="color:#f92672">(</span>hb<span style="color:#f92672">,</span> 8<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            AnchorPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setRightAnchor</span><span style="color:#f92672">(</span>hb<span style="color:#f92672">,</span> 5<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            AnchorPane<span style="color:#f92672">.</span><span style="color:#a6e22e">setTopAnchor</span><span style="color:#f92672">(</span>grid<span style="color:#f92672">,</span> 10<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> anchorpane<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>
+</span></span></code></pre></div>
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fksbee21.github.io%2fpost%2fcrossplatformapp%2fcross_app_003%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fksbee21.github.io%2fpost%2fcrossplatformapp%2fcross_app_003%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fksbee21.github.io%2fpost%2fcrossplatformapp%2fcross_app_003%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fksbee21.github.io%2fpost%2fcrossplatformapp%2fcross_app_003%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fksbee21.github.io%2fpost%2fcrossplatformapp%2fcross_app_003%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fksbee21.github.io%2fpost%2fcrossplatformapp%2fcross_app_003%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ksbee21.github.io/post/webcanvas/web_canvas_sphere/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ksbee21.github.io/post/webcanvas/web_canvas_sphere/">Canvas 로 Sphere 구성 하기</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ksbee21.github.io/js/ui.js"></script>
+<script src="https://ksbee21.github.io/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+

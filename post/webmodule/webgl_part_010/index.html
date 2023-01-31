@@ -353,7 +353,8 @@ Specular 는 빛의 방향과 Noraml 을 이용해 반사 벡터를 구하고, �
 너무 넓은 시야각을 보정하기 위해서  n 승을 해 줍니다. 예제에서는 32승을 하였습니다. 
 Ambient 는 완전 암흑이 아닌 빛이 어디에서 들어왔는지 모르지만 있는 상황을 모사한 것이고, 자발광은 말 그대로 자기 색을 가진 물체 입니다.</p>
 <p>언급하진 않았지만, 빛을 멀리 떨어진 단방향으로만 정의 했지만, 백열등 같은 빛도 방향을 정의하고, 거리에 따른 감소를 어떻게 할 것인지만 정하면, 
-거의 동일한 로직으로 구현할 수 있을것 같습니다.</p>
+거의 동일한 로직으로 구현할 수 있을것 같습니다.  물론 Vertex Position 에서 빛의 원천으로 향하는 벡터를 구성하고 해당 벡터를 normalize 하면 각 포인트 마다
+빛의 방향이 달라질 것입니다.  그 후의 계산은 지금과 같이 수행하면 될 것 같습니다.</p>
 <h1 id="구현된-중요-소스-부분-입니다">구현된 중요 소스 부분 입니다.</h1>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-glsl" data-lang="glsl"><span style="display:flex;"><span>         <span style="color:#960050;background-color:#1e0010">#</span>version <span style="color:#ae81ff">300</span> es
 </span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">precision</span> <span style="color:#66d9ef">highp</span> <span style="color:#66d9ef">float</span>;

@@ -541,7 +541,43 @@
 //		alert ("mmm " + uvn + "\n" + trm );
 
 		return makeRoundValues(multiplyFn(uvn,trm));
-	}
+	};
+
+    /**
+     * 
+     * @param {*} light : 빛 벡터 
+     * @param {*} normal  : normal vector
+     * @param {*} isNormalized : true : nomalized , false : need normalize
+     * @param {*} isReversed : true : 빛이 진행방향에서 법선과 동일한 방향으로 변경되어 있음, false : 빛의 원래 진행방향 
+     * @returns 
+     */
+    export const makeReflectRayVector = ( light, normal, isNormalized,  isReversed ) => {
+        let lightDir, normalDir, reflectDir;
+        if ( !isNormalized ) {
+            lightDir = makeNormalizeVector(light);
+            normalDir = makeNormalizeVector(normal);
+        } else {
+            lightDir = light;
+            normalDir = normal;
+        }
+        if ( isReversed ) {
+            const v = makeDotProductVectors(lightDir,normalDir)*2.0;
+            reflectDir = normalDir;
+            for ( let i = 0; i < reflectDir.length; i++ ) {
+                reflectDir[i] *= v;
+            }
+            reflectDir = makeVectorMinusValues(reflectDir, lightDir);
+        } else {
+            const v = makeDotProductVectors(lightDir,normalDir)*-2.0;
+            reflectDir = normalDir;
+            for ( let i = 0; i < reflectDir.length; i++ ) {
+                reflectDir[i] *= v;
+            }
+            reflectDir = makeVectorPlusValues(reflectDir, lightDir);
+        }
+        return reflectDir;
+    };
+
 
 
 
