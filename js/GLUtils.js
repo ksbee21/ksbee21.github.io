@@ -249,7 +249,7 @@ export const getVertexShaderSource = ( typeNum ) => {
                     vec3 worldPos =  (worldMatrix * vec4(positions, 1.0)).xyz;
                     vTexCoord = texCoords;
                     //vShadowCoord =  tMat * projectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
-                    vShadowCoord = tMat * lightProjectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
+                    vShadowCoord = lightProjectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
                     
                     vColors = colors;
                     //gl_Position = projectionMatrix * lightViewMatrix  * vec4(worldPos, 1.0);
@@ -414,10 +414,10 @@ export const getFragmentShaderSource = ( typeNum ) => {
                     shadowCoord.x <= 1.0 &&
                     shadowCoord.y >= 0.0 &&
                     shadowCoord.y <= 1.0;                
-                float currentDepth = (shadowCoord.z - 0.99);
+                float currentDepth = (shadowCoord.z - 0.5);
                 vec4 tColors = texture(shadowMap,shadowCoord.xy);
-                float texDepth = tColors.r;
-                float shadows = (( inRange && currentDepth <= texDepth  ) ? 1.0 : 0.0);
+                float texDepth = texture(shadowMap,shadowCoord.xy).r;
+                float shadows = (( inRange && currentDepth >= texDepth  ) ? 0.0 : 1.0);
                 fragColor = vec4(vColors.rgb * shadows, 1.0);
                 //fragColor = mix(vColors,vec4(vec3(texDepth),1.0),1.0);
                 //fragColor = (inRange ? vec4(shadowCoord.xyz,1.0) : vec4(0.0, 0.0, 0.0, 1.0));

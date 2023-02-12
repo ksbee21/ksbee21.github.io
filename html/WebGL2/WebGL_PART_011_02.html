@@ -35,18 +35,18 @@ let eye = [5.0, -5.0, 10.0];
 let at = [0.0, 0.0, -20.0];
 let up = [0.0, 1.0, 0.0];
 
-let eye02 = [-5.0, 0.0, 10.0];
-let at02 = [0.0, 0.0, 0.0];
+let eye02 = [5.0, 0.0, 5.0];
+let at02 = [0.0, 0.0, -2.0];
 let up02 = [0.0, 1.0, 0.0];
 
 //  view
 viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
 
 //  [ 주석 4 ] : projection 
-projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(48*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
 //projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
 
-lightProjectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+lightProjectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(48*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
 lightViewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye02, at02, up02 );
 
 console.log("lightViewMatrix", lightViewMatrix);
@@ -80,7 +80,7 @@ sg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
                 SHADOW_HEIGHT, 
                 0, 
                 gl.DEPTH_COMPONENT, 
-                gl.UNSIGNED_INT, //gl.FLOAT,   //gl.UNSIGNED_SHORT
+                gl.UNSIGNED_SHORT, //gl.FLOAT,   //gl.UNSIGNED_SHORT
                 null    //  data 
             );
 
@@ -184,7 +184,7 @@ sg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
 
             const cubeItem01 = new GLDataUtils.GLItem("cubeItemID_01");
             cubeItem01.initResource( gl, mainProgram, defAttribArray, defUniformArray, defIndexInfos, undefined, "worldMatrix");
-            cubeItem01.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(1,5, -6));
+            cubeItem01.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(0,0, -6));
 
             mainPG.appendItem(cubeItem01);
             shadowPG.appendItem(cubeItem01);
