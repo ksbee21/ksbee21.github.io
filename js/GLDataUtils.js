@@ -66,16 +66,21 @@ export class GLProgram {
     };
 
     initResource = (gl,program,uniformArray) => {
+        console.log("TEST");
         this.program = program;
         for ( let i = 0; i < uniformArray.length; i++ ) {
-            if ( !uniformArray[i].data ) {
+            if ( uniformArray[i].data == undefined ) {
                 uniformArray[i].data = TypedMatrixUtils.makeIdentityMatrix(4);
             }
         }
-        GLUtils.setUniformLocations(gl, program, uniformArray);    
-        for ( let i = 0; i < uniformArray.length; i++ ) {
-            let uName = uniformArray[i].uniformName;
-            this.uniformMap.set(uName,uniformArray[i]);
+        let uArray = GLUtils.setUniformLocations(gl, program, uniformArray);  
+        console.log ( "initResouce", uArray)  ;
+        for ( let i = 0; i < uArray.length; i++ ) {
+            let uName = uArray[i].uniformName;
+            let uniform = uArray[i];
+            this.uniformMap.set(uName,uArray[i]);
+
+            console.log ( this.programID, uniform.uniformName, uniform.data, uniform.uLocation);            
         }
     };
 
@@ -94,11 +99,14 @@ export class GLProgram {
             let uniform = this.uniformMap.get(key);
             GLUtils.setUniformValues( gl, uniform.uLocation, 
                 uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
-//            console.log ( uniform.uniformName, uniform.data);
+
+            //if ( key === 'lightViewMatrix' || key === 'viewMatrix' || key === 'shadowMap')
+                console.log ( this.programID, uniform.uniformName, uniform.data, uniform.uLocation, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose );
         }
 
         for ( let key of this.itemMap.keys() ) {
-            this.itemMap.get(key).render(gl, isAutoClean);
+            this.itemMap.get(key).render(gl, isAutoClean, this.uniformMap);
+            console.log(this.programID, key);
         }
         if ( isAutoClean ) {
             this.clean(gl);
@@ -169,6 +177,7 @@ export class GLItem {
         }
         this.vao = gl.createVertexArray();
         gl.bindVertexArray(this.vao);
+        console.log(this.getItemID());
         GLUtils.setAttributeValues(gl, program, attributeArray);
         GLUtils.setIndexInfos(gl, indexInfos);
         this.indexSize = indexInfos.indexSize;
@@ -289,19 +298,24 @@ export class GLItem {
         return this.itemID;
     };
 
-    render = (gl, isAutoClean) => {
+    render = (gl, isAutoClean, parentUniforms) => {
+        console.log(this.getItemID(), "started ...");
         this.resetWorldUniformValues();
+        gl.bindVertexArray(this.vao);
 
         if ( this.texture ) {
             gl.activeTexture(gl.TEXTURE0+this.textureIndex);
             gl.bindTexture(gl.TEXTURE_2D, this.texture);
         }
 
-        gl.bindVertexArray(this.vao);
         let uniform = this.uniformMap.get(this.uWorldName);
+        let uniformLoc = uniform.uLocation;
+        if ( parentUniforms && parentUniforms.has(this.uWorldName)) {
+            uniformLoc = parentUniforms.get(this.uWorldName).uLocation;
+        }
 
-        //console.log (uniform.uniformName , uniform.data );
-        GLUtils.setUniformValues( gl, uniform.uLocation, 
+        console.log (uniform.uniformName , uniform.data , uniformLoc, uniform.transpose );
+        GLUtils.setUniformValues( gl, uniformLoc, 
             uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
 
         if ( this.texture && this.uTextureName ) {
@@ -313,7 +327,11 @@ export class GLItem {
             }
         }
 
+
+        
+
         if ( this.indexSize > 0 ) {
+            console.log("index Size ", this.indexSize);
             gl.drawElements(gl.TRIANGLES, this.indexSize, this.indexType,this.offset);
         }
         if ( isAutoClean ) {
@@ -333,27 +351,27 @@ export class BasicPlane {
             -1.0,  1.0,  0.0,            
             1.0,  1.0,  0.0,            
             1.0, -1.0,  0.0,            
-            -1.0, -1.0,  0.0,
+            -1.0, -1.0,  0.0
         ];
 
         this.textureCoordinates = [
             0.0,  0.0,
             1.0,  0.0,
             1.0,  1.0,
-            0.0,  1.0,            
+            0.0,  1.0          
         ];
 
         this.normals = [
             0.0,  0.0,  1.0,
             0.0,  0.0,  1.0,
             0.0,  0.0,  1.0,
-            0.0,  0.0,  1.0,
+            0.0,  0.0,  1.0
         ]
         this.colors = [
             1.0,  0.0,  0.0,  1.0,    // first : red
             0.0,  1.0,  0.0,  1.0,    // second: green
             0.0,  0.0,  1.0,  1.0,    // third : blue
-            1.0,  0.0,  1.0,  1.0,    // forth vertex: cyan            
+            1.0,  0.0,  1.0,  1.0    // forth vertex: cyan            
         ];
 
         this.indices = [
@@ -515,7 +533,7 @@ export const makeCubeData = () => {
         -1.0, -1.0, -1.0,
         -1.0, -1.0,  1.0,
         -1.0,  1.0,  1.0,
-        -1.0,  1.0, -1.0,
+        -1.0,  1.0, -1.0
     ];
 
     let faceColors = [
@@ -623,7 +641,7 @@ export const makeCubeData = () => {
           8,  9,  10,     8,  10, 11,   // top
           12, 13, 14,     12, 14, 15,   // bottom
           16, 17, 18,     16, 18, 19,   // right
-          20, 21, 22,     20, 22, 23,   // left
+          20, 21, 22,     20, 22, 23   // left
     ];
 
     return {

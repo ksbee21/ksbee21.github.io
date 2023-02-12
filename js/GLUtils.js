@@ -29,6 +29,57 @@ export const loadGLTextureData = ( gl, url ) => {
     return texture;
 };
 
+export const createDepthFrameBuffer = (gl, depthTexture) => {
+    const depthFramebuffer = gl.createFramebuffer();
+    gl.bindFramebuffer( gl.FRAMEBUFFER, depthFramebuffer);
+    gl.framebufferTexture2D(
+        gl.FRAMEBUFFER, 
+        gl.DEPTH_ATTACHMENT, 
+        gl.TEXTURE_2D, 
+        depthTexture, 
+        0);
+
+    return depthFramebuffer;
+};
+
+export const createShadowTextureMap = ( gl , SHADOW_WIDTH, SHADOW_HEIGHT ) => {
+    if ( !SHADOW_WIDTH ) 
+        SHADOW_WIDTH = 512;
+    if ( !SHADOW_HEIGHT ) 
+        SHADOW_HEIGHT = 512;
+
+    alert ( SHADOW_WIDTH + " , " + SHADOW_HEIGHT );
+
+    const depthTexture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+    gl.texImage2D(
+        gl.TEXTURE_2D, 
+        0, //   mip map level
+        gl.DEPTH_COMPONENT32F, //gl.DEPTH_COMPONENT32F, //    gl.DEPTH_COMPONENT16
+        SHADOW_WIDTH, 
+        SHADOW_HEIGHT, 
+        0, 
+        gl.DEPTH_COMPONENT, 
+        gl.FLOAT, //gl.FLOAT,   //gl.UNSIGNED_SHORT
+        null    //  data 
+    );
+
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);    
+
+    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_MODE, gl.COMPARE_REF_TO_TEXTURE);  
+    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL); 
+
+    
+    return {
+        depthTexture : depthTexture, 
+        SHADOW_WIDTH : SHADOW_WIDTH, 
+        SHADOW_HEIGHT : SHADOW_HEIGHT,
+    };
+};
+
 
 export const makeWebGL = (canvas) => {
     let gl = undefined;
@@ -158,6 +209,69 @@ export const getVertexShaderSource = ( typeNum ) => {
             }
             `                   
             break;
+        case  4 :
+            vs = `#version 300 es
+            uniform mat4 worldMatrix, lightViewMatrix, lightProjectionMatrix;
+            layout(location = 0) in vec3 positions;
+            layout(location = 1) in vec3 normals;
+            layout(location = 2) in vec4 colors;
+            layout(location = 3) in vec2 texCoords;            
+            //out vec4 vColors;
+            void main() {
+                gl_Position = lightProjectionMatrix * lightViewMatrix  * worldMatrix * vec4(positions, 1.0);
+                //vColors = colors;
+            }
+            ` 
+            break;
+        case 5 :
+                vs = `#version 300 es
+                uniform mat4 worldMatrix, viewMatrix, projectionMatrix;
+                uniform mat4 lightViewMatrix, lightProjectionMatrix;
+
+                layout(location = 0) in vec3 positions;
+                layout(location = 1) in vec3 normals;
+                layout(location = 2) in vec4 colors;
+                layout(location = 3) in vec2 texCoords;            
+            
+                out vec3 vNormal;
+                out vec2 vTexCoord;
+                out vec4 vColors;
+                out vec4 vShadowCoord;
+        
+                const mat4 tMat = mat4(
+                    0.5, 0.0, 0.0, 0.0, 
+                    0.0, 0.5, 0.0, 0.0,
+                    0.0, 0.0, 0.5, 0.0, 
+                    0.5, 0.5, 0.5, 1.0
+                );
+            
+                void main() {
+                    vec3 worldPos =  (worldMatrix * vec4(positions, 1.0)).xyz;
+                    vTexCoord = texCoords;
+                    //vShadowCoord =  tMat * projectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
+                    vShadowCoord = tMat * lightProjectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
+                    
+                    vColors = colors;
+                    //gl_Position = projectionMatrix * lightViewMatrix  * vec4(worldPos, 1.0);
+                    gl_Position = projectionMatrix * viewMatrix  * vec4(worldPos, 1.0);     
+                    vNormal = normals;//normalize(transpose(inverse(mat3(worldMatrix))) * normals);                                   
+                }
+                ` 
+            break;
+        case  6 :
+                vs = `#version 300 es
+                uniform mat4 worldMatrix, lightViewMatrix, lightProjectionMatrix;
+                layout(location = 0) in vec3 positions;
+                layout(location = 1) in vec3 normals;
+                layout(location = 2) in vec4 colors;
+                layout(location = 3) in vec2 texCoords;            
+                out vec4 vColors;
+                void main() {
+                    gl_Position = lightProjectionMatrix * lightViewMatrix  * worldMatrix * vec4(positions, 1.0);
+                    vColors = colors;
+                }
+                ` 
+            break;
         default :
             break;
     }
@@ -266,7 +380,62 @@ export const getFragmentShaderSource = ( typeNum ) => {
             }
         `
             break;
+        case 4 :
+            fs = `#version 300 es
+            precision highp float;
+            in vec4 vColors;
+            //out vec4 fragColors;
+            void main() {
+                //fragColors = vColors;
+            }
+            `            
+            break;            
+        case 5 :
+            fs = `#version 300 es
+            precision highp float;
+            in vec3 vNormal;
+            in vec4 vColors;
+            in vec2 vTexCoord;
+            in vec4 vShadowCoord;
 
+            uniform sampler2D shadowMap;
+
+            out vec4 fragColor;
+        
+            void main() {
+                //vec3 normal = normalize(vNormal);
+                //fragColor = vColors;
+                vec3 shadowCoord = (vShadowCoord.xyz / vShadowCoord.w);
+
+                //float vis = textureProj(shadowMap, vShadowCoord);
+
+                bool inRange =
+                    shadowCoord.x >= 0.0 &&
+                    shadowCoord.x <= 1.0 &&
+                    shadowCoord.y >= 0.0 &&
+                    shadowCoord.y <= 1.0;                
+                float currentDepth = (shadowCoord.z - 0.99);
+                vec4 tColors = texture(shadowMap,shadowCoord.xy);
+                float texDepth = tColors.r;
+                float shadows = (( inRange && currentDepth <= texDepth  ) ? 1.0 : 0.0);
+                fragColor = vec4(vColors.rgb * shadows, 1.0);
+                //fragColor = mix(vColors,vec4(vec3(texDepth),1.0),1.0);
+                //fragColor = (inRange ? vec4(shadowCoord.xyz,1.0) : vec4(0.0, 0.0, 0.0, 1.0));
+                //fragColor = vec4(vec3(shadowCoord.z),1.0);
+                //fragColor = vec4(vColors.xyz*shadows,1.0);                
+            }
+            `            
+            break;
+        case 4 :
+            fs = `#version 300 es
+            precision highp float;
+            in vec4 vColors;
+            out vec4 fragColors;
+            void main() {
+                fragColors = vColors;
+            }
+            `            
+            break;            
         default :
             break;
     }
@@ -274,6 +443,7 @@ export const getFragmentShaderSource = ( typeNum ) => {
 }
 
 export const createProgramByType = ( gl, typeNum ) => {
+    alert ( getFragmentShaderSource(typeNum) );
     return createProgramBySource(gl, getVertexShaderSource(typeNum), getFragmentShaderSource(typeNum) );
 };
 
@@ -285,6 +455,7 @@ export const setAttributeValue = (gl, program, attributeName, data, size, dataTy
     gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
     //  Vertex Array Buffer binding ... 
+    console.log( "Attribute Location Setting ", gLocation, attributeName, data);
 
     gl.enableVertexAttribArray(gLocation);
     gl.vertexAttribPointer(gLocation, size, dataType, normalize, stride, offset);
@@ -295,12 +466,18 @@ export const setAttributeValues = (gl, program, attribArray ) => {
     if ( !attribArray || !attribArray.length )
         return undefined;
 
-    
+    const attrArray = [];
     for ( let i = 0, iSize = attribArray.length; i < iSize; i++ ) {
-        attribArray[i].loc = setAttributeValue(gl, program, attribArray[i].attributeName, attribArray[i].data, attribArray[i].size, attribArray[i].dataType, attribArray[i].normalize, 
-            attribArray[i].stride, attribArray[i].offset);
+        const attrs = {...attribArray[i]};
+
+        const locValue = setAttributeValue(gl, program, attrs.attributeName, attrs.data, attrs.size, attrs.dataType, attrs.normalize, 
+            attrs.stride, attrs.offset);
+        if ( locValue == undefined )
+            continue;
+        attrs.loc = locValue;
+        attrArray.push(attrs);
     }
-    return attribArray;
+    return attrArray;
 };
 
 export const setIndexInfos = ( gl,  indexInfo ) => {
@@ -312,17 +489,23 @@ export const setIndexInfos = ( gl,  indexInfo ) => {
 export const setUniformLocations = (gl, program, uniformArray) => {
     if ( !uniformArray ) 
         return uniformArray;
-
+    const uArray = [];
     for ( let i = 0, iSize = uniformArray.length; i < iSize; i++ ) {
-        uniformArray[i].uLocation = gl.getUniformLocation(program, uniformArray[i].uniformName );
+        let uniform = {...uniformArray[i]};
+        uniform.uLocation = gl.getUniformLocation(program, uniform.uniformName );
+        if ( !uniform.uLocation ) {
+            console.log(uniform.uniformName , " Can not apply ... ");
+            continue;
+        }
+        uArray.push(uniform);
     }
-    return uniformArray;
+    return uArray;
 };
 
 
 
 export const setUniformFloatValue = ( gl, uLocation, uData, dataKind, dataSize, transpose ) => {
-    if ( !gl || !uLocation ||  !uData )
+    if ( !gl || !uLocation ||  uData == undefined )
         return false;
 
     switch ( dataKind ) {
@@ -371,7 +554,7 @@ export const setUniformFloatValue = ( gl, uLocation, uData, dataKind, dataSize, 
 };
 
 export const setUniformIntValue = ( gl, uLocation, uData, dataKind, dataSize ) => {
-    if ( !gl || !uLocation ||  !uData ) {        
+    if ( !gl || !uLocation ||  uData == undefined ) {        
         return false;
     }
 
@@ -409,7 +592,7 @@ export const setUniformIntValue = ( gl, uLocation, uData, dataKind, dataSize ) =
 };
 
 export const setUniformUIntValue = ( gl, uLocation, uData, dataKind, dataSize ) => {
-    if ( !gl || !uLocation ||  !uData ) {
+    if ( !gl || !uLocation ||  uData == undefined ) {
         return false;
     }
 
@@ -448,7 +631,7 @@ export const setUniformUIntValue = ( gl, uLocation, uData, dataKind, dataSize ) 
 
 
 export const setUniformBoolValue = ( gl, uLocation, uData, dataKind, dataSize ) => {
-    if ( !gl || !uLocation ||  !uData ) {
+    if ( !gl || !uLocation ||  uData == undefined ) {
         return false;
     }
 
@@ -486,8 +669,10 @@ export const setUniformBoolValue = ( gl, uLocation, uData, dataKind, dataSize ) 
 };
 
 export const setUniformValues = ( gl, uLocation, uData, dataType, dataKind, dataSize, transpose ) => {
-    if ( !gl || !uLocation ||  !uData )
+    if ( !gl || !uLocation ||  uData == undefined )
         return false;
+
+    console.log("Init setUniformValues", dataType, dataKind, dataSize);
 
     //  dataType : 1 : float, 2 : int, 3 : uint, 4 : boolean
     //  dataKind : 1 : value, 2 : vector , 3 : matrix 
@@ -495,8 +680,10 @@ export const setUniformValues = ( gl, uLocation, uData, dataType, dataKind, data
     if ( dataType  == 1 ) {
         setUniformFloatValue(gl, uLocation, uData, dataKind, dataSize, transpose);
     } else if ( dataType == 2 ) {
+        console.log("bbbbbbb",dataType, uData);
         setUniformIntValue(gl, uLocation, uData, dataKind, dataSize);
     } else if ( dataType == 3 ) {
+        console.log("aaaaaa",dataType, uData);
         setUniformUIntValue(gl, uLocation, uData, dataKind, dataSize);
     } else if ( dataType == 4 ) {
         setUniformBoolValue(gl, uLocation, uData, dataKind, dataSize);

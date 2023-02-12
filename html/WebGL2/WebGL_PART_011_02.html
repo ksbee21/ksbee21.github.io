@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../css/main.css'>
+    <script src='../../js/main.js'></script>
+</head>
+<body>
+    <p>
+    <a href="/post/webmodule/webgl_part_009/">돌아가기(Back)</a>
+    </p>
+    <canvas id="myCanvas"></canvas>
+
+    <script type="module" defer>
+        import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
+        import * as GLUtils from '../../js/GLUtils.js';
+        import * as GLDataUtils from '../../js/GLDataUtils.js';
+
+
+        function setProgramUniformValues( gl, pg, sg ) {
+
+let worldMatrix             = TypedMatrixUtils.makeIdentityMatrix(4);
+let viewMatrix              = TypedMatrixUtils.makeIdentityMatrix(4);
+let projectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);   
+
+let lightProjectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);               
+let lightViewMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);                 
+
+
+
+let eye = [5.0, -5.0, 10.0];
+let at = [0.0, 0.0, -20.0];
+let up = [0.0, 1.0, 0.0];
+
+let eye02 = [-5.0, 0.0, 10.0];
+let at02 = [0.0, 0.0, 0.0];
+let up02 = [0.0, 1.0, 0.0];
+
+//  view
+viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
+
+//  [ 주석 4 ] : projection 
+projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+//projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
+
+lightProjectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+lightViewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye02, at02, up02 );
+
+console.log("lightViewMatrix", lightViewMatrix);
+
+
+
+pg.setUniformMatrix("worldMatrix",TypedMatrixUtils.makeIdentityMatrix(4));
+pg.setUniformMatrix("viewMatrix", viewMatrix);
+pg.setUniformMatrix("projectionMatrix", projectionMatrix);
+
+pg.setUniformMatrix("lightViewMatrix", lightViewMatrix);
+pg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
+
+sg.setUniformMatrix("lightViewMatrix", lightViewMatrix);
+sg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
+}
+
+
+        function render(gl, mainPG, shadowPG) {
+
+            const SHADOW_WIDTH = 1024;
+            const SHADOW_HEIGHT = 1024;
+
+            const depthTexture = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+            gl.texImage2D(
+                gl.TEXTURE_2D, 
+                0, //   mip map level
+                gl.DEPTH_COMPONENT16, //gl.DEPTH_COMPONENT32F, //    gl.DEPTH_COMPONENT16
+                SHADOW_WIDTH, 
+                SHADOW_HEIGHT, 
+                0, 
+                gl.DEPTH_COMPONENT, 
+                gl.UNSIGNED_INT, //gl.FLOAT,   //gl.UNSIGNED_SHORT
+                null    //  data 
+            );
+
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);  
+            
+            const depthFramebuffer = gl.createFramebuffer();
+            gl.bindFramebuffer( gl.FRAMEBUFFER, depthFramebuffer);
+            gl.framebufferTexture2D(
+                gl.FRAMEBUFFER, 
+                gl.DEPTH_ATTACHMENT, 
+                gl.TEXTURE_2D, 
+                depthTexture, 
+                0
+            );
+
+
+            function drawScene(time) {
+                gl.enable(gl.CULL_FACE);
+                gl.enable(gl.DEPTH_TEST);
+                gl.bindFramebuffer( gl.FRAMEBUFFER, depthFramebuffer);
+                gl.framebufferTexture2D(
+                    gl.FRAMEBUFFER, 
+                    gl.DEPTH_ATTACHMENT, 
+                    gl.TEXTURE_2D, 
+                    depthTexture, 
+                    0
+                );
+
+                gl.viewport(0,0, SHADOW_WIDTH,SHADOW_HEIGHT);
+                gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+                shadowPG.render(gl, true);
+                gl.bindFramebuffer( gl.FRAMEBUFFER, null);
+                gl.viewport(0,0, gl.canvas.width,gl.canvas.height);
+                gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+                mainPG.render(gl, true);
+            }
+
+            requestAnimationFrame(drawScene);
+
+        }
+
+
+        function main() {
+
+            const canvas = GLUtils.makeCanvasObject("myCanvas");
+            const gl = GLUtils.makeWebGL(canvas);
+
+            if ( !gl ) {
+                alert ( "WEBGL 을 사용할 수 없습니다. ");
+                return;
+            }
+            const typeNum = 5;
+            const shadowNum = 4;
+            const mainProgram = GLUtils.createProgramByType(gl, typeNum);
+            const shadowProgram = GLUtils.createProgramByType(gl, shadowNum);
+
+            if ( !mainProgram || !shadowProgram ) {
+                alert ( "WEBGL을 사용중 오류가 발생하였습니다. ");
+                return;
+            }
+
+            const cubeDataValues = GLDataUtils.makeCubeData();
+
+            const defUniformArray = [
+                {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
+                {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
+                {uniformName : "projectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
+                {uniformName : "lightViewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
+                {uniformName : "lightProjectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
+                //{uniformName : "uTexture", data : 1, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                
+                {uniformName : "shadowMap", data : 0, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                   
+                //{uniformName : "lightPos", data : new Float32Array([0.0,0.0,0.0]), dataType : 1, dataKind : 2, dataSize : 3, uLocation:undefined,transpose:false},                    
+            ];
+
+            const defAttribArray = [
+                {attributeName : "positions", data : (new Float32Array(cubeDataValues.positions)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normals", data : (new Float32Array(cubeDataValues.normals)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : (new Float32Array(cubeDataValues.colors)) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+                {attributeName : "texCoords", data : (new Float32Array(cubeDataValues.textures)) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+            ];
+
+            const defIndexInfos = { data : (new Uint32Array(cubeDataValues.indices)), indexSize : (cubeDataValues.indices.length) , indexType :  gl.UNSIGNED_INT, offset:0};
+
+
+
+
+
+            const mainPG = new GLDataUtils.GLProgram("mainProgramID");
+            mainPG.initResource(gl, mainProgram, defUniformArray );
+
+            const shadowPG = new GLDataUtils.GLProgram("shadowProgramID");
+            shadowPG.initResource(gl, shadowProgram, defUniformArray );
+
+            setProgramUniformValues(gl, mainPG, shadowPG);
+
+
+            const cubeItem01 = new GLDataUtils.GLItem("cubeItemID_01");
+            cubeItem01.initResource( gl, mainProgram, defAttribArray, defUniformArray, defIndexInfos, undefined, "worldMatrix");
+            cubeItem01.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(1,5, -6));
+
+            mainPG.appendItem(cubeItem01);
+            shadowPG.appendItem(cubeItem01);
+
+
+            const planeItem = new GLDataUtils.BasicPlane('plane');
+            const planeDataValues = planeItem.getCurrentData();
+
+            const planeItem01 = new GLDataUtils.GLItem("planeItemID01");
+
+            const planeAttributeArray = [
+                {attributeName : "positions", data : (new Float32Array(planeDataValues.positions)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normals", data : (new Float32Array(planeDataValues.normals)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : (new Float32Array(planeDataValues.colors)) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+                {attributeName : "texCoords", data : (new Float32Array(planeDataValues.textures)) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+            ];
+
+            const planeIndexInfos = { data : (new Uint32Array(planeDataValues.indices)), indexSize : (planeDataValues.indices.length) , indexType :  gl.UNSIGNED_INT, offset:0};
+
+            planeItem01.initResource( gl, mainProgram, planeAttributeArray, defUniformArray, planeIndexInfos, undefined, "worldMatrix");      
+            planeItem01.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(20,20,20)) );
+
+            mainPG.appendItem(planeItem01);
+            shadowPG.appendItem(planeItem01);
+
+
+
+
+
+            render(gl, mainPG, shadowPG);
+            
+
+
+        }
+
+        main();
+
+    </script>
+</body>
+</html>

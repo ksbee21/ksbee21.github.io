@@ -93,7 +93,7 @@
                 {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "projectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
-                {uniformName : "uSampler", data : 0, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                
+                {uniformName : "uTexture", data : 0, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                
             ];
 
             const attributeArray = [
@@ -118,18 +118,18 @@
             const textureInfos = {
                 texture : GLUtils.loadGLTextureData(gl, url01),
                 index : 0,
-                uTextureName : "uSampler",
+                uTextureName : "uTexture",
             }
 
             const textureInfos02 = {
                 texture : GLUtils.loadGLTextureData(gl, url02),
                 index : 0,
-                uTextureName : "uSampler",                
+                uTextureName : "uTexture",                
             }
             const textureInfos03 = {
                 texture : GLUtils.loadGLTextureData(gl, url03),
                 index : 0,
-                uTextureName : "uSampler",                
+                uTextureName : "uTexture",                
             }
 
             const gProgram = new GLDataUtils.GLProgram("programID");
