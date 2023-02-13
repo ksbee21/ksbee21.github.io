@@ -10,7 +10,7 @@
 </head>
 <body>
     <p>
-    <a href="/post/webmodule/webgl_part_009/">돌아가기(Back)</a>
+        <a href="/post/webmodule/webgl_part_011/">돌아가기(Back)</a>
     </p>
     <canvas id="myCanvas"></canvas>
 
@@ -19,117 +19,116 @@
         import * as GLUtils from '../../js/GLUtils.js';
         import * as GLDataUtils from '../../js/GLDataUtils.js';
 
-
-        function setProgramUniformValues( gl, pg, sg ) {
-
-let worldMatrix             = TypedMatrixUtils.makeIdentityMatrix(4);
-let viewMatrix              = TypedMatrixUtils.makeIdentityMatrix(4);
-let projectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);   
-
-let lightProjectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);               
-let lightViewMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);                 
-
-
-
-let eye = [5.0, -5.0, 10.0];
-let at = [0.0, 0.0, -20.0];
-let up = [0.0, 1.0, 0.0];
-
-let eye02 = [5.0, 0.0, 5.0];
-let at02 = [0.0, 0.0, -2.0];
-let up02 = [0.0, 1.0, 0.0];
-
-//  view
-viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
-
-//  [ 주석 4 ] : projection 
-projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(48*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
-//projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
-
-lightProjectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(48*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
-lightViewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye02, at02, up02 );
-
-console.log("lightViewMatrix", lightViewMatrix);
-
-
-
-pg.setUniformMatrix("worldMatrix",TypedMatrixUtils.makeIdentityMatrix(4));
-pg.setUniformMatrix("viewMatrix", viewMatrix);
-pg.setUniformMatrix("projectionMatrix", projectionMatrix);
-
-pg.setUniformMatrix("lightViewMatrix", lightViewMatrix);
-pg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
-
-sg.setUniformMatrix("lightViewMatrix", lightViewMatrix);
-sg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
-}
-
-
-        function render(gl, mainPG, shadowPG) {
+        function render(gl,gp,sp) {
 
             const SHADOW_WIDTH = 1024;
             const SHADOW_HEIGHT = 1024;
 
-            const depthTexture = gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, depthTexture);
-            gl.texImage2D(
-                gl.TEXTURE_2D, 
-                0, //   mip map level
-                gl.DEPTH_COMPONENT16, //gl.DEPTH_COMPONENT32F, //    gl.DEPTH_COMPONENT16
-                SHADOW_WIDTH, 
-                SHADOW_HEIGHT, 
-                0, 
-                gl.DEPTH_COMPONENT, 
-                gl.UNSIGNED_SHORT, //gl.FLOAT,   //gl.UNSIGNED_SHORT
-                null    //  data 
-            );
+            const shadowInfos = GLUtils.createShadowTextureMap(gl,SHADOW_WIDTH, SHADOW_HEIGHT);
+            const depthTexture = shadowInfos.depthTexture;
 
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);  
-            
-            const depthFramebuffer = gl.createFramebuffer();
-            gl.bindFramebuffer( gl.FRAMEBUFFER, depthFramebuffer);
-            gl.framebufferTexture2D(
-                gl.FRAMEBUFFER, 
-                gl.DEPTH_ATTACHMENT, 
-                gl.TEXTURE_2D, 
-                depthTexture, 
-                0
-            );
+            setProgramUniformValues(gl, gp, sp);  
 
+            let delta = 0;
+            let curData = 0;
 
             function drawScene(time) {
-                gl.enable(gl.CULL_FACE);
-                gl.enable(gl.DEPTH_TEST);
-                gl.bindFramebuffer( gl.FRAMEBUFFER, depthFramebuffer);
-                gl.framebufferTexture2D(
-                    gl.FRAMEBUFFER, 
-                    gl.DEPTH_ATTACHMENT, 
-                    gl.TEXTURE_2D, 
-                    depthTexture, 
-                    0
-                );
+                time *= 0.001;
+             
+                const framebuffer = GLUtils.createDepthFrameBuffer(gl, depthTexture);                     
 
-                gl.viewport(0,0, SHADOW_WIDTH,SHADOW_HEIGHT);
-                gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-                shadowPG.render(gl, true);
-                gl.bindFramebuffer( gl.FRAMEBUFFER, null);
-                gl.viewport(0,0, gl.canvas.width,gl.canvas.height);
-                gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+			    gl.clearDepth(1.0);                 // Clear everything
+                gl.enable(gl.CULL_FACE);
+			    gl.enable(gl.DEPTH_TEST);           // Enable depth testing
+			    gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
+
+                gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);                
+                gl.viewport(0,0,SHADOW_WIDTH,SHADOW_HEIGHT);
+                //gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+			    // Clear the canvas before we start drawing on it.
+                gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
+			    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+           
+                //  cull face front
+                gl.cullFace(gl.BACK);  
+                sp.render(gl, true);
+                gl.cullFace(gl.BACK);  
+                //  cull face back
+
+                gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+                setProgramUniformValues(gl, gp, sp);      
+                
+                gl.enable(gl.DEPTH_TEST);           // Enable depth testing
+
+                gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+                gl.clearColor(1, 0, 1, 1);
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
                 gl.activeTexture(gl.TEXTURE0);
                 gl.bindTexture(gl.TEXTURE_2D, depthTexture);
-                mainPG.render(gl, true);
-            }
+
+                if ( curData == 0 ) {
+                    curData = time;
+                } else {
+                    delta = time - curData;
+                }
+
+                gp.render(gl, false);
+                //gp.cleanAll(gl);
+                requestAnimationFrame(drawScene);
+            };
 
             requestAnimationFrame(drawScene);
-
         }
 
+        function setProgramUniformValues( gl, pg, sg ) {
+
+            let worldMatrix             = TypedMatrixUtils.makeIdentityMatrix(4);
+            let viewMatrix              = TypedMatrixUtils.makeIdentityMatrix(4);
+            let projectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);   
+
+            let lightProjectionMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);               
+            let lightViewMatrix        = TypedMatrixUtils.makeIdentityMatrix(4);                 
+
+
+
+            let eye = [0.0, -15.0, 10.0];
+            let at = [0.0, 0.0, -20.0];
+            let up = [0.0, 1.0, 0.0];
+
+            let eye02 = [-5.0, 10.0, 10.0];
+            let at02 = [0.0, 0.0, -10.0];
+            let up02 = [0.0, 1.0, 0.0];
+
+            //  view
+            viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
+
+            //  [ 주석 4 ] : projection 
+            projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+            //projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
+
+            lightProjectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 1000);
+            lightViewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye02, at02, up02 );
+
+            console.log("lightViewMatrix", lightViewMatrix);
+
+            
+
+            pg.setUniformMatrix("worldMatrix",TypedMatrixUtils.makeIdentityMatrix(4));
+            pg.setUniformMatrix("viewMatrix", viewMatrix);
+            pg.setUniformMatrix("projectionMatrix", projectionMatrix);
+
+            pg.setUniformMatrix("lightViewMatrix", lightViewMatrix);
+            pg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
+            pg.setUniformMatrix("uLightPos", new Float32Array(eye02));
+
+            sg.setUniformMatrix("lightViewMatrix", lightViewMatrix);
+            sg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
+        }
 
         function main() {
-
             const canvas = GLUtils.makeCanvasObject("myCanvas");
             const gl = GLUtils.makeWebGL(canvas);
 
@@ -137,91 +136,127 @@ sg.setUniformMatrix("lightProjectionMatrix", lightProjectionMatrix);
                 alert ( "WEBGL 을 사용할 수 없습니다. ");
                 return;
             }
+            const cube = GLDataUtils.makeCubeData();
             const typeNum = 5;
             const shadowNum = 4;
-            const mainProgram = GLUtils.createProgramByType(gl, typeNum);
+            const program = GLUtils.createProgramByType(gl, typeNum);
             const shadowProgram = GLUtils.createProgramByType(gl, shadowNum);
 
-            if ( !mainProgram || !shadowProgram ) {
+            if ( !program ) {
                 alert ( "WEBGL을 사용중 오류가 발생하였습니다. ");
                 return;
             }
 
-            const cubeDataValues = GLDataUtils.makeCubeData();
-
-            const defUniformArray = [
+            const uniformArray = [
                 {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "projectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
                 {uniformName : "lightViewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "lightProjectionMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined,transpose:true},                
-                //{uniformName : "uTexture", data : 1, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                
+                {uniformName : "uTexture", data : 1, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                
                 {uniformName : "shadowMap", data : 0, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                   
-                //{uniformName : "lightPos", data : new Float32Array([0.0,0.0,0.0]), dataType : 1, dataKind : 2, dataSize : 3, uLocation:undefined,transpose:false},                    
+                {uniformName : "uLightPos", data : new Float32Array([0.0,0.0,0.0]), dataType : 1, dataKind : 2, dataSize : 3, uLocation:undefined,transpose:false},                    
+                {uniformName : "uDisplayType", data : 3, dataType : 2, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                   
+                {uniformName : "uBias", data : 0.002, dataType : 1, dataKind : 1, dataSize : 1, uLocation:undefined,transpose:false},                                    
             ];
 
-            const defAttribArray = [
-                {attributeName : "positions", data : (new Float32Array(cubeDataValues.positions)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
-                {attributeName : "normals", data : (new Float32Array(cubeDataValues.normals)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
-                {attributeName : "colors", data : (new Float32Array(cubeDataValues.colors)) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
-                {attributeName : "texCoords", data : (new Float32Array(cubeDataValues.textures)) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+            const attributeArray = [
+                {attributeName : "positions", data : new Float32Array(cube.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normals", data : new Float32Array(cube.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : new Float32Array(cube.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+                {attributeName : "texCoords", data : new Float32Array(cube.textures) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
             ];
 
-            const defIndexInfos = { data : (new Uint32Array(cubeDataValues.indices)), indexSize : (cubeDataValues.indices.length) , indexType :  gl.UNSIGNED_INT, offset:0};
+
+            const checkerTexture = GLUtils.createCheckerTexture(gl);
+
+            const url01 = "/imgs/wall.jpg";//"/imgs/8k_earth_daymap.jpg";
+            //const url01 = "/imgs/8k_earth_daymap.jpg";            
+            const url02 = "/imgs/8k_earth_daymap.jpg";                        
+            //const url02 = "/imgs/ColorMap.jpg";                
+            //const url02 = "/imgs/wall.jpg";                
+            const url03 = "/imgs/sea01.jpg";            
+            //const url03 = "/imgs/universe_test.jpg";                  
+            const textureInfos = {
+                texture : GLUtils.loadGLTextureData(gl, url01),
+                index : 1,
+                uTextureName : "uTexture",
+            }
+
+            const textureInfos02 = {
+                texture : checkerTexture,
+                index : 1,
+                uTextureName : "uTexture",                
+            }
+            const textureInfos03 = {
+                texture : GLUtils.loadGLTextureData(gl, url03),
+                index : 1,
+                uTextureName : "uTexture",                
+            }
+
+            
+            const gProgram = new GLDataUtils.GLProgram("programID");
+            gProgram.initResource(gl, program, uniformArray );
+
+            const sProgram = new GLDataUtils.GLProgram("sprogramID");
+            sProgram.initResource(gl, shadowProgram, uniformArray );
+            const indexInfos = { data : new Uint32Array(cube.indices), indexSize : cube.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
 
 
+            const gItem = new GLDataUtils.GLItem("itemID");
+            gItem.initResource( gl, program, attributeArray, uniformArray, indexInfos, textureInfos, "worldMatrix");
+            gItem.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(2,2, -2));
+
+            const gItem02 = new GLDataUtils.GLItem("itemID02");
+            gItem02.initResource( gl, program, attributeArray, uniformArray, indexInfos, textureInfos02, "worldMatrix");
+            gItem02.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0,-8), TypedMatrixUtils.makeScaleMatrix3D(2,2,2)));
+
+            gItem02.makeRotateAnimations(3,0.02,-1);
 
 
+            gItem.makeRotateAnimations(1, 0.05, 1);
+            //gItem.makeRotateAnimations(2, 0.05, 1);        
+            gItem.makeRotateAnimations(3, 0.05, 1);        
+            
+            gItem.makePendulumAnimation(3, 0.005, 1, -2, 2);            
+            gItem.makeOrbitAnimations(3, 0.05, 1);   
 
-            const mainPG = new GLDataUtils.GLProgram("mainProgramID");
-            mainPG.initResource(gl, mainProgram, defUniformArray );
+            sProgram.appendItem(gItem);
+            sProgram.appendItem(gItem02);
+        
+            gProgram.appendItem(gItem);
+            gProgram.appendItem(gItem02);
 
-            const shadowPG = new GLDataUtils.GLProgram("shadowProgramID");
-            shadowPG.initResource(gl, shadowProgram, defUniformArray );
-
-            setProgramUniformValues(gl, mainPG, shadowPG);
-
-
-            const cubeItem01 = new GLDataUtils.GLItem("cubeItemID_01");
-            cubeItem01.initResource( gl, mainProgram, defAttribArray, defUniformArray, defIndexInfos, undefined, "worldMatrix");
-            cubeItem01.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(0,0, -6));
-
-            mainPG.appendItem(cubeItem01);
-            shadowPG.appendItem(cubeItem01);
-
-
-            const planeItem = new GLDataUtils.BasicPlane('plane');
-            const planeDataValues = planeItem.getCurrentData();
-
-            const planeItem01 = new GLDataUtils.GLItem("planeItemID01");
+            const plane = new GLDataUtils.BasicPlane('aa');
+            const pData = plane.getCurrentData();
+            const planeItem = new GLDataUtils.GLItem("planeItemID");
 
             const planeAttributeArray = [
-                {attributeName : "positions", data : (new Float32Array(planeDataValues.positions)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
-                {attributeName : "normals", data : (new Float32Array(planeDataValues.normals)) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
-                {attributeName : "colors", data : (new Float32Array(planeDataValues.colors)) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
-                {attributeName : "texCoords", data : (new Float32Array(planeDataValues.textures)) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
+                {attributeName : "positions", data : new Float32Array(pData.positions) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "normals", data : new Float32Array(pData.normals) , size: 3, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},
+                {attributeName : "colors", data : new Float32Array(pData.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},  
+                {attributeName : "texCoords", data :  new Float32Array(pData.textures), size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},                            
             ];
 
-            const planeIndexInfos = { data : (new Uint32Array(planeDataValues.indices)), indexSize : (planeDataValues.indices.length) , indexType :  gl.UNSIGNED_INT, offset:0};
+            const planeIndexInfos = { data : new Uint32Array(pData.indices), indexSize : pData.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
+            planeItem.initResource( gl, program, planeAttributeArray, uniformArray, planeIndexInfos, textureInfos03, "worldMatrix");      
 
-            planeItem01.initResource( gl, mainProgram, planeAttributeArray, defUniformArray, planeIndexInfos, undefined, "worldMatrix");      
-            planeItem01.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(20,20,20)) );
-
-            mainPG.appendItem(planeItem01);
-            shadowPG.appendItem(planeItem01);
-
-
-
-
-
-            render(gl, mainPG, shadowPG);
+            planeItem.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(20,20,20)) );
+            gProgram.appendItem(planeItem)     ; 
+            sProgram.appendItem(planeItem)     ;            
+            
+            setProgramUniformValues(gl, gProgram, sProgram);
             
 
+            render(gl, gProgram, sProgram);
+            const maxTextureUnits = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+            const maxVertexShaderTextureUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
+            const maxFragmentShaderTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);            
 
+            //alert (  maxTextureUnits + "\n" + maxVertexShaderTextureUnits + " , " + maxFragmentShaderTextureUnits );
         }
 
         main();
-
     </script>
 </body>
 </html>

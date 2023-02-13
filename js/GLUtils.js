@@ -48,19 +48,17 @@ export const createShadowTextureMap = ( gl , SHADOW_WIDTH, SHADOW_HEIGHT ) => {
     if ( !SHADOW_HEIGHT ) 
         SHADOW_HEIGHT = 512;
 
-    alert ( SHADOW_WIDTH + " , " + SHADOW_HEIGHT );
-
     const depthTexture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, depthTexture);
     gl.texImage2D(
         gl.TEXTURE_2D, 
         0, //   mip map level
-        gl.DEPTH_COMPONENT32F, //gl.DEPTH_COMPONENT32F, //    gl.DEPTH_COMPONENT16
+        gl.DEPTH_COMPONENT16, //gl.DEPTH_COMPONENT32F, //    gl.DEPTH_COMPONENT16
         SHADOW_WIDTH, 
         SHADOW_HEIGHT, 
         0, 
         gl.DEPTH_COMPONENT, 
-        gl.FLOAT, //gl.FLOAT,   //gl.UNSIGNED_SHORT
+        gl.UNSIGNED_SHORT, //gl.FLOAT,   //gl.UNSIGNED_SHORT
         null    //  data 
     );
 
@@ -213,13 +211,9 @@ export const getVertexShaderSource = ( typeNum ) => {
             vs = `#version 300 es
             uniform mat4 worldMatrix, lightViewMatrix, lightProjectionMatrix;
             layout(location = 0) in vec3 positions;
-            layout(location = 1) in vec3 normals;
             layout(location = 2) in vec4 colors;
-            layout(location = 3) in vec2 texCoords;            
-            //out vec4 vColors;
             void main() {
                 gl_Position = lightProjectionMatrix * lightViewMatrix  * worldMatrix * vec4(positions, 1.0);
-                //vColors = colors;
             }
             ` 
             break;
@@ -227,6 +221,7 @@ export const getVertexShaderSource = ( typeNum ) => {
                 vs = `#version 300 es
                 uniform mat4 worldMatrix, viewMatrix, projectionMatrix;
                 uniform mat4 lightViewMatrix, lightProjectionMatrix;
+                uniform vec3 uLightPos;
 
                 layout(location = 0) in vec3 positions;
                 layout(location = 1) in vec3 normals;
@@ -237,6 +232,7 @@ export const getVertexShaderSource = ( typeNum ) => {
                 out vec2 vTexCoord;
                 out vec4 vColors;
                 out vec4 vShadowCoord;
+                out vec3 vLight;
         
                 const mat4 tMat = mat4(
                     0.5, 0.0, 0.0, 0.0, 
@@ -247,14 +243,17 @@ export const getVertexShaderSource = ( typeNum ) => {
             
                 void main() {
                     vec3 worldPos =  (worldMatrix * vec4(positions, 1.0)).xyz;
+
+                    vLight = normalize(uLightPos-worldPos);
+
                     vTexCoord = texCoords;
                     //vShadowCoord =  tMat * projectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
-                    vShadowCoord = lightProjectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
+                    vShadowCoord = tMat * lightProjectionMatrix * lightViewMatrix * vec4(worldPos, 1.0);
                     
                     vColors = colors;
                     //gl_Position = projectionMatrix * lightViewMatrix  * vec4(worldPos, 1.0);
                     gl_Position = projectionMatrix * viewMatrix  * vec4(worldPos, 1.0);     
-                    vNormal = normals;//normalize(transpose(inverse(mat3(worldMatrix))) * normals);                                   
+                    vNormal = normalize(transpose(inverse(mat3(worldMatrix))) * normals);                                   
                 }
                 ` 
             break;
@@ -397,28 +396,49 @@ export const getFragmentShaderSource = ( typeNum ) => {
             in vec4 vColors;
             in vec2 vTexCoord;
             in vec4 vShadowCoord;
+            in vec3 vLight;
 
             uniform sampler2D shadowMap;
+            uniform sampler2D uTexture;
+            uniform float uBias;
+            uniform int uDisplayType;
 
             out vec4 fragColor;
         
             void main() {
-                //vec3 normal = normalize(vNormal);
-                //fragColor = vColors;
+                vec3 normal = normalize(vNormal);
+                vec3 light = normalize(vLight);
                 vec3 shadowCoord = (vShadowCoord.xyz / vShadowCoord.w);
-
                 //float vis = textureProj(shadowMap, vShadowCoord);
+
+                float diff = max(dot(normal,light), 0.0);
 
                 bool inRange =
                     shadowCoord.x >= 0.0 &&
                     shadowCoord.x <= 1.0 &&
                     shadowCoord.y >= 0.0 &&
                     shadowCoord.y <= 1.0;                
-                float currentDepth = (shadowCoord.z - 0.5);
+                float currentDepth = (shadowCoord.z - uBias);
+                float currentDepth01 = shadowCoord.z;
+                float currentDepth02 = (shadowCoord.z + uBias);   
                 vec4 tColors = texture(shadowMap,shadowCoord.xy);
                 float texDepth = texture(shadowMap,shadowCoord.xy).r;
-                float shadows = (( inRange && currentDepth >= texDepth  ) ? 0.0 : 1.0);
-                fragColor = vec4(vColors.rgb * shadows, 1.0);
+                float shadows = (( inRange && currentDepth >= texDepth  ) ? 0.2 : 1.0);
+                float shadows01 = (( inRange && currentDepth01 >= texDepth  ) ? 0.2 : 1.0);
+                float shadows02 = (( inRange && currentDepth02 >= texDepth  ) ? 0.2 : 1.0);                                
+                vec4 textureColor = texture(uTexture,vTexCoord);
+                if ( uDisplayType == 0 ) {
+                    fragColor = vec4(vColors.rgb * shadows , 1.0);
+                } else if ( uDisplayType == 1 ) {
+                    fragColor = vec4(vColors.rgb * shadows01 , 1.0);
+                } else if ( uDisplayType == 2 ) {
+                    fragColor = vec4(vColors.rgb * shadows02 , 1.0);
+                } else if ( uDisplayType == 3 ) {
+                    fragColor = vec4(textureColor.rgb * shadows * diff, 1.0);
+                } else {
+                    fragColor = vec4(vColors.rgb * shadows, 1.0);
+                }
+
                 //fragColor = mix(vColors,vec4(vec3(texDepth),1.0),1.0);
                 //fragColor = (inRange ? vec4(shadowCoord.xyz,1.0) : vec4(0.0, 0.0, 0.0, 1.0));
                 //fragColor = vec4(vec3(shadowCoord.z),1.0);
@@ -443,7 +463,7 @@ export const getFragmentShaderSource = ( typeNum ) => {
 }
 
 export const createProgramByType = ( gl, typeNum ) => {
-    alert ( getFragmentShaderSource(typeNum) );
+    //alert ( getFragmentShaderSource(typeNum) );
     return createProgramBySource(gl, getVertexShaderSource(typeNum), getFragmentShaderSource(typeNum) );
 };
 
@@ -455,7 +475,7 @@ export const setAttributeValue = (gl, program, attributeName, data, size, dataTy
     gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
     //  Vertex Array Buffer binding ... 
-    console.log( "Attribute Location Setting ", gLocation, attributeName, data);
+    //console.log( "Attribute Location Setting ", gLocation, attributeName, data);
 
     gl.enableVertexAttribArray(gLocation);
     gl.vertexAttribPointer(gLocation, size, dataType, normalize, stride, offset);
@@ -688,6 +708,35 @@ export const setUniformValues = ( gl, uLocation, uData, dataType, dataKind, data
     } else if ( dataType == 4 ) {
         setUniformBoolValue(gl, uLocation, uData, dataKind, dataSize);
     }
-}
+};
+
+
+export const createCheckerTexture = (gl) => {
+    const checkerboardTexture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, checkerboardTexture);
+    gl.texImage2D(
+        gl.TEXTURE_2D,
+        0,                // mip level
+        gl.LUMINANCE,     // internal format
+        8,                // width
+        8,                // height
+        0,                // border
+        gl.LUMINANCE,     // format
+        gl.UNSIGNED_BYTE, // type
+        new Uint8Array([  // data
+            0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC,
+            0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF,
+            0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC,
+            0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF,
+            0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC,
+            0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF,
+            0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC,
+            0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF, 0xCC, 0xFF,
+        ])
+    );
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    return checkerboardTexture;
+};
 
 

@@ -7,7 +7,52 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Thu, 26 Jan 2023 19:54:05 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Feb 2023 20:23:34 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javascript</title>
+      <link>https://ksbee21.github.io/tags/javascript/</link>
+      <pubDate>Wed, 08 Feb 2023 20:23:34 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Language</title>
+      <link>https://ksbee21.github.io/tags/language/</link>
+      <pubDate>Wed, 08 Feb 2023 20:23:34 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/tags/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming</title>
+      <link>https://ksbee21.github.io/tags/programming/</link>
+      <pubDate>Wed, 08 Feb 2023 20:23:34 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>https://ksbee21.github.io/tags/web/</link>
+      <pubDate>Wed, 08 Feb 2023 20:23:34 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WebGL</title>
+      <link>https://ksbee21.github.io/tags/webgl/</link>
+      <pubDate>Wed, 08 Feb 2023 20:23:34 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/tags/webgl/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Application</title>
       <link>https://ksbee21.github.io/tags/application/</link>
@@ -32,15 +77,6 @@
       <pubDate>Thu, 26 Jan 2023 19:54:05 +0900</pubDate>
       
       <guid>https://ksbee21.github.io/tags/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Language</title>
-      <link>https://ksbee21.github.io/tags/language/</link>
-      <pubDate>Thu, 26 Jan 2023 19:54:05 +0900</pubDate>
-      
-      <guid>https://ksbee21.github.io/tags/language/</guid>
       <description></description>
     </item>
     
@@ -90,15 +126,6 @@
     </item>
     
     <item>
-      <title>Javascript</title>
-      <link>https://ksbee21.github.io/tags/javascript/</link>
-      <pubDate>Sun, 22 Jan 2023 22:26:52 +0900</pubDate>
-      
-      <guid>https://ksbee21.github.io/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Math</title>
       <link>https://ksbee21.github.io/tags/math/</link>
       <pubDate>Sun, 22 Jan 2023 22:26:52 +0900</pubDate>
@@ -117,38 +144,11 @@
     </item>
     
     <item>
-      <title>Web</title>
-      <link>https://ksbee21.github.io/tags/web/</link>
-      <pubDate>Sun, 22 Jan 2023 22:26:52 +0900</pubDate>
-      
-      <guid>https://ksbee21.github.io/tags/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>삼각함수</title>
       <link>https://ksbee21.github.io/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98/</link>
       <pubDate>Sun, 22 Jan 2023 22:26:52 +0900</pubDate>
       
       <guid>https://ksbee21.github.io/tags/%EC%82%BC%EA%B0%81%ED%95%A8%EC%88%98/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programming</title>
-      <link>https://ksbee21.github.io/tags/programming/</link>
-      <pubDate>Sun, 22 Jan 2023 21:34:09 +0900</pubDate>
-      
-      <guid>https://ksbee21.github.io/tags/programming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>WebGL</title>
-      <link>https://ksbee21.github.io/tags/webgl/</link>
-      <pubDate>Sun, 22 Jan 2023 21:34:09 +0900</pubDate>
-      
-      <guid>https://ksbee21.github.io/tags/webgl/</guid>
       <description></description>
     </item>
     

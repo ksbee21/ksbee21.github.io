@@ -106,7 +106,7 @@ export class GLProgram {
 
         for ( let key of this.itemMap.keys() ) {
             this.itemMap.get(key).render(gl, isAutoClean, this.uniformMap);
-            console.log(this.programID, key);
+            //console.log(this.programID, key);
         }
         if ( isAutoClean ) {
             this.clean(gl);
@@ -115,6 +115,13 @@ export class GLProgram {
 
     clean = (gl) => {
         gl.useProgram(null);
+    };
+
+    cleanAll = (gl) => {
+        for ( let key of this.itemMap.keys() ) {
+            this.itemMap.get(key).clean(gl);
+        }
+        this.clean(gl);
     };
 
     appendItem = (item) => {
@@ -314,7 +321,7 @@ export class GLItem {
             uniformLoc = parentUniforms.get(this.uWorldName).uLocation;
         }
 
-        console.log (uniform.uniformName , uniform.data , uniformLoc, uniform.transpose );
+//        console.log (uniform.uniformName , uniform.data , uniformLoc, uniform.transpose );
         GLUtils.setUniformValues( gl, uniformLoc, 
             uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
 
@@ -326,12 +333,10 @@ export class GLItem {
                     uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
             }
         }
-
-
-        
+       
 
         if ( this.indexSize > 0 ) {
-            console.log("index Size ", this.indexSize);
+//            console.log("index Size ", this.indexSize);
             gl.drawElements(gl.TRIANGLES, this.indexSize, this.indexType,this.offset);
         }
         if ( isAutoClean ) {
