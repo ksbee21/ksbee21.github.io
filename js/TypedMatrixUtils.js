@@ -518,7 +518,7 @@
         const result = multiplyMatrix(rotate, translate);
         //const result = multiplyMatrix(translate, rotate);        
 
-        console.log ( result );
+//        console.log ( result );
         return result;
     };
 

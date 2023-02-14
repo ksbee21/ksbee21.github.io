@@ -514,7 +514,7 @@ export const setUniformLocations = (gl, program, uniformArray) => {
         let uniform = {...uniformArray[i]};
         uniform.uLocation = gl.getUniformLocation(program, uniform.uniformName );
         if ( !uniform.uLocation ) {
-            console.log(uniform.uniformName , " Can not apply ... ");
+//            console.log(uniform.uniformName , " Can not apply ... ");
             continue;
         }
         uArray.push(uniform);
@@ -692,7 +692,7 @@ export const setUniformValues = ( gl, uLocation, uData, dataType, dataKind, data
     if ( !gl || !uLocation ||  uData == undefined )
         return false;
 
-    console.log("Init setUniformValues", dataType, dataKind, dataSize);
+    //console.log("Init setUniformValues", dataType, dataKind, dataSize);
 
     //  dataType : 1 : float, 2 : int, 3 : uint, 4 : boolean
     //  dataKind : 1 : value, 2 : vector , 3 : matrix 
@@ -700,10 +700,10 @@ export const setUniformValues = ( gl, uLocation, uData, dataType, dataKind, data
     if ( dataType  == 1 ) {
         setUniformFloatValue(gl, uLocation, uData, dataKind, dataSize, transpose);
     } else if ( dataType == 2 ) {
-        console.log("bbbbbbb",dataType, uData);
+        //console.log("bbbbbbb",dataType, uData);
         setUniformIntValue(gl, uLocation, uData, dataKind, dataSize);
     } else if ( dataType == 3 ) {
-        console.log("aaaaaa",dataType, uData);
+        //console.log("aaaaaa",dataType, uData);
         setUniformUIntValue(gl, uLocation, uData, dataKind, dataSize);
     } else if ( dataType == 4 ) {
         setUniformBoolValue(gl, uLocation, uData, dataKind, dataSize);

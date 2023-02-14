@@ -66,7 +66,7 @@ export class GLProgram {
     };
 
     initResource = (gl,program,uniformArray) => {
-        console.log("TEST");
+        //console.log("TEST");
         this.program = program;
         for ( let i = 0; i < uniformArray.length; i++ ) {
             if ( uniformArray[i].data == undefined ) {
@@ -74,13 +74,13 @@ export class GLProgram {
             }
         }
         let uArray = GLUtils.setUniformLocations(gl, program, uniformArray);  
-        console.log ( "initResouce", uArray)  ;
+        //console.log ( "initResouce", uArray)  ;
         for ( let i = 0; i < uArray.length; i++ ) {
             let uName = uArray[i].uniformName;
             let uniform = uArray[i];
             this.uniformMap.set(uName,uArray[i]);
 
-            console.log ( this.programID, uniform.uniformName, uniform.data, uniform.uLocation);            
+            //console.log ( this.programID, uniform.uniformName, uniform.data, uniform.uLocation);            
         }
     };
 
@@ -101,7 +101,7 @@ export class GLProgram {
                 uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
 
             //if ( key === 'lightViewMatrix' || key === 'viewMatrix' || key === 'shadowMap')
-                console.log ( this.programID, uniform.uniformName, uniform.data, uniform.uLocation, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose );
+//                console.log ( this.programID, uniform.uniformName, uniform.data, uniform.uLocation, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose );
         }
 
         for ( let key of this.itemMap.keys() ) {
@@ -184,7 +184,7 @@ export class GLItem {
         }
         this.vao = gl.createVertexArray();
         gl.bindVertexArray(this.vao);
-        console.log(this.getItemID());
+        //console.log(this.getItemID());
         GLUtils.setAttributeValues(gl, program, attributeArray);
         GLUtils.setIndexInfos(gl, indexInfos);
         this.indexSize = indexInfos.indexSize;
@@ -306,7 +306,7 @@ export class GLItem {
     };
 
     render = (gl, isAutoClean, parentUniforms) => {
-        console.log(this.getItemID(), "started ...");
+        //console.log(this.getItemID(), "started ...");
         this.resetWorldUniformValues();
         gl.bindVertexArray(this.vao);
 
