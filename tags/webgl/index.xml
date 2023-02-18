@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Wed, 08 Feb 2023 20:23:34 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/webgl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Feb 2023 20:28:06 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/webgl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL2 - Program 시작 08 - Object Picking 01 - [ 12 ]</title>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_012/</link>
+      <pubDate>Sat, 18 Feb 2023 20:28:06 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_012/</guid>
+      <description>프로그램이 사용자와 상호 작용을 하기 위해서는 User가 물체 혹은 대상을 선택할 수 있어야 하고, 그 선택한 항목을 기준으로 특정한 일을 수행하도록 하는 것이 필요할 것 같습니다. 일반 Application 이나 Web 등에서 Button Click, 글 Click 등을 통해 사용자 Action 을 구성하게 됩니다. WebGL 에서도 사용자가 무엇인가를 선택한다면, 선택한 항목이 무엇인지 알 수 있어야 하고, 이를 Picking 이라고 합니다. 문제는 우리가 어떤 항목을 선택하기 위해서 WebGL로 구성된 화면에서 마우스를 클릭하였다고 하면, 직접적으로 우리가 알 수 있는 내용은 선택한 pixel 의 색상값 만을 확인할 수 있을 뿐입니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Program 시작 07 - Shadow mapping - [ 11 ]</title>
       <link>https://ksbee21.github.io/post/webmodule/webgl_part_011/</link>

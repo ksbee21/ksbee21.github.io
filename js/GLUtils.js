@@ -259,15 +259,10 @@ export const getVertexShaderSource = ( typeNum ) => {
             break;
         case  6 :
                 vs = `#version 300 es
-                uniform mat4 worldMatrix, lightViewMatrix, lightProjectionMatrix;
+                uniform mat4 worldMatrix, viewMatrix, projectionMatrix;
                 layout(location = 0) in vec3 positions;
-                layout(location = 1) in vec3 normals;
-                layout(location = 2) in vec4 colors;
-                layout(location = 3) in vec2 texCoords;            
-                out vec4 vColors;
                 void main() {
-                    gl_Position = lightProjectionMatrix * lightViewMatrix  * worldMatrix * vec4(positions, 1.0);
-                    vColors = colors;
+                    gl_Position = projectionMatrix * viewMatrix  * worldMatrix * vec4(positions, 1.0);
                 }
                 ` 
             break;
@@ -446,13 +441,13 @@ export const getFragmentShaderSource = ( typeNum ) => {
             }
             `            
             break;
-        case 4 :
+        case 6 :
             fs = `#version 300 es
             precision highp float;
-            in vec4 vColors;
+            uniform vec4 uColorID;
             out vec4 fragColors;
             void main() {
-                fragColors = vColors;
+                fragColors = uColorID;
             }
             `            
             break;            

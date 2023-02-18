@@ -66,7 +66,7 @@ export class GLProgram {
     };
 
     initResource = (gl,program,uniformArray) => {
-        //console.log("TEST");
+//        console.log("TEST");
         this.program = program;
         for ( let i = 0; i < uniformArray.length; i++ ) {
             if ( uniformArray[i].data == undefined ) {
@@ -168,6 +168,12 @@ export class GLItem {
          * direction : 1 : 양수진행 , -1 : 음수진행 
          * */
         this.animationMap   = new Map();
+        this.objectColorID  = undefined;
+        this.uColorIDName   = undefined;
+        this.uColorIDValues = undefined;
+
+        //  Temp ...  uDisplayType
+        this.displayType    = 3;
     };
 
     initResource = (gl, program, attributeArray, uniformArray, indexInfos, textureInfos, userWorldName  ) => {
@@ -193,6 +199,25 @@ export class GLItem {
         this.offset = indexInfos.offset;
         
         this.animationTime    = undefined;
+    };
+
+    setObjectColorIDInfos = ( uColorName, objectID ) => {
+        this.uColorIDName = uColorName;
+        this.objectColorID = objectID;
+
+        this.uColorIDValues = new Float32Array([
+            ((this.objectColorID >>  0) & 0xFF) / 0xFF,
+            ((this.objectColorID >>  8) & 0xFF) / 0xFF,
+            ((this.objectColorID >> 16) & 0xFF) / 0xFF,
+            ((this.objectColorID >> 24) & 0xFF) / 0xFF,
+          ]);
+
+        const uniforms = (this.uniformMap.has(uColorName) ? this.uniformMap.get(uColorName) : 
+            {uniformName : uColorName, data : this.uColorIDValues, dataType : 1, dataKind : 2, dataSize : 4, uLocation:undefined,transpose:false});               
+        uniforms.data = this.uColorIDValues;
+        this.uniformMap.set(uColorName, uniforms);
+
+        //console.log(this.itemID, this.objectColorID, this.uniformMap );
     };
 
     makeRotateAnimations = (axis, step, direction) => {
@@ -305,9 +330,13 @@ export class GLItem {
         return this.itemID;
     };
 
+    setDisplayType = (displayType) => {
+        this.displayType = displayType;
+    };
+
     render = (gl, isAutoClean, parentUniforms) => {
         //console.log(this.getItemID(), "started ...");
-        this.resetWorldUniformValues();
+
         gl.bindVertexArray(this.vao);
 
         if ( this.texture ) {
@@ -320,10 +349,29 @@ export class GLItem {
         if ( parentUniforms && parentUniforms.has(this.uWorldName)) {
             uniformLoc = parentUniforms.get(this.uWorldName).uLocation;
         }
-
-//        console.log (uniform.uniformName , uniform.data , uniformLoc, uniform.transpose );
         GLUtils.setUniformValues( gl, uniformLoc, 
             uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
+        if ( this.objectColorID && this.uColorIDName ) {
+            if ( parentUniforms && parentUniforms.has(this.uColorIDName)) {
+                uniformLoc = parentUniforms.get(this.uColorIDName).uLocation;
+                uniform = this.uniformMap.get(this.uColorIDName);
+                uniform.uLocation = uniformLoc;
+                GLUtils.setUniformValues( gl, uniformLoc, 
+                    uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
+                //console.log (this.itemID, this.objectColorID , uniform.uniformName , uniform.data , uniformLoc, uniform.transpose );
+            }
+        }
+
+        if ( parentUniforms && parentUniforms.has("uDisplayType") ) {
+            uniform = this.uniformMap.get("uDisplayType");
+            uniformLoc = parentUniforms.get("uDisplayType").uLocation;
+            if ( uniform && uniformLoc ) {
+                uniform.data = this.displayType;
+                GLUtils.setUniformValues( gl, uniformLoc, 
+                    uniform.data, uniform.dataType, uniform.dataKind, uniform.dataSize, uniform.transpose);
+            }
+        }
+
 
         if ( this.texture && this.uTextureName ) {
             uniform = this.uniformMap.get(this.uTextureName) ;
@@ -342,6 +390,8 @@ export class GLItem {
         if ( isAutoClean ) {
             this.clean(gl);
         }
+
+        this.resetWorldUniformValues();        
     };
 
     clean = (gl) => {
