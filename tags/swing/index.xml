@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Thu, 26 Jan 2023 19:54:05 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/swing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2023 18:26:18 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/swing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>QT PYQT  SWING JFX Layout 기초 2</title>
+      <link>https://ksbee21.github.io/post/crossplatformapp/cross_app_004/</link>
+      <pubDate>Mon, 20 Feb 2023 18:26:18 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/crossplatformapp/cross_app_004/</guid>
+      <description>QT QT 사이트 Layout 예제중에서 &amp;hellip; 사이트에서 제공하는 예제중 GUI 를 구성할 때 많이 사용할 것 같은 2개의 예제를 확인해 보겠습니다.
+Border Layout Sample https://doc.qt.io/qt-6/qtwidgets-layouts-borderlayout-example.html 이 예제는 Qt Creator에서 소스를 확인할 수 있습니다. Swing, JFX 등에서 유사한 Layout 을 제공 하고 있고, QT 에서 사용자 Layout 을 직접 구성할 때 어떻게 만들어야 하는지를
+설명하고 있기 때문에 QT 내부에서 어떤 작업이 진행되었는지 확인하기 좋은 예제 같습니다. QT 예서 예제로 제공하고 있는 소스라 QT 를 설치하면 확인해 볼 수 있는 소스지만, 정리를 위해 필요한 부분을 나열하고 살펴보도록 하겠습니다.</description>
+    </item>
+    
     <item>
       <title>QT PYQT  SWING JFX Layout 기초 1</title>
       <link>https://ksbee21.github.io/post/crossplatformapp/cross_app_003/</link>
