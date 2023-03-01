@@ -377,7 +377,7 @@ export const getFragmentShaderSource = ( typeNum ) => {
         case 4 :
             fs = `#version 300 es
             precision highp float;
-            in vec4 vColors;
+            //in vec4 vColors;
             //out vec4 fragColors;
             void main() {
                 //fragColors = vColors;
@@ -423,7 +423,7 @@ export const getFragmentShaderSource = ( typeNum ) => {
                 float shadows02 = (( inRange && currentDepth02 >= texDepth  ) ? 0.2 : 1.0);                                
                 vec4 textureColor = texture(uTexture,vTexCoord);
                 if ( uDisplayType == 0 ) {
-                    fragColor = vec4(vColors.rgb * shadows , 1.0);
+                    fragColor = vec4(vColors.rgb*shadows  , 1.0);
                 } else if ( uDisplayType == 1 ) {
                     fragColor = vec4(vColors.rgb * shadows01 , 1.0);
                 } else if ( uDisplayType == 2 ) {

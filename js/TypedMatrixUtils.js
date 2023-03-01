@@ -1,5 +1,47 @@
 
-    
+    export const vec3 = (x,y,z) => {
+        const result = new Float32Array([x,y,z]);
+        result.rows = 3;
+        result.cols = 1;
+        return result;
+    };
+
+    export const makeVec3 = (data) => {
+        if ( data && data.length > 3 ) {
+            return vec3(data[0],data[1],data[2]);
+        }
+        return vec3(0,0,0);
+    };
+
+
+    export const vec4 = (x,y,z,w) => {
+        const result = new Float32Array([x,y,z,w]);
+        result.rows = 4;
+        result.cols = 1;
+        return result;
+    };
+
+    export const mat3 = ( data ) => {
+        if ( !data || data.length < 9 )
+            return undefined;
+        let dCols = data.cols;
+        let dRows = data.rows;
+        if ( dCols < 3 || dRows < 3 )
+            return undefined;
+        
+        const result = new Float32Array(9);
+        result.rows = 3;
+        result.cols = 3;
+
+        for ( let i = 0; i < 3; i++ ) {
+            let idx = i*3;
+            let dataIdx = i*dCols;
+            for ( let j = 0; j < 3; j++ ) {
+                result[idx+j] = data[dataIdx+j];
+            }
+        }
+        return result;
+    };
 
     /**
      * 
@@ -14,7 +56,7 @@
         if ( !len || len < 1 || v2.length != len ) {
             return;
         }
-        const result = 0.0;
+        let result = 0.0;
         for ( let i = 0; i < len; i++ ) {
             result += v1[i]*v2[i];
         }
@@ -395,7 +437,114 @@
 		return result;
 	};
 
-    export const printArrayValues = ( mat ) => {
+    export const copyMatrixValues = (matrix) => {
+        if ( !matrix ) {
+			alert( "NO DATA" );
+			return;
+		}
+
+        const rows = matrix.rows;
+        if ( !rows )    //  내부에서 사용하는 형식이 아님
+            return;
+        const cols = matrix.cols;
+        if ( !cols )    //  내부에서 사용하는 형식이 아님
+            return;
+
+        const result = new Float32Array(matrix.length);
+        result.rows = cols;
+        result.cols = rows;
+        for ( let i = 0 , iSize = matrix.length; i < iSize; i++ ) {
+            result[i] = matrix[i];
+        }
+        return result;
+    };
+
+	const switchRowPositionValues = (orgMat, colSize, curRowIdx, transRowIdx) => {
+		if ( !orgMat || curRowIdx == transRowIdx || curRowIdx <= 0 )
+			return;
+		const curIdx = curRowIdx*colSize;
+		const trIdx = transRowIdx*colSize;
+		for ( let i = 0; i < colSize; i++ ) {
+			let v = orgMat[trIdx+i];
+			orgMat[trIdx+i] = orgMat[curIdx+i];
+			orgMat[curIdx+i] = v;
+		}
+	};
+
+
+    export const makeInverseMatrix = ( matrix ) => {
+		if ( !matrix ) {
+			return;
+		}
+        const orgLen = matrix.length;
+        if ( !orgLen ) 
+            return;
+
+        let rows = -1;
+        let cols = -1;
+
+        if ( matrix.rows && matrix.cols ) {
+            rows = matrix.rows;
+            cols = matrix.cols;
+        } else {
+            rows = Math.sqrt(orgLen);
+            cols = rows;
+        }
+
+		if ( rows*rows != orgLen ) {
+			return;
+		}
+
+		const inverseV = makeIdentityMatrix(rows);
+		const orgV = copyMatrixValues(matrix);
+		for ( let r = 0; r < rows; r++ ) {
+			let stIdx = r*cols+r;
+			while ( orgV[stIdx] == 0 ) {
+				let canCalc = false;
+				for ( let t = r+1; t < rows; t++ ) {
+					switchRowPositionValues(orgV, cols, r, t);
+					if ( orgV[stIdx] != 0 ) {
+						canCalc = true;
+						break;
+					}
+				}
+				if ( !canCalc ) {
+					return;
+				}
+			}
+			let sv = orgV[stIdx];
+			let sIdx = r*cols;
+			for ( let c = 0; c < cols; c++ ) {
+				orgV[sIdx+c] /= sv;
+				inverseV[sIdx+c] /= sv;
+			}
+			for ( let t = r+1; t < rows; t++ ) {
+				let tIdx = t*cols;
+				sv = orgV[tIdx+r];
+				for ( let c = 0; c < cols; c++ ) {
+					orgV[tIdx+c] -= (sv*orgV[sIdx+c]);
+					inverseV[tIdx+c] -= (sv*inverseV[sIdx+c]);;
+				}
+			}
+		}
+
+		for ( let r = rows-1; r > 0; r-- ) {
+			let sIdx = r*cols;
+			for ( let t = r-1; t >= 0; t-- ) {
+				let tIdx = t*cols;
+				let sv = orgV[tIdx+r];
+
+				for ( let c = 0; c < cols; c++ ) {
+					orgV[tIdx+c] -= ( sv * orgV[sIdx+c]);
+					inverseV[tIdx+c] -= (sv*inverseV[sIdx+c]);
+				}
+			}
+		}
+		return inverseV;
+	};
+
+
+    export const printArrayValues = ( mat, roundValue ) => {
         let ts = "";
         if ( !mat ) 
             return ts;
@@ -410,9 +559,12 @@
             }
             return ts;
         }
+        if ( !roundValue ) {
+            roundValue = 1000000.0;
+        }
         for ( let i = 0; i < rows; i++ ) {
             for ( let j = 0; j < cols; j++ ) {
-                ts += "\t" + mat[i*cols+j];
+                ts += "\t" + Math.round(mat[i*cols+j]*roundValue)/roundValue;
             }
             ts += "\n";
         }
@@ -433,7 +585,7 @@
         result.rows = 4;
         result.cols = 4;
         return result;
-	}
+	};
 
 	export const makeRotateYMatrix3D = ( theta ) => {
 		let sv = Math.sin(theta);
@@ -522,6 +674,32 @@
         return result;
     };
 
+    export const makeCameraInverseMatrix3D = ( eye, at, up ) => {
+        //  z 축의 방향 at 에서 eye 방향으로 설정
+        let nObj = makeNormalizeVector( makeVectorMinusValues(eye,at) );
+
+        //  n(z) vector 에서 up 으로 진행 u(x) vector 를 구함 cross product 는 두 벡터 평면에 수직
+        let uObj = makeNormalizeVector( makeVectorCrossProductValues(up, nObj));
+
+        //  u(x) 에서 n(z) 축 방향으로 cross product v(y) 방향 vector 를 구함
+        //  이미 normalize 된 수직인 두 벡터의 cross product 결과는 normalize 된 벡터 
+        let vObj = makeVectorCrossProductValues(nObj,uObj);
+
+        //  world 공간의 원점을 통합하기 위해서 translate 이후 rotation 진행
+        //  translate 는 eye 값을 -부호 붙이값 
+        //  rotation 은 u, v, n 의 transpose 값으로 얻음
+        const rotate = new Float32Array([
+            uObj[0], vObj[0], nObj[0], eye[0],
+            uObj[1], vObj[1], nObj[1], eye[1],
+            uObj[2], vObj[2], nObj[2], eye[2],
+            0, 0, 0, 1            
+        ]);
+        rotate.rows = 4;
+        rotate.cols = 4;
+        return rotate;
+    };
+
+
 
 	function lookupCameraMatrix(eye,at,up) {
 		let nObj = makeMinusVectors(eye,at);
@@ -576,6 +754,134 @@
             reflectDir = makeVectorPlusValues(reflectDir, lightDir);
         }
         return reflectDir;
+    };
+
+   
+    /**
+     * 
+     * @param {*} screenX : canvas base offsetX 0 ~ width ( left to right)
+     * @param {*} screenY : canvas base offsetY 0 ~ height ( top to bottom )
+     * @param {*} width : fullWidth
+     * @param {*} height : fullHeight 
+     * @param {*} fovy : radian value
+     * @param {*} near : projection matrix 의 가까운 지점 
+     * @param {*} eye : camera eye pos
+     * @param {*} at : camera target pos
+     * @param {*} up : camera 기울기 방향
+     */
+    export const makeRayTracingViewPosValues = ( screenX,screenY,width,height, fovy, near, eye, at, up ) => {
+        const cv = cot(fovy/2);
+        const aspect = width/height;
+        const xc = (near/(cv/aspect))*(2*screenX/width - 1);
+        const yc = -(near/(cv))*(2*screenY/height - 1);
+
+        const viewInverseMatrix = makeCameraInverseMatrix3D(eye,at,up);        
+
+        const startPos = vec4(xc,yc,-near,1);
+        const startRay = vec4(xc/near,yc/near,-1,0); 
+
+        const viewPos = multiplyMatrix(viewInverseMatrix, startPos);
+        const viewRay = multiplyMatrix(viewInverseMatrix, startRay);        
+
+        return {
+            viewPos : viewPos,
+            viewRay : viewRay,
+        };
+    };
+
+    /**
+     * 
+     * @param {*} viewPosValues : viewPos, viewRay 
+     * @param {*} localWorldMatrix : object local world matrix
+     */
+    export const makeRayTracingLocalWorldPosValues = ( viewPosValues, localWorldMatrix ) => {
+
+        const worldInverseMatrix = makeInverseMatrix(localWorldMatrix);
+        const worldPos = multiplyMatrix(worldInverseMatrix, viewPosValues.viewPos);
+        const worldRay = multiplyMatrix(worldInverseMatrix, viewPosValues.viewRay);        
+
+        return {
+            worldPos : worldPos,
+            worldRay : worldRay,
+        };
+    };
+
+    export const traceRayInterceptionForSphere = (rayPos,rayDir,sphereCenter,sphereRadius) => {
+        /*
+        rx, ry, rz  = positions 상수
+        rdx, rdy, rdz  = directions 상수
+        x = t*rdx + rx , x^2 = t^2*rdx^2 + t*2*rx*rdx + rx^2 
+        y = t*rdy + ry , y^2 = t^2*rdy^2 + t*2*ry*rdy + ry^2         
+        z = t*rdz + rz , z^2 = t^2*rdz^2 + t*2*rz*rdz + rz^2
+
+        x^2 + y^2 + z^2     = t^2*rdx^2 + t*2*rx*rdx + rx^2 + t^2*rdy^2 + t*2*ry*rdy + ry^2  + t^2*rdz^2 + t*2*rz*rdz + rz^2
+                            = t^2*(rdx^2 + rdy^2 + rdz^2) + t*(2*rx*rdx + 2*ry*rdy + 2*rz*rdz) + rx^2 + ry^2 + rz^2
+        
+        cx, cy, cz = 구의 중심위치 대부분 0이나, 0이 아닌 경우 계산이 필요함 상수
+        r = 반지름 상수
+        (x-cx)^2 + (y-cy)^2 + (z-cy)^2 = r^2
+        cx = cy = cz = 0 일 경우 계산이 단순함 but 일단 다 풀어 써봄 ...  
+
+        -2*x*cx = t*rdx*cx*-2 + rx*cx * -2
+        -2*y*cy = t*rdy*cy*-2 + ry*cy * -2        
+        -2*z*cz = t*rdz*cz*-2 + rz*cz * -2        
+        -2*x*cx + -2*y*cy + -2*z*cz = t * ( rdx*cx*-2 + rdy*cy*-2 + rdz*cz*-2) + rx*cx * -2 +  ry*cy * -2 +  rz*cz * -2  
+
+        x^2 - 2*x * cx + cx^2 + y^2 - 2*y * cy + cy^2 + z^2 - 2*z * cz + cz^2 = r^2 
+        x^2 + y^2 + z^2 + (-2*x * cx +  -2*y * cy + -2*z * cz ) + cx^2 + cy^2 + cz^2 = r^2 
+
+        t^2*(rdx^2 + rdy^2 + rdz^2) + t*(2*rx*rdx + 2*ry*rdy + 2*rz*rdz + rdx*cx*-2 + rdy*cy*-2 + rdz*cz*-2) + rx^2 + ry^2 + rz^2 + rx*cx * -2 +  ry*cy * -2 +  rz*cz * -2 - r^2 = 0
+        
+        a = rdx^2 + rdy^2 + rdz^2 
+        b = 2*rx*rdx + 2*ry*rdy + 2*rz*rdz + rdx*cx*-2 + rdy*cy*-2 + rdz*cz*-2
+        c = rx^2 + ry^2 + rz^2 + rx*cx * -2 +  ry*cy * -2 +  rz*cz * -2 + cx^2 + cy^2 + cz^2 - r^2
+        t = (-b + Math.sqrt(b^2-4*a*c))/2*a
+        t = (-b - Math.sqrt(b^2-4*a*c))/2*a
+        */
+
+        const a = rayDir[0]*rayDir[0] + rayDir[1]*rayDir[1] + rayDir[2]*rayDir[2]; 
+        const b = 2*(rayDir[0]*rayPos[0]+rayDir[1]*rayPos[1] + rayDir[2]*rayPos[2] - rayDir[0]*sphereCenter[0]-rayDir[1]*sphereCenter[1] - rayDir[2]*sphereCenter[2]);
+        const c = rayPos[0]*rayPos[0] + rayPos[1]*rayPos[1] + rayPos[2]*rayPos[2] - 2 * ( rayPos[0]*sphereCenter[0] + rayPos[1]*sphereCenter[1] + rayPos[2]*sphereCenter[2]) 
+            + sphereCenter[0]*sphereCenter[0] + sphereCenter[1]*sphereCenter[1] + sphereCenter[2]*sphereCenter[2] - sphereRadius*sphereRadius;
+
+        const oc = makeVectorMinusValues(rayPos,sphereCenter);
+
+        const a1 = makeDotProductVectors(rayDir,rayDir); 
+        const b1 = 2*makeDotProductVectors(rayDir,oc);
+        const c1 = makeDotProductVectors(oc,oc) - sphereRadius*sphereRadius;
+
+        const rd = 10000;
+
+        alert ( Math.round(a*10000)/10000 + " : " + Math.round(a1*rd)/rd + "\n" + Math.round(b*rd)/rd + " : " + Math.round(b1*rd)/rd 
+            + "\n" + Math.round(c*rd)/rd + " : " + Math.round(c1*rd)/rd);
+
+        if ( (b*b - 4*a*c) < 0 ) {
+            return undefined;
+        }
+
+        const hitDis01 = (-b + Math.sqrt(b^2-4*a*c))/2*a;
+        const hitDis02 = (-b - Math.sqrt(b^2-4*a*c))/2*a;
+
+        const hitPos01 = vec3(0,0,0);
+        const hitPos02 = vec3(0,0,0);        
+
+        for ( let i = 0; i < 3; i++ ) {
+            hitPos01[i] = rayPos[i] + hitDis01*rayDir[i];
+            hitPos02[i] = rayPos[i] + hitDis02*rayDir[i];
+        }
+
+        let flag = false;
+        if ( hitDis01 < hitDis02 )
+            flag = true;
+        else 
+            flag = false;
+
+        return {
+            minHit : flag ? hitDis01 : hitDis02,
+            maxHit : flag ? hitDis02 : hitDis01,
+            minHitPos : flag ? hitPos01 : hitPos02,
+            maxHitPos : flag ? hitPos02 : hitPos01,            
+        };
     };
 
 

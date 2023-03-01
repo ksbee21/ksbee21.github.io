@@ -18,6 +18,7 @@
         import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
         import * as GLUtils from '../../js/GLUtils.js';
         import * as GLDataUtils from '../../js/GLDataUtils.js';
+        import * as CanvasUtils from '../../js/CanvasUtils.js';
 
         const mouseEventObj = {
             mouseX : -1, 
@@ -228,7 +229,9 @@
         }
 
         function main() {
-            const canvas = GLUtils.makeCanvasObject("myCanvas");
+            //const canvas = GLUtils.makeCanvasObject("myCanvas");
+
+            const canvas = CanvasUtils.makeCanvasObject("myCanvas", undefined, 1024, 768);
             const gl = GLUtils.makeWebGL(canvas);
 
             if ( !gl ) {
@@ -316,6 +319,7 @@
             const gItem = new GLDataUtils.GLItem("itemID");
             gItem.initResource( gl, program, attributeArray, uniformArray, indexInfos, textureInfos, "worldMatrix");
             gItem.setLocalMatrix( TypedMatrixUtils.makeTranslateMatrix3D(2,2, -2));
+            gItem.setDisplayType(3);
             gItem.setObjectColorIDInfos(uColorID, 1);
             shapeObjects.set(1, gItem);
 
@@ -323,6 +327,7 @@
             gItem02.initResource( gl, program, attributeArray, uniformArray, indexInfos, textureInfos02, "worldMatrix");
             gItem02.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0,-8), TypedMatrixUtils.makeScaleMatrix3D(2,2,2)));
             gItem02.setObjectColorIDInfos(uColorID, 2);
+            gItem02.setDisplayType(3);
             shapeObjects.set(2, gItem02);
 
             gItem02.makeRotateAnimations(3,0.02,-1);
@@ -358,6 +363,7 @@
             const planeIndexInfos = { data : new Uint32Array(pData.indices), indexSize : pData.indices.length , indexType :  gl.UNSIGNED_INT, offset:0};
             planeItem.initResource( gl, program, planeAttributeArray, uniformArray, planeIndexInfos, textureInfos03, "worldMatrix");      
             planeItem.setObjectColorIDInfos(uColorID, 3);
+            planeItem.setDisplayType(3);
             shapeObjects.set(3, planeItem);
 
             planeItem.setLocalMatrix( TypedMatrixUtils.multiplyMatrix(TypedMatrixUtils.makeTranslateMatrix3D(0,0, -20), TypedMatrixUtils.makeScaleMatrix3D(20,20,20)) );
@@ -379,6 +385,8 @@
                 mouseEventObj.mouseX = e.offsetX;
                 mouseEventObj.mouseY = e.offsetY;
                 mouseEventObj.isMouseDown = true;
+
+                console.log ( e.offsetX , e.offsetY, e);
             }, false);
         }
 

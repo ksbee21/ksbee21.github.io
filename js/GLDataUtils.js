@@ -173,7 +173,7 @@ export class GLItem {
         this.uColorIDValues = undefined;
 
         //  Temp ...  uDisplayType
-        this.displayType    = 3;
+        this.displayType    = 0;
     };
 
     initResource = (gl, program, attributeArray, uniformArray, indexInfos, textureInfos, userWorldName  ) => {

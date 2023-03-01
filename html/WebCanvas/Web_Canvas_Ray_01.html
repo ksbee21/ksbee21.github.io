@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+    <textarea id="messageTxt" style="width:1024px;height:800px;" readonly></textarea>
+
+    <script type="module">
+        import * as CanvasUtils from '../../js/CanvasUtils.js';
+        import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
+
+        const printValues = ( data ) => {
+            let str = "";
+            if ( data && data.length <= 4 ) {
+                for ( let i = 0; i < data.length; i++ ) {
+                    str += "\t" + Math.round(data[i]*10000)/10000;
+                }
+                str +="\n";
+            } else {
+                str = TypedMatrixUtils.printArrayValues(data);
+            }
+            return str;
+        }
+
+        const canvasWidth = 1024;
+        const canvasHeight = 768;
+
+        let eye = [0.0, -15.0, 10.0];
+        let at = [0.0, 0.0, -20.0];
+        let up = [0.0, 1.0, 0.0];
+
+        const near = 0.1;
+        const par  = 1000;
+        const fovy = 90*Math.PI/180;
+        const aspect = canvasWidth/canvasHeight;
+        const cv = 1.0/Math.tan(fovy/2);
+        
+        const orgPos = TypedMatrixUtils.vec4(0,0,0,1);
+
+        const worldMatrix = TypedMatrixUtils.makeTranslateMatrix3D(2,2, -2);
+        const worldInverseMatrix = TypedMatrixUtils.makeInverseMatrix(worldMatrix);
+
+        //  view
+        const viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
+        const viewInverseMatrix = TypedMatrixUtils.makeCameraInverseMatrix3D(eye,at,up);
+        const verifyMatrix = TypedMatrixUtils.makeInverseMatrix(viewMatrix);
+
+        const projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(fovy, aspect, near, par);
+        const projInverseMatrix = TypedMatrixUtils.makeInverseMatrix(projectionMatrix);
+
+
+        const wPos = TypedMatrixUtils.multiplyMatrix(worldMatrix, orgPos);
+        const vPos = TypedMatrixUtils.multiplyMatrix(viewMatrix, wPos);
+        const pPos = TypedMatrixUtils.multiplyMatrix(projectionMatrix, vPos);
+        for ( let i = 0; i < 4; i++ ) {
+            pPos[i] /= pPos[3];
+        }
+
+        const vStr01 = ( (553.885*2/canvasWidth-1) + ", " + (1-177.951*2/canvasHeight) ); 
+
+        const screenX = canvasWidth/2 * ( 1 + (pPos[0]));
+        const screenY = (1-pPos[1])/2*canvasHeight;
+
+        let xc = (near/(cv/aspect))*(2*screenX/canvasWidth - 1);
+        let yc = -(near/(cv))*(2*screenY/canvasHeight - 1);
+
+        const startPos = TypedMatrixUtils.vec4(xc,yc,-near,1);
+        const startRay = TypedMatrixUtils.vec4(xc/near,yc/near,-1,0); 
+
+        let verifyPosNum = TypedMatrixUtils.vec4(pPos[0], pPos[1], -1, 1);
+        verifyPosNum = TypedMatrixUtils.multiplyMatrix(projInverseMatrix, verifyPosNum);
+
+        const viewPos = TypedMatrixUtils.multiplyMatrix(viewInverseMatrix, startPos);
+        const viewRay = TypedMatrixUtils.multiplyMatrix(viewInverseMatrix, startRay);        
+
+        const worldPos = TypedMatrixUtils.multiplyMatrix(worldInverseMatrix, viewPos);
+        const worldRay = TypedMatrixUtils.multiplyMatrix(worldInverseMatrix, viewRay);        
+
+        const messageObj = document.querySelector("#messageTxt");
+
+        const vNum = worldPos[0]/worldRay[0];
+        const vvPos = TypedMatrixUtils.vec3( worldRay[0]*vNum, worldRay[1]*vNum, worldRay[2]*vNum);
+
+        const viewObj = TypedMatrixUtils.makeRayTracingViewPosValues ( screenX,screenY,canvasWidth,canvasHeight, fovy, near, eye, at, up );
+        const worldObj = TypedMatrixUtils.makeRayTracingLocalWorldPosValues( viewObj, worldMatrix );
+
+        const vNum02 = -worldObj.worldPos[0]/worldObj.worldRay[0];
+        const vvvPos = TypedMatrixUtils.vec3( worldObj.worldRay[0]*vNum02, worldObj.worldRay[1]*vNum02, worldObj.worldRay[2]*vNum02);
+
+        const rayPos = TypedMatrixUtils.makeVec3(worldObj.worldPos); 
+        const rayDir = TypedMatrixUtils.makeVec3(worldObj.worldRay);       
+        const center = TypedMatrixUtils.vec3(0.0,0.0,0.0) ;
+        const radius = 1.0;
+
+        const hitObj = TypedMatrixUtils.traceRayInterceptionForSphere(rayPos, rayDir, center, radius);
+
+
+        let messageStr = "Final Pos : " + screenX + "," + screenY 
+            + "\t   ==>> " + printValues(pPos)
+            + "kkkkk : " + vStr01 + "\n\n"
+            + "START POS : " + printValues(startPos) + " ==>> " + printValues(verifyPosNum)
+            + "START RAY : " + printValues(startRay)    
+            + "VIEW POS : " + printValues(viewPos) 
+            + "VIEW RAY : " + printValues(viewRay)    
+            + "WORLD POS : " + printValues(worldPos) 
+            + "WORLD RAY : " + printValues(worldRay)    
+
+            + "TEST : " + printValues(vvPos)
+            + "VERIFY : " + printValues(viewObj.viewPos)
+            + "VERIFY : " + printValues(viewObj.viewRay)            
+            + "VERIFY : " + printValues(worldObj.worldPos)
+            + "VERIFY : " + printValues(worldObj.worldRay)    
+            + vNum + " ::: " + vNum02 + " ==>> " +  "TEST : " + printValues(vvvPos) + "\n"
+            + hitObj.minHit + " , " + hitObj.maxHit + "\n"
+            + printValues(hitObj.minHitPos)
+            + printValues(hitObj.maxHitPos)            
+
+            ;
+
+        messageObj.value = messageStr;
+
+
+        let vrData = new Float32Array([1,1,0,1]);
+        vrData.rows = 4;
+        vrData.cols = 1;
+
+        for ( let i = 0; i < 4; i++ ) {
+            pPos[i] /= pPos[3];
+        }
+        //alert ( TypedMatrixUtils.printArrayValues(pPos));
+        let vrPos = TypedMatrixUtils.multiplyMatrix(projectionMatrix, vrData);
+
+        let ppPos = new Float32Array([pPos[0], pPos[1], -1.0, 0.0]);
+        ppPos.rows = 4;
+        ppPos.cols = 1;
+
+
+
+        let ivPos = TypedMatrixUtils.multiplyMatrix(projInverseMatrix, pPos);
+        //ivPos[2] = -1.0;
+        //ivPos[3] = 0.0;
+        //alert ( TypedMatrixUtils.printArrayValues(ivPos));
+        let iwPos = TypedMatrixUtils.multiplyMatrix(viewInverseMatrix, ivPos);
+        //alert ( TypedMatrixUtils.printArrayValues(iwPos));
+        let iwwPos = TypedMatrixUtils.makeNormalizeVector(new Float32Array([iwPos[0], iwPos[1], iwPos[2]]));
+        iwwPos.rows = 3;
+        iwwPos.cols = 1;
+
+        //alert ( TypedMatrixUtils.printArrayValues(iwwPos));
+
+        for ( let i = 0; i < 3; i++ ) {
+            //iwPos[i] = iwwPos[i];
+        }
+
+        //iwPos[3] = 1;
+        let ipPos = TypedMatrixUtils.multiplyMatrix(worldInverseMatrix, iwPos);
+
+        for ( let i = 0; i < 4; i++ ) {
+            ipPos[i] /= ipPos[3];
+
+            //vrPos[i] /= vrPos[3];
+        }
+
+
+       //alert ( TypedMatrixUtils.printArrayValues(pPos) + "\n==\n" +  TypedMatrixUtils.printArrayValues(ipPos) +"\n8888888888\n" + TypedMatrixUtils.printArrayValues(vrPos) );
+
+        let cx = canvasWidth/2;
+        let cy = canvasHeight/2;
+
+        let ppx = pPos[0] * cx + cx ;
+        let ppy = cy - (pPos[1] * cy);
+        //alert ( "AAA : " + TypedMatrixUtils.printArrayValues(ppPos));
+        //alert ( pPos[0] + ", "  + pPos[1] + " ==>>  " + ppx + " , " + ppy );
+
+
+        let m00 = cv/aspect;
+        let m01 = cv;
+
+        let pppx = 1/m00 * ((2*ppx/canvasWidth) - 1);
+        let pppy = 1/m01*((2*ppy/canvasHeight) - 1);
+
+        //alert ( pppx + ", " + pppy + "\n" + pPos[0] + " , " + pPos[1]);
+
+
+
+        //alert (  TypedMatrixUtils.printArrayValues(ipPos) );
+
+    </script>
+    
+</body>
+</html>

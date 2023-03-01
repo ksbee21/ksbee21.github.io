@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebGL 물체 선택 ( Picking Ray - Tracing 정리 )">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Program 시작 09 - Object Picking 02 - [ 13 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ksbee21.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://ksbee21.github.io/css/main.css">
+    
+  
+  
+    
+        <script src="https://ksbee21.github.io/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Program 시작 09 - Object Picking 02 - [ 13 ]</h1>
+  <h2>WebGL 물체 선택 ( Picking Ray - Tracing 정리 )</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 03. 01, 19:50</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/programming">Programming</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/math">Math</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <p>사용자가 선택한 위치의 Pixel 정보를 기반으로 구성하고 있는 물체를 식별하는 방법은 구성의 단순함 측면에서, 구현의 편리성 측면에서 좋은 방법 같습니다. <br>
+이런 방법외에 사용할 수 있는 방법이 마우스가 클릭한 위치에서 광선을 만들어 해당 위치에 물체가 있는지, 있다면 어느 물체가 가까운지 찾아서 물체를 선택하는 방법이 있습니다. <br>
+다소 복잡한 연산을 통해 물체를 찾는 방법이지만, 광선을 추적하는 기본 알고리즘을 정리할 수 있는 부분이라, 간단히 정리해 보고자 합니다. <br>
+실제 WebGL로 구현하는 것 보다는 추적하는 과정을 예제로 구성하여 추적해 보려고 합니다.   Sphere(구) 와의 충돌 정도까지 정리하고자 합니다.</p>
+<h1 id="위치변환-과정">위치변환 과정</h1>
+<h3 id="canvas-좌표-screen-">Canvas 좌표( Screen )</h3>
+<p>이전 예제에서 사용하던 좌표를 가지고 하나씩 확인해 보고자 합니다. <br>
+canvas 의 좌표는 왼쪽 상단을 기준으로 0,0 에서 우측 하단으로 width, height 의 값으로 진행됩니다. <br>
+어떤 좌표를 mouse 로 클릭하게 되면 위치는 (event.offsetX, event.offsetY) 값으로 가져올 수 있는데 이 값은 위 좌표 표면에서의 값입니다. <br>
+canvas 의 width 가 1024, height 가 768 일때 사용자의 mouse click 위치가 554(553.8853&hellip;), 178(177.9512&hellip;) 라면 대략 중심에서 조금 오른쪽 상단 중간
+정도를 클릭한 위치일 것입니다.   좌표계 마다 중심점과 시작 종료 지점을 확인하는게 중요한데 일단 사용한 스크린은 2차원이고, 
+가로로 0 ~ 1024 의 왼쪽에서 오른쪽 진행이고, 세로로 0 ~ 768 의 위에서 아래의 진행방향입니다.</p>
+<h3 id="ndc-clip-공간에서의-좌표">NDC (Clip 공간에서의 좌표)</h3>
+<p>사각형 상자를 연상하면 좋을 것 같습니다.  x 는 왼쪽에서 오른쪽을 -1 ~ 1, y 는 아래에서 위로 -1 ~ 1 이고 깊이는 앞에서 뒤로 -1 ~ 1 의 네모난 상자를 연상하면 
+유사한 모양이 될 것 같습니다.<br>
+앞서의 좌표에서 NDC 좌표로 변환하려면 대략 다음과 같은 변환이 필요합니다.<br>
+x 좌표는 screenX * 2 / canvasWidth -1, y 좌표는 1-screenY<em>2/canvasHeight 이고, z은 시작점이니 -1 로 주어 집니다.<br>
+위의 값으로 대략 구성하면 x = (553.885</em>2/1024-1) = 0.0818&hellip;  y = (1-177.951*2/768) = 0.5366&hellip; 정도의 값이 나옵니다.   이 좌표가 NDC 에 표기되는 x, y 좌표입니다. <br>
+그런데 이 좌표는 원래 Projection 에 의해서 -1~1 사이의 좌표로 변환된 것이고 , 이것에 관여한 부분이 Projection Matrix 였습니다.</p>
+<h3 id="camera-space--view-space-">Camera Space ( View Space )</h3>
+<p>앞서 Object Picking 에 사용하였던 Projection 을 잠시 다시 확인해 보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">near</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">par</span>  <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fovy</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span><span style="color:#f92672">*</span>Math.<span style="color:#a6e22e">PI</span><span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aspect</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasWidth</span><span style="color:#f92672">/</span><span style="color:#a6e22e">canvasHeight</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>Math.<span style="color:#a6e22e">tan</span>(<span style="color:#a6e22e">fovy</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">projectionMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makePerspectiveMatrix</span>(<span style="color:#a6e22e">fovy</span>, <span style="color:#a6e22e">aspect</span>, <span style="color:#a6e22e">near</span>, <span style="color:#a6e22e">par</span>);
+</span></span></code></pre></div><p>NDC 에서 구성된 좌표를 프로젝션이 적용되기전 Camera 공간의 좌표로 옮겨가기 위해서는 위에서 사용한 projection Matrix 의 inverse matrix 를 활용하면 
+camera 공간의 위치로 환원할 수 있습니다. <br>
+대략 그렇게 구성한 위치가 x = 0.1091&hellip;, y = 0.5366&hellip; 정도 입니다.  카메라 공간에서는 Z 의 방향이 -Z 축을 바라보도록 구성하였기 때문에 
+Ray 의 시작점은 (0.1091, 0.5366,-1,1 ) 이고, 방향은  (0.1091, 0.5366,-1, 0 ) 입니다.  <br>
+위와 같은 방식으로 구성하여도 되지만, 다른 방법으로 스크린 좌표에서 직접 카메라 공간까지 오는 방법은 다음과 같은 방식도 가능합니다.<br>
+한정현님의 유튜브 강의에서 제시한 방법으로 스크린으로 부터 직접 View 공간으로 가져오는 방법입니다.<br>
+강의 에서는 y 좌표가 아래에서 위로 올라가는 방향인데, web canvas 좌표는 위에서 아래로 가능 방향이라 부호를 뒤집어 붙인 부분만 차이가 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>Math.<span style="color:#a6e22e">tan</span>(<span style="color:#a6e22e">fovy</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aspect</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">/</span><span style="color:#a6e22e">height</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xc</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">near</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">cv</span><span style="color:#f92672">/</span><span style="color:#a6e22e">aspect</span>))<span style="color:#f92672">*</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">screenX</span><span style="color:#f92672">/</span><span style="color:#a6e22e">width</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">yc</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>(<span style="color:#a6e22e">near</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">cv</span>))<span style="color:#f92672">*</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">screenY</span><span style="color:#f92672">/</span><span style="color:#a6e22e">height</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">startPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vec4</span>(<span style="color:#a6e22e">xc</span>,<span style="color:#a6e22e">yc</span>,<span style="color:#f92672">-</span><span style="color:#a6e22e">near</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">startRay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vec4</span>(<span style="color:#a6e22e">xc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">near</span>,<span style="color:#a6e22e">yc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">near</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>); 
+</span></span></code></pre></div><p>이런 방법으로 구성한 Ray 는 시작점이 ( 0.0109, 0.0537, -0.1, 1) 이고, 방향은  (0.1091, 0.5366,-1, 0 )  로 위와 동일합니다.   -near 위치로 구성되어 있어서 
+그 값만 보정하면 위의 위치값과 동일한 값을 가르키게 됩니다.</p>
+<h3 id="world-공간">World 공간</h3>
+<p>카메라 공간에서 바라보는 위치에서 물체가 처음 놓인 위치로(각 Object 마다 배치된) 변환해서 보기 위해서는 Camera matrix 의 역변환이 필요합니다. <br>
+카메라 Matrix 의 inverse를 계산에 의해서 구성할 수도 있으나, 처음 카메라 공간을 만드는 Matrix 를 구성하는 과정이, translation 후 rotation 을 하였고, 
+rotation 이 u,v, n을 구한것을 transpose( 역변환 역활) 해서 적용하였고,  eye 를 역으로 만들어 translate 를 수행하였습니다.   그렇기 때문에 ratation 의 역변환, 
+후 translation 의 역변환을 적용하면, 역변환 Matrix 를 손쉽게 구할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeCameraInverseMatrix3D</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">eye</span>, <span style="color:#a6e22e">at</span>, <span style="color:#a6e22e">up</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  z 축의 방향 at 에서 eye 방향으로 설정
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">nObj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeNormalizeVector</span>( <span style="color:#a6e22e">makeVectorMinusValues</span>(<span style="color:#a6e22e">eye</span>,<span style="color:#a6e22e">at</span>) );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  n(z) vector 에서 up 으로 진행 u(x) vector 를 구함 cross product 는 두 벡터 평면에 수직
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">uObj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeNormalizeVector</span>( <span style="color:#a6e22e">makeVectorCrossProductValues</span>(<span style="color:#a6e22e">up</span>, <span style="color:#a6e22e">nObj</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  u(x) 에서 n(z) 축 방향으로 cross product v(y) 방향 vector 를 구함
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//  이미 normalize 된 수직인 두 벡터의 cross product 결과는 normalize 된 벡터 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">vObj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeVectorCrossProductValues</span>(<span style="color:#a6e22e">nObj</span>,<span style="color:#a6e22e">uObj</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  world 공간의 원점을 통합하기 위해서 translate 이후 rotation 진행 =&gt; rotation 후 translation 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//  translate 는 eye 값을 -부호 붙이값 - 다시 환원
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#75715e">//  rotation 은 u, v, n 의 transpose 값으로 얻음 - 다시환원
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rotate</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">uObj</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">vObj</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">nObj</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">eye</span>[<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">uObj</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">vObj</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">nObj</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">eye</span>[<span style="color:#ae81ff">1</span>],
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">uObj</span>[<span style="color:#ae81ff">2</span>], <span style="color:#a6e22e">vObj</span>[<span style="color:#ae81ff">2</span>], <span style="color:#a6e22e">nObj</span>[<span style="color:#ae81ff">2</span>], <span style="color:#a6e22e">eye</span>[<span style="color:#ae81ff">2</span>],
+</span></span><span style="display:flex;"><span>             <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>            
+</span></span><span style="display:flex;"><span>         ]);
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">rotate</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">rotate</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rotate</span>;
+</span></span><span style="display:flex;"><span>     };
+</span></span></code></pre></div><p>이렇게 구성된 값으로 world 공간에서의 시작점과, 방향을 구성해 보면 대략  위치 (0.0109, -14.9073, 9.9346, 1), 방향 ( 0.1091, 0.9272, -0.6545, 0) 값을 얻게 됩니다. 
+이 값을 각 구성한 object 의 local world space 의 역변환을 구성하면, 각 object 의 광선을 구성할 수 있습니다.<br>
+object 별로 ray 가 구성되고, 그 ray 와 충돌을 확인하면 사용자가 선택한 위치에 해당 object 가 존재하는지 여부를 확인할 수 있습니다.<br>
+screen 공간에서 view 공간을 통해 현재 world 공간으로 전환하는 함수 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} screenX : canvas base offsetX 0 ~ width ( left to right)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} screenY : canvas base offsetY 0 ~ height ( top to bottom )
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} width : fullWidth
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} height : fullHeight 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} fovy : radian value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} near : projection matrix 의 가까운 지점 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} eye : camera eye pos
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} at : camera target pos
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} up : camera 기울기 방향
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      */</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeRayTracingViewPosValues</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">screenX</span>,<span style="color:#a6e22e">screenY</span>,<span style="color:#a6e22e">width</span>,<span style="color:#a6e22e">height</span>, <span style="color:#a6e22e">fovy</span>, <span style="color:#a6e22e">near</span>, <span style="color:#a6e22e">eye</span>, <span style="color:#a6e22e">at</span>, <span style="color:#a6e22e">up</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cot</span>(<span style="color:#a6e22e">fovy</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aspect</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">/</span><span style="color:#a6e22e">height</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xc</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">near</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">cv</span><span style="color:#f92672">/</span><span style="color:#a6e22e">aspect</span>))<span style="color:#f92672">*</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">screenX</span><span style="color:#f92672">/</span><span style="color:#a6e22e">width</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">yc</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>(<span style="color:#a6e22e">near</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">cv</span>))<span style="color:#f92672">*</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">screenY</span><span style="color:#f92672">/</span><span style="color:#a6e22e">height</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewInverseMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeCameraInverseMatrix3D</span>(<span style="color:#a6e22e">eye</span>,<span style="color:#a6e22e">at</span>,<span style="color:#a6e22e">up</span>);        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">startPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vec4</span>(<span style="color:#a6e22e">xc</span>,<span style="color:#a6e22e">yc</span>,<span style="color:#f92672">-</span><span style="color:#a6e22e">near</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">startRay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vec4</span>(<span style="color:#a6e22e">xc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">near</span>,<span style="color:#a6e22e">yc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">near</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>); 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">viewInverseMatrix</span>, <span style="color:#a6e22e">startPos</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewRay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">viewInverseMatrix</span>, <span style="color:#a6e22e">startRay</span>);        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">viewPos</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">viewPos</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">viewRay</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">viewRay</span>,
+</span></span><span style="display:flex;"><span>         };
+</span></span><span style="display:flex;"><span>     };
+</span></span></code></pre></div><h3 id="local-object-space">Local Object Space</h3>
+<p>앞선 예제에서 움직이는 사각형의 시작은 [2,2,-2] 의 좌표 공간에서 시작하였습니다.    해당 좌표의 육면체는 object 공간에서 -1~1 사이의 값을 지니는데 
+그냥 [0,0,0] 좌표라고 할수도 있습니다.<br>
+scale 을 변환시키지 않았다면, 고유한 local world 공간에서의 Matrix 는 trasnlation 을 적용한 위치 입니다.  그 위치를 역변환 하여 위의 위치와 방향에 적용하면 
+위치는 (-1.9891, -16.9073, 11.9346, 1) 이고 방향은 ( 0.1091, 0.9272, -0.6545, 0) 입니다. <br>
+위치 + t * 방향 이 0,0,0,0 이 되게 하려면, 거리인 t 가 18.235756&hellip; 이면 원점에 도달하게 됩니다.   해당 위치에 물체가 있다는 것이지요 &hellip;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} viewPosValues : viewPos, viewRay 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * @param {*} localWorldMatrix : object local world matrix
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      */</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeRayTracingLocalWorldPosValues</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">viewPosValues</span>, <span style="color:#a6e22e">localWorldMatrix</span> ) =&gt; {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldInverseMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeInverseMatrix</span>(<span style="color:#a6e22e">localWorldMatrix</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldInverseMatrix</span>, <span style="color:#a6e22e">viewPosValues</span>.<span style="color:#a6e22e">viewPos</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldRay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldInverseMatrix</span>, <span style="color:#a6e22e">viewPosValues</span>.<span style="color:#a6e22e">viewRay</span>);        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">worldPos</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">worldPos</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">worldRay</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">worldRay</span>,
+</span></span><span style="display:flex;"><span>         };
+</span></span><span style="display:flex;"><span>     };
+</span></span></code></pre></div><p>사실 위의 놓인 값은 예제에서 처음 시작한 위치를 계산하여 역으로 추적한 내용입니다. <br>
+소스를 보는게 어쩌면 더 이해가 빠를지 모르겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">canvasWidth</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">canvasHeight</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">768</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">eye</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">15.0</span>, <span style="color:#ae81ff">10.0</span>];
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">at</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">20.0</span>];
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">up</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">near</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">par</span>  <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fovy</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span><span style="color:#f92672">*</span>Math.<span style="color:#a6e22e">PI</span><span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aspect</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasWidth</span><span style="color:#f92672">/</span><span style="color:#a6e22e">canvasHeight</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>Math.<span style="color:#a6e22e">tan</span>(<span style="color:#a6e22e">fovy</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">orgPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">vec4</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeTranslateMatrix3D</span>(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldInverseMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeInverseMatrix</span>(<span style="color:#a6e22e">worldMatrix</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//  view
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeCameraMatrix3D</span>( <span style="color:#a6e22e">eye</span>, <span style="color:#a6e22e">at</span>, <span style="color:#a6e22e">up</span> );
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewInverseMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeCameraInverseMatrix3D</span>(<span style="color:#a6e22e">eye</span>,<span style="color:#a6e22e">at</span>,<span style="color:#a6e22e">up</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">projectionMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makePerspectiveMatrix</span>(<span style="color:#a6e22e">fovy</span>, <span style="color:#a6e22e">aspect</span>, <span style="color:#a6e22e">near</span>, <span style="color:#a6e22e">par</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">projInverseMatrix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeInverseMatrix</span>(<span style="color:#a6e22e">projectionMatrix</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">wPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldMatrix</span>, <span style="color:#a6e22e">orgPos</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">viewMatrix</span>, <span style="color:#a6e22e">wPos</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">projectionMatrix</span>, <span style="color:#a6e22e">vPos</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">pPos</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">/=</span> <span style="color:#a6e22e">pPos</span>[<span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">// mouse click points 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">screenX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvasWidth</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> ( <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">pPos</span>[<span style="color:#ae81ff">0</span>]));
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">screenY</span> <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">pPos</span>[<span style="color:#ae81ff">1</span>])<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">canvasHeight</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">xc</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">near</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">cv</span><span style="color:#f92672">/</span><span style="color:#a6e22e">aspect</span>))<span style="color:#f92672">*</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">screenX</span><span style="color:#f92672">/</span><span style="color:#a6e22e">canvasWidth</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">yc</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>(<span style="color:#a6e22e">near</span><span style="color:#f92672">/</span>(<span style="color:#a6e22e">cv</span>))<span style="color:#f92672">*</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">screenY</span><span style="color:#f92672">/</span><span style="color:#a6e22e">canvasHeight</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">startPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">vec4</span>(<span style="color:#a6e22e">xc</span>,<span style="color:#a6e22e">yc</span>,<span style="color:#f92672">-</span><span style="color:#a6e22e">near</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">startRay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">vec4</span>(<span style="color:#a6e22e">xc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">near</span>,<span style="color:#a6e22e">yc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">near</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>); 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">viewInverseMatrix</span>, <span style="color:#a6e22e">startPos</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewRay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">viewInverseMatrix</span>, <span style="color:#a6e22e">startRay</span>);        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldInverseMatrix</span>, <span style="color:#a6e22e">viewPos</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldRay</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">worldInverseMatrix</span>, <span style="color:#a6e22e">viewRay</span>);        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//  위의 과정을 두개의 함수로 처리함 ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">viewObj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRayTracingViewPosValues</span> ( <span style="color:#a6e22e">screenX</span>,<span style="color:#a6e22e">screenY</span>,<span style="color:#a6e22e">canvasWidth</span>,<span style="color:#a6e22e">canvasHeight</span>, <span style="color:#a6e22e">fovy</span>, <span style="color:#a6e22e">near</span>, <span style="color:#a6e22e">eye</span>, <span style="color:#a6e22e">at</span>, <span style="color:#a6e22e">up</span> );
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worldObj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRayTracingLocalWorldPosValues</span>( <span style="color:#a6e22e">viewObj</span>, <span style="color:#a6e22e">worldMatrix</span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rayPos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeVec3</span>(<span style="color:#a6e22e">worldObj</span>.<span style="color:#a6e22e">worldPos</span>); 
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rayDir</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeVec3</span>(<span style="color:#a6e22e">worldObj</span>.<span style="color:#a6e22e">worldRay</span>);       
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">center</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">vec3</span>(<span style="color:#ae81ff">0.0</span>,<span style="color:#ae81ff">0.0</span>,<span style="color:#ae81ff">0.0</span>) ;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">radius</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//  구와 충돌 여부 판정 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hitObj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">traceRayInterceptionForSphere</span>(<span style="color:#a6e22e">rayPos</span>, <span style="color:#a6e22e">rayDir</span>, <span style="color:#a6e22e">center</span>, <span style="color:#a6e22e">radius</span>);
+</span></span></code></pre></div><h3 id="sphere-line-충돌">Sphere Line 충돌</h3>
+<p>광선과 삼각형, 광선과 구는 조금더 정리가 필요할 것 같습니다.<br>
+대략 구와의 교점을 구하는 부분을 정리하면, 구의 방정식을 풀어서 정리하는 방법을 사용합니다. <br>
+( x - cx )^2 + ( y - cy ) ^2 + ( z -cz )^2 = r^2  의 식에서 x, y, z 은 위치, cx,cy, cz 은 중심위치, r 은 반지름 입니다. <br>
+해당 구안에 포함되어 있으려면 x,y,z 의 위치가 Ray x,y,z 으로 구성된 식이 x 에 관해서 ( rx + t * rdx ) 라는 식이 있다면 rx 는 시작위치, 
+t 는 진행 거리, rdx 는 x 축의 광선 방향 이 구 안에 있다면 교차점이 있는 것이고 없다면 교차 하지 않기 때문에 충돌하지 않는다로 판정합니다. <br>
+결국 거리인 t 를 기준으로 하는 방정식을 도출하면 t 에 관련한 2차 방정식이 나오고, 이는 근의 방정식으로 해를 구하게 됩니다.</p>
+<p>벡터 연산으로 계산하면 계산이 훨씬 간결해 지는데 유도 과정을 확인하려면 하나씩 풀어서 보는게 좋을 수도 있습니다. 
+대략 위의 연산과정을 통해 충돌여부를 판정하게 됩니다. <br>
+삼각형 충돌을 정리할 때 풀어서 정리해 봐야 할 것 같습니다. ^^</p>
+<h1 id="참고-사이트">참고 사이트</h1>
+<p>공개된 유튜브 강의 내용중 가장 많이 도움을 받은 사이트 입니다.</p>
+<h4 id="httpswwwyoutubecomwatchvc7la2tt_cochttpswwwyoutubecomwatchvc7la2tt_coc"><a href="https://www.youtube.com/watch?v=c7la2Tt_cOc">https://www.youtube.com/watch?v=c7la2Tt_cOc</a></h4>
+<p>낙서처럼 보이는 처음 화면이 거의 모든것을 이야기 해 주는 사이트 입니다.</p>
+<h4 id="httpsantongerdelannetopenglraycastinghtmlhttpsantongerdelannetopenglraycastinghtml"><a href="https://antongerdelan.net/opengl/raycasting.html">https://antongerdelan.net/opengl/raycasting.html</a></h4>
+<p>구와 직선의 교차에 대한 Wiki Site 입니다.</p>
+<h4 id="httpsenwikipediaorgwikilinee28093sphere_intersectionhttpsenwikipediaorgwikilinee28093sphere_intersection"><a href="https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection">https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection</a></h4>
+<p>WebGL(OpenGL) 이 아니고 유료강의지만, Ray Tracing에 관한 설명과 실습이 정말 잘되어 있는 Site 입니다. <br>
+그래픽스새싹1만 들었는데, 구성과 전달력에 감탄하며 들었던 사이트 입니다.    여력이 되면 나머지도 수강할 생각입니다. (^^)</p>
+<h4 id="httpshonglabcokrhttpshonglabcokr"><a href="https://honglab.co.kr/">https://honglab.co.kr/</a></h4>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_013_01%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_013_01%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_013_01%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_013_01%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_013_01%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_013_01%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ksbee21.github.io/post/crossplatformapp/cross_app_004/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ksbee21.github.io/post/crossplatformapp/cross_app_004/">QT PYQT  SWING JFX Layout 기초 2</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ksbee21.github.io/js/ui.js"></script>
+<script src="https://ksbee21.github.io/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+
+
+</body>
+</html>
+
