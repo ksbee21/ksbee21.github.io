@@ -260,14 +260,17 @@
 <h3 id="canvas-좌표-screen-">Canvas 좌표( Screen )</h3>
 <p>이전 예제에서 사용하던 좌표를 가지고 하나씩 확인해 보고자 합니다. <br>
 canvas 의 좌표는 왼쪽 상단을 기준으로 0,0 에서 우측 하단으로 width, height 의 값으로 진행됩니다. <br>
-어떤 좌표를 mouse 로 클릭하게 되면 위치는 (event.offsetX, event.offsetY) 값으로 가져올 수 있는데 이 값은 위 좌표 표면에서의 값입니다. <br>
+어떤 좌표를 mouse 로 클릭하게 되면 위치는 (event.offsetX, event.offsetY) 값으로 가져올 수 있는데 이 값은 위 좌표 표면에서의 값입니다. 
+( 해당 Canvas 가 다른 dom 객체의 하위 등으로 scroll 이 발생하는 등의 상황에서는 offset 정보 만으로 정확한 위치를 찾을 수 없습니다. ) <br>
 canvas 의 width 가 1024, height 가 768 일때 사용자의 mouse click 위치가 554(553.8853&hellip;), 178(177.9512&hellip;) 라면 대략 중심에서 조금 오른쪽 상단 중간
 정도를 클릭한 위치일 것입니다.   좌표계 마다 중심점과 시작 종료 지점을 확인하는게 중요한데 일단 사용한 스크린은 2차원이고, 
-가로로 0 ~ 1024 의 왼쪽에서 오른쪽 진행이고, 세로로 0 ~ 768 의 위에서 아래의 진행방향입니다.</p>
+가로로 0 ~ 1024 의 왼쪽에서 오른쪽 진행이고, 세로로 0 ~ 768 의 위에서 아래의 진행방향입니다. <br>
+이 지점을 클릭하였다고 가정하고 진행해 보겠습니다.</p>
 <h3 id="ndc-clip-공간에서의-좌표">NDC (Clip 공간에서의 좌표)</h3>
 <p>사각형 상자를 연상하면 좋을 것 같습니다.  x 는 왼쪽에서 오른쪽을 -1 ~ 1, y 는 아래에서 위로 -1 ~ 1 이고 깊이는 앞에서 뒤로 -1 ~ 1 의 네모난 상자를 연상하면 
-유사한 모양이 될 것 같습니다.<br>
-앞서의 좌표에서 NDC 좌표로 변환하려면 대략 다음과 같은 변환이 필요합니다.<br>
+유사한 모양이 될 것 같습니다.  이 공간은 이전의 예제에서 Projection Matrix 에 의해 변환된 공간이었습니다. 
+시야각 (fovy), 종횡비 (aspect), 가까운위치(near), 먼위치(far) 를 기준으로 구성한 Matrix 에 의해 구성된 공간 이었습니다. <br>
+먼저 Screen 에서의 좌표를 생각해 보겠습니다.   앞서 클릭한 마우스 위치를 screenX, screenY 라고 하면,<br>
 x 좌표는 screenX * 2 / canvasWidth -1, y 좌표는 1-screenY<em>2/canvasHeight 이고, z은 시작점이니 -1 로 주어 집니다.<br>
 위의 값으로 대략 구성하면 x = (553.885</em>2/1024-1) = 0.0818&hellip;  y = (1-177.951*2/768) = 0.5366&hellip; 정도의 값이 나옵니다.   이 좌표가 NDC 에 표기되는 x, y 좌표입니다. <br>
 그런데 이 좌표는 원래 Projection 에 의해서 -1~1 사이의 좌표로 변환된 것이고 , 이것에 관여한 부분이 Projection Matrix 였습니다.</p>
@@ -285,7 +288,8 @@ camera 공간의 위치로 환원할 수 있습니다. <br>
 대략 그렇게 구성한 위치가 x = 0.1091&hellip;, y = 0.5366&hellip; 정도 입니다.  카메라 공간에서는 Z 의 방향이 -Z 축을 바라보도록 구성하였기 때문에 
 Ray 의 시작점은 (0.1091, 0.5366,-1,1 ) 이고, 방향은  (0.1091, 0.5366,-1, 0 ) 입니다.  <br>
 위와 같은 방식으로 구성하여도 되지만, 다른 방법으로 스크린 좌표에서 직접 카메라 공간까지 오는 방법은 다음과 같은 방식도 가능합니다.<br>
-한정현님의 유튜브 강의에서 제시한 방법으로 스크린으로 부터 직접 View 공간으로 가져오는 방법입니다.<br>
+어쩌면 거리를 표현할 때 더 적합한 방법이 될 수 있습니다.  near 값을 최초 시작 지점으로 구성하게 되는 방법입니다.   아래 참조한 유튜브 동영상 강의에서 제시하는 
+방법입니다.  <br>
 강의 에서는 y 좌표가 아래에서 위로 올라가는 방향인데, web canvas 좌표는 위에서 아래로 가능 방향이라 부호를 뒤집어 붙인 부분만 차이가 있습니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>Math.<span style="color:#a6e22e">tan</span>(<span style="color:#a6e22e">fovy</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>);
 </span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aspect</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">/</span><span style="color:#a6e22e">height</span>;
@@ -298,9 +302,10 @@ Ray 의 시작점은 (0.1091, 0.5366,-1,1 ) 이고, 방향은  (0.1091, 0.5366,-
 그 값만 보정하면 위의 위치값과 동일한 값을 가르키게 됩니다.</p>
 <h3 id="world-공간">World 공간</h3>
 <p>카메라 공간에서 바라보는 위치에서 물체가 처음 놓인 위치로(각 Object 마다 배치된) 변환해서 보기 위해서는 Camera matrix 의 역변환이 필요합니다. <br>
-카메라 Matrix 의 inverse를 계산에 의해서 구성할 수도 있으나, 처음 카메라 공간을 만드는 Matrix 를 구성하는 과정이, translation 후 rotation 을 하였고, 
-rotation 이 u,v, n을 구한것을 transpose( 역변환 역활) 해서 적용하였고,  eye 를 역으로 만들어 translate 를 수행하였습니다.   그렇기 때문에 ratation 의 역변환, 
-후 translation 의 역변환을 적용하면, 역변환 Matrix 를 손쉽게 구할 수 있습니다.</p>
+카메라 Matrix 의 inverse를 계산에 의해서 구성할 수도 있으나, 처음 카메라 공간을 만드는 Matrix 를 구성하는 과정이, translation 후 rotation을 하여 구성하였습니다.<br>
+rotation 은 u,v, n 을 구한후 열백터로 나열할 부분을 transpose( 역변환 역활) 해서 행백터 처럼 적용하였고,  eye position 을 음수로(역으로) 만들어 translate 를 수행하였습니다.  <br>
+그렇기 때문에 ratation 의 역변환 하고, 이 후 translation 의 역변환을 적용하면, 전체 역변환 Matrix 를 구할 수 있습니다.   <br>
+물론 직접 계산에 의해 Inverse Matrix 를 구성할 수도 있습니다.    아래의 코드는 위 방식으로 Inverse 를 구성하는 방법입니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeCameraInverseMatrix3D</span> <span style="color:#f92672">=</span> ( <span style="color:#a6e22e">eye</span>, <span style="color:#a6e22e">at</span>, <span style="color:#a6e22e">up</span> ) =&gt; {
 </span></span><span style="display:flex;"><span>         <span style="color:#75715e">//  z 축의 방향 at 에서 eye 방향으로 설정
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>         <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">nObj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeNormalizeVector</span>( <span style="color:#a6e22e">makeVectorMinusValues</span>(<span style="color:#a6e22e">eye</span>,<span style="color:#a6e22e">at</span>) );
@@ -326,7 +331,7 @@ rotation 이 u,v, n을 구한것을 transpose( 역변환 역활) 해서 적용�
 </span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">rotate</span>;
 </span></span><span style="display:flex;"><span>     };
 </span></span></code></pre></div><p>이렇게 구성된 값으로 world 공간에서의 시작점과, 방향을 구성해 보면 대략  위치 (0.0109, -14.9073, 9.9346, 1), 방향 ( 0.1091, 0.9272, -0.6545, 0) 값을 얻게 됩니다. 
-이 값을 각 구성한 object 의 local world space 의 역변환을 구성하면, 각 object 의 광선을 구성할 수 있습니다.<br>
+이 값을 각 구성한 object 의 local world space 의 역변환을 구성하여 계산하면, 각 object 의 광선을 구성할 수 있습니다.<br>
 object 별로 ray 가 구성되고, 그 ray 와 충돌을 확인하면 사용자가 선택한 위치에 해당 object 가 존재하는지 여부를 확인할 수 있습니다.<br>
 screen 공간에서 view 공간을 통해 현재 world 공간으로 전환하는 함수 입니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
@@ -366,7 +371,7 @@ screen 공간에서 view 공간을 통해 현재 world 공간으로 전환하는
 그냥 [0,0,0] 좌표라고 할수도 있습니다.<br>
 scale 을 변환시키지 않았다면, 고유한 local world 공간에서의 Matrix 는 trasnlation 을 적용한 위치 입니다.  그 위치를 역변환 하여 위의 위치와 방향에 적용하면 
 위치는 (-1.9891, -16.9073, 11.9346, 1) 이고 방향은 ( 0.1091, 0.9272, -0.6545, 0) 입니다. <br>
-위치 + t * 방향 이 0,0,0,0 이 되게 하려면, 거리인 t 가 18.235756&hellip; 이면 원점에 도달하게 됩니다.   해당 위치에 물체가 있다는 것이지요 &hellip;.</p>
+RayPosition + t * RayDirection 이 0,0,0,0 이 되게 하려면, 거리인 t 가 18.235756&hellip; 이면 원점에 도달하게 됩니다.   해당 위치에 물체가 있다는 것이지요 &hellip;.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>     <span style="color:#75715e">/**
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">      * 
