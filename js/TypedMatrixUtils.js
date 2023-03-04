@@ -807,37 +807,6 @@
     };
 
     export const traceRayInterceptionForSphere = (rayPos,rayDir,sphereCenter,sphereRadius) => {
-        /*
-        rx, ry, rz  = positions 상수
-        rdx, rdy, rdz  = directions 상수
-        x = t*rdx + rx , x^2 = t^2*rdx^2 + t*2*rx*rdx + rx^2 
-        y = t*rdy + ry , y^2 = t^2*rdy^2 + t*2*ry*rdy + ry^2         
-        z = t*rdz + rz , z^2 = t^2*rdz^2 + t*2*rz*rdz + rz^2
-
-        x^2 + y^2 + z^2     = t^2*rdx^2 + t*2*rx*rdx + rx^2 + t^2*rdy^2 + t*2*ry*rdy + ry^2  + t^2*rdz^2 + t*2*rz*rdz + rz^2
-                            = t^2*(rdx^2 + rdy^2 + rdz^2) + t*(2*rx*rdx + 2*ry*rdy + 2*rz*rdz) + rx^2 + ry^2 + rz^2
-        
-        cx, cy, cz = 구의 중심위치 대부분 0이나, 0이 아닌 경우 계산이 필요함 상수
-        r = 반지름 상수
-        (x-cx)^2 + (y-cy)^2 + (z-cy)^2 = r^2
-        cx = cy = cz = 0 일 경우 계산이 단순함 but 일단 다 풀어 써봄 ...  
-
-        -2*x*cx = t*rdx*cx*-2 + rx*cx * -2
-        -2*y*cy = t*rdy*cy*-2 + ry*cy * -2        
-        -2*z*cz = t*rdz*cz*-2 + rz*cz * -2        
-        -2*x*cx + -2*y*cy + -2*z*cz = t * ( rdx*cx*-2 + rdy*cy*-2 + rdz*cz*-2) + rx*cx * -2 +  ry*cy * -2 +  rz*cz * -2  
-
-        x^2 - 2*x * cx + cx^2 + y^2 - 2*y * cy + cy^2 + z^2 - 2*z * cz + cz^2 = r^2 
-        x^2 + y^2 + z^2 + (-2*x * cx +  -2*y * cy + -2*z * cz ) + cx^2 + cy^2 + cz^2 = r^2 
-
-        t^2*(rdx^2 + rdy^2 + rdz^2) + t*(2*rx*rdx + 2*ry*rdy + 2*rz*rdz + rdx*cx*-2 + rdy*cy*-2 + rdz*cz*-2) + rx^2 + ry^2 + rz^2 + rx*cx * -2 +  ry*cy * -2 +  rz*cz * -2 - r^2 = 0
-        
-        a = rdx^2 + rdy^2 + rdz^2 
-        b = 2*rx*rdx + 2*ry*rdy + 2*rz*rdz + rdx*cx*-2 + rdy*cy*-2 + rdz*cz*-2
-        c = rx^2 + ry^2 + rz^2 + rx*cx * -2 +  ry*cy * -2 +  rz*cz * -2 + cx^2 + cy^2 + cz^2 - r^2
-        t = (-b + Math.sqrt(b^2-4*a*c))/2*a
-        t = (-b - Math.sqrt(b^2-4*a*c))/2*a
-        */
 
         const a = rayDir[0]*rayDir[0] + rayDir[1]*rayDir[1] + rayDir[2]*rayDir[2]; 
         const b = 2*(rayDir[0]*rayPos[0]+rayDir[1]*rayPos[1] + rayDir[2]*rayPos[2] - rayDir[0]*sphereCenter[0]-rayDir[1]*sphereCenter[1] - rayDir[2]*sphereCenter[2]);
@@ -848,7 +817,7 @@
 
         const a1 = makeDotProductVectors(rayDir,rayDir); 
         const b1 = 2*makeDotProductVectors(rayDir,oc);
-        const c1 = makeDotProductVectors(oc,oc) - sphereRadius*sphereRadius;
+        const c1 = (makeDotProductVectors(oc,oc) - sphereRadius*sphereRadius);
 
         const rd = 10000;
 
@@ -859,15 +828,15 @@
             return undefined;
         }
 
-        const hitDis01 = (-b + Math.sqrt(b^2-4*a*c))/2*a;
-        const hitDis02 = (-b - Math.sqrt(b^2-4*a*c))/2*a;
+        const hitDis01 = ((-b + Math.sqrt(b*b-4*a*c))/2*a);
+        const hitDis02 = ((-b - Math.sqrt(b*b-4*a*c))/2*a);
 
         const hitPos01 = vec3(0,0,0);
         const hitPos02 = vec3(0,0,0);        
 
         for ( let i = 0; i < 3; i++ ) {
-            hitPos01[i] = rayPos[i] + hitDis01*rayDir[i];
-            hitPos02[i] = rayPos[i] + hitDis02*rayDir[i];
+            hitPos01[i] = (rayPos[i] + hitDis01*rayDir[i]);
+            hitPos02[i] = (rayPos[i] + hitDis02*rayDir[i]);
         }
 
         let flag = false;

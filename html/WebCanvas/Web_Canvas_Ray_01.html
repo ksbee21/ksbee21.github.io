@@ -191,6 +191,54 @@
 
         //alert (  TypedMatrixUtils.printArrayValues(ipPos) );
 
+        const stdRay = TypedMatrixUtils.vec3(0,0,5);
+        const dirRay = TypedMatrixUtils.vec3(0,0,-1);
+        const centerPos = TypedMatrixUtils.vec3(0,0,0);
+        const rd        = 1;
+
+        const obj = TypedMatrixUtils.traceRayInterceptionForSphere(stdRay, dirRay, centerPos, rd);
+
+        alert ( "Obj : " + JSON.stringify(obj));
+        alert ( obj.minHit + ", " + obj.maxHit + "\n" + printValues(obj.minHitPos) + "\n" + printValues(obj.maxHitPos));
+
+
+        const T1 = TypedMatrixUtils.vec3(0,1,0);
+        const T2 = TypedMatrixUtils.vec3(-1,-1,0);        
+        const T3 = TypedMatrixUtils.vec3(1,-1,0);                
+
+        const tt1 = TypedMatrixUtils.makeVectorMinusValues(T2,T1);
+        const tt2 = TypedMatrixUtils.makeVectorMinusValues(T3,T1);
+        const normal  = TypedMatrixUtils.makeNormalizeVector(TypedMatrixUtils.makeVectorCrossProductValues(tt1, tt2));
+        alert ( normal );
+
+        const P = TypedMatrixUtils.vec3(0,0,0);                
+
+
+        const aPos1 = TypedMatrixUtils.makeVectorCrossProductValues( TypedMatrixUtils.makeVectorMinusValues(T2,T1), TypedMatrixUtils.makeVectorMinusValues(P,T1) ) ; // T3 Ratio aPos1 이 크면 T3 에 가깝다는 의미 
+        const aPos2 = TypedMatrixUtils.makeVectorCrossProductValues( TypedMatrixUtils.makeVectorMinusValues(T3,T2), TypedMatrixUtils.makeVectorMinusValues(P,T2) ) ; // T1 Ratio aPos2 이 크면 T1 에 가깝다는 의미 
+        const aPos3 = TypedMatrixUtils.makeVectorCrossProductValues( TypedMatrixUtils.makeVectorMinusValues(T1,T3), TypedMatrixUtils.makeVectorMinusValues(P,T3) ) ; // T2 Ratio aPos3 이 크면 T2 에 가깝다는 의미 
+
+        const a1Dir = TypedMatrixUtils.makeVectorDotProductValues(aPos1, normal);  
+        const a2Dir = TypedMatrixUtils.makeVectorDotProductValues(aPos2, normal);        
+        const a3Dir = TypedMatrixUtils.makeVectorDotProductValues(aPos3, normal);   
+        
+        const a01 = TypedMatrixUtils.getVectorLength(aPos2);
+        const a02 = TypedMatrixUtils.getVectorLength(aPos3);        
+        const a03 = TypedMatrixUtils.getVectorLength(aPos1);            
+        
+        const aSum = (a01+a02+a03);
+        const a1Ratio = (a01/aSum);
+        const a2Ratio = (a02/aSum);
+        const a3Ratio = (1-a1Ratio-a2Ratio); // (a03/aSum)
+        
+        
+        
+        alert ( aPos1 + " : " + a1Dir + ":::" + a01 + " # " + a1Ratio 
+            + "\n" + aPos2 + " : " + a2Dir + ":::" + a02 +  " # " + a2Ratio 
+            + "\n" + aPos3 + " : " + a3Dir + " :::" + a03 + " # " + a3Ratio +"\n" );
+
+
+
     </script>
     
 </body>
