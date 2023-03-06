@@ -306,15 +306,16 @@ $$
 t^2( rdx^2 + rdy^2 + rdz^2 ) + 2t( rdx \times rx + rdy \times ry + rdz \times rz) + rx^2+ry^2+rz^2 \\
 + -2t( cx\times rdx + cy\times rdy + cz\times rdz) + -2cx\times rx + -2cy\times ry + -2cz\times rz \\
 + cx^2 + cy^2 + cz^2 = r^2 \\
-t^2( rdx^2 + rdy^2 + rdz^2 ) + 2t( rdx (rx - cx)+ rdy (ry - cy) + rdz (rz-cz)) + cx^2 - 2cx\times rx + rx^2 + cy^2 -2cy\times ry + ry^2 + cz^2 - 2cz\times rz + rz^2 = r^2 \\
-t^2( rdx^2 + rdy^2 + rdz^2 ) + 2t( rdx (rx - cx)+ rdy (ry - cy) + rdz (rz-cz)) + (cx - rx)^2 + (cy -ry)^2 + (cz- rz)^2 - r^2 = 0 \\
+t^2( rdx^2 + rdy^2 + rdz^2 ) + 2t( rdx (rx - cx)+ rdy (ry - cy) + rdz (rz-cz)) + rx^2 - 2cx\times rx + cx^2 + ry^2 -2cy\times ry + cy^2  + rz^2 - 2cz\times rz + cz^2  = r^2 \\
+t^2( rdx^2 + rdy^2 + rdz^2 ) + 2t( rdx (rx - cx)+ rdy (ry - cy) + rdz (rz-cz)) + (rx - cx)^2 + (ry -cy)^2 + (rz- cz)^2 - r^2 = 0 \\
 $$
-t 를 기준으로 보면 2차 함수 입니다. 근의 공식이 적용될 수 있습니다. 
+t 를 기준으로 보면 2차 함수 입니다. 근의 공식이 적용될 수 있습니다. <br>
+계산결과는 (rx - cx)^2 = (cx - rx)^2 같습니다.  제곱을 하기 때문에 부호는 언제나 양수가 됩니다. ( 허수를 사용하지 않는 한에는요 ) , 수식의 일관성을 위해 rx-cx 로 표기 합니다. <br>
 $$
 \begin{aligned}
 a = rdx^2 + rdy^2 + rdz^2 \\
 b = 2( rdx (rx - cx)+ rdy (ry - cy) + rdz (rz-cz)) \\
-c = (cx - rx)^2 + (cy -ry)^2 + (cz- rz)^2 - r^2 \\ 
+c = (rx - cx)^2 + (ry -cy)^2 + (rz- cz)^2 - r^2 \\ 
 \end{aligned}
 $$
 수식에서 제공된 모든 변수가 주어진 수칫 값으로 변환 될 수 있으니, a, b, c 의 값을 구할 수 있고, 이 값을 근의 공식에 대입하면 해를 구할 수 있습니다. <br>

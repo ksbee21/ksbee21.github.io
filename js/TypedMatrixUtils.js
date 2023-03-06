@@ -831,6 +831,27 @@
         const hitDis01 = ((-b + Math.sqrt(b*b-4*a*c))/2*a);
         const hitDis02 = ((-b - Math.sqrt(b*b-4*a*c))/2*a);
 
+        if ( hitDis01 < 0 && hitDis02 < 0 ) {
+            //  방향이 반대
+            return undefined;
+        }
+
+        let distance = hitDis01;
+        let otherHitPoint = vec3(0,0,0);
+        if ( distance < 0 ) {
+            //  양수의 값을 취함
+            distance = hitDis02;
+            otherHitPoint = makeVectorPlusValues(rayPos,makeVectorMultiplyScalarValues(rayDir,hitDis01));
+        } else {
+            if ( distance > hitDis02 && hitDis02 > 0 ) {
+                distance = hitDis02;
+            } else {
+                otherHitPoint = makeVectorPlusValues(rayPos,makeVectorMultiplyScalarValues(rayDir,hitDis02));
+            }
+        }
+
+        const hitPoint = makeVectorPlusValues(rayPos,makeVectorMultiplyScalarValues(rayDir,distance));
+
         const hitPos01 = vec3(0,0,0);
         const hitPos02 = vec3(0,0,0);        
 
@@ -845,11 +866,73 @@
         else 
             flag = false;
 
+
+            return {
+                hitPoint : hitPoint,
+                distance : tValue,
+                normal:normal,
+                ratio1 : a1Ratio,
+                ratio2 : a2Ratio, 
+                ratio3 : a3Ratio
+            };
+    
+
         return {
             minHit : flag ? hitDis01 : hitDis02,
             maxHit : flag ? hitDis02 : hitDis01,
             minHitPos : flag ? hitPos01 : hitPos02,
             maxHitPos : flag ? hitPos02 : hitPos01,            
+        };
+    };
+
+    export const traceRayInterceptionForTriangles = (rayPos,rayDir, t1, t2, t3) => {
+        const t2from1 = makeVectorMinusValues(t2,t1);
+        const t3from1 = makeVectorMinusValues(t3,t1);
+        const normal = makeNormalizeVector(makeVectorCrossProductValues(t2from1, t3from1)); //   시작위치가 먼저, 대상이 다음 - 오른손 법칙
+
+        const rayDotValue = makeDotProductVectors(rayDir, normal);
+        if ( rayDotValue < 0.001 && rayDotValue > -0.001 ) {
+            return undefined;
+        }
+
+        const rayValue = makeDotProductVectors( makeVectorMinusValues(t1,rayPos), normal);
+        const tValue = (rayValue/rayDotValue);
+
+        const hitPoint = makeVectorPlusValues(rayPos,makeVectorMultiplyScalarValues(rayDir,tValue));
+
+        const aPos1 = makeVectorCrossProductValues( t2from1, makeVectorMinusValues(hitPoint,t1) ) ; // T3 Ratio aPos1 이 크면 T3 에 가깝다는 의미 
+        const a1Dir = makeVectorDotProductValues(aPos1, normal);  
+        if ( a1Dir < 0 ) {
+            return undefined;
+        }
+        
+        const aPos2 = makeVectorCrossProductValues( makeVectorMinusValues(t3,t2), makeVectorMinusValues(hitPoint,t2) ) ; // T1 Ratio aPos2 이 크면 T1 에 가깝다는 의미 
+        const a2Dir = makeVectorDotProductValues(aPos2, normal);        
+        if ( aPos2 < 0 ) {
+            return undefined;
+        }
+        const aPos3 = makeVectorCrossProductValues( makeVectorMinusValues(t1,t3), makeVectorMinusValues(hitPoint,t3) ) ; // T2 Ratio aPos3 이 크면 T2 에 가깝다는 의미 
+        const a3Dir = makeVectorDotProductValues(aPos3, normal);           
+        if ( a3Dir < 0 )
+            return undefined;
+
+        
+        const a01 = getVectorLength(aPos2);
+        const a02 = getVectorLength(aPos3);        
+        const a03 = getVectorLength(aPos1);            
+        
+        const aSum = (a01+a02+a03);
+        const a1Ratio = (a01/aSum);
+        const a2Ratio = (a02/aSum);
+        const a3Ratio = (1-a1Ratio-a2Ratio); // (a03/aSum)
+
+        return {
+            hitPoint : hitPoint,
+            distance : tValue,
+            normal:normal,
+            ratio1 : a1Ratio,
+            ratio2 : a2Ratio, 
+            ratio3 : a3Ratio
         };
     };
 
