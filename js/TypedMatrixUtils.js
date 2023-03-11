@@ -932,7 +932,14 @@
 		return result;
 	}
 
-
+    /**
+     * 
+     * @param {*} cx : mouse click x 좌표 ( 0 ~ fw ) 왼쪽에서 오른쪽 방향
+     * @param {*} cy : mouse click y 좌표 ( 0 ~ fh ) 위쪽에서 아래쪽 방향
+     * @param {*} fw : 전체 가로 길이
+     * @param {*} fh : 전체 세로 길이
+     * @returns 
+     */
     export const makeArcballValues = (cx, cy, fw, fh) => {
         let tx = ((2*cx)/fw - 1.0);
         let ty = (1.0- (2*cy)/fh);

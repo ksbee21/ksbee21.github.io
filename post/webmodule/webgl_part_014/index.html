@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebGL 회전 변환 ( 카메라 중심 변환 )">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>WebGL2 - Program 시작 11 - 회전 - [ 15 ] &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ksbee21.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://ksbee21.github.io/css/main.css">
+    
+  
+  
+    
+        <script src="https://ksbee21.github.io/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>WebGL2 - Program 시작 11 - 회전 - [ 15 ]</h1>
+  <h2>WebGL 회전 변환 ( 카메라 중심 변환 )</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 03. 11, 11:11</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/webgl">WebGL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/programming">Programming</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/math">Math</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <p>이전 WebGL 의 예시된 Sample 에서도 간단한 움직임을 표시한 적이 있었습니다. <br>
+물체 자체를 움직이기 위해서 이동(Translation), 혹은 회전(Rotation) 혹은 이 둘의 결합으로 움직임을 표현하기도 하고, 
+물체가 아닌 카메라의 위치 이동을 통해 물체의 다른 면을 주시하게 하여 변화된 화면을 구성해 보기도 하였습니다. <br>
+어느 대상을 중심으로 움직임을 표현하는가에 따라 구성 방법은 달라지겠지만, 움직임을 표현하기 위한 회전은 공통적으로, 
+X, Y, Z 축을 대상으로 각각 어느 정도의 각도로 움직이는 가를 표현 하였습니다. <br>
+이런 방식의 회전을 오일러 각도를 이용한 변환이라고 하며, 직관적이기 때문에 구현이 상대적으로 편리한 측면이 있습니다. <br>
+다만, 약간의 문제가 있는데 3축을 중심으로 변환이 이뤄지다 보니, 어느축을 먼저 선택하였는지에 따라 회전이 다르게 나타나고, 
+더 중요하게는 바깥쪽의 축과, 안쪽의 축이 중간축의 변환에 의해 서로의 축이 겹치면서 회전축 하나를 잃어 버리는 현상이 나타 납니다.<br>
+짐벌락(Gimbal lock)이라고하며, 이런 현상을 해결하는 방법으로 쿼터니언을 이용한 변환을 사용하기도 합니다.</p>
+<h4 id="카메라-위치-변환-예제---마우스로-드래그-하면-view-위치-변환-예제htmlwebgl2webgl_part_014_01html"><a href="/html/WebGL2/WebGL_PART_014_01.html">카메라 위치 변환 예제 - 마우스로 드래그 하면 VIEW 위치 변환 예제</a></h4>
+<p>예제에는 회전한 값을 저장하는 로직이 없기 때문에 다시 클릭하면 다시 변환이 이뤄집니다.</p>
+<h1 id="xyz-축을-기반한-회전">X,Y,Z 축을 기반한 회전</h1>
+<p>회전(Rotation)을 실제로 계산해 보겠습니다.   이전에 구성했던 Rotation 함수를 사용할 것인데, 처음 주어진 지점이 (1,1,1,1) 이라고 하겠습니다.<br>
+x,y,z 이 모두 1이고, 마지막 1은 단위를 4 x 4 행렬로 계산할 수 있도록 1을 추가하였습니다.  <br>
+각도는 45도를 각 축별로 변환하는 것으로 하고, 변환하는 방법은 축의 순서를 기준으로 x,y,z 으로의 변환 하나와, z,y,x 로의 변환 하나를 비교해 보겠습니다.</p>
+<h4 id="첫번째-회전의-결과는-12071--12071--02928--1-입니다">첫번째 회전의 결과는 1.2071.. , 1.2071.. , 0.2928.. , 1 입니다.</h4>
+<h4 id="두번째-회전의-결과는-07071--05-------15-------1-입니다">두번째 회전의 결과는 0.7071.. , 0.5      , 1.5      , 1 입니다.</h4>
+<p>회전 순서에 의해서 전혀 다른 결과가 나오고 있습니다. <br>
+계산하는 방법은 다음의 소스를 참조하시면 좋을 것 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">points</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">vec4</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">degree</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">theta</span> <span style="color:#f92672">=</span> (Math.<span style="color:#a6e22e">PI</span><span style="color:#f92672">*</span><span style="color:#a6e22e">degree</span><span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xRotate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRotateXMatrix3D</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">yRotate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRotateYMatrix3D</span>(<span style="color:#a6e22e">theta</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zRotate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">makeRotateZMatrix3D</span>(<span style="color:#a6e22e">theta</span>); 
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rvf01</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">xRotate</span>, <span style="color:#a6e22e">points</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rvf02</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">zRotate</span>, <span style="color:#a6e22e">points</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">rvf01</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">yRotate</span>, <span style="color:#a6e22e">rvf01</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">rvf02</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">yRotate</span>, <span style="color:#a6e22e">rvf02</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">rvf01</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">zRotate</span>, <span style="color:#a6e22e">rvf01</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">rvf02</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">xRotate</span>, <span style="color:#a6e22e">rvf02</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">//  이런 방법으로 구성할 수도 있습니다. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">yRotate</span>,<span style="color:#a6e22e">xRotate</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">zRotate</span>,<span style="color:#a6e22e">result1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">yRotate</span>,<span style="color:#a6e22e">zRotate</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">xRotate</span>,<span style="color:#a6e22e">result2</span>);     
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rf01</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">result1</span>, <span style="color:#a6e22e">points</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">rf02</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypedMatrixUtils</span>.<span style="color:#a6e22e">multiplyMatrix</span>(<span style="color:#a6e22e">result2</span>, <span style="color:#a6e22e">points</span>);
+</span></span></code></pre></div><p>순서만 정확히 일치 시키면 rotation 하나씩 계산하나, 모든 rotation matrix 를 계산후 계산하나 결과는 같습니다.<br>
+사용한 함수는 이전글에서 사용하였던 함수라 생략하였습니다.</p>
+<p>물체를 왼쪽 오른쪽 혹은 위로, 아래로 등 방향을 특정해서 구성할 때는 좋은 방법이고 이해하기도 편하지만, 여러 축을 활용하여 원하는 지점에 
+회전하도록 구성할 때 순서와 위치를 잘 고려 하여야 하기 때문에 사용하기 어려운 점이 있을것 같습니다.</p>
+<h1 id="구sphere-표면에서의-이동">구(Sphere) 표면에서의 이동</h1>
+<p>3D 를 표현하는 인터넷 사이트에서 사용자가 마우스로 위치를 선택후 이동하면 자연스러운 회전을 보여주는 사이트가 많이 있습니다.<br>
+각기 만든 방식을 정확히 알 수는 없지만, 위의 축을 기준으로 회전을 표현하는 방식은 순서나, 축이 겹치는 문제가 발생할 수 있기 때문에 
+아마도 사용하지 않았을 것 같습니다. ( 물론 사이트에 따라 해당 방식을 사용하였을 수도 있습니다. ^^ ) <br>
+어떻게 자연스러운 회전을 구현할 수 있을지 정리해 보고자 합니다. <br>
+3D 공간에서는 2D 와 달리 축이 하나 더 있습니다. X,Y,Z 으로 구성된 공간을 생각해 볼 수 있습니다. <br>
+그 공간을 구라고 가정해 보면 스크린에서 선택한 위치의 x,y,z 을 구성할 수 있습니다.   x 축을 -1 ~ 1, y 축을 -1 ~ 1, z 축을 -1 ~ 1 사이의 값을 지닌
+구라고 할 때 스크린에서 보는 좌표인 x, y 를 기준으로 실제 사용할 x, y, z 좌표를 가정 할 수 있다면 시작 지점과 종료 지점을 통해 2개의 x,y,z 좌표를 
+계산해 낼 수 있을 것입니다.   Arcball 이라는 개념으로 2차원 x,y 좌표를 구의 x,y를 선택한 것으로 보고 z 을 구하는 방법 입니다.<br>
+반지름이 1인 반원의 구가 스크린에 있다라고 생각 하면, 좌표는 X 는 -1 ~ 1 의 범위를 지닐 것이고, Y 도 -1 ~ 1 사이의 값을 지니는데 반원이기 때문에 
+화면에 보이는 Z 은 0 ~ 1 사이의 값이 된다고 볼 수 있습니다. <br>
+구의 공식은 x ^ 2 + y ^2 + z ^2 = r ^2 이고, sqrt( x ^ 2 + y ^2 + z ^2 ) = r 입니다.   이 공식으로 부터 z 의 값은 z ^2 = r^2 - ( x^2 + y^2 ) 임을 알 수 있습니다. <br>
+$$
+\begin{aligned}
+x^2 + y^2 + z^2 = r^2 \quad \sqrt{x^2+y^2+z^2} = r \\
+z^2 = r^2-(x^2+y^2) \quad z = \sqrt{r^2 - (x^2+y^2)}
+\end{aligned}
+$$<br>
+이것을 javascript 구성한 function 입니다. unit vector 로 구성하고 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} cx : mouse click x 좌표 ( 0 ~ fw ) 왼쪽에서 오른쪽 방향
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} cy : mouse click y 좌표 ( 0 ~ fh ) 위쪽에서 아래쪽 방향
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} fw : 전체 가로 길이
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @param {*} fh : 전체 세로 길이
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  * @returns 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeArcballValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">cx</span>, <span style="color:#a6e22e">cy</span>, <span style="color:#a6e22e">fw</span>, <span style="color:#a6e22e">fh</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tx</span> <span style="color:#f92672">=</span> ((<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cx</span>)<span style="color:#f92672">/</span><span style="color:#a6e22e">fw</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.0</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">ty</span> <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1.0</span><span style="color:#f92672">-</span> (<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">cy</span>)<span style="color:#f92672">/</span><span style="color:#a6e22e">fh</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tSum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">tx</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">ty</span><span style="color:#f92672">*</span><span style="color:#a6e22e">ty</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">tSum</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1.0</span> ) {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">vec3</span>(<span style="color:#a6e22e">tx</span>, <span style="color:#a6e22e">ty</span>, Math.<span style="color:#a6e22e">sqrt</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">tSum</span>));
+</span></span><span style="display:flex;"><span>     } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">vec3</span>(<span style="color:#a6e22e">tx</span>,<span style="color:#a6e22e">ty</span>,<span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><p>시작점과, 끝점의 좌표를 알면 두개의 vector 를 가져올 수 있습니다.<br>
+직전 포스팅 에서도 언급되었듯이, 두 vector 의 cross product 의 결과는 두 점이 놓인 평면에 수직인 vector 가 만들어 집니다.<br>
+이 vector 를 normalize 하면 unit vector 가 만들어 지게 되며, 이 벡터가 회전 축을 의미하게 됩니다. <br>
+Vector dot product 의 결과는 유닛벡터일때 cosine theta 값이 됩니다.  이 특징을 활용하면 시작점과 끝점을 각각 unit vector 
+로 구성하게 만들고, dot product 결과 cos theta 값을 얻고, cross product 결과를 normalize 하여 회전축을 얻을 수 있습니다.<br>
+$$
+\begin{aligned}
+a \cdot b = cos(\theta) * \vert\vert a \vert\vert * \vert\vert b \vert\vert \quad, \quad \vert\vert a \vert\vert = \vert\vert b \vert\vert = 1  이면 \quad a \cdot b = cos(\theta) \\
+\end{aligned}
+$$<br>
+javascript 구성한 함수 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">calculateAxisAngles</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">sx</span>,<span style="color:#a6e22e">sy</span>, <span style="color:#a6e22e">ex</span>,<span style="color:#a6e22e">ey</span>,<span style="color:#a6e22e">fw</span>,<span style="color:#a6e22e">fh</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeArcballValues</span>(<span style="color:#a6e22e">sx</span>,<span style="color:#a6e22e">sy</span>, <span style="color:#a6e22e">fw</span>, <span style="color:#a6e22e">fh</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ve</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeArcballValues</span>(<span style="color:#a6e22e">ex</span>,<span style="color:#a6e22e">ey</span>, <span style="color:#a6e22e">fw</span>, <span style="color:#a6e22e">fh</span>);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rdv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">acos</span>(Math.<span style="color:#a6e22e">max</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,Math.<span style="color:#a6e22e">min</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#a6e22e">makeDotProductVectors</span>(<span style="color:#a6e22e">vs</span>, <span style="color:#a6e22e">ve</span>))));
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vCross</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">makeVectorCrossProductValues</span>(<span style="color:#a6e22e">vs</span>,<span style="color:#a6e22e">ve</span>));
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">makeQuataianValueFormAxisAngle</span>(<span style="color:#a6e22e">rdv</span>,<span style="color:#a6e22e">vCross</span>));
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><p>위의 내용으로 두개의 축 vs 와 ve 를 arcball 기법을 통해 얻어 올 수 있었습니다.<br>
+두 축으로 부터 회전축과 theta 갑을 가져올 수 있었습니다. <br>
+코사인 쎄타 값은 내장 함수인 Math.acos 함수로 부터 theta 값을 가져올 수 있습니다. (radian 표기) 이 값이 회전 각도가 됩니다.<br>
+이 함수 에서는 아직 언급되지 않은 makeQuataianValueFormAxisAngle 함수가 있습니다. <br>
+x,y,z 각 축을 대상으로 회전을 하지 않고 구해진 임의의 축으로 부터 회전하기 위해서 쿼터니언(Quaternion) 이라고 불리는 사원수에 대해 
+확인이 필요할 것 같습니다.</p>
+<h1 id="임의의-회전축에서의-회전">임의의 회전축에서의 회전</h1>
+<p>쿼터니언을 실수부와 허수부로 구성된 복소수를 활용하고 있습니다.    회전을 위해서 회전축과 theta 값이 주어졌을 때 회전축이 단위 벡터 이면 
+u 가 회전축 단위 벡터 이고, theta 가 주어졌을 때 쿼터니언은 다음과 같은 공식으로 나타낼 수 있습니다.<br>
+$$
+\begin{aligned}
+q   = (q_v, q_w) , \quad q_v = 허수부, q_w = 실수부 \\
+u = 회전축, \quad \theta = 회전량 \\
+q   = (sin \frac{\theta}{2} u, cos \frac{\theta}{2} )
+\end{aligned}
+$$</p>
+<p>이 공식을 바탕으로 구성한 함수 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeQuataianValueFormAxisAngle</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">theta</span>, <span style="color:#a6e22e">axis</span>) =&gt; {
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">axis</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">axis</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span>) {
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">vec4</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">sin</span>(<span style="color:#a6e22e">theta</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">cos</span>(<span style="color:#a6e22e">theta</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vec4</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>             <span style="color:#a6e22e">result</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> (<span style="color:#a6e22e">axis</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">sv</span>);
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">result</span>[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span> (<span style="color:#a6e22e">cv</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span></code></pre></div><p>이렇게 구한 사원수를 기준으로 행렬식으로 구성하기 위한 공식은 다음과 같습니다.  <br>
+$$
+\begin{vmatrix}
+1-2(q_y^2 + q_z^2)&amp;2(q_x q_y - q_w q_z)&amp;2(q_x q_z + q_w q_y)&amp;0\\
+2(q_x q_y + q_w q_z)&amp;1-2(q_x^2 + q_z^2)&amp;2(q_y q_z - q_w q_x)&amp;0\\
+2(q_x q_z - q_w q_y)&amp;2(q_y q_z + q_w q_x)&amp;1-2(q_x^2 + q_y^2)&amp;0\\     <br>
+0&amp;0&amp;0&amp;1\\     <br>
+\end{vmatrix}
+$$</p>
+<p>이 공식을 기반으로 구성한 함수 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeQuaternionMatrix</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">qx</span>,<span style="color:#a6e22e">qy</span>,<span style="color:#a6e22e">qz</span>,<span style="color:#a6e22e">qw</span>) =&gt; {
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">qy2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">qy</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy</span>;
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">qx2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">qx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx</span>;
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">qz2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">qz</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>([
+</span></span><span style="display:flex;"><span> 		<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz2</span>,	<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qw</span>,	<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qw</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span> 		<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qw</span>, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz2</span>,	<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qw</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span> 		<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qw</span>,	<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qz</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qw</span>,	<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qx2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">qy2</span>, <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span> 		<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>     ]);
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">rows</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span> };
+</span></span></code></pre></div><p>처음에 기재해 놓았듯 카메라를 기준으로 쿼터니언 회전을 구현한 단순 예제 입니다.</p>
+<h4 id="카메라-위치-변환-예제---마우스로-드래그-하면-view-위치-변환-예제htmlwebgl2webgl_part_014_01html-1"><a href="/html/WebGL2/WebGL_PART_014_01.html">카메라 위치 변환 예제 - 마우스로 드래그 하면 VIEW 위치 변환 예제</a></h4>
+<p>예제에는 회전한 값을 저장하는 로직이 없기 때문에 다시 클릭하면 다시 변환이 이뤄집니다.</p>
+<h1 id="참조-사이트">참조 사이트</h1>
+<h4 id="httpswwwyoutubecomwatchvxge7tosc7auhttpswwwyoutubecomwatchvxge7tosc7au"><a href="https://www.youtube.com/watch?v=XgE7tOSc7AU">https://www.youtube.com/watch?v=XgE7tOSc7AU</a></h4>
+<h4 id="그래픽스-강의-사이트-입니다--위-공식의-출처는-이-사이트-내용에서-참조-하였습니다">그래픽스 강의 사이트 입니다.  위 공식의 출처는 이 사이트 내용에서 참조 하였습니다.</h4>
+<p>Arcball 은 여기저기 참조하였지만, 위 사이트 에서도 참조하였습니다.</p>
+<h4 id="httpswwwyoutubecomwatchvc7la2tt_coct4401shttpswwwyoutubecomwatchvc7la2tt_coct4401s"><a href="https://www.youtube.com/watch?v=c7la2Tt_cOc&amp;t=4401s">https://www.youtube.com/watch?v=c7la2Tt_cOc&amp;t=4401s</a></h4>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_014%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_014%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_014%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_014%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_014%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebmodule%2fwebgl_part_014%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ksbee21.github.io/post/webmodule/webgl_part_013_02/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ksbee21.github.io/post/webmodule/webgl_part_013_02/">WebGL2 - Program 시작 10 - Ray 충돌 - [ 14 ]</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ksbee21.github.io/js/ui.js"></script>
+<script src="https://ksbee21.github.io/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+

@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Thu, 02 Mar 2023 19:58:43 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Mar 2023 11:11:25 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL2 - Program 시작 11 - 회전 - [ 15 ]</title>
+      <link>https://ksbee21.github.io/post/webmodule/webgl_part_014/</link>
+      <pubDate>Sat, 11 Mar 2023 11:11:25 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/webmodule/webgl_part_014/</guid>
+      <description>이전 WebGL 의 예시된 Sample 에서도 간단한 움직임을 표시한 적이 있었습니다. 물체 자체를 움직이기 위해서 이동(Translation), 혹은 회전(Rotation) 혹은 이 둘의 결합으로 움직임을 표현하기도 하고, 물체가 아닌 카메라의 위치 이동을 통해 물체의 다른 면을 주시하게 하여 변화된 화면을 구성해 보기도 하였습니다. 어느 대상을 중심으로 움직임을 표현하는가에 따라 구성 방법은 달라지겠지만, 움직임을 표현하기 위한 회전은 공통적으로, X, Y, Z 축을 대상으로 각각 어느 정도의 각도로 움직이는 가를 표현 하였습니다. 이런 방식의 회전을 오일러 각도를 이용한 변환이라고 하며, 직관적이기 때문에 구현이 상대적으로 편리한 측면이 있습니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Program 시작 10 - Ray 충돌 - [ 14 ]</title>
       <link>https://ksbee21.github.io/post/webmodule/webgl_part_013_02/</link>

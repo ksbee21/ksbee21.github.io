@@ -15,10 +15,56 @@
 </head>
 <body>
     <canvas id="myCanvas" style="background:cyan;"></canvas>
-    <script>
+    <script type="module" defer>
+        import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
+        import * as GLUtils from '../../js/GLUtils.js';
+        import * as GLDataUtils from '../../js/GLDataUtils.js';
 
-        const canvas = document.getElementById("myCanvas");
-        canvas.addEventListener("mousemove", setMouseMove, false);
+        const points = TypedMatrixUtils.vec4(1,1,1,1);
+        const degree = 45;
+        const theta = (Math.PI*degree/180);
+
+        const xRotate = TypedMatrixUtils.makeRotateXMatrix3D(theta);
+        const yRotate = TypedMatrixUtils.makeRotateYMatrix3D(theta);
+        const zRotate = TypedMatrixUtils.makeRotateZMatrix3D(theta); 
+        
+        let rvf01 = TypedMatrixUtils.multiplyMatrix(xRotate, points);
+        let rvf02 = TypedMatrixUtils.multiplyMatrix(zRotate, points);
+
+        alert ( "First : x,z\n" + TypedMatrixUtils.printArrayValues(rvf01) + "\n======\n" + TypedMatrixUtils.printArrayValues(rvf02));
+
+        rvf01 = TypedMatrixUtils.multiplyMatrix(yRotate, rvf01);
+        rvf02 = TypedMatrixUtils.multiplyMatrix(yRotate, rvf02);
+
+        alert ( "Second : y,y\n" + TypedMatrixUtils.printArrayValues(rvf01) + "\n======\n" + TypedMatrixUtils.printArrayValues(rvf02));        
+
+        rvf01 = TypedMatrixUtils.multiplyMatrix(zRotate, rvf01);
+        rvf02 = TypedMatrixUtils.multiplyMatrix(xRotate, rvf02);
+
+        alert ( "Second : z,x\n" + TypedMatrixUtils.printArrayValues(rvf01) + "\n======\n" + TypedMatrixUtils.printArrayValues(rvf02));                
+
+
+        let result1 = TypedMatrixUtils.multiplyMatrix(yRotate,xRotate);
+        result1 = TypedMatrixUtils.multiplyMatrix(zRotate,result1);
+
+        let result2 = TypedMatrixUtils.multiplyMatrix(yRotate,zRotate);
+        result2 = TypedMatrixUtils.multiplyMatrix(xRotate,result2);     
+        
+        let rf01 = TypedMatrixUtils.multiplyMatrix(result1, points);
+        let rf02 = TypedMatrixUtils.multiplyMatrix(result2, points);
+
+        console.log (xRotate, yRotate, zRotate);
+
+        console.log( result1, result2);
+
+        console.log ( rf01, rf02 );
+
+        alert ( TypedMatrixUtils.printArrayValues(rf01) + "\n======\n" + TypedMatrixUtils.printArrayValues(rvf01));
+
+        alert ( TypedMatrixUtils.printArrayValues(rf02) + "\n======\n" + TypedMatrixUtils.printArrayValues(rvf02));
+        
+
+
 
     </script>
     
