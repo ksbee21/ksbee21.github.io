@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
     <meta charset='utf-8'>
@@ -7,17 +7,23 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../css/main.css'>
     <script src='../../js/main.js'></script>
+    <script>
+
+
+
+    </script>
 </head>
 <body>
-    <p>
-    <a href="/post/webmodule/webgl_part_010/">돌아가기(Back)</a>
-    </p>
     <canvas id="myCanvas"></canvas>
 
     <script type="module" defer>
         import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
         import * as GLUtils from '../../js/GLUtils.js';
         import * as GLDataUtils from '../../js/GLDataUtils.js';
+
+        let glObj = undefined;
+        let uProgram = undefined;
+
 
         const mouseEventObj = {
             isMouseDown : false,
@@ -27,10 +33,55 @@
             endY : -1, 
             currentQuat : undefined, 
             
+        };
+
+        const setMouseDown = (e) => {
+
+            e.preventDefault();
+            console.log("mousedown start", mouseEventObj);
+            
+            mouseEventObj.startX = event.offsetX;
+            mouseEventObj.startY = event.offsetY;
+            mouseEventObj.endX = event.offsetX;
+            mouseEventObj.endY = event.offsetY;
+            mouseEventObj.isMouseDown = true;
+            
+            console.log("mousedown end", mouseEventObj);
+
         }
-        
+
+        const setMouseMove = (e) => {
+            if ( mouseEventObj.isMouseDown ) {
+                mouseEventObj.endX = event.offsetX;
+                mouseEventObj.endY = event.offsetY;
+                render();
+
+                console.log("mousemove", e);
+            }
+        }
+
+        const setMouseUp = (e) => {
+            if ( mouseEventObj.isMouseDown ) {
+                console.log("mouseup end", mouseEventObj);       
+                     
+                mouseEventObj.endX = event.offsetX;
+                mouseEventObj.endY = event.offsetY;
+                mouseEventObj.isMouseDown = false;
+                render();
+            }
+        }
+
+
+
 
         function render(gl,gp) {
+
+            if ( glObj && !gl ) {
+                gl = glObj;
+            }
+            if ( uProgram && !gp ) {
+                gp = uProgram;
+            }
 
             let delta = 0;
             let curData = 0;
@@ -53,7 +104,15 @@
                 }
 
                 gp.render(gl, true);
-                requestAnimationFrame(drawScene);
+                if ( !mouseEventObj.isMouseDown ) {
+
+                    requestAnimationFrame(drawScene);
+                } else {
+
+                    setProgramUniformValues(gl, gp);
+                    requestAnimationFrame(drawScene);
+                    console.log("MOUSE DOWN ...  ");
+                }
             };
 
             requestAnimationFrame(drawScene);
@@ -72,6 +131,14 @@
             //  view
             viewMatrix = TypedMatrixUtils.makeCameraMatrix3D( eye, at, up );
 
+            if ( mouseEventObj.isMouseDown ) {
+                const quadArray = TypedMatrixUtils.calculateAxisAngles(mouseEventObj.startX, mouseEventObj.startY, mouseEventObj.endX, mouseEventObj.endY, gl.canvas.width, gl.canvas.height);
+                const quatMat   = TypedMatrixUtils.makeQuaternionMatrix(quadArray[0], quadArray[1], quadArray[2], quadArray[3]);
+                console.log(mouseEventObj, quadArray, quatMat);
+                viewMatrix = TypedMatrixUtils.multiplyMatrix(viewMatrix, quatMat);
+                //viewMatrix = TypedMatrixUtils.multiplyMatrix(quatMat, viewMatrix);                
+            }
+
             //  [ 주석 4 ] : projection 
             projectionMatrix = TypedMatrixUtils.makePerspectiveMatrix(90*Math.PI/180, gl.canvas.width/gl.canvas.height, 0.1, 200);
             //projectionMatrix = TypedMatrixUtils.makeOrthographicMatrix(-30,30, -30,30, 0.1, 1000);
@@ -83,7 +150,13 @@
         }
 
         function main() {
+            //alert ("START");
             const canvas = GLUtils.makeCanvasObject("myCanvas");
+
+            canvas.addEventListener("mousedown", setMouseDown, false);
+            canvas.addEventListener("mousemove", setMouseMove, false);     
+            canvas.addEventListener("mouseup", setMouseUp, false);                   
+
             const gl = GLUtils.makeWebGL(canvas);
 
             if ( !gl ) {
@@ -101,23 +174,6 @@
                 return;
             }
 
-/*
-            uniform vec3 eyePos;
-            uniform vec3 directionLight;
-            uniform vec3 dirLightColor;
-            uniform vec3 specularColor;
-            uniform vec3 ambientColor;
-            uniform vec3 emitColor;
-            
-            uniform float shineCoef;
-            uniform float ambientCoef;  //  rgb 로 제어하려면 vec3            
-            uniform float emitCoef;     //  rgb 로 제어하려면 vec3
-
-
-        //  dataType : 1 : float, 2 : int, 3 : uint, 4 : boolean
-        //  dataKind : 1 : value, 2 : vector , 3 : matrix 
-        //  dataSize : 1 : 1, 2 : 2, 3 : 3, 4 : 4 => ex vec3, mat3 ...
-*/
             const uniformArray = [
                 {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
                 {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined, transpose:true},
@@ -150,7 +206,6 @@
                 {attributeName : "colors", data : new Float32Array(cube.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
                 {attributeName : "texCoord", data : new Float32Array(cube.textures) , size: 2, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},      
             ];
-
             
             const uArray = GLUtils.setUniformLocations(gl, program, uniformArray);            
             const vao = gl.createVertexArray();
@@ -231,16 +286,25 @@
             
             setProgramUniformValues(gl, gProgram);
 
-            render(gl, gProgram);
+
 
             const maxTextureUnits = gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
             const maxVertexShaderTextureUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
-            const maxFragmentShaderTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);            
+            const maxFragmentShaderTextureUnits = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);     
 
+
+
+            glObj = gl;
+            uProgram = gProgram;
+
+            render(gl, gProgram);
             //alert (  maxTextureUnits + "\n" + maxVertexShaderTextureUnits + " , " + maxFragmentShaderTextureUnits );
+
+
         }
 
         main();
+        
     </script>
 </body>
 </html>

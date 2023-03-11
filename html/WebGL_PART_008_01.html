@@ -129,7 +129,7 @@
                 {attributeName : "colors", data : new Float32Array(cube.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},        
             ];
             
-            GLUtils.setUniformLocations(gl, program, uniformArray);            
+            GLUtils.setUniformLocations(gl, program, uniformArray,true);            
             const vao = gl.createVertexArray();
             gl.bindVertexArray(vao);
 

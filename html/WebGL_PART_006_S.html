@@ -90,6 +90,7 @@
                 return;
             }
 
+
             const uniformArray = [
                 {uniformName : "worldMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined},
                 {uniformName : "viewMatrix", data : TypedMatrixUtils.makeIdentityMatrix(4), dataType : 1, dataKind : 3, dataSize : 4, uLocation:undefined},
@@ -103,9 +104,12 @@
                 {attributeName : "colors", data : new Float32Array(cube.colors) , size: 4, dataType: gl.FLOAT, normalize:false, stride:0, offset:0, loc: undefined},        
             ];
             
-            GLUtils.setUniformLocations(gl, program, uniformArray);            
+            GLUtils.setUniformLocations(gl, program, uniformArray, true);            
             const vao = gl.createVertexArray();
             gl.bindVertexArray(vao);
+
+            //console.log(uniformArray);
+            //console.log(vao);
 
             GLUtils.setAttributeValues(gl, program, attributeArray);
             const indexInfos = { data : new Uint32Array(cube.indices), indexSize : cube.indices.length , indexType : 2};

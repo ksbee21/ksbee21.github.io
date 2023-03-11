@@ -837,51 +837,32 @@
         }
 
         let distance = hitDis01;
+        let otherDistance = hitDis02;
         let otherHitPoint = vec3(0,0,0);
         if ( distance < 0 ) {
             //  양수의 값을 취함
             distance = hitDis02;
+            otherDistance = hitDis01;
             otherHitPoint = makeVectorPlusValues(rayPos,makeVectorMultiplyScalarValues(rayDir,hitDis01));
         } else {
             if ( distance > hitDis02 && hitDis02 > 0 ) {
                 distance = hitDis02;
+                otherDistance = hitDis01;
             } else {
+                otherDistance = hitDis02;
                 otherHitPoint = makeVectorPlusValues(rayPos,makeVectorMultiplyScalarValues(rayDir,hitDis02));
             }
         }
 
         const hitPoint = makeVectorPlusValues(rayPos,makeVectorMultiplyScalarValues(rayDir,distance));
-
-        const hitPos01 = vec3(0,0,0);
-        const hitPos02 = vec3(0,0,0);        
-
-        for ( let i = 0; i < 3; i++ ) {
-            hitPos01[i] = (rayPos[i] + hitDis01*rayDir[i]);
-            hitPos02[i] = (rayPos[i] + hitDis02*rayDir[i]);
-        }
-
-        let flag = false;
-        if ( hitDis01 < hitDis02 )
-            flag = true;
-        else 
-            flag = false;
-
-
-            return {
-                hitPoint : hitPoint,
-                distance : tValue,
-                normal:normal,
-                ratio1 : a1Ratio,
-                ratio2 : a2Ratio, 
-                ratio3 : a3Ratio
-            };
-    
+        const normal = makeNormalizeVector(makeVectorMinusValues(hitPoint,sphereCenter));
 
         return {
-            minHit : flag ? hitDis01 : hitDis02,
-            maxHit : flag ? hitDis02 : hitDis01,
-            minHitPos : flag ? hitPos01 : hitPos02,
-            maxHitPos : flag ? hitPos02 : hitPos01,            
+            hitPoint:hitPoint,
+            distance:distance,
+            normal:normal,
+            otherHitPoint:otherHitPoint,
+            otherDistance:otherDistance,
         };
     };
 
@@ -935,6 +916,58 @@
             ratio3 : a3Ratio
         };
     };
+
+	export const makeQuataianValueFormAxisAngle = (theta, axis) => {
+		if ( !axis || axis.length != 3) {
+			return vec4(0,0,0,0);
+		}
+
+		const sv = Math.sin(theta)/2;
+		const cv = Math.cos(theta)/2;
+		const result = vec4(0,0,0,0);
+		for( let i = 0; i < 3; i++ ) {
+			result[i] = (axis[i]*sv);
+		}
+		result[3]= (cv);
+		return result;
+	}
+
+
+    export const makeArcballValues = (cx, cy, fw, fh) => {
+        let tx = ((2*cx)/fw - 1.0);
+        let ty = (1.0- (2*cy)/fh);
+        let tSum = tx*tx + ty*ty;
+        if ( tSum <= 1.0 ) {
+            return vec3(tx, ty, Math.sqrt(1-tSum));
+        } else {
+            return makeNormalizeVector(vec3(tx,ty,0));
+        }
+    };
+
+    export const calculateAxisAngles = (sx,sy, ex,ey,fw,fh) => {
+        const vs = makeArcballValues(sx,sy, fw, fh);
+        const ve = makeArcballValues(ex,ey, fw, fh);
+        const rdv = Math.acos(Math.max(-1.0,Math.min(1.0, makeDotProductVectors(vs, ve))));
+        const vCross = makeNormalizeVector(makeVectorCrossProductValues(vs,ve));
+        return makeNormalizeVector(makeQuataianValueFormAxisAngle(rdv,vCross));
+    };
+
+    export const makeQuaternionMatrix = (qx,qy,qz,qw) => {
+		let qy2 = qy*qy;
+		let qx2 = qx*qx;
+		let qz2 = qz*qz;
+
+		const result = new Float32Array([
+			1 - 2*qy2 - 2*qz2,	2*qx*qy - 2*qz*qw,	2*qx*qz + 2*qy*qw, 0,
+			2*qx*qy + 2*qz*qw, 1 - 2*qx2 - 2*qz2,	2*qy*qz - 2*qx*qw, 0,
+			2*qx*qz - 2*qy*qw,	2*qy*qz + 2*qx*qw,	1 - 2*qx2 - 2*qy2, 0,
+			0,0,0,1
+        ]);
+        result.rows = 4;
+        result.cols = 4;
+		return result;
+	};
+
 
 
 

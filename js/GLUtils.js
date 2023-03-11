@@ -501,7 +501,7 @@ export const setIndexInfos = ( gl,  indexInfo ) => {
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indexInfo.data, gl.STATIC_DRAW);
 };
 
-export const setUniformLocations = (gl, program, uniformArray) => {
+export const setUniformLocations = (gl, program, uniformArray, isAssigned) => {
     if ( !uniformArray ) 
         return uniformArray;
     const uArray = [];
@@ -511,6 +511,10 @@ export const setUniformLocations = (gl, program, uniformArray) => {
         if ( !uniform.uLocation ) {
 //            console.log(uniform.uniformName , " Can not apply ... ");
             continue;
+        } else {
+            if ( isAssigned ) {
+                uniformArray[i].uLocation = uniform.uLocation;
+            }
         }
         uArray.push(uniform);
     }

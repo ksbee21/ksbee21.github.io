@@ -3,6 +3,7 @@
     export const makeCanvasObject = (idValue, parentObj, width, height) => {
         let canvasObj = document.getElementById(idValue);
         if ( !canvasObj ) {
+            console.log("Not Defined ...  ");
             canvasObj = document.createElement("CANVAS");
             canvasObj.setAttribute("id", idValue);
             if ( !width || width <= 0 )
@@ -15,6 +16,7 @@
                 document.body.appendChild(canvasObj);
             }
         } else {
+            console.log("Exists ... canvas ... ");
             if ( !width || width <= 0 )
                 width = canvasObj.clientWidth;
             if ( !height || height <= 0 )
@@ -24,6 +26,8 @@
         canvasObj.height = height;
         canvasObj.style.width = width + "px";
         canvasObj.style.height = height +"px";
+        //canvasObj.style.position = "relative";
+        //canvasObj.style.zIndex = 1;
         return canvasObj;
     };
 
