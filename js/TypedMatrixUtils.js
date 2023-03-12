@@ -917,7 +917,7 @@
         };
     };
 
-	export const makeQuataianValueFormAxisAngle = (theta, axis) => {
+	export const makeQuaternionValueFormAxisAngle = (theta, axis) => {
 		if ( !axis || axis.length != 3) {
 			return vec4(0,0,0,0);
 		}

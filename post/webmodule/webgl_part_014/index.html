@@ -357,10 +357,10 @@ javascript 구성한 함수 입니다.</p>
 </span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ve</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeArcballValues</span>(<span style="color:#a6e22e">ex</span>,<span style="color:#a6e22e">ey</span>, <span style="color:#a6e22e">fw</span>, <span style="color:#a6e22e">fh</span>);
 </span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rdv</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">acos</span>(Math.<span style="color:#a6e22e">max</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>,Math.<span style="color:#a6e22e">min</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#a6e22e">makeDotProductVectors</span>(<span style="color:#a6e22e">vs</span>, <span style="color:#a6e22e">ve</span>))));
 </span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">vCross</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">makeVectorCrossProductValues</span>(<span style="color:#a6e22e">vs</span>,<span style="color:#a6e22e">ve</span>));
-</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">makeQuataianValueFormAxisAngle</span>(<span style="color:#a6e22e">rdv</span>,<span style="color:#a6e22e">vCross</span>));
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">makeNormalizeVector</span>(<span style="color:#a6e22e">makeQuaternionValueFormAxisAngle</span>(<span style="color:#a6e22e">rdv</span>,<span style="color:#a6e22e">vCross</span>));
 </span></span><span style="display:flex;"><span> };
 </span></span></code></pre></div><p>위의 내용으로 두개의 축 vs 와 ve 를 arcball 기법을 통해 얻어 올 수 있었습니다.<br>
-두 축으로 부터 회전축과 theta 갑을 가져올 수 있었습니다. <br>
+두 축으로 부터 회전축과 theta 값을 가져올 수 있었습니다. <br>
 코사인 쎄타 값은 내장 함수인 Math.acos 함수로 부터 theta 값을 가져올 수 있습니다. (radian 표기) 이 값이 회전 각도가 됩니다.<br>
 이 함수 에서는 아직 언급되지 않은 makeQuataianValueFormAxisAngle 함수가 있습니다. <br>
 x,y,z 각 축을 대상으로 회전을 하지 않고 구해진 임의의 축으로 부터 회전하기 위해서 쿼터니언(Quaternion) 이라고 불리는 사원수에 대해 
@@ -370,13 +370,18 @@ x,y,z 각 축을 대상으로 회전을 하지 않고 구해진 임의의 축으
 u 가 회전축 단위 벡터 이고, theta 가 주어졌을 때 쿼터니언은 다음과 같은 공식으로 나타낼 수 있습니다.<br>
 $$
 \begin{aligned}
-q   = (q_v, q_w) , \quad q_v = 허수부, q_w = 실수부 \\
-u = 회전축, \quad \theta = 회전량 \\
-q   = (sin \frac{\theta}{2} u, cos \frac{\theta}{2} )
+i^2 = j^2 = k^2 = -1 \\
+ij = k, jk = i, ki = j \\
+ji = -k, kj = -i, ik = -j \\
+q = (q_xi,q_yj,q_zk,q_w) \quad q_v = (q_xi,q_yj,q_zk) \\
+q = (q_v, q_w) , \quad q_v = 허수부, q_w = 실수부 \\
+u = 회전축, \quad \theta = 회전각(radian) \\
+q = (sin \frac{\theta}{2} u, cos \frac{\theta}{2} ) \\
+\vert\vert q \vert\vert = \sqrt{q_x^2 + q_y^2  + q_z^2 + q_w^2}\\
 \end{aligned}
 $$</p>
 <p>이 공식을 바탕으로 구성한 함수 입니다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeQuataianValueFormAxisAngle</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">theta</span>, <span style="color:#a6e22e">axis</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>     <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeQuaternionValueFormAxisAngle</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">theta</span>, <span style="color:#a6e22e">axis</span>) =&gt; {
 </span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span><span style="color:#a6e22e">axis</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">axis</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span>) {
 </span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">vec4</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>);
 </span></span><span style="display:flex;"><span>         }
@@ -415,7 +420,11 @@ $$</p>
 </span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
 </span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
 </span></span><span style="display:flex;"><span> };
-</span></span></code></pre></div><p>처음에 기재해 놓았듯 카메라를 기준으로 쿼터니언 회전을 구현한 단순 예제 입니다.</p>
+</span></span></code></pre></div><p>쿼터니언은 전체적으로 이해하기 쉬운 수식은 아닌것 같습니다. ( 제 경우 그렇다는 이야기 입니다. ^^ ) 
+수식에 대한 설명을 보면 대략 이렇게 움직이는 구나 정도 이해하고 넘어가게 되는 것 같습니다.  회전에 필요한 부분은 
+회전에 필요한 축을 생성하고, 해당 축에서 어느정도 각도를 움직이는가만 구성할 수 있으면, 제공해 놓은 공식으로 충분히 구성할 수 있을것 같습니다. 
+향후 다른것을 이해하기 위해 정리가 필요해지면, 그 때 정리해 보고자 합니다.  <br>
+처음에 기재해 놓았듯 카메라를 기준으로 쿼터니언 회전을 구현한 단순 예제 입니다.</p>
 <h4 id="카메라-위치-변환-예제---마우스로-드래그-하면-view-위치-변환-예제htmlwebgl2webgl_part_014_01html-1"><a href="/html/WebGL2/WebGL_PART_014_01.html">카메라 위치 변환 예제 - 마우스로 드래그 하면 VIEW 위치 변환 예제</a></h4>
 <p>예제에는 회전한 값을 저장하는 로직이 없기 때문에 다시 클릭하면 다시 변환이 이뤄집니다.</p>
 <h1 id="참조-사이트">참조 사이트</h1>
