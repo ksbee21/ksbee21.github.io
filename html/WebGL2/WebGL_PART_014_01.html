@@ -41,7 +41,7 @@
         const setMouseDown = (e) => {
 
             e.preventDefault();
-            console.log("mousedown start", mouseEventObj);
+            //console.log("mousedown start", mouseEventObj);
             
             mouseEventObj.startX = event.offsetX;
             mouseEventObj.startY = event.offsetY;
@@ -49,7 +49,7 @@
             mouseEventObj.endY = event.offsetY;
             mouseEventObj.isMouseDown = true;
             
-            console.log("mousedown end", mouseEventObj);
+            //console.log("mousedown end", mouseEventObj);
 
         }
 
@@ -59,13 +59,13 @@
                 mouseEventObj.endY = event.offsetY;
                 render();
 
-                console.log("mousemove", e);
+                //console.log("mousemove", e);
             }
         }
 
         const setMouseUp = (e) => {
             if ( mouseEventObj.isMouseDown ) {
-                console.log("mouseup end", mouseEventObj);       
+                //console.log("mouseup end", mouseEventObj);       
                      
                 mouseEventObj.endX = event.offsetX;
                 mouseEventObj.endY = event.offsetY;
@@ -114,7 +114,7 @@
 
                     setProgramUniformValues(gl, gp);
                     requestAnimationFrame(drawScene);
-                    console.log("MOUSE DOWN ...  ");
+                    //console.log("MOUSE DOWN ...  ");
                 }
             };
 
@@ -137,7 +137,7 @@
             if ( mouseEventObj.isMouseDown ) {
                 const quadArray = TypedMatrixUtils.calculateAxisAngles(mouseEventObj.startX, mouseEventObj.startY, mouseEventObj.endX, mouseEventObj.endY, gl.canvas.width, gl.canvas.height);
                 const quatMat   = TypedMatrixUtils.makeQuaternionMatrix(quadArray[0], quadArray[1], quadArray[2], quadArray[3]);
-                console.log(mouseEventObj, quadArray, quatMat);
+                //console.log(mouseEventObj, quadArray, quatMat);
                 viewMatrix = TypedMatrixUtils.multiplyMatrix(viewMatrix, quatMat);
                 //viewMatrix = TypedMatrixUtils.multiplyMatrix(quatMat, viewMatrix);                
             }

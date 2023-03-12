@@ -366,7 +366,7 @@ javascript 구성한 함수 입니다.</p>
 x,y,z 각 축을 대상으로 회전을 하지 않고 구해진 임의의 축으로 부터 회전하기 위해서 쿼터니언(Quaternion) 이라고 불리는 사원수에 대해 
 확인이 필요할 것 같습니다.</p>
 <h1 id="임의의-회전축에서의-회전">임의의 회전축에서의 회전</h1>
-<p>쿼터니언을 실수부와 허수부로 구성된 복소수를 활용하고 있습니다.    회전을 위해서 회전축과 theta 값이 주어졌을 때 회전축이 단위 벡터 이면 
+<p>쿼터니언은 실수부와 허수부로 구성된 복소수를 활용하고 있습니다.    회전을 위해서 회전축과 theta 값이 주어졌을 때 회전축이 단위 벡터 이면 
 u 가 회전축 단위 벡터 이고, theta 가 주어졌을 때 쿼터니언은 다음과 같은 공식으로 나타낼 수 있습니다.<br>
 $$
 \begin{aligned}
@@ -420,7 +420,7 @@ $$</p>
 </span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">cols</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
 </span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
 </span></span><span style="display:flex;"><span> };
-</span></span></code></pre></div><p>쿼터니언은 전체적으로 이해하기 쉬운 수식은 아닌것 같습니다. ( 제 경우 그렇다는 이야기 입니다. ^^ ) 
+</span></span></code></pre></div><p>쿼터니언은 전체적으로 이해하기 쉬운 수식은 아닌것 같습니다. ( 제 경우 그렇습니다. ^^ ) 
 수식에 대한 설명을 보면 대략 이렇게 움직이는 구나 정도 이해하고 넘어가게 되는 것 같습니다.  회전에 필요한 부분은 
 회전에 필요한 축을 생성하고, 해당 축에서 어느정도 각도를 움직이는가만 구성할 수 있으면, 제공해 놓은 공식으로 충분히 구성할 수 있을것 같습니다. 
 향후 다른것을 이해하기 위해 정리가 필요해지면, 그 때 정리해 보고자 합니다.  <br>

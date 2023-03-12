@@ -956,7 +956,7 @@
         const ve = makeArcballValues(ex,ey, fw, fh);
         const rdv = Math.acos(Math.max(-1.0,Math.min(1.0, makeDotProductVectors(vs, ve))));
         const vCross = makeNormalizeVector(makeVectorCrossProductValues(vs,ve));
-        return makeNormalizeVector(makeQuataianValueFormAxisAngle(rdv,vCross));
+        return makeNormalizeVector(makeQuaternionValueFormAxisAngle(rdv,vCross));
     };
 
     export const makeQuaternionMatrix = (qx,qy,qz,qw) => {
