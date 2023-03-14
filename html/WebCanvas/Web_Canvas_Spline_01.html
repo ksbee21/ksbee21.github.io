@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+</head>
+<body>
+    <script type="module" defer>
+        import * as CanvasUtils from '../../js/CanvasUtils.js';
+        import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
+
+        const dataArray = [];
+        dataArray.push({x:0,y:0});
+        dataArray.push({x:10,y:227.04});        
+        dataArray.push({x:15,y:362.78});        
+        dataArray.push({x:20,y:517.35});                
+        dataArray.push({x:22.5,y:602.97});
+        dataArray.push({x:30,y:901.67});        
+
+        const result = TypedMatrixUtils.makeInterpolationMatrix(dataArray,2);
+
+        //alert ( TypedMatrixUtils.printArrayValues(result.matrix));
+
+        //alert ( TypedMatrixUtils.printArrayValues(result.rValue));    
+        
+        const rMatrix = TypedMatrixUtils.makeGauseEliminationMatrix(result.matrix, result.rValue);
+
+        //alert ( rMatrix.rows +  " : " + rMatrix.cols)
+
+        //alert ( TypedMatrixUtils.printArrayValues(rMatrix));     
+        
+        const r3 = TypedMatrixUtils.makeInterpolationMatrix(dataArray,3);
+
+        alert ( TypedMatrixUtils.printArrayValues(r3.matrix));
+
+        alert ( TypedMatrixUtils.printArrayValues(r3.rValue));    
+
+
+        const rrMatrix = TypedMatrixUtils.makeGauseEliminationMatrix(r3.matrix, r3.rValue);
+
+        alert ( TypedMatrixUtils.printArrayValues(rrMatrix));    
+
+        
+
+
+
+    </script>
+    
+</body>
+</html>

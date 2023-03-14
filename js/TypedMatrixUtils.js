@@ -451,8 +451,8 @@
             return;
 
         const result = new Float32Array(matrix.length);
-        result.rows = cols;
-        result.cols = rows;
+        result.rows = rows;
+        result.cols = cols;
         for ( let i = 0 , iSize = matrix.length; i < iSize; i++ ) {
             result[i] = matrix[i];
         }
@@ -460,7 +460,7 @@
     };
 
 	const switchRowPositionValues = (orgMat, colSize, curRowIdx, transRowIdx) => {
-		if ( !orgMat || curRowIdx == transRowIdx || curRowIdx <= 0 )
+		if ( !orgMat || curRowIdx == transRowIdx || curRowIdx < 0 )
 			return;
 		const curIdx = curRowIdx*colSize;
 		const trIdx = transRowIdx*colSize;
@@ -503,6 +503,8 @@
 				let canCalc = false;
 				for ( let t = r+1; t < rows; t++ ) {
 					switchRowPositionValues(orgV, cols, r, t);
+                    switchRowPositionValues(inverseV, cols, r, t);                    
+
 					if ( orgV[stIdx] != 0 ) {
 						canCalc = true;
 						break;
@@ -542,6 +544,272 @@
 		}
 		return inverseV;
 	};
+
+    const makeCubicMatirx = (dataArray) => {
+
+        if ( !dataArray )
+            return;
+        const len       = dataArray.length-1;
+        const fullLen   = len*4;
+        const matrix    = new Float32Array(fullLen*fullLen);
+        const rValue    = new Float32Array(fullLen);
+
+        for ( let r = 0; r < fullLen; r++ ) {
+            let idx = r*fullLen;
+            let sIdx = Math.floor(r/2);
+            let eIdx = Math.ceil(r/2);
+            let flag = (sIdx == eIdx);
+            let start = sIdx*4;
+
+            let secondIndex = r-len*2;
+            let sStart = secondIndex * 4;
+            let thirdIndex = r-len*3+1;
+            let tStart  = thirdIndex * 4;
+
+           // alert ( "Rows : " +  r + " , Sidx : " + sIdx + " Len " + len + " -> sec : " + secondIndex + " :  third : " + thirdIndex );
+
+            for ( let c = 0; c < fullLen; c++ ) {
+                let cv = 0;
+                let curIdx = sIdx;
+                if ( !flag ) {
+                    curIdx = eIdx;
+                }
+                
+                if ( sIdx < len ) {
+                    if ( c == 0 )
+                        rValue[r] = dataArray[curIdx].y;
+
+                    if ( c == start ) {
+                        cv = (dataArray[curIdx].x * dataArray[curIdx].x * dataArray[curIdx].x) ;
+                    } else if ( c == (start+1) ) {
+                        cv = (dataArray[curIdx].x * dataArray[curIdx].x) ;
+                    } else if ( c == (start+2) ) {
+                        cv = dataArray[curIdx].x;
+                    } else if ( c == (start+3)) {
+                        cv = 1;
+                    }
+                } else if ( secondIndex < len-1 ) {
+                    if ( c == sStart ) {
+                        cv =  3* (dataArray[secondIndex].x * dataArray[secondIndex].x) ;
+                    } else if ( c == (sStart+1)) {
+                        cv = 2 * dataArray[secondIndex].x;
+                    } else if ( c == (sStart+2)) {
+                        cv = 1;
+                    } else if ( c == (sStart+4)) {
+                        cv =  -3* (dataArray[secondIndex].x * dataArray[secondIndex].x) ;
+                    } else if ( c == (sStart+5)) {
+                        cv = -2 * dataArray[secondIndex].x;
+                    } else if ( c == (sStart+6)) {
+                        cv = -1;
+                    }
+                } else if ( thirdIndex < len-1 ) {
+                    if ( c == tStart ) {
+                        cv =  6 * (dataArray[thirdIndex].x) ;
+                    } else if ( c == (tStart+1)) {
+                        cv = 2 ;
+                    } else if ( c == (tStart+4)) {
+                        cv =  -6 * (dataArray[thirdIndex].x) ;
+                    } else if ( c == (tStart+5)) {
+                        cv = -2;
+                    } 
+                } else if ( r == fullLen-2 ) {
+                    if ( c == 0 ) {
+                        cv = 1;
+                    }
+                } else {
+                    if ( c == fullLen-1 ) {
+                        cv = 1;
+                    }
+                }
+                matrix[idx+c] = cv;
+            }
+        }
+        matrix.rows = fullLen;
+        matrix.cols = fullLen;
+        rValue.rows = fullLen;
+        rValue.cols = 1;
+
+        return {
+            "matrix" : matrix, 
+            "rValue" : rValue,
+        }
+    };
+
+    const makeQuadraticMatrix = (dataArray) => {
+        if ( !dataArray )
+            return;
+        const len       = dataArray.length-1;
+        const fullLen   = len*3;
+        const matrix    = new Float32Array(fullLen*fullLen);
+        const rValue        = new Float32Array(fullLen);
+        for ( let r = 0; r < fullLen; r++ ) {
+            let idx = r*fullLen;
+            let sIdx = Math.floor(r/2);
+            let eIdx = Math.ceil(r/2);
+            let flag = (sIdx == eIdx);
+            let start = sIdx*3;
+            for ( let c = 0; c < fullLen; c++ ) {
+                let cv = 0;
+                let curIdx = sIdx;
+                if ( !flag ) {
+                    curIdx = eIdx;
+                }
+                
+                if ( sIdx < len ) {
+                    if ( c == 0 )
+                        rValue[r] = dataArray[curIdx].y;
+
+                    if ( c == start ) {
+                        cv = (dataArray[curIdx].x * dataArray[curIdx].x) ;
+                    } else if ( c == (start+1) ) {
+                        cv = dataArray[curIdx].x;
+                    } else if ( c == (start+2)) {
+                        cv = 1;
+                    }
+                } else {
+                    let pIdx = (r-len*2);
+                    let stIdx = pIdx*3;
+
+                    if ( pIdx == (len-1)) {
+                        if (c == 0 ) {
+                            cv = 1;
+                        }
+                    } else {
+                        if ( c == stIdx ) {
+                            cv = (2*dataArray[pIdx+1].x);
+                        } else if ( c == (stIdx+1 )) {
+                            cv = 1;
+                        } else if ( c == (stIdx+3 )) {
+                            cv = -(2*dataArray[pIdx+1].x);
+                        } else if ( c == (stIdx+4)) {
+                            cv = -1;
+                        }
+                    }
+                    if ( c == 0 ) {
+                        //alert ( "Cur Row : " + r + ", curIndex : " + curIdx + " : " + sIdx + " , " + eIdx + " ==>> " + ( r-len*2) );
+                    }
+                }
+                matrix[idx+c] = cv;
+            }
+        }
+        matrix.rows = fullLen;
+        matrix.cols = fullLen;
+        rValue.rows = fullLen;
+        rValue.cols = 1;
+
+        return {
+            "matrix" : matrix, 
+            "rValue" : rValue,
+        }
+    };
+
+    export const makeInterpolationMatrix = (dataArray, dimension ) => {
+        if ( dimension == 2 ) {
+            return makeQuadraticMatrix(dataArray);
+        } else if ( dimension == 3 ) {
+            return makeCubicMatirx(dataArray);
+        }
+        return;
+    };
+
+    export const makeGauseEliminationMatrix = ( matrix , resultV ) => {
+		if ( !matrix ) {
+			return;
+		}
+        const orgLen = matrix.length;
+        if ( !orgLen ) 
+            return;
+
+        let rows = -1;
+        let cols = -1;
+
+        if ( matrix.rows && matrix.cols ) {
+            rows = matrix.rows;
+            cols = matrix.cols;
+        } else {
+            rows = Math.sqrt(orgLen);
+            cols = rows;
+        }
+
+		if ( rows*rows != orgLen ) {
+			return;
+        }
+        if ( !resultV ) {
+            return;
+        }
+
+        let iRows = -1;
+        let iCols = -1;
+        if ( resultV.length == rows ) {
+            iRows = rows;
+            iCols = 1;
+        } else if ( resultV.rows && resultV.cols ) {
+            iRows = resultV.rows;
+            iCols = resultV.cols;
+        }
+        if ( iRows != rows ) 
+            return;
+
+        resultV.rows = iRows;
+        resultV.cols = iCols;
+		
+		const orgV = copyMatrixValues(matrix);
+        const inverseV = copyMatrixValues(resultV);  
+		for ( let r = 0; r < rows; r++ ) {
+			let stIdx = r*cols+r;
+			while ( orgV[stIdx] == 0 ) {
+				let canCalc = false;
+				for ( let t = r+1; t < rows; t++ ) {
+					switchRowPositionValues(orgV, cols, r, t);
+                    switchRowPositionValues(inverseV, iCols, r, t);                    
+
+					if ( orgV[stIdx] != 0 ) {
+						canCalc = true;
+						break;
+					}
+				}
+				if ( !canCalc ) {
+					return;
+				}
+			}
+			let sv = orgV[stIdx];
+			let sIdx = r*cols;
+            let cIdx = r*iCols;
+			for ( let c = 0; c < cols; c++ ) {
+				orgV[sIdx+c] /= sv;
+                if ( c < iCols )
+				    inverseV[cIdx+c] /= sv;
+			}
+			for ( let t = r+1; t < rows; t++ ) {
+				let tIdx = t*cols;
+                let tcIdx = t*iCols;
+				sv = orgV[tIdx+r];
+				for ( let c = 0; c < cols; c++ ) {
+					orgV[tIdx+c] -= (sv*orgV[sIdx+c]);
+                    if ( c < iCols )
+					    inverseV[tcIdx+c] -= (sv*inverseV[cIdx+c]);;
+				}
+			}
+		}
+
+		for ( let r = rows-1; r > 0; r-- ) {
+			let sIdx = r*cols;
+            let cIdx = r*iCols;
+			for ( let t = r-1; t >= 0; t-- ) {
+				let tIdx = t*cols;
+                let tcIdx = t*iCols;
+				let sv = orgV[tIdx+r];
+
+				for ( let c = 0; c < cols; c++ ) {
+					orgV[tIdx+c] -= ( sv * orgV[sIdx+c]);
+                    if ( c < iCols )
+					    inverseV[tcIdx+c] -= (sv*inverseV[cIdx+c]);
+				}
+			}
+		}
+		return inverseV;
+	};
+
 
 
     export const printArrayValues = ( mat, roundValue ) => {
