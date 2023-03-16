@@ -13,8 +13,134 @@
         import * as CanvasUtils from '../../js/CanvasUtils.js';
         import * as TypedMatrixUtils from '../../js/TypedMatrixUtils.js';
 
+
+        const canvasWidth   = 500;
+        const canvasHeight  = 500;
+
+        //const xGap          = canvasWidth/(xSize-1);
+        //const yGap          = canvasHeight/(ySize-1);
+
+        const linePoints    = [];
+
+
+
+        function makeOriginalCanvasUI() {
+
+            const canvas   = CanvasUtils.makeCanvasObject("drawingUI", undefined, canvasWidth, canvasHeight);
+            const ctx      = canvas.getContext("2d");
+            const gaps      = 50;
+
+            const iWidth = canvasWidth - gaps*2;
+            const iHeight = canvasHeight - gaps*2;
+
+            const dataPoints = [];
+            dataPoints.push({x:0,y:0});
+            dataPoints.push({x:iWidth/4,y:Math.round(iHeight*5/9)});                    
+            dataPoints.push({x:iWidth/2,y:iHeight/2});                    
+            dataPoints.push({x:iWidth*3/4,y:Math.round(iHeight*4/7)});                                
+            dataPoints.push({x:iWidth,y:iHeight}); 
+            
+            console.log ( dataPoints );
+
+            const mats = TypedMatrixUtils.makeInterpolationMatrix(dataPoints,2);
+            console.log ( mats)
+
+//alert ( TypedMatrixUtils.printArrayValues(result.matrix));
+
+//alert ( TypedMatrixUtils.printArrayValues(result.rValue));    
+
+            const coefArray = TypedMatrixUtils.makeGauseEliminationMatrix(mats.matrix, mats.rValue);
+            console.log ( "coefArra", TypedMatrixUtils.printArrayValues(coefArray,10000));
+            ctx.clearRect(0,0,canvasWidth,canvasHeight);
+            ctx.save();
+            ctx.fillStyle = "#EFEFFF";
+            ctx.fillRect(0,0,canvasWidth, canvasHeight);
+            ctx.fillStyle = "#EEEEAE";
+            ctx.fillRect(gaps,gaps,iWidth, iHeight);
+            ctx.strokeStyle = "#000080";
+            ctx.strokeRect(gaps,gaps,iWidth, iHeight);
+            ctx.restore();
+
+            ctx.save();
+            ctx.translate(gaps,gaps);
+
+            ctx.beginPath();
+            let curIndex = 0;
+
+            ctx.strokeStyle = "#0000FF";
+            ctx.lineWidth = 2;
+            
+            for ( let i = 0; i < dataPoints.length; i++ ) {
+                if ( i == 0 )
+                    ctx.moveTo(dataPoints[0].x,iHeight-dataPoints[0].y);
+                else 
+                    ctx.lineTo(dataPoints[i].x,iHeight-dataPoints[i].y);
+            }
+
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.beginPath();
+
+            ctx.strokeStyle = "#FF0000";   
+            ctx.lineWidth = 4;         
+            
+            for ( let i = 0; i <= iWidth; i++ ) {
+                if ( i == 0 ) {
+                    ctx.moveTo(dataPoints[0].x,iHeight-dataPoints[0].y);
+                } else {
+                    let fIdx = i < dataPoints[curIndex].x ? curIndex-1 : curIndex;
+                    if ( fIdx == curIndex ) 
+                        curIndex++;
+
+                    let cx = i;
+                    let cy = (coefArray[fIdx*3]*cx*cx + coefArray[fIdx*3+1]*cx + coefArray[fIdx*3+2] );
+                    ctx.lineTo(cx,iHeight-cy);
+                }
+            }
+            
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.fillStyle = "#000080";        
+            
+            for ( let i = 0; i < dataPoints.length; i++ ) {
+                ctx.moveTo (dataPoints[i].x,iHeight-dataPoints[i].y);
+                ctx.arc(dataPoints[i].x,iHeight-dataPoints[i].y, 5, 0, Math.PI*2);
+            }
+
+            ctx.fill();
+            ctx.closePath();
+
+
+
+
+            ctx.restore();
+/*
+            const imageData = ctx.createImageData(canvasWidth, canvasHeight);
+            for ( let r = 0; r < canvasHeight; r++ ) {
+                let yPos = Math.round(r/(yGap));
+                for ( let c = 0; c < canvasWidth; c++ ) {
+                    let xPos = Math.round(c/(xGap));
+                    let idx = yPos*xSize+xPos;
+                    let cIdx = r*canvasWidth*4+c*4;
+                    let t = 0;
+                    for( ; t < 3; t++ ) {
+                        imageData.data[cIdx+t] = colorRgbArray[idx][t];
+                    } 
+                    imageData.data[cIdx+t] = 255;
+                }
+            }
+            ctx.putImageData(imageData,0,0);
+*/            
+        }
+
+        makeOriginalCanvasUI();
+
+
         const dataArray = [];
-        dataArray.push({x:0,y:0});
+        dataArray.push({x:7,y:9});
         dataArray.push({x:10,y:227.04});        
         dataArray.push({x:15,y:362.78});        
         dataArray.push({x:20,y:517.35});                
@@ -29,20 +155,35 @@
         
         const rMatrix = TypedMatrixUtils.makeGauseEliminationMatrix(result.matrix, result.rValue);
 
+        const mm = TypedMatrixUtils.copyMatrixValues(result.matrix);
+
+        console.log ( result.matrix);
+        //alert ( result.matrix[15*14]);
+        mm[15*14] = 2;
+        //alert ( mm[15*14]);
+        const rMatrix01 = TypedMatrixUtils.makeGauseEliminationMatrix(mm, result.rValue);
+
         //alert ( rMatrix.rows +  " : " + rMatrix.cols)
 
-        //alert ( TypedMatrixUtils.printArrayValues(rMatrix));     
+        console.log ( mm );
+
+        console.log ( TypedMatrixUtils.printArrayValues(rMatrix) ,  TypedMatrixUtils.printArrayValues(rMatrix01)  );   
         
-        const r3 = TypedMatrixUtils.makeInterpolationMatrix(dataArray,3);
+        const dArray = [];
+        dArray.push({x:0,y:1});
+        dArray.push({x:1,y:3});        
+        dArray.push({x:2,y:2});        
+        
+        const r3 = TypedMatrixUtils.makeInterpolationMatrix(dArray,3);
 
-        alert ( TypedMatrixUtils.printArrayValues(r3.matrix));
+        //alert ( TypedMatrixUtils.printArrayValues(r3.matrix));
 
-        alert ( TypedMatrixUtils.printArrayValues(r3.rValue));    
+        //alert ( TypedMatrixUtils.printArrayValues(r3.rValue));    
 
 
         const rrMatrix = TypedMatrixUtils.makeGauseEliminationMatrix(r3.matrix, r3.rValue);
 
-        alert ( TypedMatrixUtils.printArrayValues(rrMatrix));    
+        //alert ( TypedMatrixUtils.printArrayValues(rrMatrix));    
 
         
 

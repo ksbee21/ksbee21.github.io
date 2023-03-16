@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sun, 22 Jan 2023 22:26:52 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/canvas/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Mar 2023 21:07:27 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/canvas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Web Canvas 데이터 보간 ( 2차함수 중심 )</title>
+      <link>https://ksbee21.github.io/post/webcanvas/web_canvas_spline_001/</link>
+      <pubDate>Wed, 15 Mar 2023 21:07:27 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/webcanvas/web_canvas_spline_001/</guid>
+      <description>프로젝트를 수행하다보면, Chart 를 사용하는 경우가 정말 많은것 같습니다. 수행하는 업무에 따라 사용하는 Chart 의 종류는 달라지겠지만, 대부분 Line 관련 Chart 는 많이 사용하는것 같습니다.
+단순히 y = ax + b 와 같은 1차 함수를 사용한 Chart 도 있겠지만, 여러 points 를 line 으로 연결해서 표현하는 Chart 가 오히려 일반적일 것 같습니다. 이렇게 points 연결 line 들이 부드러운 곡선으로 구성되어 있는 Chart도 쉽게 찾아 볼 수 있습니다. 물론 html canvas 자체의 함수로 quadraticCurveTo 함수를 제공하고 있지만, 실제로는 베지에(Bezier) 곡선을 활용하는 것이라, 부드러운 곡선을 얻기는 하지만, 주어진 모든 점을 통과 하지는 않습니다.</description>
+    </item>
+    
     <item>
       <title>Canvas 로 Sphere 구성 하기</title>
       <link>https://ksbee21.github.io/post/webcanvas/web_canvas_sphere/</link>

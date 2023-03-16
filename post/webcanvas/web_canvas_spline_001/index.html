@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="2차 함수 기반의 Spline Interpolation ">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>Web Canvas 데이터 보간 ( 2차함수 중심 ) &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ksbee21.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://ksbee21.github.io/css/main.css">
+    
+  
+  
+    
+        <script src="https://ksbee21.github.io/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Web Canvas 데이터 보간 ( 2차함수 중심 )</h1>
+  <h2>2차 함수 기반의 Spline Interpolation </h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 03. 15, 21:07</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/web">Web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/canvas">Canvas</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/math">Math</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <p>프로젝트를 수행하다보면, Chart 를 사용하는 경우가 정말 많은것 같습니다. <br>
+수행하는 업무에 따라 사용하는 Chart 의 종류는 달라지겠지만, 대부분 Line 관련 Chart 는 많이 사용하는것 같습니다.<br>
+단순히 y = ax + b 와 같은 1차 함수를 사용한 Chart 도 있겠지만, 여러 points 를 line 으로 연결해서 표현하는 Chart 가 
+오히려 일반적일 것 같습니다.  이렇게 points 연결 line 들이 부드러운 곡선으로 구성되어 있는 Chart도  쉽게 찾아 볼 수 있습니다. 
+물론 html canvas 자체의 함수로 quadraticCurveTo 함수를 제공하고 있지만, 실제로는 베지에(Bezier) 곡선을 활용하는 것이라, 
+부드러운 곡선을 얻기는 하지만, 주어진 모든 점을 통과 하지는 않습니다.  <br>
+각 구간별 모든 점을 통과 하면서, 부드러운 곡선을 그리기 위해서는 최소 2차 함수 이상이 각 구간별로 구성되어야 곡선을 구성할 수 있습니다.<br>
+2차 함수로 구성하는 것을 Qudratic Intepolation 이라 하고, 3차 함수로 연결하는 것을 Cubic Interpolation 이라고 합니다.  여러 포인트를 
+연결하는 곡선은 그 구간별로 보간(Interpolation) 하여야 하기 때문에 구간별로 수식이 다른 텐데 어떻게 부드럽게 연결할 수 있는지 정리해 보고자 합니다. <br>
+3차 함수가 더 부드럽게 연결할 수 있으나 이해하기에는 2차 함수로 이해하는게 더 좋을 것 같아서 2차 함수를 중심으로 확인해 보겠습니다.</p>
+<h1 id="spline-곡선">Spline 곡선</h1>
+<p>Spline을 위키의 정의 에는 복수의 포인트를 통과하는 부드러운 곡선이라고 이야기 하고 있습니다. 
+<a href="https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%94%8C%EB%9D%BC%EC%9D%B8_%EA%B3%A1%EC%84%A0">https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%94%8C%EB%9D%BC%EC%9D%B8_%EA%B3%A1%EC%84%A0</a><br>
+여러 지점을 통과하고 구간별 함수가 2차 함수라면 단순하게 생각해서 다음과 같은 표현을 생각 할 수 있습니다.   함수 원형과 1차 미분의 형태 입니다.</p>
+<p>$$
+y = ax^2 + bx + c \\
+y^\prime = 2ax + b \\
+$$</p>
+<p>이 수식의 의미는 어떤 포인트 p0 에서 p1 으로 가는 구간의 함수 하나와 p1 ~ p2 로 가는 구간의 함수, 그외 주어진 포인트 n 개 까지의 구간 함수를 생각해 볼 수 있습니다. <br>
+우리가 구하고자 하는 함수의 갯수는 포인트의 갯수가 n 이라고 할 때 n-1 개의 함수를 구해야 하는 것입니다.  <br>
+예를 들어 point 가 p0, p1, p2, p3, p4 의 5개가 있다면 구하고자 하는 함수는 p0 ~ p1 까지의 S1, p1 ~ p2 까지의 S2, p2 ~ p3 까지의 S3, p3 ~ p4 까지의 S4 의 4개의 함수를 구해야 합니다.<br>
+이것을 간단히 정리하면 다음과 같습니다. 
+$$
+points : p0, p1, p2, p3, p4 \\
+p0 에서 p1 까지의 함수 \quad S1 = a_1x^2 + b_1x + c_1 \\
+p1 에서 p2 까지의 함수 \quad S2 = a_2x^2 + b_2x + c_2 \\
+p2 에서 p3 까지의 함수 \quad S3 = a_3x^2 + b_3x + c_3 \\
+p3 에서 p4 까지의 함수 \quad S4 = a_4x^2 + b_4x + c_4 \\
+$$</p>
+<p>예시에서 5개의 points 가 있고, 구간이 4개니, 총 4개의 함수가 구간별로 필요합니다.   각 구간별 함수는 2차함수를 사용한다고 하였으니, 각 3개의 미지수가 존재합니다. <br>
+각 구간별 a, b, c 가 그에 해당하는 미지수 입니다.   총 12개의 미지수를 찾아야 하기 때문에 최소 12개의 다항식이 필요합니다.</p>
+<p>실제로 포인트를 다음의 값으로 가정해 보겠습니다. 
+p0 = {x: 0, y: 0}, p1 = {x: 100, y: 222}, p2 = {x: 200, y: 200}, p3 = {x: 300, y: 229}, p4 = {x: 400, y: 400}</p>
+<h3 id="각-포인트-에서-값을-확인해-보겠습니다">각 포인트 에서 값을 확인해 보겠습니다.</h3>
+<p>$$
+\begin{aligned}
+S1 = a_1 (p0.x)^2 + b_1 (p0.x) + c_1 = (p0.y) \quad  a_1 (0)^2 + b_1 (0) + c_1 = (0) \\   <br>
+S1 = a_1 (p1.x)^2 + b_1 (p1.x) + c_1 = (p1.y) \quad  a_1 (100)^2 + b_1 (100) + c_1 = (222) \\ 
+S2 = a_2 (p1.x)^2 + b_2 (p1.x) + c_2 = (p1.y) \quad  a_2 (100)^2 + b_2 (100) + c_2 = (222) \\   <br>
+S2 = a_2 (p2.x)^2 + b_2 (p2.x) + c_2 = (p2.y) \quad  a_2 (200)^2 + b_2 (200) + c_2 = (200) \\ 
+S3 = a_3 (p2.x)^2 + b_3 (p2.x) + c_3 = (p2.y) \quad  a_3 (200)^2 + b_3 (200) + c_3 = (200) \\    <br>
+S3 = a_3 (p3.x)^2 + b_3 (p3.x) + c_3 = (p3.y) \quad  a_3 (300)^2 + b_3 (300) + c_3 = (229) \\          <br>
+S4 = a_4 (p3.x)^2 + b_4 (p3.x) + c_4 = (p3.y) \quad  a_4 (300)^2 + b_4 (300) + c_4 = (229) \\                <br>
+S4 = a_4 (p4.x)^2 + b_4 (p4.x) + c_4 = (p4.y) \quad  a_4 (400)^2 + b_4 (400) + c_4 = (400) \\                      <br>
+\end{aligned}
+$$
+구간 함수가 4개 있고, 시작점과 끝점에서의 값을 알기 때문에 각 함수당 2개의 수식을 만들 수 있습니다. 8개의 수식은 위의 예시처럼 만들어 볼 수 있었습니다.</p>
+<h3 id="곡선은-구간-함수s1-s2-s3-s4-접점에서-1차-미분값이-같습니다">곡선은 구간 함수(S1, S2, S3, S4) 접점에서 1차 미분값이 같습니다.</h3>
+<p>p1 점에서 S1 과 S2 의 곡선이 만나고 부드럽게 연결하기 위해서는 1차 미분값이 같아야 합니다. ( 직선의 기울기가 같음 )<br>
+p2 에서는 S2 와 S3 의 1차 미분이 같아야 하고, p3 에서는 S3 와 S4 의 1차 미분이 같아야 합니다.</p>
+<p>$$
+\begin{aligned}
+S1 ^\prime = S2 ^\prime \quad 2 a_1 (p1.x) + b_1 = 2 a_2 (p1.x) + b_2   \quad 2 a_1 (100) + b_1 = 2 a_2 (100) + b_2 \\
+S2 ^\prime = S3 ^\prime \quad 2 a_2 (p2.x) + b_2 = 2 a_3 (p2.x) + b_3   \quad 2 a_2 (200) + b_2 = 2 a_3 (200) + b_3 \\
+S3 ^\prime = S4 ^\prime \quad 2 a_3 (p3.x) + b_3 = 2 a_4 (p3.x) + b_4   \quad 2 a_3 (300) + b_3 = 2 a_4 (300) + b_4 \\   <br>
+\end{aligned}
+$$
+위의 식은 아래와 같이 표현할 수 있습니다. 
+$$
+\begin{aligned}
+S1 ^\prime - S2 ^\prime = 0 \quad 2 a_1 (p1.x) + b_1 - 2 a_2 (p1.x) - b_2 = 0  \quad 2 a_1 (100) + b_1 - 2 a_2 (100) - b_2 = 0\\
+S2 ^\prime - S3 ^\prime = 0 \quad 2 a_2 (p2.x) + b_2 - 2 a_3 (p2.x) - b_3 = 0  \quad 2 a_2 (200) + b_2 - 2 a_3 (200) - b_3 = 0 \\
+S3 ^\prime - S4 ^\prime = 0 \quad 2 a_3 (p3.x) + b_3 - 2 a_4 (p3.x) - b_4 = 0  \quad 2 a_3 (300) + b_3 - 2 a_4 (300) - b_4 = 0 \\   <br>
+\end{aligned}
+$$</p>
+<h3 id="첫번째-구간-함수는-2차-미분값이-0-입니다">첫번째 구간 함수는 2차 미분값이 0 입니다.</h3>
+<p>총 12개의 필요한 수식중 지금 3개를 찾았으니 마지막 하나만 정의 하면 해를 풀 수 있습니다. <br>
+마지막 하나는 시작점 함수의 2차 미분 값을 0으로 설정하는 것으로 단순하게 정의하고 있습니다.<br>
+$$
+S1 ^{\prime\prime} = 2 a_1 = 0 \quad 단순하게적용 \quad a_1 = 0 \\
+$$
+값이 0이라 단순하게 적용해서 계산하고 있습니다. <br>
+이제 12 개의 수식이 나왔으니, 복잡하더라도 해를 구할 수 있습니다. ( 해가 있다면요 &hellip; )<br>
+$$
+\begin{bmatrix} 
+0&amp;0&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+10000&amp;100&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;10000&amp;100&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;40000&amp;200&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\      <br>
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;40000&amp;200&amp;1&amp;0&amp;0&amp;0\\               <br>
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;90000&amp;300&amp;1&amp;0&amp;0&amp;0\\               <br>
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;90000&amp;300&amp;1\\                        <br>
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;160000&amp;400&amp;1\\                                 <br>
+200&amp;1&amp;0&amp;-200&amp;-1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\                                 <br>
+0&amp;0&amp;0&amp;400&amp;1&amp;0&amp;-400&amp;-1&amp;0&amp;0&amp;0&amp;0\\                                          <br>
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;600&amp;1&amp;0&amp;-600&amp;-1&amp;0\\                                                   <br>
+1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+\end{bmatrix} \times 
+\begin{bmatrix}
+a_1\\b_1\\c_1\\a_2\\b_2\\c_2\\a_3\\b_3\\c_3\\a_4\\b_4\\c_4\\ 
+\end{bmatrix} =<br>
+\begin{bmatrix} 
+0\\222\\222\\200\\200\\229\\229\\400\\0\\0\\0\\0\\
+\end{bmatrix}
+$$</p>
+<p>가우스 소거법을 이용하면 역함수를 구할 수 있듯이, 소거법을 활용하여 해를 구할 수 있습니다.<br>
+이렇게 구한 값입니다. 
+$$
+\begin{aligned}
+a_1 = 0, \quad b_1 = 2.22, \quad c_1 = 0 \\
+a_2 = -0.0244 \quad b_2 = 7.1 \quad c_2 = -244.0007 \\
+a_3 = 0.0295 \quad b_3 = -14.46 \quad c_3 = 1912.0031 \\
+a_4 = -0.0153 \quad b_4 = 12.42 \quad c_4 = -2120.0061 \\
+\end{aligned}
+$$</p>
+<p>위 수식을 이용하여 구간별로 곡선을 그려 보면 아래와 같은 그림이 그려집니다. <br>
+(구간의 범위는 x 값이 포함되는 영역에서 해당 구간 함수를 활용하면 됩니다. 에제에서 x 가 100 이면 S1 함수를 x 가 250 이면 S3 함수를 사용합니다.)
+<img src="/imgs/spline_001.png" alt="image.png"></p>
+<h3 id="2차함수-이상을-구성하는-방법">2차함수 이상을 구성하는 방법</h3>
+<p>처음 정리를 시작할 때는 2차함수기반 (Quaratic Spline Interpolation) 과 3차함수기반(Cubic Spline Interpolation ) 을 정리할 예정 이었습니다. <br>
+Cubic Spline 을 x 기반의 수식으로 구성할 경우 2차 함수를 구한 위의 방식을 약간만 수정하면 구할 수 있습니다.   미분을 1차 2차로 구성한 후, 
+처음과 끝의 2차 미분 함수의 값을 0 혹은 필요한 값으로 설정하는 것으로 계산을 진행할 수 있습니다. <br>
+x 값을 기반으로 하지 않고, t ( 0 ~ 1 ) 사이의 함수로 재구성하여 계산하는 방법은 한글로 된 사이트를 포함하여 많이 있기 때문에 참조한 사이트를 
+소개하는 것으로 갈음할까 합니다.   개인적으로는 위와 같은 x값 기반의 행렬을 구성해서 소거법을 활용하는 방식을 더 선호하는 편입니다. <br>
+Data 추세 등을 추정하는 함수를 구성할 때도 역행렬을 구성하는 방식으로 계수를 추출하는게 편하기 때문에 처음 계수를 
+계산할 때 드는 비용이 그렇게 문제가 될 만큼 크다고는 생각하지 않는 측면도 있습니다.  물론 지극히 개인적인 생각 입니다. ^^</p>
+<h1 id="참조-사이트">참조 사이트</h1>
+<h4 id="httpspsupbunizinorgpolynomialinterpretationchapterchapter-three-quadratic-spline-interpolationhttpspsupbunizinorgpolynomialinterpretationchapterchapter-three-quadratic-spline-interpolation"><a href="https://psu.pb.unizin.org/polynomialinterpretation/chapter/chapter-three-quadratic-spline-interpolation/">https://psu.pb.unizin.org/polynomialinterpretation/chapter/chapter-three-quadratic-spline-interpolation/</a></h4>
+<p>사실 이번에 정리하다 발견한 사이트 인데, 이 사이트를 보고는 자세히 정리하는 것을 포기(?) 하였습니다.  친절하게 하나씩 설명해 주는 사이트 입니다.</p>
+<h4 id="httpsqt3b1s62da6stistorycom416httpsqt3b1s62da6stistorycom416"><a href="https://qt3b1s62da6s.tistory.com/416">https://qt3b1s62da6s.tistory.com/416</a></h4>
+<p>Cubic Spline 을 설명한 사이트 입니다.</p>
+<h4 id="httpsadnoctumtistorycom146httpsadnoctumtistorycom146"><a href="https://adnoctum.tistory.com/146">https://adnoctum.tistory.com/146</a></h4>
+<p>Cubic Spline 의 풀이를 소스로 구성해서 구성해 놓은 사이트 입니다.</p>
+<h4 id="httpsmathworldwolframcomcubicsplinehtmlhttpsmathworldwolframcomcubicsplinehtml"><a href="https://mathworld.wolfram.com/CubicSpline.html">https://mathworld.wolfram.com/CubicSpline.html</a></h4>
+<p>간결하지만 위 내용이 이해가 되면 정리하기 좋은 사이트 입니다.</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebcanvas%2fweb_canvas_spline_001%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fksbee21.github.io%2fpost%2fwebcanvas%2fweb_canvas_spline_001%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebcanvas%2fweb_canvas_spline_001%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fksbee21.github.io%2fpost%2fwebcanvas%2fweb_canvas_spline_001%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebcanvas%2fweb_canvas_spline_001%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fksbee21.github.io%2fpost%2fwebcanvas%2fweb_canvas_spline_001%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ksbee21.github.io/post/webmodule/webgl_part_014/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ksbee21.github.io/post/webmodule/webgl_part_014/">WebGL2 - Program 시작 11 - 회전 - [ 15 ]</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ksbee21.github.io/js/ui.js"></script>
+<script src="https://ksbee21.github.io/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+
