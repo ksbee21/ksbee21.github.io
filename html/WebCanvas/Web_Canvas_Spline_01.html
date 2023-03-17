@@ -39,18 +39,12 @@
             dataPoints.push({x:iWidth/2,y:iHeight/2});                    
             dataPoints.push({x:iWidth*3/4,y:Math.round(iHeight*4/7)});                                
             dataPoints.push({x:iWidth,y:iHeight}); 
-            
-            console.log ( dataPoints );
 
             const mats = TypedMatrixUtils.makeInterpolationMatrix(dataPoints,2);
-            console.log ( mats)
-
-//alert ( TypedMatrixUtils.printArrayValues(result.matrix));
-
-//alert ( TypedMatrixUtils.printArrayValues(result.rValue));    
-
             const coefArray = TypedMatrixUtils.makeGauseEliminationMatrix(mats.matrix, mats.rValue);
-            console.log ( "coefArra", TypedMatrixUtils.printArrayValues(coefArray,10000));
+
+            const cubicMat = TypedMatrixUtils.makeInterpolationMatrix(dataPoints,3);
+            const cubicCoefArray = TypedMatrixUtils.makeGauseEliminationMatrix(cubicMat.matrix, cubicMat.rValue);            
             ctx.clearRect(0,0,canvasWidth,canvasHeight);
             ctx.save();
             ctx.fillStyle = "#EFEFFF";
@@ -103,6 +97,30 @@
             ctx.closePath();
 
             ctx.beginPath();
+
+            ctx.strokeStyle = "#FF00FF";   
+            ctx.lineWidth = 4;    
+            curIndex = 0;     
+            
+            for ( let i = 0; i <= iWidth; i++ ) {
+                if ( i == 0 ) {
+                    ctx.moveTo(dataPoints[0].x,iHeight-dataPoints[0].y);
+                } else {
+                    let fIdx = i < dataPoints[curIndex].x ? curIndex-1 : curIndex;
+                    if ( fIdx == curIndex ) 
+                        curIndex++;
+
+                    let cx = i;
+                    let cy = (cubicCoefArray[fIdx*4]*cx*cx*cx + cubicCoefArray[fIdx*4+1]*cx*cx + cubicCoefArray[fIdx*4+2]*cx + cubicCoefArray[fIdx*4+3]);
+                    ctx.lineTo(cx,iHeight-cy);
+                }
+            }
+            
+            ctx.stroke();
+            ctx.closePath();
+
+
+            ctx.beginPath();
             ctx.fillStyle = "#000080";        
             
             for ( let i = 0; i < dataPoints.length; i++ ) {
@@ -112,10 +130,6 @@
 
             ctx.fill();
             ctx.closePath();
-
-
-
-
             ctx.restore();
 /*
             const imageData = ctx.createImageData(canvasWidth, canvasHeight);
