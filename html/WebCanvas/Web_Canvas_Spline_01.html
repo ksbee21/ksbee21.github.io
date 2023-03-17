@@ -151,58 +151,6 @@
         }
 
         makeOriginalCanvasUI();
-
-
-        const dataArray = [];
-        dataArray.push({x:7,y:9});
-        dataArray.push({x:10,y:227.04});        
-        dataArray.push({x:15,y:362.78});        
-        dataArray.push({x:20,y:517.35});                
-        dataArray.push({x:22.5,y:602.97});
-        dataArray.push({x:30,y:901.67});        
-
-        const result = TypedMatrixUtils.makeInterpolationMatrix(dataArray,2);
-
-        //alert ( TypedMatrixUtils.printArrayValues(result.matrix));
-
-        //alert ( TypedMatrixUtils.printArrayValues(result.rValue));    
-        
-        const rMatrix = TypedMatrixUtils.makeGauseEliminationMatrix(result.matrix, result.rValue);
-
-        const mm = TypedMatrixUtils.copyMatrixValues(result.matrix);
-
-        console.log ( result.matrix);
-        //alert ( result.matrix[15*14]);
-        mm[15*14] = 2;
-        //alert ( mm[15*14]);
-        const rMatrix01 = TypedMatrixUtils.makeGauseEliminationMatrix(mm, result.rValue);
-
-        //alert ( rMatrix.rows +  " : " + rMatrix.cols)
-
-        console.log ( mm );
-
-        console.log ( TypedMatrixUtils.printArrayValues(rMatrix) ,  TypedMatrixUtils.printArrayValues(rMatrix01)  );   
-        
-        const dArray = [];
-        dArray.push({x:0,y:1});
-        dArray.push({x:1,y:3});        
-        dArray.push({x:2,y:2});        
-        
-        const r3 = TypedMatrixUtils.makeInterpolationMatrix(dArray,3);
-
-        //alert ( TypedMatrixUtils.printArrayValues(r3.matrix));
-
-        //alert ( TypedMatrixUtils.printArrayValues(r3.rValue));    
-
-
-        const rrMatrix = TypedMatrixUtils.makeGauseEliminationMatrix(r3.matrix, r3.rValue);
-
-        //alert ( TypedMatrixUtils.printArrayValues(rrMatrix));    
-
-        
-
-
-
     </script>
     
 </body>
