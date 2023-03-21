@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Programming on 잊혀져 가는 기억을 기록하기 ....</title>
+    <title>programming on 잊혀져 가는 기억을 기록하기 ....</title>
     <link>https://ksbee21.github.io/tags/programming/</link>
-    <description>Recent content in Programming on 잊혀져 가는 기억을 기록하기 ....</description>
+    <description>Recent content in programming on 잊혀져 가는 기억을 기록하기 ....</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sat, 11 Mar 2023 11:11:25 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Mar 2023 23:00:20 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>프로그램 관심사항들 ....</title>
+      <link>https://ksbee21.github.io/post/common/interests_001/</link>
+      <pubDate>Fri, 17 Mar 2023 23:00:20 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/common/interests_001/</guid>
+      <description>잠깐 돌아보기 Naver, Daum, Google, 카카오톡, 유튜브 등 Network 으로 연결되어 있는 세상이 너무나 당연해서, 아주 오래전부터 지속되어 온듯한 생각이 들지만, 돌이켜 보면, 몇년 되지 않은 기술 들도 있네요 &amp;hellip; Internet 이 보급되던 90년대 중반을 시작으로 보아도 30년이 넘지 않은 기술 들입니다. Network 용어중 bps 는 bit per seconds 의 약어 입니다. 모뎀이 보급되던 초기 1200bps, 2400bps 등의 속도가 현재 100메가 bps 1기가 bps 로 비교가 되지 않게 성장하였습니다. 초기 모뎀은 1초에 한글같은 unicode 2byte 체계에서는 1200bps 기준 150byte 75자 정도를 표현할 수 있었습니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Program 시작 11 - 회전 - [ 15 ]</title>
       <link>https://ksbee21.github.io/post/webmodule/webgl_part_014/</link>
