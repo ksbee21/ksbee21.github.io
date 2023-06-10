@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2022. All right reserved.</copyright>
-    <lastBuildDate>Sat, 11 Mar 2023 11:11:25 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/language/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Jun 2023 11:31:04 +0900</lastBuildDate><atom:link href="https://ksbee21.github.io/tags/language/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python 언어 비교 정리 01</title>
+      <link>https://ksbee21.github.io/post/programlangs/pythons_001/</link>
+      <pubDate>Sat, 10 Jun 2023 11:31:04 +0900</pubDate>
+      
+      <guid>https://ksbee21.github.io/post/programlangs/pythons_001/</guid>
+      <description>Python - 개인적인 소감 &amp;hellip; Linux 에서 Shell 관련 프로그램을 개발해야할 필요성이 제기 되었을 때 Python 을 가능하지 않을까 하는 기대감에 이런 언어가 있구나 했던때가 2010년 경이 었던것 같습니다. 당시, 우리나라 개발환경의 주류가 java, c# 등이고, Ruby, Python 이 경쟁하고 있었고, 통계는 R, Linux 환경에서는 Shell Program 이 개인적으로 더 좋게 느껴졌던것 같습니다. 요즘 tensorflow.js 를 살펴보면서, AI 자료를 찾아 보면 대부분 Python 기반의 모듈이었습니다. numpy, pandas, matplotlib 등의 모듈을 사용하면 계산, 분석, 시각화가 어렵지 않게 구현이 되면서도, 수행속도도 느리지 않습니다.</description>
+    </item>
+    
     <item>
       <title>WebGL2 - Program 시작 11 - 회전 - [ 15 ]</title>
       <link>https://ksbee21.github.io/post/webmodule/webgl_part_014/</link>

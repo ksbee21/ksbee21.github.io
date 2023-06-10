@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Python 언어 - Simple Linear Regression - 비교">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>Python 언어 비교 정리 01 &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ksbee21.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://ksbee21.github.io/css/main.css">
+    
+  
+  
+    
+        <script src="https://ksbee21.github.io/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Python 언어 비교 정리 01</h1>
+  <h2>Python 언어 - Simple Linear Regression - 비교</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 06. 10, 11:31</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/python">Python</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/java">Java</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="python---개인적인-소감-">Python - 개인적인 소감 &hellip;</h1>
+<hr>
+<p>Linux 에서 Shell 관련 프로그램을 개발해야할 필요성이 제기 되었을 때 Python 을 가능하지 않을까 하는 
+기대감에 이런 언어가 있구나 했던때가 2010년 경이 었던것 같습니다. <br>
+당시, 우리나라 개발환경의 주류가 java, c# 등이고, Ruby, Python 이 경쟁하고 있었고, 통계는 R, Linux 환경에서는 
+Shell Program 이 개인적으로 더 좋게 느껴졌던것 같습니다. <br>
+요즘 tensorflow.js 를 살펴보면서, AI 자료를 찾아 보면 대부분 Python 기반의 모듈이었습니다. <br>
+numpy, pandas, matplotlib 등의 모듈을 사용하면 계산, 분석, 시각화가 어렵지 않게 구현이 되면서도, 수행속도도 느리지 않습니다. <br>
+변수를 heap, stack, 전역 static 일지 고려한 코딩에서, 구현중심으로 변화하며, 즉각적인 확인이 필요한 영역에서 급격히 파급력을 
+높이는게 아닌가 합니다. tensorflow 관련 python 모듈을 찾아보다 보면, 개념만 이해하면, 구현이 복잡한 내용도 대부분 모듈화 되어 있어
+편리한 사용이 가능한게 아닌가 합니다. <br>
+개념과 원리에 대한 학습이 충실하다면, 이런 모듈을 사용하는것이 생산성을 극대화 시킬 수 있을것 같은 생각이 들었습니다.</p>
+<h1 id="python-시작">Python 시작</h1>
+<h3 id="참조-url">참조 URL</h3>
+<p>python 설치에 관련하여 많이 사용하는 모듈을 모두 함께 설치할 수 있는 anaconda 등이 있지만, 필요할 때 필요한 모듈을 설치해 놓고 사용하는 것이 학습을 위해서는 더 좋을 것 같습니다. <br>
+python 사이트에서 컴퓨터 OS 에 따라 프로그램을 다운 받아 진행하면 될 것 같습니다.</p>
+<h4 id="python-url--httpswwwpythonorghttpswwwpythonorg">PYTHON URL : <a href="https://www.python.org/">https://www.python.org/</a></h4>
+<h4 id="down-load-url--httpswwwpythonorgdownloadsreleasepython-3114httpswwwpythonorgdownloadsreleasepython-3114">Down load URL : <a href="https://www.python.org/downloads/release/python-3114/">https://www.python.org/downloads/release/python-3114/</a></h4>
+<p>Windows 설치시 가능하면 관리자권한의 모든사용자로 설치하는 것이 pip 으로 각 모듈을 설치할 때 편할것 같습니다. 
+python 이 설치된 후 필요모듈을 설치하여야 하는데 이때 주의 하여야 할 부분이 관리자권한으로 설치하지 않으면 구성된 파일을 삭제 추가할 때 문제가 
+발생할 수 있기 때문에 cmd 창 혹은 visual studio code 를 실행할 때 관리자권한으로 뛰은 상태에서 pip 명령을 수행하시는게 좋습니다.</p>
+<h4 id="numpy-url--httpsnumpyorginstallhttpsnumpyorginstall">Numpy URL : <a href="https://numpy.org/install/">https://numpy.org/install/</a></h4>
+<h4 id="pandas-url--httpspypiorgprojectpandashttpspypiorgprojectpandas">Pandas URL : <a href="https://pypi.org/project/pandas/">https://pypi.org/project/pandas/</a></h4>
+<h4 id="matplotlib-url--httpspypiorgprojectmatplotlibhttpspypiorgprojectmatplotlib">Matplotlib URL : <a href="https://pypi.org/project/matplotlib/">https://pypi.org/project/matplotlib/</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>    // python, pip version 확인
+</span></span><span style="display:flex;"><span>    python --version 
+</span></span><span style="display:flex;"><span>    pip --version
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    // pip upgrade - 관리자모드 추천
+</span></span><span style="display:flex;"><span>    python -m pip install --upgrade pip
+</span></span><span style="display:flex;"><span>    python -m pip install -U pip 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    // 설치
+</span></span><span style="display:flex;"><span>    pip install numpy
+</span></span><span style="display:flex;"><span>    pip install pandas
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    //  mapplotlib site 에서 제시하는 방법
+</span></span><span style="display:flex;"><span>    python -m pip install -U pip 
+</span></span><span style="display:flex;"><span>    python -m pip install -U matplotlib
+</span></span></code></pre></div><p>간단한 Python 모듈을 통해 다른 언어와 무엇이 비슷하고 무엇이 다른지를 확인해 보고자 합니다. <br>
+Python 은 주로 분석모듈에 많이 사용하기 때문에 numpy 와 matplotlib 을 활용하여 최소제곱법으로 구현된
+간단한 회귀식을 구성해 보고자 합니다. <br>
+Python 과 비교할 언어는 Javascript 와 Java 입니다.  가급적 유사한 방식으로 구현해 보고자 다른 Library 는 제외 하였습니다.</p>
+<h3 id="최소제곱법--least-square-method-simple-linear-regression">최소제곱법 ( Least Square Method, Simple Linear Regression)</h3>
+<p>자료를 검색해 보면 한글로된 좋은 사이트도 많이 보이고 있습니다.<br>
+주어진 X,Y 값을 기준으로(2개 이상의 점) 추세를 예측할 수 있는 1차 함수를 구성하기 위한 방법으로 사용합니다. 
+최소제곱법은 오차 제곱의 합이 최소한이 되도록 구성하는 방법이며, 1차 이상의 함수에서도 적용할 수 있습니다. 이글에서는 1차 함수만 대상으로 하겠습니다.</p>
+<p>구현을 위해서는 기본적인 공식이 필요하기 때문에 간단히 정리해 보겠습니다.<br>
+$$
+\bar{y} = a \times \bar{x} + b \\
+\bar{x} = xPoint 평균( meam ) \\
+\bar{y} = yPoint 평균( mean ) \\
+a = \frac{\sum\limits_{i=1}^n (({x_i} - \bar{x})\times({y_i} - \bar{y}))} { \sum\limits_{i=1}^n(({x_i}-\bar{x})^2)} \\
+b = \bar{y} - a \times \bar{x}
+$$
+xPoint 가 1, 2, 3, 4, 5 이고 yPoint 가 3, 5, 7, 9, 11 일 경우 기울기가 2이고, 절편이 1 인 y = 2 * x + 1 인 수식을 예상할 수 있습니다. 
+이런 부분을 예측해 내기 위해 1차 최소제곱법을 사용하게 됩니다.</p>
+<p>원리에 대한 설명은 네이버캐스트에 잘되어 있기 때문에 링크로만 연결하겠습니다.</p>
+<h5 id="한글-설명-url--httpstermsnavercomentrynaverdocid3569970cid58944categoryid58970httpstermsnavercomentrynaverdocid3569970cid58944categoryid58970">한글 설명 URL : <a href="https://terms.naver.com/entry.naver?docId=3569970&amp;cid=58944&amp;categoryId=58970">https://terms.naver.com/entry.naver?docId=3569970&amp;cid=58944&amp;categoryId=58970</a></h5>
+<h5 id="wiki-url--httpsenwikipediaorgwikileast_squareshttpsenwikipediaorgwikileast_squares">Wiki URL : <a href="https://en.wikipedia.org/wiki/Least_squares">https://en.wikipedia.org/wiki/Least_squares</a></h5>
+<h3 id="python-으로-구성하기">Python 으로 구성하기</h3>
+<p>Python 을 정리하기 위해서 구성하는 모듈이므로, 간단하게 구성해 보겠습니다.</p>
+<p>import 구문으로 numpy, matplotlib.pyplot 을 가져오고 있습니다. <br>
+def 로 함수 구문을 구성하고 있는데, numpy 의 mean 함수가 평균을 구하는 함수라 굳이 makeMeanValues 라는 함수를 구성할 필요는 없으나, 다른 언어와 유사한 구조를 취하기 위해서 구성해 보았습니다.</p>
+<p>기본값을 설정하는 방식이 slope=2.0 등으로 parameter 변수가 없을 경우 default 값을 설정할 수 있습니다. 
+함수중 makeLinePoints 는 기울기와 절편을 기준으로 points 를 반환해 주는 함수 입니다.   slope 과 intercept 는 기울기와 절편이고, bias 는 각 포인트별 흔들리는 정도를 준것이라 보면 될것 같습니다.</p>
+<p>makeSimpleLinearRegression 함수는 기본적인 validation 만 수행합니다. 실무에서라면 각 함수는 에러 핸들링이 필수 입니다.<br>
+평균을 구하고, 각 포인트에서 평균을 뺀후 위의 공식에 따라 기울기를 구하고, 그 기울기를 기준으로 절편을 구해 반환하는 함수 입니다.</p>
+<p>return slope, intercept 는 return 이 두번 일어나는 것이 아닌, python 자료형의 튜플로( 불변의 배열) 묶어 반환하고 있습니다. 
+문자열의 format 은 두가지 방식으로 구성해 보고 있습니다.</p>
+<p>matplotlib.pyplot 으로 데이터를 chart 로 시각화 하여 표현하고 있습니다. <br>
+위의 내용을 구현한 코드는 아래와 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">makeMeanValues</span>(pointArray):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>mean(pointArray)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">makeLinePoints</span>(size<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>,slope<span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>,intercept<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,startX<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,xStep<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,bias<span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>):
+</span></span><span style="display:flex;"><span>    xPoints <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(startX, startX<span style="color:#f92672">+</span>xStep<span style="color:#f92672">*</span>size, xStep)
+</span></span><span style="display:flex;"><span>    yPoints <span style="color:#f92672">=</span> xPoints<span style="color:#f92672">*</span>slope<span style="color:#f92672">+</span>intercept<span style="color:#f92672">+</span>bias<span style="color:#f92672">*</span>(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(size)<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    orgPoints <span style="color:#f92672">=</span> xPoints<span style="color:#f92672">*</span>slope<span style="color:#f92672">+</span>intercept
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> xPoints, yPoints, orgPoints
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">makeSimpleLinearRegression</span>(xPoints,yPoints):
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> len(xPoints)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( size <span style="color:#f92672">!=</span> len(yPoints)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    xAvg <span style="color:#f92672">=</span> makeMeanValues(xPoints)
+</span></span><span style="display:flex;"><span>    yAvg <span style="color:#f92672">=</span> makeMeanValues(yPoints)
+</span></span><span style="display:flex;"><span>    slope <span style="color:#f92672">=</span> ((xPoints<span style="color:#f92672">-</span>xAvg)<span style="color:#f92672">*</span>(yPoints<span style="color:#f92672">-</span>yAvg))<span style="color:#f92672">.</span>sum() <span style="color:#f92672">/</span> ((xPoints<span style="color:#f92672">-</span>xAvg)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>    intercept <span style="color:#f92672">=</span> yAvg <span style="color:#f92672">-</span> slope<span style="color:#f92672">*</span>xAvg
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> slope, intercept
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>slope <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>intercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>startX <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>xStep <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>bias <span style="color:#f92672">=</span> <span style="color:#ae81ff">5.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>xyPoints <span style="color:#f92672">=</span> makeLinePoints(size,slope, intercept, startX, xStep, bias)
+</span></span><span style="display:flex;"><span>calcResult <span style="color:#f92672">=</span> makeSimpleLinearRegression(xyPoints[<span style="color:#ae81ff">0</span>], xyPoints[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>orgStr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[original y] = </span><span style="color:#e6db74">{slope}</span><span style="color:#e6db74">*x + </span><span style="color:#e6db74">{intercept}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(slope<span style="color:#f92672">=</span>slope,intercept<span style="color:#f92672">=</span>intercept)
+</span></span><span style="display:flex;"><span>calcStr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[regression y] = </span><span style="color:#e6db74">%0.4f</span><span style="color:#e6db74">*x + </span><span style="color:#e6db74">%0.4f</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (calcResult[<span style="color:#ae81ff">0</span>], calcResult[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">7</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(xyPoints[<span style="color:#ae81ff">0</span>], xyPoints[<span style="color:#ae81ff">2</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;g&#39;</span>, label<span style="color:#f92672">=</span>orgStr)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(xyPoints[<span style="color:#ae81ff">0</span>], xyPoints[<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;points&#39;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(xyPoints[<span style="color:#ae81ff">0</span>],xyPoints[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>calcResult[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span>calcResult[<span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;b&#39;</span>, label<span style="color:#f92672">=</span>calcStr)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/imgs/python_001_01.png" alt="/imgs/python_001_01.png"></p>
+<h3 id="javascript-로-구성하기">Javascript 로 구성하기</h3>
+<p>Python 과 유사한 구성으로 소스를 구성해 보았습니다. <br>
+공통점을 부각시키기 위해서 함수도 map, reduce 등을 사용하였습니다. Chart 도 plotly.js 를 기준으로 구성하여 matplotlib 과 유사한 효과가 나타나도록 구성하였습니다. <br>
+다만, Web 이기 때문에 사용자가 데이터를 변경해서 확인해 볼 수 있도록 차트를 구성할 때 변수를 받아서 테스트 할 수 있도록 구성하였습니다.</p>
+<h4 id="이곳에서-적용된-예제를-확인할-수-있습니다htmllangspython_001_01html"><a href="/html/Langs/python_001_01.html">이곳에서 적용된 예제를 확인할 수 있습니다.</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Size</span> <span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sizeTxt&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;50&#34;</span><span style="color:#f92672">/&gt;</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>; 
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Slope</span> <span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;slopeTxt&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2.0&#34;</span><span style="color:#f92672">/&gt;</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>; 
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Intercept</span> <span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;interceptTxt&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5.0&#34;</span><span style="color:#f92672">/&gt;</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>;         
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Start</span> <span style="color:#a6e22e">X</span> <span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;startXTxt&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10&#34;</span><span style="color:#f92672">/&gt;</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>;         
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Step</span> <span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stepXTxt&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5&#34;</span><span style="color:#f92672">/&gt;</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>;                 
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Bias</span> <span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;biasTxt&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5.0&#34;</span><span style="color:#f92672">/&gt;</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>;                 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">BUTTON</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;makeRegressionResult()&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Test</span> <span style="color:#a6e22e">Execution</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/BUTTON&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width:800px;height:600px;border:1px solid #000080&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chartDiv&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chartDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;chartDiv&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeMeanValues</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">pointArray</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pointArray</span>.<span style="color:#a6e22e">reduce</span>( (<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>) =&gt; <span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0.0</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span><span style="color:#f92672">/</span><span style="color:#a6e22e">pointArray</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeLinePoints</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>,<span style="color:#a6e22e">slope</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>,<span style="color:#a6e22e">intercept</span><span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,<span style="color:#a6e22e">startX</span><span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,<span style="color:#a6e22e">xStep</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,<span style="color:#a6e22e">bias</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xPoints</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">yPoints</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">orgPoints</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">xv</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">startX</span><span style="color:#f92672">+</span><span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#a6e22e">xStep</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">orgY</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xv</span><span style="color:#f92672">*</span><span style="color:#a6e22e">slope</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">intercept</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">yv</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">orgY</span> <span style="color:#f92672">+</span> ( (Math.<span style="color:#a6e22e">random</span>()<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>)<span style="color:#f92672">*</span><span style="color:#a6e22e">bias</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">xPoints</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">xv</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">yPoints</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">yv</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">orgPoints</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">orgY</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> [ <span style="color:#a6e22e">xPoints</span>, <span style="color:#a6e22e">yPoints</span>, <span style="color:#a6e22e">orgPoints</span>];
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeSimpleLinearRegression</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">xPoints</span>,<span style="color:#a6e22e">yPoints</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xPoints</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">size</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">yPoints</span>.<span style="color:#a6e22e">length</span> )
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xAvg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeMeanValues</span>(<span style="color:#a6e22e">xPoints</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">yAvg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeMeanValues</span>(<span style="color:#a6e22e">yPoints</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">numerator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xPoints</span>.<span style="color:#a6e22e">map</span>( (<span style="color:#a6e22e">v</span>,<span style="color:#a6e22e">idx</span>) =&gt; { <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">xAvg</span>) <span style="color:#f92672">*</span> (<span style="color:#a6e22e">yPoints</span>[<span style="color:#a6e22e">idx</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">yAvg</span>); }).<span style="color:#a6e22e">reduce</span>( (<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>) =&gt; <span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0.0</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">denominator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xPoints</span>.<span style="color:#a6e22e">map</span>( (<span style="color:#a6e22e">v</span>,<span style="color:#a6e22e">idx</span>) =&gt; { <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">xAvg</span>) <span style="color:#f92672">*</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">xAvg</span>); }).<span style="color:#a6e22e">reduce</span>( (<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>) =&gt; <span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0.0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">slope</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">numerator</span><span style="color:#f92672">/</span><span style="color:#a6e22e">denominator</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">intercept</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">yAvg</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">slope</span><span style="color:#f92672">*</span><span style="color:#a6e22e">xAvg</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">calcPoints</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xPoints</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">v</span><span style="color:#f92672">*</span><span style="color:#a6e22e">slope</span><span style="color:#f92672">+</span><span style="color:#a6e22e">intercept</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> [ <span style="color:#a6e22e">slope</span>, <span style="color:#a6e22e">intercept</span>, <span style="color:#a6e22e">calcPoints</span>];
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makeRegressionResult</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> parseInt(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;sizeTxt&#34;</span>).<span style="color:#a6e22e">value</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">slope</span> <span style="color:#f92672">=</span> parseFloat(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;slopeTxt&#34;</span>).<span style="color:#a6e22e">value</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">intercept</span> <span style="color:#f92672">=</span> parseFloat(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;interceptTxt&#34;</span>).<span style="color:#a6e22e">value</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">startX</span> <span style="color:#f92672">=</span> parseFloat(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;startXTxt&#34;</span>).<span style="color:#a6e22e">value</span>);            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xStep</span> <span style="color:#f92672">=</span> parseFloat(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;stepXTxt&#34;</span>).<span style="color:#a6e22e">value</span>);   
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bias</span> <span style="color:#f92672">=</span> parseFloat(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;biasTxt&#34;</span>).<span style="color:#a6e22e">value</span>);               
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xyPoints</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeLinePoints</span>(<span style="color:#a6e22e">size</span>,<span style="color:#a6e22e">slope</span>, <span style="color:#a6e22e">intercept</span>,<span style="color:#a6e22e">startX</span>, <span style="color:#a6e22e">xStep</span>, <span style="color:#a6e22e">bias</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sArray</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makeSimpleLinearRegression</span>(<span style="color:#a6e22e">xyPoints</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">xyPoints</span>[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">orgName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[original y = &#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">slope</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34; * x  + &#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">intercept</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;]&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clalName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[regression y = &#34;</span><span style="color:#f92672">+</span>Math.<span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">sArray</span>[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">1000</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34; * x  + &#34;</span><span style="color:#f92672">+</span>Math.<span style="color:#a6e22e">round</span>(<span style="color:#a6e22e">sArray</span>[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">1000</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;]&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">orgPoints</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">x</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">xyPoints</span>[<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">y</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">xyPoints</span>[<span style="color:#ae81ff">2</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">type</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;scatter&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">mode</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;lines&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">line</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#00FF00&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                }, 
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">orgName</span>,
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">scatterPoints</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">x</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">xyPoints</span>[<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">y</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">xyPoints</span>[<span style="color:#ae81ff">1</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">type</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;scatter&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">mode</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;markers&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">color</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;red&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;scatter points&#34;</span>,
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">calcPoints</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">x</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">xyPoints</span>[<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">y</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">sArray</span>[<span style="color:#ae81ff">2</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">type</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;scatter&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">mode</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;lines&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">line</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#0000FF&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>                }, 
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">name</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">clalName</span>,
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">Plotly</span>.<span style="color:#a6e22e">newPlot</span>(<span style="color:#a6e22e">chartDiv</span>, [
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">orgPoints</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">scatterPoints</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">calcPoints</span>,
+</span></span><span style="display:flex;"><span>            ], {<span style="color:#a6e22e">margin</span> <span style="color:#f92672">:</span> {<span style="color:#a6e22e">t</span> <span style="color:#f92672">:</span><span style="color:#ae81ff">0</span> }});
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">makeRegressionResult</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><p><img src="/imgs/python_001_02.png" alt="/imgs/python_001_01.png"></p>
+<p>open source 를 사용, 함수의 기본값 설정 등 상당히 유사한 문법 구조가 보입니다. 변수선언, 들여쓰기 문법등에서 차이가 있지만 유사한 점도 많아 보입니다.</p>
+<h3 id="java-로-구성하기">Java 로 구성하기</h3>
+<p>언어별 공통점을 찾는 구성으로 Java 를 구현해 보았습니다.<br>
+차트까지 구성하려면 JavaFX 나 별도의 Library 를 사용하여야 하기 때문에 시각화는 추후 기회가 될 때 구성하고, 
+핵심적인 내용만 구성해 보았습니다. <br>
+거의 동일한 내용이라 소스만 비교할 수 있도록 기재해 보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.stream.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RegressionTest</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">makeMeanValues</span><span style="color:#f92672">(</span> List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> pointArray <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span> pointArray <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> pointArray<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">()</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> Double<span style="color:#f92672">.</span><span style="color:#a6e22e">NaN</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> sum <span style="color:#f92672">=</span> pointArray<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">reduce</span><span style="color:#f92672">(</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">,</span> Double<span style="color:#f92672">::</span>sum<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sum<span style="color:#f92672">/</span>pointArray<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">makeLinePoints</span><span style="color:#f92672">(</span> <span style="color:#66d9ef">int</span> size<span style="color:#f92672">,</span> <span style="color:#66d9ef">double</span> slope<span style="color:#f92672">,</span> <span style="color:#66d9ef">double</span> intercept<span style="color:#f92672">,</span> <span style="color:#66d9ef">double</span> startX<span style="color:#f92672">,</span> <span style="color:#66d9ef">double</span> xStep<span style="color:#f92672">,</span> <span style="color:#66d9ef">double</span> bias<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;&gt;();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> xPoints <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> yPoints <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> orgPoints <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span> <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> size<span style="color:#f92672">;</span> i<span style="color:#f92672">++</span> <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">double</span> xv <span style="color:#f92672">=</span> startX<span style="color:#f92672">+</span>i<span style="color:#f92672">*</span>xStep<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">double</span> orgY <span style="color:#f92672">=</span> xv<span style="color:#f92672">*</span>slope <span style="color:#f92672">+</span> intercept<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">double</span> yv <span style="color:#f92672">=</span> orgY <span style="color:#f92672">+</span> <span style="color:#f92672">(</span> <span style="color:#f92672">(</span>Math<span style="color:#f92672">.</span><span style="color:#a6e22e">random</span><span style="color:#f92672">()-</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">)*</span>bias<span style="color:#f92672">*</span>2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            xPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>xv<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            yPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>yv<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            orgPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>orgY<span style="color:#f92672">);</span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>xPoints<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>yPoints<span style="color:#f92672">);</span>        
+</span></span><span style="display:flex;"><span>        result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>orgPoints<span style="color:#f92672">);</span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">makeSimpleLinearRegression</span><span style="color:#f92672">(</span> List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> xPoints<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> yPoints<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> size <span style="color:#f92672">=</span> xPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span> size <span style="color:#f92672">!=</span> yPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">()</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> xAvg <span style="color:#f92672">=</span> makeMeanValues<span style="color:#f92672">(</span>xPoints<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> yAvg <span style="color:#f92672">=</span> makeMeanValues<span style="color:#f92672">(</span>yPoints<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> numerator <span style="color:#f92672">=</span> IntStream<span style="color:#f92672">.</span><span style="color:#a6e22e">range</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span>size<span style="color:#f92672">).</span><span style="color:#a6e22e">mapToDouble</span><span style="color:#f92672">(</span> i <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span>xPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> xAvg<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> <span style="color:#f92672">(</span>yPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> yAvg<span style="color:#f92672">)).</span><span style="color:#a6e22e">sum</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> denominator <span style="color:#f92672">=</span> IntStream<span style="color:#f92672">.</span><span style="color:#a6e22e">range</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span>size<span style="color:#f92672">).</span><span style="color:#a6e22e">mapToDouble</span><span style="color:#f92672">(</span> i <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span>xPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> xAvg<span style="color:#f92672">)</span> <span style="color:#f92672">*</span> <span style="color:#f92672">(</span>xPoints<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> xAvg<span style="color:#f92672">)).</span><span style="color:#a6e22e">sum</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> slope <span style="color:#f92672">=</span> numerator<span style="color:#f92672">/</span>denominator<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> intercept <span style="color:#f92672">=</span> yAvg <span style="color:#f92672">-</span> slope<span style="color:#f92672">*</span>xAvg<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>slope<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>intercept<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        RegressionTest rObj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RegressionTest<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> size <span style="color:#f92672">=</span> 50<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> slope <span style="color:#f92672">=</span> 2<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> intercept <span style="color:#f92672">=</span> 5<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> startX <span style="color:#f92672">=</span> 10<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> xStep <span style="color:#f92672">=</span> 5<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> bias <span style="color:#f92672">=</span> 5<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;&gt;</span> dataList <span style="color:#f92672">=</span> rObj<span style="color:#f92672">.</span><span style="color:#a6e22e">makeLinePoints</span><span style="color:#f92672">(</span>size<span style="color:#f92672">,</span>slope<span style="color:#f92672">,</span> intercept<span style="color:#f92672">,</span> startX<span style="color:#f92672">,</span>xStep<span style="color:#f92672">,</span> bias <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> sList <span style="color:#f92672">=</span> rObj<span style="color:#f92672">.</span><span style="color:#a6e22e">makeSimpleLinearRegression</span><span style="color:#f92672">(</span>dataList<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>0<span style="color:#f92672">),</span>dataList<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span> <span style="color:#f92672">(</span> sList <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="정리">정리</h3>
+<p>Python 에서 제공하는 내장 기능도 우수하지만, numpy , matplotlib 등 open source 로 제공되는 모듈은 
+개발에 필요한 중간 과정 이상의 함수를 구성해 놓은 것으로 보입니다. <br>
+개념만 이해하고 있다면, 구성해 놓은 모듈을 활용하여 상대적으로 귀찮은 작업없이 개발이 가능할 수 있다는 장점이 있는것 같습니다. <br>
+다만, 그 모듈을 구성한 사람 혹은 팀은 깊이있는 학습과 고민을 통해 모듈화를 진행하였을 것이기 때문에 사용하는 개발자가 그 원리를 
+확인하지 않고 사용만 한다면, 모듈에 종속될 가능성도 있어 보입니다. <br>
+언어별 차이점도 많지만, 근본적인 구성에서는 유사하지 않나 하는 생각을 해 보았습니다.</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_001%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_001%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_001%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_001%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_001%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_001%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ksbee21.github.io/post/common/interests_001/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ksbee21.github.io/post/common/interests_001/">프로그램 관심사항들 ....</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ksbee21.github.io/js/ui.js"></script>
+<script src="https://ksbee21.github.io/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+

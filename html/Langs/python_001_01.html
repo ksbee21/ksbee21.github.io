@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <script src='/js/main.js'></script>
+    <script src="/js/plotly.js"></script>
+
+    <style>
+        INPUT {
+            width : 30px;
+            height: 24px;
+        }
+        BUTTON {
+            width:140px;
+            height:24px;
+        }
+    </style>
+
+</head>
+<body>
+    <p>
+        <a href="/post/programlangs/pythons_001/">돌아가기(Back)</a>
+    </p>
+
+    <div>
+        Size : <input type="text" id="sizeTxt" value="50"/> &nbsp; 
+        Slope : <input type="text" id="slopeTxt" value="2.0"/> &nbsp; 
+        Intercept : <input type="text" id="interceptTxt" value="5.0"/> &nbsp;         
+        Start X : <input type="text" id="startXTxt" value="10"/> &nbsp;         
+        Step : <input type="text" id="stepXTxt" value="5"/> &nbsp;                 
+        Bias : <input type="text" id="biasTxt" value="5.0"/> &nbsp;                 
+        <BUTTON onClick="makeRegressionResult()">Test Execution</BUTTON>
+    </div>
+
+    <div style="width:800px;height:600px;border:1px solid #000080" id="chartDiv"></div>
+
+    <script>
+        const chartDiv = document.getElementById("chartDiv");
+
+        const makeMeanValues = (pointArray) => {
+            const sum = pointArray.reduce( (a,b) => a+b, 0.0);
+            return sum/pointArray.length;
+        };
+
+        const makeLinePoints = (size=50,slope=2.0,intercept=5,startX=5,xStep=1,bias=2.0) => {
+            const xPoints = [];
+            const yPoints = [];
+            const orgPoints = [];
+
+            for ( let i = 0; i < size; i++) {
+                let xv = startX+i*xStep;
+                let orgY = xv*slope + intercept;
+                let yv = orgY + ( (Math.random()-0.5)*bias*2);
+                xPoints.push(xv);
+                yPoints.push(yv);
+                orgPoints.push(orgY);
+            }
+            return [ xPoints, yPoints, orgPoints];
+        };
+
+        const makeSimpleLinearRegression = (xPoints,yPoints) => {
+            const size = xPoints.length;
+            if ( size != yPoints.length )
+                return;
+            
+            const xAvg = makeMeanValues(xPoints);
+            const yAvg = makeMeanValues(yPoints);
+
+            const numerator = xPoints.map( (v,idx) => { return (v - xAvg) * (yPoints[idx] - yAvg); }).reduce( (a,b) => a+b, 0.0);
+            const denominator = xPoints.map( (v,idx) => { return (v - xAvg) * (v - xAvg); }).reduce( (a,b) => a+b, 0.0);
+
+            const slope = numerator/denominator;
+            const intercept = yAvg - slope*xAvg;
+            const calcPoints = xPoints.map(v => v*slope+intercept);
+
+            return [ slope, intercept, calcPoints];
+        };
+
+        const makeRegressionResult = () => {
+
+            const size = parseInt(document.getElementById("sizeTxt").value);
+            const slope = parseFloat(document.getElementById("slopeTxt").value);
+            const intercept = parseFloat(document.getElementById("interceptTxt").value);
+            const startX = parseFloat(document.getElementById("startXTxt").value);            
+            const xStep = parseFloat(document.getElementById("stepXTxt").value);   
+            const bias = parseFloat(document.getElementById("biasTxt").value);               
+        
+            const xyPoints = makeLinePoints(size,slope, intercept,startX, xStep, bias);
+            const sArray = makeSimpleLinearRegression(xyPoints[0], xyPoints[1]);
+
+            const orgName = "[original y = "+slope+" * x  + "+intercept+"]";
+            const clalName = "[regression y = "+Math.round(sArray[0]*1000)/1000+" * x  + "+Math.round(sArray[1]*1000)/1000+"]";
+            const orgPoints = {
+                x : xyPoints[0],
+                y : xyPoints[2],
+                type : 'scatter',
+                mode : 'lines',
+                line: {
+                    color: '#00FF00',
+                    width: 1
+                }, 
+                name : orgName,
+            };
+
+            const scatterPoints = {
+                x : xyPoints[0],
+                y : xyPoints[1],
+                type : 'scatter',
+                mode : 'markers',
+                color : 'red',
+                name : "scatter points",
+            };
+
+            const calcPoints = {
+                x : xyPoints[0],
+                y : sArray[2],
+                type : 'scatter',
+                mode : 'lines',
+                line: {
+                    color: '#0000FF',
+                    width: 2
+                }, 
+                name : clalName,
+            };
+
+            Plotly.newPlot(chartDiv, [
+                orgPoints,
+                scatterPoints,
+                calcPoints,
+            ], {margin : {t :0 }});
+        };
+
+        makeRegressionResult();
+    </script>
+    
+    
+</body>
+</html>

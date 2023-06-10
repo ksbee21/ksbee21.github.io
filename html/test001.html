@@ -11,7 +11,9 @@
 <body>
     <canvas id="myCanvas" width=500 height=500 style="background-color:red;width:500px;height:500px;"></canvas>
     <script type="module">
-        import * as TypedMatrixUtils from "../js/TypedMatrixUtils.js"
+        import * as TypedMatrixUtils from "../js/TypedMatrixUtils.js";
+        import * as CanvasUtils from "../js/CanvasUtils.js";
+        import * as WebUtils from "../js/WebUtils.js";
 
         //  v1 에서 v2 의 방향은 시계 반대 방향 오른솝 법칙을 적용할 경우 cross product 의 결과는 양의 z 방향
         const v1 = new Float32Array([1,0,0]);
@@ -93,6 +95,176 @@
 
         TypedMatrixUtils.makeCameraMatrix3D(eye, at, up);
 
+
+        alert ( TypedMatrixUtils.perlinImprovedNoise3D(0.1,0,0) + "\n" 
+            + TypedMatrixUtils.perlinImprovedNoise3D(0.1001,0,0) + "\n"
+            + TypedMatrixUtils.perlinImprovedNoise3D(0.1003,0,0) + "\n"            
+            );
+
+        const idValue   = "myCanvas";
+        const canvas    = CanvasUtils.makeCanvasObject(idValue, undefined, 800, 800);
+        const ctx       = canvas.getContext("2d");
+
+        const moverArray = [];
+        const moverCount = 15;
+        for ( let i = 0; i < moverCount; i++ ) {
+            let mObj = new WebUtils.Mover2D(i, 800,800);
+            mObj.setMass((i+1)*2);
+            mObj.positions[0] = CanvasUtils.getRandomIntValue(0, 800);
+            mObj.positions[1] = 0;
+
+            mObj.decorationStyle.fillStyle = CanvasUtils.getHtmlRamdonRgbaColor(0.5);
+            mObj.decorationStyle.strokeStyle = CanvasUtils.getHtmlRamdonHexColor();
+            moverArray.push(mObj);
+        }
+
+
+        const liquid01  = new WebUtils.Material2D("ts01",0,400,800,400,0.5);
+        liquid01.decorationStyle.fillStyle = "#0000FE";
+
+        function drawVectorTest() {
+
+            const gravityVec2 = TypedMatrixUtils.vec2(0,0.1);
+            const windVec2 = TypedMatrixUtils.vec2(CanvasUtils.getRandomFloatValue(-0.5,0.5),0);
+            
+            const frictionCoef  = 0.01;
+            const normalFace    = 1;
+
+            function clear() {
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.fillStyle = "#efefef";
+                ctx.fillRect(0,0, canvas.width, canvas.height);
+            }
+
+            function render(time) {
+                clear();
+                liquid01.render(ctx);
+                windVec2[0] = CanvasUtils.getRandomFloatValue(-0.5,0.5);
+                for ( let i = 0; i < moverArray.length; i++ ) {
+                    moverArray[i].applyForce(gravityVec2, true);
+                    moverArray[i].applyForce(windVec2);
+
+                    let frictionVec = TypedMatrixUtils.makeFrictionValues(moverArray[i].getVelocity(), normalFace, frictionCoef);                    
+                    moverArray[i].applyForce(frictionVec);
+
+                    if ( liquid01.isIncludes(moverArray[i].getPositions()[0], moverArray[i].getPositions()[1])) {
+                        moverArray[i].applyForce( TypedMatrixUtils.makeDragForceValues(moverArray[i].getVelocity(), 1,1, liquid01.getDragCoefficient()));
+                    }
+
+                    moverArray[i].updateValues();
+                    moverArray[i].render(ctx);
+                    moverArray[i].checkEdges();
+                }
+                requestAnimationFrame(render);
+            };
+            requestAnimationFrame(render);
+        };
+
+        function drawGravityTest() {
+            function clear() {
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.fillStyle = "#efefef";
+                ctx.fillRect(0,0,canvas.width, canvas.height);
+
+                WebUtils.makeBatonUI(ctx,300,300,Math.PI*0,150,10,10, "#0000FF","#FE33FE");
+            }
+
+            for ( let i = 0; i < moverCount; i++ ) {
+                let mObj = moverArray[i];
+                if ( i > 10 ) {
+                    //mObj.positions[1] = CanvasUtils.getRandomIntValue(0, 800);
+                    mObj.positions[0] = CanvasUtils.getRandomIntValue(350, 450);                    
+                    mObj.positions[1] = 400;
+                } else {
+                    mObj.positions[1] = CanvasUtils.getRandomIntValue(0, 800);
+                }
+            }
+
+
+            let objArray = [];
+            const moverGroup = new WebUtils.MoverGroup2D();
+
+
+            const gravityForce = TypedMatrixUtils.vec2(0,0.01);
+            const windForce = TypedMatrixUtils.vec2(0,0);
+
+            function makeTestObject() {
+                let obj = new WebUtils.NewMover2D(undefined,CanvasUtils.getRandomIntValue(2,21),200,200);
+                obj.setRgba(CanvasUtils.getRandomIntValue(0,256),CanvasUtils.getRandomIntValue(0,256),CanvasUtils.getRandomIntValue(0,256),1.0);
+                obj.aliveSeconds = 5;
+                //alert ( WebUtils.NewMover2D + " :: " + WebUtils.Mover2D );
+                obj.applyForce(TypedMatrixUtils.vec2(0,-10),false);
+                //objArray.push(obj);
+                moverGroup.appendMover(obj);
+            }
+
+            function render(time) {
+                clear();
+                for ( let i = 0; i < moverCount; i++ ) {
+                    let mObj = moverArray[i];
+                    for ( let j = 0; j < moverCount; j++ ) {
+                        if ( i == j ) {
+                            continue;
+                        }
+                        let gravityVec = TypedMatrixUtils.makeUniversalGravitationValues( moverArray[j].getMass(), moverArray[j].getPositions(), moverArray[i].getMass(), moverArray[i].getPositions(), 0.1);      
+                        //TypedMatrixUtils.makeVectorAccelationMultiplyScalarValues(gravityVec,-1);              
+                        if ( i < (moverCount-4 ))
+                            mObj.applyForce(gravityVec);
+                    }
+                    mObj.updateValues();
+                    mObj.render(ctx);
+                }
+
+                makeTestObject();
+
+                moverGroup.removeDeadAll();
+
+                windForce[0] = CanvasUtils.getRandomFloatValue(-0.2,0.2);
+                windForce[1] = CanvasUtils.getRandomFloatValue(-0.01,0.01);     
+                moverGroup.applyForce(gravityForce,true)               ;
+                moverGroup.applyForce(windForce);
+                moverGroup.render(ctx);
+
+                requestAnimationFrame(render);
+            };
+            requestAnimationFrame(render);
+        }
+        
+        function drawCanvas() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(0,400);
+            
+            for ( let i = 0; i < canvas.width; i += 1 ) {
+                let v = TypedMatrixUtils.perlinImprovedNoise3D(i*0.001,0,0);
+                v = TypedMatrixUtils.perlinNoiseOctaveValue3D(i*0.001,0,0,1,1,5,1,2);
+                let vf = Math.round(v*200)+400;
+                ctx.lineTo(i,vf);
+                console.log ( i , v, vf);
+            }
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.storkStyle = "#000080";
+            ctx.lineWidth = 10;
+            ctx.moveTo(0,400);
+            
+            for ( let i = 0; i < canvas.width; i += 1 ) {
+                let v = TypedMatrixUtils.perlinImprovedNoise2D(i*0.05, i*0.001);
+                let vf = Math.round(v*200)+400;
+                ctx.lineTo(i,vf);
+                console.log ( i , v, vf);
+            }
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        drawCanvas();
+
+        //drawVectorTest();
+
+        drawGravityTest();
 
     </script>
 </body>

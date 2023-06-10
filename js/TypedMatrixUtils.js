@@ -1,3 +1,9 @@
+    export const vec2 = (x,y) => {
+        const result = new Float32Array([x,y]);
+        result.rows = 2;
+        result.cols = 1;
+        return result;
+    };
 
     export const vec3 = (x,y,z) => {
         const result = new Float32Array([x,y,z]);
@@ -167,12 +173,14 @@
      * @param {*} calcType : 1은 더하기, 2는 빼기 -- 1이 아니면 무조건 빼기로 구성
      * @returns 
      */
-    const makeVectorPlusMinus = (v1, v2, calcType ) => {
+    const makeVectorPlusMinus = (v1, v2, calcType, isAccelation ) => {
         let len = validateVectorLength(v1,v2);
         if ( len <= 0 )
             return undefined;
 
-        const result = new Float32Array(len);
+        const result = isAccelation ? v1 : new Float32Array(len);
+        result.rows = v1.rows;
+        result.cols = v1.cols;
         for ( let i = 0; i < len; i++ ) {
             if ( calcType == 1 ) {  // vector plus
                 result[i] = v1[i] + v2[i];
@@ -203,12 +211,24 @@
         return makeVectorPlusMinus(v1,v2, 2);
     };
 
-    const makeVectorMuliply = (v1,v2,calcType) => {
+    export const makeVectorAccelationPlusValues = (v1,v2) => {
+        return makeVectorPlusMinus(v1,v2, 1,true);
+    };
+
+    export const makeVectorAccelationMinusValues = (v1,v2) => {
+        return makeVectorPlusMinus(v1,v2, 2,true);
+    };
+
+
+    const makeVectorMuliply = (v1,v2,calcType, isAccelation) => {
         let len = validateVectorLength(v1,v2);
         if ( len <= 0 )
             return undefined;
 
-        const result = new Float32Array(len);
+        const result = isAccelation ? v1 : new Float32Array(len);
+        result.rows = v1.rows;
+        result.cols = v1.cols;
+    
         for ( let i = 0; i < len; i++ ) {
             if ( calcType == 1 ) {  // vector muliply
                 result[i] = v1[i] * v2[i];
@@ -219,13 +239,15 @@
         return result;
     };
 
-    const makeVectorMuliplyScala = (v1,scalarValue,calcType) => {
+    const makeVectorMuliplyScala = (v1,scalarValue,calcType,isAccelation) => {
         if ( !isValidArrayValues(v1) || !scalarValue )
             return undefined;
 
         let len = v1.length;
 
-        const result = new Float32Array(len);
+        const result = isAccelation ? v1 : new Float32Array(len);
+        result.rows = v1.rows;
+        result.cols = v1.cols;
         for ( let i = 0; i < len; i++ ) {
             if ( calcType == 1 ) {  // vector muliply
                 result[i] = v1[i] * scalarValue;
@@ -247,6 +269,19 @@
     };
     export const makeVectorDivideScalarValues = (v1,scalarValue) => {
         return makeVectorMuliplyScala(v1,scalarValue,2);
+    };
+
+    export const makeVectorAccelationMultiplyValues = (v1,v2) => {
+        return makeVectorMuliply(v1,v2,1,true);
+    };
+    export const makeVectorAccelationDivideValues = (v1,v2) => {
+        return makeVectorMuliply(v1,v2,2,true);
+    };
+    export const makeVectorAccelationMultiplyScalarValues = (v1,scalarValue) => {
+        return makeVectorMuliplyScala(v1,scalarValue,1,true);
+    };
+    export const makeVectorAccelationDivideScalarValues = (v1,scalarValue) => {
+        return makeVectorMuliplyScala(v1,scalarValue,2,true);
     };
 
     /**
@@ -1307,6 +1342,180 @@ bool cubic_spline(std::vector<double>* x_series, std::vector<double>* y_series, 
         result.cols = 4;
 		return result;
 	};
+
+    export const makeLinearInterpolation = (a,b,t) => {
+        return (a*(1-t) + b*t);
+    };
+
+    //  perlin noise 소스에서 구성함 - 3 차원 
+    const perlinArray = new Uint32Array(512);
+    const perlinPermutation = [
+        151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140,
+        36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247, 120, 234,
+        75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57, 177, 33, 88, 237,
+        149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71, 134, 139, 48,
+        27, 166, 77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105,
+        92, 41, 55, 46, 245, 40, 244, 102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73,
+        209, 76, 132, 187, 208, 89, 18, 169, 200, 196, 135, 130, 116, 188, 159, 86,
+        164, 100, 109, 198, 173, 186, 3, 64, 52, 217, 226, 250, 124, 123, 5, 202, 38,
+        147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16, 58, 17, 182, 189,
+        28, 42, 223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101,
+        155, 167, 43, 172, 9, 129, 22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232,
+        178, 185, 112, 104, 218, 246, 97, 228, 251, 34, 242, 193, 238, 210, 144, 12,
+        191, 179, 162, 241, 81, 51, 145, 235, 249, 14, 239, 107, 49, 192, 214, 31,
+        181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
+        138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215,
+        61, 156, 180,
+    ];
+      
+    for (let i = 0; i < 256; i++) {
+        perlinArray[256 + i] = perlinArray[i] = perlinPermutation[i];
+    };
+    
+    const perlinFade = (t) => {
+        return t*t*t*(t*(t*6-15)+10);
+    };
+
+    const perlinLerp = ( t, a, b ) => {
+        return a + t * (b-a);
+    };
+
+    const perlinGrad = (hash, x, y, z) => {
+        const h = hash & 15;
+        const u = h < 8 ? x : y;
+        const v = h < 4 ? y : ( h == 12 || h == 14 ? x : z);
+        return ((h&1) == 0 ? u : -u) + ((h&2) == 0 ? v : -v);
+    };
+
+    const perlinGrad1D = (i,x) => {
+        return (i&1) === 0 ? -x : x;
+    };
+
+    const perlinGrad2D = (i,x,y) => {
+        let v = (i & 1) === 0 ? x : y;
+        return (i&2) === 0 ? -v : v;
+    };
+
+    export const perlinImprovedNoise1D = (x) => {
+        const X = (Math.floor(x)&255);
+        let xf = x - Math.floor(x);
+        const fx = perlinFade(xf);
+        return perlinLerp(fx, perlinGrad1D(perlinArray[X], xf), perlinGrad1D(perlinArray[X+1], xf-1));
+    };
+
+    export const perlinImprovedNoise2D = (x,y) => {
+        const X = (Math.floor(x)&255);
+        const Y = (Math.floor(y)&255);
+        let xf = x - Math.floor(x);
+        let yf = y - Math.floor(y);
+        const fx = perlinFade(xf);
+        const fy = perlinFade(yf);
+        const p0 = perlinArray[X]+Y;
+        const p1 = perlinArray[X + 1] + Y;
+        return perlinLerp( fy, 
+            perlinLerp(fx, perlinGrad1D(perlinArray[p0], xf,yf), perlinGrad1D(perlinArray[p1], xf-1,yf)),
+            perlinLerp(fx, perlinGrad1D(perlinArray[p0+1], xf,yf-1), perlinGrad1D(perlinArray[p1+1], xf-1,yf-1))
+        );
+    };    
+
+    export const perlinImprovedNoise3D = (x,y,z) => {
+        const X = Math.floor(x) & 255;
+        const Y = Math.floor(y) & 255;
+        const Z = Math.floor(z) & 255;
+
+        let xf = x - Math.floor(x);
+        let yf = y - Math.floor(y);
+        let zf = z - Math.floor(z);
+        
+        const u = perlinFade(xf);
+        const v = perlinFade(yf);
+        const w = perlinFade(zf);
+
+        const A = perlinArray[X] + Y;
+        const AA = perlinArray[A] + Z;
+        const AB = perlinArray[A+1] + Z;
+        const B = perlinArray[X+1] + Y;
+        const BA = perlinArray[B] + Z;
+        const BB = perlinArray[B+1] + Z;
+
+        return perlinLerp(
+            w,
+            perlinLerp(
+              v,
+              perlinLerp(u, perlinGrad(perlinArray[AA], xf, yf, zf), perlinGrad(perlinArray[BA], xf - 1, yf, zf)),
+              perlinLerp(u, perlinGrad(perlinArray[AB], xf, yf - 1, zf), perlinGrad(perlinArray[BB], xf - 1, yf - 1, zf))
+            ),
+            perlinLerp(
+              v,
+              perlinLerp(u, perlinGrad(perlinArray[AA + 1], xf, yf, zf - 1), perlinGrad(perlinArray[BA + 1], xf - 1, yf, zf - 1)),
+              perlinLerp(
+                u,
+                perlinGrad(perlinArray[AB + 1], xf, yf - 1, zf - 1),
+                perlinGrad(perlinArray[BB + 1], xf - 1, yf - 1, zf - 1)
+              )
+            )
+        );        
+    };
+
+    export const perlinNoiseOctaveValue1D = ( x, amplitude, frequency, octaveCount, persistence, lacunarity ) => {
+        let value = 0;
+        for ( let i = 0; i < octaveCount; i++ ) {
+            value += (amplitude*perlinImprovedNoise1D(x*frequency));
+            amplitude *= persistence;
+            frequency *= lacunarity;
+        }
+        return value;
+    };
+
+    export const perlinNoiseOctaveValue2D = ( x, y, amplitude, frequency, octaveCount, persistence, lacunarity ) => {
+        let value = 0;
+        for ( let i = 0; i < octaveCount; i++ ) {
+            value += (amplitude*perlinImprovedNoise2D(x*frequency,y*frequency));
+            amplitude *= persistence;
+            frequency *= lacunarity;
+        }
+        return value;
+    };
+
+    export const perlinNoiseOctaveValue3D = ( x, y, z, amplitude, frequency, octaveCount, persistence, lacunarity ) => {
+        let value = 0;
+        for ( let i = 0; i < octaveCount; i++ ) {
+            value += (amplitude*perlinImprovedNoise3D(x*frequency,y*frequency,z*frequency));
+            amplitude *= persistence;
+            frequency *= lacunarity;
+        }
+        return value;
+    };
+
+    export const makeFrictionValues = (velocity, normalFace, frictionCoef) => {
+        const frictionVec = makeNormalizeVector(velocity);
+        const coef = frictionCoef * normalFace * -1;
+        makeVectorAccelationMultiplyScalarValues(frictionVec, coef);
+        return frictionVec;
+    };
+
+    export const makeDragForceValues = ( velocity, p, area, dragCoef) => {
+        const v = getVectorLength(velocity);
+        const coef = (-0.5 * p * area * dragCoef * v * v);
+        const dragVec = makeNormalizeVector(velocity);
+        return makeVectorAccelationMultiplyScalarValues(dragVec, coef);
+    };
+
+    export const makeUniversalGravitationValues = ( mainMass, mainPos, moverMass, moverPos, gravityCoef) => {
+        const vec = makeVectorMinusValues(mainPos,moverPos);
+        let distance = getVectorLength(vec);
+        if ( distance < 5 )
+            distance = 5;
+
+        if ( distance > 25 )
+            distance = 25;
+
+        const dir = makeNormalizeVector(vec);
+        const coef = ((gravityCoef*mainMass*moverMass)/(distance*distance));
+        return makeVectorAccelationMultiplyScalarValues(dir,coef);
+    };
+
+    
 
 
 

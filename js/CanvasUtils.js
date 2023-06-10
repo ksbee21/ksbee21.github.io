@@ -357,6 +357,10 @@
         return Math.floor(Math.random() * (max-min) + min);
     };
 
+    export const getRandomFloatValue = (min,max) => {
+        return ((Math.random() * (max-min)) + min);
+    };
+
     export const getHtmlRamdonHexColor = () => {
         let r = getRandomIntValue(0,256);
         let g = getRandomIntValue(0,256);
@@ -364,6 +368,15 @@
         return getHtmlHexColor(r,g,b);
     };
 
+    export const getHtmlRamdonRgbaColor = (alpha) => {
+        if ( alpha == undefined ) {
+            alpha = Math.random();
+        }
+        let r = getRandomIntValue(0,256);
+        let g = getRandomIntValue(0,256);
+        let b = getRandomIntValue(0,256); 
+        return "rgba("+r+","+ g+","+ b+","+ alpha+")";
+    };
 
     export const getHtmlHexColor = (r,g,b) => {
         if ( isNaN(r) || isNaN(g) || isNaN(b)  ) 
@@ -414,4 +427,11 @@
         }
         return result;
     };
+
+    
+
+    
+
+    
+
 
