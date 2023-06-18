@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Python 언어 - Http Request - 비교">
+  <meta name="generator" content="Hugo 0.104.3" />
+
+  <title>Python 언어 비교 정리 02 &middot; 잊혀져 가는 기억을 기록하기 ....</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ksbee21.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://ksbee21.github.io/css/main.css">
+    
+  
+  
+    
+        <script src="https://ksbee21.github.io/js/main.js"></script>
+    
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">KNMS</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2022. All right reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Python 언어 비교 정리 02</h1>
+  <h2>Python 언어 - Http Request - 비교</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2023. 06. 15, 19:25</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/language">Language</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/python">Python</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/javascript">Javascript</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ksbee21.github.io/tags/java">Java</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h1 id="python---http-json-모듈-준비">Python - HTTP, JSON 모듈 준비</h1>
+<p>프로그래밍 언어를 공부할 때는 해당 언어를 사용하기 위해서 문법을 학습하여야 합니다.<br>
+처음 프로그래밍 언어를 공부하는 경우에는, 시간이 걸리더라도, 가급적 기초 문법책을 완독하는 것이 필요한 것일 수도 있습니다.<br>
+그렇지만, 다른 언어를 어느 정도 알고 있는 경우에는 모듈별로 접근해 보는 학습 방법도 나름 유용한 경우도 있는것 같습니다.<br>
+지금 정리하는 Python 은 그때 그때 문법을 찾아 보면서, 모듈 단위의 학습 방법을 찾아 정리해 보고자 합니다.</p>
+<p>처음 시작하였던 최소제곱법을 이야기 한것은, 공학용 프로그램을 할 때 사용하는 Python 의 특징과 C 등의 언어로 구성된 Python 모듈을 소개하는 것이 었다면, 
+이 글에서는 Http 관련한 모듈을 타 언어와 비교를 통해 확인해 보고자 합니다.</p>
+<p>아래는 Python 학습을 위해 무료로 접근할 수 있는 Site 들입니다. 특히 한글로 책자처럼 제공하는 사이트를 구성하신 대단한 분들이 계시네요 &hellip;</p>
+<h4 id="python-한글-공식-문서---httpsdocspythonorgko3httpsdocspythonorgko3">Python 한글 공식 문서 - <a href="https://docs.python.org/ko/3/">https://docs.python.org/ko/3/</a></h4>
+<h4 id="한글로-된-python-사이트---httpswikidocsnethttpswikidocsnet-httpswikidocsnetbook1httpswikidocsnetbook1">한글로 된 Python 사이트 - <a href="https://wikidocs.net/">https://wikidocs.net/</a> <a href="https://wikidocs.net/book/1">https://wikidocs.net/book/1</a></h4>
+<h3 id="http-json">HTTP, JSON</h3>
+<p>Web Programming 의 전송기반은 http protocol 입니다.  Server 가 있고, Client 인 크롬 같은 Browser 가 있습니다. <br>
+Node 의 Express 나 Tomcat, IIS 등은 모두 Web Server 역활을 수행하고, IE, Chrome 등은 Client 역활을 담당합니다. <br>
+데이터의 전송은 html 로 구성된 text contents 이지만, 현재 우리가 접하는 대부분의 Web 은 html 을 동적으로 재 구성하여 표현하고 있고, 
+이때 사용하는 대표적인 데이터 Format 이 JSON 입니다.  key, value 의 구성이기 때문에 데이터를 추춯하기 편하고, size 를 최소한으로 유지할 수 있기 때문입니다.<br>
+http 는 1.0, 1.1 의 open request, response close 의 기본 포맷에서 한번전송에 여러 형식을 담을 수 있는 http 2 version 으로 발전하였고, 
+2까지 사용하던 tcp 에서 udp 와 ip 변경에도 그 원천을 파악할 수 있는 id 기반의 http3 까지 표준이 확장되고 있습니다.
+http3은 영상, 소리 등의 실시간 전송을 위한 포맷을 지원하기 위한 프로토콜이니, http2 까지가 일반적으로 사용할 수 있는 표준 프로토콜이라고 보아도 좋을것 같습니다. <br>
+우리가 <a href="https://www.google.com">https://www.google.com</a> 이라는 사이트를 browser 에서 요청하면, chrome 같은 브라우져는 dns를 거쳐 구글이 구성해 놓은 Server 한곳에 페이지 정보를 요청하고 있는 것입니다. 
+이때 일반적으로 전송을 요청하는 메소드가 GET 이며, 데이터의 저장등을 요청하는 방식으로 POST Method를 사용합니다. ( 그외 PUT, DELETE 등이 있으나 많이 사용하지 않습니다.)    <br>
+GET 과 POST 의 형식적인 차이는 URL 에 parameter 가 &amp;key=value 형식으로 전송하는지, body 영역에 &amp;key=value 형식으로 전송하는지에 대한 차이가 있습니다. ( 아래의 참조 사이트에서 자세한 내용을 확인할 수 있습니다. )</p>
+<h4 id="http-참조-httpsdevelopermozillaorgkodocswebhttpoverviewhttpsdevelopermozillaorgkodocswebhttpoverview">HTTP 참조 <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Overview">https://developer.mozilla.org/ko/docs/Web/HTTP/Overview</a></h4>
+<h4 id="json-참조-httpsdevelopermozillaorgkodocslearnjavascriptobjectsjsonhttpsdevelopermozillaorgkodocslearnjavascriptobjectsjson">JSON 참조 <a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/JSON">https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/JSON</a></h4>
+<h1 id="python-기준-언어별-비교">Python 기준 언어별 비교</h1>
+<p>Python 에서 Http 관련한 내용을 찾아보면 대표적으로 검색되는 것인 requests 라는 모듈입니다. <br>
+내장된 urllib 이라는 모듈로도 개발이 가능하지만, 많이 사용하는 request 를 기준으로 확인해 보겠습니다.<br>
+테스트를 위한 사이트는 Web Server 어떤 것이던 가능하지만, http 관련 테스트를 편리하게 할 수 있는 사이트가 있어서 
+몇가지 내용은 해당 사이트를 통해서 확인해 보겠습니다.</p>
+<h4 id="https-packet-관련-테스트---httpshttpbinorghttpshttpbinorg">http(s) Packet 관련 테스트 - <a href="https://httpbin.org/">https://httpbin.org/</a></h4>
+<p>python 내장 함수인 urllib 및 이글에서 사용하게될 requests 관련 내용은 아래 link sites 에서 확인할 수 있습니다.</p>
+<h4 id="python-내장-모듈----httpsdocspythonorgko3howtourllib2htmlhttpsdocspythonorgko3howtourllib2html">python 내장 모듈 - #### <a href="https://docs.python.org/ko/3/howto/urllib2.html">https://docs.python.org/ko/3/howto/urllib2.html</a></h4>
+<h4 id="request-내장-모듈---httpspypiorgprojectrequestshttpspypiorgprojectrequests">Request 내장 모듈 - <a href="https://pypi.org/project/requests/">https://pypi.org/project/requests/</a></h4>
+<h3 id="python-request">python request</h3>
+<p>위 사이트 에서 확인이 가능하시겠지만, 설치는 pip 으로 설치한다고 할 때 아래의 구문을 통해 설치가 가능합니다.  ( 가급적 관리자 모드 )</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    pip install requests
+</span></span></code></pre></div><p>requests 첫 페이지에 포함된 예제가 많은 접점을 보여주고 있기 때문에 해당 예제를 잠시 살펴보겠습니다.(조금 변경 합니다.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> basePath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://httpbin.org&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> authPath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/basic-auth/user/pass&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(basePath<span style="color:#f92672">+</span>authPath, auth<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#39;user&#39;</span>,<span style="color:#e6db74">&#39;pass&#39;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>status_code
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>headers[<span style="color:#e6db74">&#39;content-type&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;application/json&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>headers
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#39;Date&#39;</span>: <span style="color:#e6db74">&#39;Sat, 17 Jun 2023 05:13:50 GMT&#39;</span>, <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>, <span style="color:#e6db74">&#39;Content-Length&#39;</span>: <span style="color:#e6db74">&#39;47&#39;</span>, <span style="color:#e6db74">&#39;Connection&#39;</span>: <span style="color:#e6db74">&#39;keep-alive&#39;</span>, <span style="color:#e6db74">&#39;Server&#39;</span>: <span style="color:#e6db74">&#39;gunicorn/19.9.0&#39;</span>, <span style="color:#e6db74">&#39;Access-Control-Allow-Origin&#39;</span>: <span style="color:#e6db74">&#39;*&#39;</span>, <span style="color:#e6db74">&#39;Access-Control-Allow-Credentials&#39;</span>: <span style="color:#e6db74">&#39;true&#39;</span>}    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>text
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;{</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;authenticated&#34;: true, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;user&#34;: &#34;user&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>json()
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#39;authenticated&#39;</span>: <span style="color:#66d9ef">True</span>, <span style="color:#e6db74">&#39;user&#39;</span>: <span style="color:#e6db74">&#39;user&#39;</span>}
+</span></span></code></pre></div><p>위 코드를 살펴 보면 basePath 애서 <em><strong>https</strong></em> 로 접근하고 있습니다.  <em><strong>http</strong></em> 로 변경해서 접근해도 동일한 결과를 보여주고 있습니다.<br>
+하지만, 두가지 접근 방식은 SSL 의 보안을 구성하는 부분에서 다른 접근이 필요하지만, requests 모듈에서는 거의 동일한 호출로 구성할 수 있도록
+지원하고 있는 것 같습니다. <br>
+requests.get 은 요청이 get 방식으로 전송을 요청한다는 것이며, 그 결과는 response 에 결과를 담고 있습니다. response는 상태코드, headers, body 의 영역으로 데이터를 담고 있습니다. <br>
+상태는 404 의 페이지 찾지못허는 경우, 500번대의 Server Error, 200 번의 성공 코드 등이 있습니다.<br>
+headers 에는 body data 에 대한 기초 정보가 있고, body 에 server 에서 넘겨온 문자열이 있습니다. ( 2진 데이터 base64 encoding )<br>
+response.text 의 결과는 body 영역에 구성된 text 파일을 그대로 출력합니다.   &lsquo;\n&rsquo; 등의 줄바꿈 문자 등 전체를 text 로 표현합니다. 하지만, response.json() 함수는 해당 문자열을 json 형식으로 변환합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> jObj <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>json()
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> jObj
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#39;authenticated&#39;</span>: <span style="color:#66d9ef">True</span>, <span style="color:#e6db74">&#39;user&#39;</span>: <span style="color:#e6db74">&#39;user&#39;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> jObj[<span style="color:#e6db74">&#39;authenticated&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> type(jObj)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">dict</span><span style="color:#e6db74">&#39;&gt;    </span>
+</span></span></code></pre></div><p>위에서 연속된 예제를 보면 response.json() 함수를 통해 얻게 되는 데이터는 python 의 dictionary 입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(basePath)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>headers
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#39;Date&#39;</span>: <span style="color:#e6db74">&#39;Sat, 17 Jun 2023 06:21:10 GMT&#39;</span>, <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;text/html; charset=utf-8&#39;</span>, <span style="color:#e6db74">&#39;Content-Length&#39;</span>: <span style="color:#e6db74">&#39;9593&#39;</span>, <span style="color:#e6db74">&#39;Connection&#39;</span>: <span style="color:#e6db74">&#39;keep-alive&#39;</span>, <span style="color:#e6db74">&#39;Server&#39;</span>: <span style="color:#e6db74">&#39;gunicorn/19.9.0&#39;</span>, <span style="color:#e6db74">&#39;Access-Control-Allow-Origin&#39;</span>: <span style="color:#e6db74">&#39;*&#39;</span>, <span style="color:#e6db74">&#39;Access-Control-Allow-Credentials&#39;</span>: <span style="color:#e6db74">&#39;true&#39;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> print(response<span style="color:#f92672">.</span>text)
+</span></span></code></pre></div><p>위의 코드에서 주목해야할 부분은 Content-Type : text/html &hellip; utf8 등의 항목을 보게 됩니다. 가져온 값이 html 문자열로 구성되어 있는 것을 print 함수를 통해 확인해 볼 수 있습니다.  <br>
+site 에서 제공하는 예제중 get, post 만 조금더 살펴 보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> payload <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;key1&#39;</span> : <span style="color:#e6db74">&#39;value1&#39;</span>, <span style="color:#e6db74">&#39;key2&#39;</span> : [<span style="color:#e6db74">&#39;value2&#39;</span>,<span style="color:#e6db74">&#39;value3&#39;</span>]}  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(basePath<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;/get&#39;</span>, params<span style="color:#f92672">=</span>payload)   
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> print(response<span style="color:#f92672">.</span>url)
+</span></span><span style="display:flex;"><span>    https:<span style="color:#f92672">//</span>httpbin<span style="color:#f92672">.</span>org<span style="color:#f92672">/</span>get<span style="color:#960050;background-color:#1e0010">?</span>key1<span style="color:#f92672">=</span>value1<span style="color:#f92672">&amp;</span>key2<span style="color:#f92672">=</span>value2<span style="color:#f92672">&amp;</span>key2<span style="color:#f92672">=</span>value3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(basePath<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;/post&#39;</span>,data<span style="color:#f92672">=</span>payload)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> print(response<span style="color:#f92672">.</span>url)
+</span></span><span style="display:flex;"><span>    https:<span style="color:#f92672">//</span>httpbin<span style="color:#f92672">.</span>org<span style="color:#f92672">/</span>post
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>content
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;{</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;args&#34;: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;data&#34;: &#34;&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;files&#34;: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;form&#34;: {</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;key1&#34;: &#34;value1&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;key2&#34;: [</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">      &#34;value2&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">      &#34;value3&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    ]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  }, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;headers&#34;: {</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;Accept&#34;: &#34;*/*&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;Accept-Encoding&#34;: &#34;gzip, deflate&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;Content-Length&#34;: &#34;35&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;Content-Type&#34;: &#34;application/x-www-form-urlencoded&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;Host&#34;: &#34;httpbin.org&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;User-Agent&#34;: &#34;python-requests/2.31.0&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">    &#34;X-Amzn-Trace-Id&#34;: &#34;Root=1-648d67a8-39a6e18a6d74c943377d8ded&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  }, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;json&#34;: null, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;origin&#34;: &#34;xxx.xxx.xxx.xxx&#34;, </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">  &#34;url&#34;: &#34;https://httpbin.org/post&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;&gt;</span> response<span style="color:#f92672">.</span>raw
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span>urllib3<span style="color:#f92672">.</span>response<span style="color:#f92672">.</span>HTTPResponse object at <span style="color:#ae81ff">0x0000028DB8C73460</span><span style="color:#f92672">&gt;</span>    
+</span></span></code></pre></div><p>간략하게 위의 코드를 확인해 보면, 전송할 데이터가 url 에 포함되는지, 그렇지 않은지에 대한 차이만 존재합니다.   사실 post 전송은 
+동일한 데이터가 body 에 포함되어 전송될 수 있기 때문에 get 방식보다 많은 데이터를 전송할 수 있고, 경우에 따라서는 base64 encoding 된 
+binaray data 도 전송할 수 있습니다.<br>
+requests 모듈에서는 bytes 단위의 데이터를 접근하려면 [response].content 형식으로 확인할 수도 있습니다. <br>
+혹시 내장 기능이 필요하면, response.raw 를 호출해 보면 urllib 저의 경우 urllib3 모듈이 반환됩니다.   내장된 기능을 접근하기 위해서 사용할 수도 있습니다. 
+더 다양한 기능이 있지만, 이선에서 정리하고 비교를 위해 유사한 방식으로 다른 언어로 접근해 보겠습니다.</p>
+<h3 id="javascript-fetch">Javascript fetch</h3>
+<p>javascript 에서는 일반적으로 ajax 라는 방식으로 알려진 XMLHttpRequest 를 활용하여 Server와 통신을 합니다.<br>
+이런 방식을 바탕으로 사용하기 편리하게 만들어진 많은 Library 가 있습니다.  하지만, fetch 라는 api를 표준으로 제공하고 있고, 
+그 기능이 XMLHttpRequest 넘어서, 다양한 기능을 제공하고 있기 때문에 이 글에서는 Fetch API 를 기반으로 확인해 보겠습니다. <br>
+Web 관련하여 참조할 수 있는 대표적인 Site 는 mdn site 입니다.</p>
+<h4 id="fetch-api---mdm--httpsdevelopermozillaorgkodocswebapifetch_apihttpsdevelopermozillaorgkodocswebapifetch_api">Fetch API - MDM : <a href="https://developer.mozilla.org/ko/docs/Web/API/Fetch_API">https://developer.mozilla.org/ko/docs/Web/API/Fetch_API</a></h4>
+<p>위 Python 예제와 유사하게 구성해 보겠습니다.</p>
+<p>먼저 공통 영역과 권한을 가져오기 위한 부분을 구성해 보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">basePath</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://httpbin.org&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">authPath</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/basic-auth/user/pass&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">displayObj</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;preArea&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">makePositon</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">title</span>, <span style="color:#a6e22e">str</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">displayObj</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">displayObj</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;\n\n======&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">title</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;======\n&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">str</span> ) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">displayObj</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">displayObj</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">str</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">loadAuthValue</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">url</span>,<span style="color:#a6e22e">username</span>, <span style="color:#a6e22e">password</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">headers</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Headers</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;Authorization&#39;</span>, <span style="color:#e6db74">&#39;Basic &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">btoa</span>( <span style="color:#a6e22e">username</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">password</span> ));
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;Origin&#34;</span>,<span style="color:#e6db74">&#34;http://localhost:1313&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>,{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;GET&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">mode</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;cors&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span><span style="color:#a6e22e">headers</span>,
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">makePositon</span>(<span style="color:#e6db74">&#34; Authority &#34;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">text</span>));
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loadAuthValue</span>(<span style="color:#a6e22e">basePath</span><span style="color:#f92672">+</span><span style="color:#a6e22e">authPath</span>,<span style="color:#e6db74">&#34;user&#34;</span>,<span style="color:#e6db74">&#34;pass&#34;</span>);        
+</span></span></code></pre></div><p>python 의 request 보다는 설정내용이 조금 더 많지만, 유사한 형식을 취하고 있습니다. <br>
+인증관련하여 header 영역에 설정하는 내용이 있습니다.   btoa 함수는 Base64 encoding 을 위한 함수 입니다. <br>
+이글의 주제는 아니지만, cors 와 origin 등은 domain 이 같아야 하는 부분을 mapping 하기 위한 부분입니다.
+JSON 에 관련한 함수로 가장 많이 사용했던것이 JSON.parse 와 JSON.stringify 입니다.   parse 함수는 문자 그대록 문자열을 json 객체로 변환하는 함수 이고, 
+stringify 는 json 객체를 문자열로 전환하는 함수 입니다.</p>
+<p>대략 그 결과는 아래와 같습니다. response 자체에서 json(), text() 등의 함수를 통해 본문의 내용을 가져올 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#f92672">======</span> <span style="color:#a6e22e">Authority</span> <span style="color:#f92672">======</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;authenticated&#34;</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>,<span style="color:#e6db74">&#34;user&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;user&#34;</span>}
+</span></span></code></pre></div><p>Get 방식도 크게 다르지 않지만, 구성할 때 url 에 포함되어야 하기 때문에 그 변환과정 구현이 있습니다. 
+requests 에서는 이 부분을 알아서 해 주기 때문에 굳이 다시 변경할 필요가 개발자에게는 없습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;key1&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;value1&#39;</span>, <span style="color:#e6db74">&#39;key2&#39;</span> <span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;value2&#39;</span>,<span style="color:#e6db74">&#39;value3&#39;</span>]};
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">loadGetValue</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">urlStr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">data</span> ) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">for</span> ( <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">data</span> ) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mark</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&amp;&#34;</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> ( <span style="color:#a6e22e">flag</span> ) {
+</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">mark</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;?&#34;</span>;
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> ( Array.<span style="color:#a6e22e">isArray</span>(<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">key</span>])) {
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> ) {
+</span></span><span style="display:flex;"><span>                                <span style="color:#a6e22e">urlStr</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">mark</span><span style="color:#f92672">+</span><span style="color:#a6e22e">key</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">key</span>][<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">urlStr</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">mark</span><span style="color:#f92672">+</span><span style="color:#a6e22e">key</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">key</span>];
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">makePositon</span>(<span style="color:#e6db74">&#34; GET URL STR &#34;</span>, <span style="color:#a6e22e">urlStr</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">urlStr</span>, {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#75715e">// 또는 &#39;PUT&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">makePositon</span>(<span style="color:#e6db74">&#34; GET URL RESULT &#34;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">result</span>));
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;성공:&#34;</span>, <span style="color:#a6e22e">result</span>);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;실패:&#34;</span>, <span style="color:#a6e22e">error</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loadGetValue</span>(<span style="color:#a6e22e">basePath</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/get&#34;</span>,<span style="color:#a6e22e">payload</span>);
+</span></span></code></pre></div><p>url 을 구성하기 위한 부분등을 제외하면 거의 유사한 모습을 지니고 있습니다. 
+그 결과는 아래와 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#f92672">======</span> <span style="color:#a6e22e">GET</span> <span style="color:#a6e22e">URL</span> <span style="color:#a6e22e">STR</span> <span style="color:#f92672">======</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">http</span><span style="color:#f92672">:</span><span style="color:#75715e">//httpbin.org/get?key1=value1&amp;key2=value2&amp;key2=value3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">======</span> <span style="color:#a6e22e">GET</span> <span style="color:#a6e22e">URL</span> <span style="color:#a6e22e">RESULT</span> <span style="color:#f92672">======</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;args&#34;</span><span style="color:#f92672">:</span>{<span style="color:#e6db74">&#34;key1&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;value1&#34;</span>,<span style="color:#e6db74">&#34;key2&#34;</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;value2&#34;</span>,<span style="color:#e6db74">&#34;value3&#34;</span>]},<span style="color:#e6db74">&#34;headers&#34;</span><span style="color:#f92672">:</span>{<span style="color:#e6db74">&#34;Accept&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;*/*&#34;</span>,<span style="color:#e6db74">&#34;Accept-Encoding&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;gzip, deflate&#34;</span>,<span style="color:#e6db74">&#34;Accept-Language&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7&#34;</span>,<span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;application/json&#34;</span>,<span style="color:#e6db74">&#34;Host&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;httpbin.org&#34;</span>,<span style="color:#e6db74">&#34;Origin&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;http://localhost:1313&#34;</span>,<span style="color:#e6db74">&#34;Referer&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;http://localhost:1313/&#34;</span>,<span style="color:#e6db74">&#34;User-Agent&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36&#34;</span>,<span style="color:#e6db74">&#34;X-Amzn-Trace-Id&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Root=1-648e65e4-679248c80951827f25511060&#34;</span>},<span style="color:#e6db74">&#34;origin&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;xxx.xxx.xxx.xxx&#34;</span>,<span style="color:#e6db74">&#34;url&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;http://httpbin.org/get?key1=value1&amp;key2=value2&amp;key2=value3&#34;</span>}
+</span></span></code></pre></div><p>post 방식은 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">loadPostValue</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">data</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#75715e">// 또는 &#39;PUT&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>),
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">makePositon</span>(<span style="color:#e6db74">&#34; POST URL RESULT &#34;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">result</span>));
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;성공:&#34;</span>, <span style="color:#a6e22e">result</span>);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;실패:&#34;</span>, <span style="color:#a6e22e">error</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loadPostValue</span>(<span style="color:#a6e22e">basePath</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/post&#34;</span>, <span style="color:#a6e22e">payload</span>);
+</span></span></code></pre></div><p>body 항목에 데이터를 구성하고 있는 것을 확인해 볼 수 있습니다.</p>
+<p>그 결과는 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#f92672">======</span> <span style="color:#a6e22e">POST</span> <span style="color:#a6e22e">URL</span> <span style="color:#a6e22e">RESULT</span> <span style="color:#f92672">======</span>
+</span></span><span style="display:flex;"><span>{<span style="color:#e6db74">&#34;args&#34;</span><span style="color:#f92672">:</span>{},<span style="color:#e6db74">&#34;data&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;{\&#34;key1\&#34;:\&#34;value1\&#34;,\&#34;key2\&#34;:[\&#34;value2\&#34;,\&#34;value3\&#34;]}&#34;</span>,<span style="color:#e6db74">&#34;files&#34;</span><span style="color:#f92672">:</span>{},<span style="color:#e6db74">&#34;form&#34;</span><span style="color:#f92672">:</span>{},<span style="color:#e6db74">&#34;headers&#34;</span><span style="color:#f92672">:</span>{<span style="color:#e6db74">&#34;Accept&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;*/*&#34;</span>,<span style="color:#e6db74">&#34;Accept-Encoding&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;gzip, deflate&#34;</span>,<span style="color:#e6db74">&#34;Accept-Language&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7&#34;</span>,<span style="color:#e6db74">&#34;Content-Length&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;44&#34;</span>,<span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;application/json&#34;</span>,<span style="color:#e6db74">&#34;Host&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;httpbin.org&#34;</span>,<span style="color:#e6db74">&#34;Origin&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;http://localhost:1313&#34;</span>,<span style="color:#e6db74">&#34;Referer&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;http://localhost:1313/&#34;</span>,<span style="color:#e6db74">&#34;User-Agent&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36&#34;</span>,<span style="color:#e6db74">&#34;X-Amzn-Trace-Id&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Root=1-648e65e3-4c1fe6647aa1419e05f26128&#34;</span>},<span style="color:#e6db74">&#34;json&#34;</span><span style="color:#f92672">:</span>{<span style="color:#e6db74">&#34;key1&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;value1&#34;</span>,<span style="color:#e6db74">&#34;key2&#34;</span><span style="color:#f92672">:</span>[<span style="color:#e6db74">&#34;value2&#34;</span>,<span style="color:#e6db74">&#34;value3&#34;</span>]},<span style="color:#e6db74">&#34;origin&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;xxx.xxx.xxx.xxx&#34;</span>,<span style="color:#e6db74">&#34;url&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;http://httpbin.org/post&#34;</span>}
+</span></span></code></pre></div><p>javascript 로 구성한 내용도 python 과 거의 유사하다고 보아도 좋을 것 같습니다. 
+python 의 request 모듈은 개발자가 해 줘야 할 부분을 조금 쉽게 구성할 수 있도록 만들어 주고 있는 것이 약간의 차이입니다.</p>
+<p>python 의 모듈을 찾다보면, 일반적인 프로젝트에서 공통으로 구성해야할 모듈을 거의 완제품 형식의 제품으로 구성한 각종 모듈이 있어서, 
+그들을 조합하여 사용할 수 있는 편리함이 있는것 같습니다.<br>
+반면 그 원리를 몰라도 사용할 수 있다는 것은, 그 모듈이상의 깊이 있는 프로그램을 개발할 때에는 불편함으로 다가 올 수도 있을 것 같습니다.<br>
+(물론 그런 개발이 흔한 일은 아니겠지만요 &hellip; )</p>
+<h3 id="java-httpclient-objectmapper">Java, HttpClient, ObjectMapper</h3>
+<p>Java는 11 version 이후에 제공하는 HttpRequest, HttpClient, HttpResponse 가 있고, 그 이전 Version 에서는 HttpURLConnection, HttpsURLConnection 등 http, https 등을 별도로 관리한 클래스가 있었습니다. <br>
+Apache 에서 open source 로 제공하는 library 가 있었으니, 그것을 사용하여도 괜찮지만, 현재 OpenJDK 19 에서는 ( 11 이후 ) HttpClient 등의 클래스를 API 차원에서 제공합니다. <br>
+Web 에서 접근할 경우 HttpServletRequest, HttpServletResponse 등 특화된 모듈이 있고, Spring 등에서 그것을 감싼 편한 클래스와 메소드를 제공하기 때문에 직접 사용할 기회는 많지 않습니다.  <br>
+하지만, Application 등에서 직접 접속이 필요하거나 할때 유용히 사용할 수 있는 부분이고, 앞선 언어와 비교하기 편하기 때문에 11 Version 이후에 제공하는 API 를 사용하여 비교해 보겠습니다.</p>
+<p>JSON 의 경우 이 글에서는 ObjectMapper 를 사용합니다. 간단한 예제에서는 직접 구현해서 테스트 하는 것도 의미 있지만, 직접구현이 번거로운 측면도 있고, ObjectMapper 는 강력한 기능을 지닌 Library 라 정리차원에서도 의미가 있어 보입니다. <br>
+java 에서도 gradle, maven 등을 통해 pip , node 등의 install 이 가능하지만, 이곳에서는 maven site 에서 dependency 를 확인하고 3개의 jar 파일을 직접 다운로드 받아 사용하고 있습니다.<br>
+아래는 ObjectMapper 관련 jar 파일을 얻을 수 있는 site 입니다.</p>
+<h4 id="httpsmvnrepositorycomartifactcomfasterxmljacksoncorejackson-databind2152httpsmvnrepositorycomartifactcomfasterxmljacksoncorejackson-databind2152"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.15.2">https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.15.2</a></h4>
+<h4 id="httpsmvnrepositorycomartifactcomfasterxmljacksoncorejackson-annotations2152httpsmvnrepositorycomartifactcomfasterxmljacksoncorejackson-annotations2152"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.15.2">https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.15.2</a></h4>
+<h4 id="httpsmvnrepositorycomartifactcomfasterxmljacksoncorejackson-core2152httpsmvnrepositorycomartifactcomfasterxmljacksoncorejackson-core2152"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.15.2">https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.15.2</a></h4>
+<p>java 관련한 소스는 분리해서 이야기 하기 힘들어 전체 클래스를 소개하겠습니다.<br>
+구현 방법은 여러 가지 이지만, python 을 정리하기 위한 비교로 java 를 설명하는 것이기 때문에 유사성과 차이만 보시면 좋을것 같습니다.<br>
+첫번째 path 는 json 이 라인으로 구분되어 있을 경우의 예제라 추가해 보았습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.http.HttpClient<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.http.HttpRequest<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.http.HttpResponse<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.http.HttpRequest.BodyPublishers<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.http.HttpResponse.BodyHandlers<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.time.Duration<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.net.URI<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.fasterxml.jackson.core.type.TypeReference<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.fasterxml.jackson.databind.ObjectMapper<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HttpTester</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">parseJson</span><span style="color:#f92672">(</span>String text<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        ObjectMapper mapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectMapper<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span> text <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> text<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">()</span> <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span> text <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> mapper<span style="color:#f92672">.</span><span style="color:#a6e22e">readValue</span><span style="color:#f92672">(</span>text <span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> TypeReference<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;&gt;(){});</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span><span style="color:#f92672">(</span>Exception ee<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            ee<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span> <span style="color:#f92672">(</span> <span style="color:#e6db74">&#34;RESULT : &#34;</span> <span style="color:#f92672">+</span> result<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">makeJsonValues</span><span style="color:#f92672">(</span>String text<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span> <span style="color:#f92672">(</span> text <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        ObjectMapper mapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectMapper<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;&gt;();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span> String str <span style="color:#f92672">:</span> text<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;\n&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Object<span style="color:#f92672">&gt;</span> data <span style="color:#f92672">=</span> mapper<span style="color:#f92672">.</span><span style="color:#a6e22e">readValue</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        str<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">new</span> TypeReference<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;&gt;(){});</span>
+</span></span><span style="display:flex;"><span>                result<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span> <span style="color:#f92672">(</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>0<span style="color:#f92672">)</span> <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span> Exception ee <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            ee<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">executeHttpClientMode</span><span style="color:#f92672">(</span> String urlStr<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        HttpRequest req <span style="color:#f92672">=</span> HttpRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span> <span style="color:#66d9ef">new</span> URI<span style="color:#f92672">(</span>urlStr<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">version</span><span style="color:#f92672">(</span>HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">Version</span><span style="color:#f92672">.</span><span style="color:#a6e22e">HTTP_2</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">GET</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">timeout</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span>60L<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">newHttpClient</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">sendAsync</span><span style="color:#f92672">(</span>req<span style="color:#f92672">,</span>BodyHandlers<span style="color:#f92672">.</span><span style="color:#a6e22e">ofString</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenApply</span><span style="color:#f92672">(</span>HttpResponse<span style="color:#f92672">::</span>body<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenAccept</span><span style="color:#f92672">(</span>HttpTester<span style="color:#f92672">::</span>makeJsonValues<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadAuthValue</span><span style="color:#f92672">(</span> String urlStr<span style="color:#f92672">,</span> String userName<span style="color:#f92672">,</span> String userPwd<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String str <span style="color:#f92672">=</span> Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">getEncoder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">encodeToString</span><span style="color:#f92672">((</span>userName<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">+</span>userPwd<span style="color:#f92672">).</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        HttpRequest req <span style="color:#f92672">=</span> HttpRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span> <span style="color:#66d9ef">new</span> URI<span style="color:#f92672">(</span>urlStr<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">version</span><span style="color:#f92672">(</span>HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">Version</span><span style="color:#f92672">.</span><span style="color:#a6e22e">HTTP_2</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">GET</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">header</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Authorization&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Basic &#34;</span> <span style="color:#f92672">+</span> str <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">timeout</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span>60L<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">newHttpClient</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">sendAsync</span><span style="color:#f92672">(</span>req<span style="color:#f92672">,</span>BodyHandlers<span style="color:#f92672">.</span><span style="color:#a6e22e">ofString</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenApply</span><span style="color:#f92672">(</span>HttpResponse<span style="color:#f92672">::</span>body<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenAccept</span><span style="color:#f92672">(</span>HttpTester<span style="color:#f92672">::</span>parseJson<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadGetValue</span> <span style="color:#f92672">(</span>String urlStr<span style="color:#f92672">,</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String transUrl <span style="color:#f92672">=</span> urlStr<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String mark <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;?&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span> String key <span style="color:#f92672">:</span> data<span style="color:#f92672">.</span><span style="color:#a6e22e">keySet</span><span style="color:#f92672">()</span> <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            Object obj <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>key<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span> obj <span style="color:#66d9ef">instanceof</span> ArrayList <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                ArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> oArray <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>ArrayList<span style="color:#f92672">)</span>obj<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span> <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> oArray<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++</span> <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    transUrl <span style="color:#f92672">+=</span> mark <span style="color:#f92672">+</span> key <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;=&#34;</span> <span style="color:#f92672">+</span> oArray<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                    mark <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&amp;&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                transUrl <span style="color:#f92672">+=</span> mark <span style="color:#f92672">+</span> key <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;=&#34;</span> <span style="color:#f92672">+</span> obj<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            mark <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&amp;&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span> <span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; URL STR : %s&#34;</span><span style="color:#f92672">,</span> transUrl<span style="color:#f92672">)</span> <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        HttpRequest req <span style="color:#f92672">=</span> HttpRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span> <span style="color:#66d9ef">new</span> URI<span style="color:#f92672">(</span>transUrl<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">version</span><span style="color:#f92672">(</span>HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">Version</span><span style="color:#f92672">.</span><span style="color:#a6e22e">HTTP_2</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">GET</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">timeout</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span>60L<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">newHttpClient</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">sendAsync</span><span style="color:#f92672">(</span>req<span style="color:#f92672">,</span>BodyHandlers<span style="color:#f92672">.</span><span style="color:#a6e22e">ofString</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenApply</span><span style="color:#f92672">(</span>HttpResponse<span style="color:#f92672">::</span>body<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenAccept</span><span style="color:#f92672">(</span>HttpTester<span style="color:#f92672">::</span>parseJson<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadPostValue</span> <span style="color:#f92672">(</span>String urlStr<span style="color:#f92672">,</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;</span> data<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        ObjectMapper mapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectMapper<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        String dataParam <span style="color:#f92672">=</span> mapper<span style="color:#f92672">.</span><span style="color:#a6e22e">writeValueAsString</span><span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span> <span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; TRANS PARAMS  : %s&#34;</span><span style="color:#f92672">,</span> dataParam<span style="color:#f92672">)</span> <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        HttpRequest req <span style="color:#f92672">=</span> HttpRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span> <span style="color:#66d9ef">new</span> URI<span style="color:#f92672">(</span>urlStr<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">version</span><span style="color:#f92672">(</span>HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">Version</span><span style="color:#f92672">.</span><span style="color:#a6e22e">HTTP_2</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">POST</span><span style="color:#f92672">(</span>BodyPublishers<span style="color:#f92672">.</span><span style="color:#a6e22e">ofString</span><span style="color:#f92672">(</span>dataParam<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">timeout</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span>60L<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        HttpClient<span style="color:#f92672">.</span><span style="color:#a6e22e">newHttpClient</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">sendAsync</span><span style="color:#f92672">(</span>req<span style="color:#f92672">,</span>BodyHandlers<span style="color:#f92672">.</span><span style="color:#a6e22e">ofString</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenApply</span><span style="color:#f92672">(</span>HttpResponse<span style="color:#f92672">::</span>body<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">thenAccept</span><span style="color:#f92672">(</span>HttpTester<span style="color:#f92672">::</span>parseJson<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://resources.oreilly.com/examples/0636920023784/-/raw/master/pydata-book-master/ch02/usagov_bitly_data2012-03-16-1331923249.txt&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        String basePath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://httpbin.org&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String authPath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/basic-auth/user/pass&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        String payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{\&#34;key1\&#34; : \&#34;value1\&#34;, \&#34;key2\&#34; : [\&#34;value2\&#34;,\&#34;value3\&#34;]}&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;</span> payMap <span style="color:#f92672">=</span> parseJson<span style="color:#f92672">(</span>payload<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            executeHttpClientMode<span style="color:#f92672">(</span>path<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            loadAuthValue<span style="color:#f92672">(</span>basePath <span style="color:#f92672">+</span> authPath<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;user&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;pass&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            loadGetValue<span style="color:#f92672">(</span>basePath <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/get&#34;</span><span style="color:#f92672">,</span> payMap <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            loadPostValue<span style="color:#f92672">(</span>basePath<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/post&#34;</span><span style="color:#f92672">,</span> payMap<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception ee<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            ee<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>결과는 위의 python 이나, javascript 와 유사한 결과가 나오기 때문에 굳이 기술하지 않습니다.<br>
+언어별 특징이 있어서 조금 다른 부분도 있지만, 상당히 유사한 형식을 띠고 있습니다. <br>
+http(s) 프로토콜을 기준으로 구성하는 것이기 때문에 언어별 차이보다는 유사성이 많아 보입니다. <br>
+언어를 비교하면서 조금씩 드는 생각은 Python 관련 모듈이 C, C++ 등으로 구성하여 실행 속도도 빠르게 유지하면서, 
+업무( 프로토콜 ) 등을 잘 알고 있을 경우 사용하기 쉬운 완제품 같은 형태의 모듈로 제공되는 것 같은 느낌이 듭니다. <br>
+다른 언어에서 제공하는 Library도 그런 기능을 하긴 하지만, Python 의 모듈이 좀더 완제품에 가까운것 같습니다. <br>
+사용하기 편하고 좋다는 강력한 장점과, 제공하지 않는 기능이나, 새롭게 구성하여야 할 경우 변형이 만만치 않을 것 
+같은 생각이 듭니다. 아마도 대부분의 경우 이런일은 발생하지 않겠지만요 ^^</p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_002%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_002%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_002%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_002%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_002%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fksbee21.github.io%2fpost%2fprogramlangs%2fpythons_002%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ksbee21.github.io/post/programlangs/pythons_001/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ksbee21.github.io/post/programlangs/pythons_001/">Python 언어 비교 정리 01</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ksbee21.github.io/js/ui.js"></script>
+<script src="https://ksbee21.github.io/js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGZQZNDGGT"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XGZQZNDGGT');
+  }
+</script>
+
+
+
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId',  2 ]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
+</html>
+
